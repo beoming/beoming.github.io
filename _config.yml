@@ -2,6 +2,7 @@ theme: jekyll-theme-minimal
 
 title: 기술 블로그
 description: 개발 경험과 지식을 공유하는 기술 블로그
+lang: ko-KR
 
 # GitHub 저장소 (로컬 빌드 시 관리자 링크용). GitHub Pages 빌드에서는 site.github.repository_nwo가 우선됩니다.
 blog_repository: beoming/beoming.github.io
