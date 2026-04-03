@@ -2,18 +2,25 @@
 layout: default
 ---
 
-<h1>{{ page.title }}</h1>
-{% if page.description %}<p class="post-meta">{{ page.description }}</p>{% endif %}
+<header class="notion-category-header">
+  <h1 class="notion-category-title">{{ page.title }}</h1>
+  {% if page.description %}
+  <p class="notion-category-desc">{{ page.description }}</p>
+  {% endif %}
+</header>
 
 {% assign prefix = page.category_prefix %}
-<ul id="notion-page-list" class="notion-file-list" data-page-size="{{ page.per_page | default: 20 }}">
+<ul id="notion-page-list" class="notion-file-list notion-file-list--cards" data-page-size="{{ page.per_page | default: 7 }}" hidden>
 {% for f in site.static_files %}
   {% if f.extname == '.html' %}
     {% assign p = f.path %}
     {% if p contains prefix %}
       {% unless p contains 'full-export.html' %}
-      <li class="notion-file-item">
-        <a href="{{ p | relative_url }}">{{ f.name | remove: '.html' }}</a>
+      <li class="notion-file-item" data-basename="{{ f.name | remove: '.html' | xml_escape }}" data-path="{{ f.path | xml_escape }}">
+        <a class="notion-card" href="{{ p | relative_url }}">
+          <span class="notion-card__title" aria-hidden="true"></span>
+          <span class="notion-card__sub" aria-hidden="true"></span>
+        </a>
       </li>
       {% endunless %}
     {% endif %}
@@ -23,10 +30,10 @@ layout: default
 
 <p class="notion-list-meta" id="notion-list-meta" hidden>총 <strong id="notion-total-count">0</strong>개</p>
 
-<nav class="pagination notion-pagination" id="notion-pagination" aria-label="문서 목록 페이지" hidden>
-  <button type="button" class="pagination-link" id="notion-prev">← 이전</button>
+<nav class="pagination notion-pagination notion-pagination--cards" id="notion-pagination" aria-label="문서 목록 페이지" hidden>
+  <button type="button" class="pagination-link notion-page-btn" id="notion-prev">← 이전</button>
   <span class="pagination-info" id="notion-page-label">1 / 1</span>
-  <button type="button" class="pagination-link" id="notion-next">다음 →</button>
+  <button type="button" class="pagination-link notion-page-btn" id="notion-next">다음 →</button>
 </nav>
 
 <script src="{{ '/assets/js/notion-list.js' | relative_url }}" defer></script>
