@@ -6,3 +6,6 @@ vendor/
 .bundle/
 *.gem
 .DS_Store
+beoming.github.io/
+page-them-minimal/
+.vscode/
