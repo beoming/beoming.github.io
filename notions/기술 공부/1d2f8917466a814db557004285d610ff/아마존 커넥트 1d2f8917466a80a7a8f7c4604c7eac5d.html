@@ -1,0 +1,785 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>아마존 커넥트</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d2f8917-466a-80a7-a8f7-c4604c7eac5d" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">☁️</span></div><h1 class="page-title" dir="auto">아마존 커넥트</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1d2f8917-466a-8055-8a64-f32a1836c1be" class="">:  모든 규모의 기업을 지원하도록 확장 가능한, 사용이 간편한, 옴니채널 클라우드 기반 콜 센터 서비스. </p></div><div style="display:contents" dir="ltr"><figure id="233f8917-466a-8067-b27c-ca1c7b612771" class="link-to-page"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/USE%20CASE%20233f8917466a8067b27cca1c7b612771.html">USE CASE</a></figure></div><div style="display:contents" dir="auto"><p id="1d2f8917-466a-80e9-ac42-c3b97d3728a5" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="1d2f8917-466a-8086-9762-d72d45851e3f" class="numbered-list" start="1"><li>직능 기반 연락처 라우팅</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2f8917-466a-806e-9c9c-ceb64a61fc10" class="numbered-list" start="2"><li>Voice &amp; Chat </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2f8917-466a-806b-a9b5-ca98b54c2825" class="numbered-list" start="3"><li>실시간 및 history 분석</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d2f8917-466a-80f8-a530-cfc20589cc15" class="numbered-list" start="4"><li>고품질 음성 기능</li></ol></div><div style="display:contents" dir="auto"><p id="1d2f8917-466a-8060-ab09-c0efd2d54dc1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d2f8917-466a-80ba-8ae8-f97f0f41f2aa" class="">여러 가용영역에 걸쳐 짧은 지연 시간의 연결을 지원하는 고가용성 아키텍쳐</p></div><div style="display:contents" dir="auto"><p id="1d2f8917-466a-807d-8e60-fc85ead8ca46" class="">통신사 네트워크에 대한 연결을 관리하며 여러 통신사에 대한 다양한 연결을 제공</p></div><div style="display:contents" dir="auto"><p id="1d2f8917-466a-8073-96bc-f1b90c125f8d" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d2f8917-466a-80f9-9888-e2e5eb37d3a0" class="">Contact Flow Engine</h3></div><div style="display:contents" dir="ltr"><figure id="1d2f8917-466a-80bf-9d00-edc7af109d89" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image.png"><img style="width:709.9874877929688px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-806c-8a80-f25193d9e666" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1d2f8917-466a-8082-8e81-d73664e06108" class="">솔루션이 CRM과 연동이 되어 있기 때문에 람다를 통해 고객 정보를 가져올 수 있다. 즉, 해당 고객이 어떤 고객인지 미리 알 수 있고 고객에게 필요한 정보를 미리 제공하고 왜 전화를 했는지 유추를 할 수 있게 한다. </p></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-80ab-9444-f43adcdf67ea" class="">Lambda를 통해 다른 서비스와 연동을 해서 다음 액션을 취해 볼 수 있다.  (Function as a Service = Lambda). 인프라를 구축할 필요없이 다양한 백엔드 서비스들과 연동가능하다. </p></div><div style="display:contents" dir="auto"><p id="1d2f8917-466a-8069-bee5-f4d149a483a3" class="">aws 람다 → DynamoDB(NoSQL) → CRM</p></div><div style="display:contents" dir="auto"><p id="1d2f8917-466a-80ff-a6ac-d0d52b684bf9" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d2f8917-466a-8048-8b6f-e7f10cec2f4e" class="">오픈 플랫폼 / 손쉬운 결합</h3></div><div style="display:contents" dir="ltr"><figure id="1d4f8917-466a-80d9-9568-dd282f9a96ed" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%201.png"><img style="width:709.9896240234375px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-8079-b630-d650c444285b" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1d4f8917-466a-80d8-85c1-c09bd5c98f22" class="">Inbound call intergration</h2></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-80b7-bb77-e0adb3be09e7" class="">: 고객이 회사로 전화를 거는 것.</p></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-805c-8a7b-e40ec6294ed0" class="">주로 문의, 불만, 접수, 기술 지원, 주문 확인 등 고객의 요청이나 도움이 필요할 경우 발생</p></div><div style="display:contents" dir="ltr"><figure id="1d4f8917-466a-8053-8824-f550ef51aef9" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%202.png"><img style="width:647.3229370117188px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-80f3-a622-fe21eac5ccca" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1d4f8917-466a-8043-9509-f96af3cccc98" class="">Outbound call integration</h2></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-8047-80c4-d50d09a4752e" class="">: 회사가 고객에게 전화를 거는 것</p></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-801d-b709-d865c03a1ea4" class="">주로 영업 안내, 설문 조사, 미납 고지 등 회사 측에서 먼저 연락하는 것</p></div><div style="display:contents" dir="ltr"><figure id="1d4f8917-466a-8055-908b-e8f85802baaa" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%203.png"><img style="width:647.3125px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-80b9-b769-fbdeb9753cf4" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1d4f8917-466a-80f3-8110-f99e7a48730e" class="">Contact Lens for Amazon Connect</h2></div><div style="display:contents" dir="ltr"><figure id="1d4f8917-466a-8074-ac52-ef37012e5fee" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%204.png"><img style="width:647.3229370117188px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-80b3-9f2a-da8adf5fa86e" class="">컨택 센터 직원이 쉽게 ML의 힘을 사용 가능</p></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-8010-88e7-fa439dfdfec9" class="">미리 지정한 룰을 바탕으로 고객 상담을 효율적으로 진행할 수 있음</p></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-802d-a180-f34573e2b96d" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1d4f8917-466a-807a-9132-ef854d54173b" class="">AWS로 콜센터 고도화</h2></div><div style="display:contents" dir="ltr"><figure id="1d4f8917-466a-8038-9ae4-e877912b5331" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%205.png"><img style="width:647.3229370117188px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%205.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-8015-a127-ceda1fd0da11" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="1d4f8917-466a-80b4-ae56-f064ad7a3f78" class=""><mark class="highlight-blue">AWS 리소스 접근 방식</mark></h1></div><div style="display:contents" dir="auto"><h3 id="1d4f8917-466a-80f5-9054-c9ce815eb701" class="">1. Console</h3></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-8028-b067-e6ce509661d8" class="">: 웹 브라우저에서 사용할 수 있는 GUI로 접근 및 관리할 수 있게 함.</p></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-8028-8524-ed84503a81c7" class="">사용이 쉽고, 실시간 상태를 시각적으로 확인 가능하지만 반복 작업이나 자동화에는 부적합 하며 대규모 인프라 관리에는 비효율적임.</p></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-80a1-b69f-e4b2cfa1e1f4" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d4f8917-466a-8056-805a-e1dfffae7a0a" class="">2. CLI(Command Line Interface)</h3></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-80b7-934c-f272dfb1feed" class="">: 터미널이나 명령어 기반으로 AWS 리소스를 제어할 수 있게 함.</p></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-8064-9612-da128b8431a6" class="">DevOps 자동화 및 배치 처리에 강력하지만 실시간 상태를 보기엔 다소 불편함</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1d4f8917-466a-80f6-967c-d987ec69ed53" class="code code-wrap"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">aws s3 cp ./myfile.txt s3://my-bucket/
+aws ec2 describe-instances
+</code></pre></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-80d3-9340-f5f5d37104d8" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d4f8917-466a-804f-acf3-cca736241da9" class="">3. AWS SDK</h3></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-806b-8702-e847684ed9eb" class="">: 다양한 언어에서 코드로 AWS 서비스를 제어할 수 있는 라이브러리 모음</p></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-802a-8266-f763f23356ee" class="">앱 내에서 AWS 연동 가능하며 커스터마이징된 로직 작성에 유리함. 다만 디버깅과 유지보수가 CLI나 콘솔보다 복잡할 수 있음.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1d4f8917-466a-80c5-b037-dd2620b28b9a" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">import boto3
+
+s3 = boto3.client(&#x27;s3&#x27;)
+s3.upload_file(&#x27;myfile.txt&#x27;, &#x27;my-bucket&#x27;, &#x27;myfile.txt&#x27;)
+</code></pre></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-80f5-86e3-f7ff1d0f5a75" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1d4f8917-466a-80ba-ae85-d20675821416" class="">AWS Lambda : </h2></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80f7-8fd1-fdcee3e2be39" class="">이벤트가 발생했을 때, 자동으로 코드가 실행되게 하는 서비스. </p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8072-a0ee-cc401788b7e8" class="">서버를 직접 만들거나 관리하지 않고 이벤트 실행을 트리거하여 리스폰스를 준다.</p></div><div style="display:contents" dir="auto"><ul id="1d4f8917-466a-80a0-a09c-f8c3aab78a71" class="bulleted-list"><li style="list-style-type:disc">서버 관리 불필요</li></ul></div><div style="display:contents" dir="auto"><ul id="1d4f8917-466a-8012-9b8b-c4cc65eda3d1" class="bulleted-list"><li style="list-style-type:disc">오토스케일링 : 많은 트래픽이 들어올 경우</li></ul></div><div style="display:contents" dir="auto"><ul id="1d4f8917-466a-8014-a9d2-fc8fdae7e7b8" class="bulleted-list"><li style="list-style-type:disc">pay as you go</li></ul></div><div style="display:contents" dir="auto"><p id="1d4f8917-466a-807c-bd63-ff11f7d37622" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="1d2f8917-466a-80df-aa28-cb11e0aa2a37" class="link-to-page"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/AWS%20Connect%201d2f8917466a80dfaa28cb11e0aa2a37.html"><span class="icon">☁️</span>AWS Connect</a></figure></div><div style="display:contents" dir="auto"><h2 id="229f8917-466a-80b7-8bcb-e86c3396ff08" class="">Amazon Kinesis : 카프카와 비슷함.</h2></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-806d-85ea-e0eb9621b2bf" class="bulleted-list"><li style="list-style-type:disc">실시간 스트리밍 데이터를 수집, 처리 및 분석하여 적시에 인사이트를 확보하고 새로운 정보에 신속하게 대응할 수 있음.</li></ul></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-802e-b678-faa52913c7ef" class="bulleted-list"><li style="list-style-type:disc">기계 학습, 분석 및 기타 애플리케이션을 위해 비디오, 오디오, 애플리케이션 로그, 웹사이트 클릭스트림 및 IoT 텔레메트리 데이터와 같은 실시간 데이터를 수집함.</li></ul></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-80d6-b67f-e0881d3a56d5" class="bulleted-list"><li style="list-style-type:disc">모든 데이터가 수집된 후에야 처리를 시작할 수 있는 것이 아니라 데이터가 수신되는 대로 처리 및 분석하고 즉시 대응할 수 있음.</li></ul></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-80a6-982a-e921f9e80adc" class="bulleted-list"><li style="list-style-type:disc">데이터 스트리밍을 S3, ES(엘라스틱 서치)와 같은 AWS 저장 서비스로 바로 전송</li></ul></div><div style="display:contents" dir="auto"><h2 id="229f8917-466a-8090-9299-eff3fc3dc7b3" class="">Amazon Lex :</h2></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8097-98a8-fb9013f0cbc5" class="">Alexa와 동일한 기술을 기반으로 하는 Amazon Lex는 사용자가 자연어 음성이나 채팅을 사용하여 어떤 애플리케이션과도 상호 작용할 수 있는 AI 채팅 빌더이다.</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80b7-82a5-e73e60f53b51" class="">애플리케이션에서 AI 챗봇과 음성 봇을 설계, 구축, 테스트, 배포하기 위해 고급 자연어 모델을 사용하는 완전 관리형 인공지능 서비스이다. 사용자의 필요에 따라 멀티턴 대화를 일시 중시하고 다시 시작할 수 있도록 지속적인 스트리밍 채팅 기능을 구축할 수 있다. </p></div><div style="display:contents" dir="auto"><h2 id="229f8917-466a-8009-a63a-de8d70a96558" class="">Amazon Polly</h2></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80be-a419-e4142d33da6c" class="">온디맨드 방식으로 음성을 생성하여, 어떤 텍스트라도 오디오 스트림으로 변환해주는 완전관리형 서비스임. 딥 러닝 기술을 사용하여 기사, 웹 페이지, pdf 문서 및 기타 TTS를 변환한다. </p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80ca-83a2-c4a4d4bdfc0f" class="">웹기반 앱이나 모바일 앱에서 API 혹은 SDK를 통해 자연어를 전송하여 Chatbot 기능 활용 가능</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-807e-9cfc-ef89110b4670" class="">
+</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80e0-81d5-fecb25f56cf7" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="229f8917-466a-80ce-be85-f974b6fe9db5" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%206.png"><img style="width:709.96875px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%206.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80ce-b8ab-c6b6142e4fbe" class="">이 아키텍처는 <strong>AWS 기반의 실시간 음성 텍스트 변환(Realtime Speech-to-Text) 시스템</strong>입니다. 특히 <strong>Amazon Connect</strong>를 활용한 콜센터 시나리오에서 고객의 음성을 실시간으로 텍스트로 변환하고, 다양한 처리(번역, 저장 등)를 자동화한 구조입니다.</p></div><div style="display:contents" dir="auto"><hr id="229f8917-466a-8041-bea3-f324c183546f"/></div><div style="display:contents" dir="auto"><h2 id="229f8917-466a-8027-8755-e4edba8f6bf4" class="">전체 흐름 설명</h2></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-80b9-92ed-ffdc59998331" class="">🔹 1. 고객 음성 수신 (Customer Audio)</h3></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-80ee-9d5e-c2ecc66f7aa2" class="bulleted-list"><li style="list-style-type:disc"><strong>고객이 전화로 콜센터에 연결</strong>되면 <code>Amazon Connect</code>가 음성을 수신합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-80f4-b097-d600f99dac08" class="bulleted-list"><li style="list-style-type:disc"><code>Amazon Connect Contact Flow</code>에서 <strong>Start Media Streaming</strong>을 통해 실시간 스트리밍을 시작합니다.</li></ul></div><div style="display:contents" dir="auto"><hr id="229f8917-466a-8094-9b16-c9406405a16b"/></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-80da-b6ca-d16e81e19397" class="">🔹 2. Lambda 트리거 (Step 1 &amp; 2)</h3></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-8040-9860-f4a0e04a09d9" class="bulleted-list"><li style="list-style-type:disc">Contact Flow 안에서 <code>AWS Lambda 함수</code>가 호출됩니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-809e-a55a-e5c48b659a1a" class="bulleted-list"><li style="list-style-type:disc">이 Lambda는 <strong>Amazon Kinesis Video Streams</strong>에 고객 음성 스트림을 전달합니다.</li></ul></div><div style="display:contents" dir="auto"><hr id="229f8917-466a-803e-9402-fdc2e7785c60"/></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-8007-98f1-f127902e8b02" class="">🔹 3. 실시간 음성 텍스트 변환 (Step 3 &amp; 4)</h3></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-807a-8ed5-fa4ae75405ec" class="bulleted-list"><li style="list-style-type:disc">Kinesis에 전달된 오디오 데이터는 <strong>Lambda 함수</strong>를 통해 <strong>Amazon Transcribe Realtime API</strong>에 전달됩니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-80cd-8d0f-d5195080276c" class="bulleted-list"><li style="list-style-type:disc">Amazon Transcribe는 실시간으로 오디오를 받아 텍스트로 변환합니다.</li></ul></div><div style="display:contents" dir="auto"><hr id="229f8917-466a-80e0-9b6c-f863c51a1a5e"/></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-80b4-bb26-d50ec00f08b5" class="">🔹 4. 텍스트 처리 및 저장</h3></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-8000-b05e-c10eb525fe0a" class="bulleted-list"><li style="list-style-type:disc">변환된 텍스트는 다시 Lambda 함수로 전달되어:<div style="display:contents" dir="auto"><ul id="229f8917-466a-8029-89b4-fb15226a6cac" class="bulleted-list"><li style="list-style-type:circle"><strong>Amazon DynamoDB</strong>에 실시간 텍스트 저장 (예: 상담 기록)</li></ul></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-800d-bc76-c2797fb1668c" class="bulleted-list"><li style="list-style-type:circle"><strong>Amazon S3</strong>에 오디오 파일 및 전체 텍스트 저장</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="229f8917-466a-805a-8a3b-d34dee63cbe5"/></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-8078-bd15-eb38e57d19d0" class="">🔹 5. AI 처리 및 번역 (선택)</h3></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-80db-b14c-de3225403666" class="bulleted-list"><li style="list-style-type:disc">변환된 텍스트는 <code>Amazon Translate</code>, <code>Amazon Comprehend</code>를 통해:<div style="display:contents" dir="auto"><ul id="229f8917-466a-80f0-8e9d-ef0d56c8e862" class="bulleted-list"><li style="list-style-type:circle">다른 언어로 번역하거나</li></ul></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-803c-8b25-e25e237473c8" class="bulleted-list"><li style="list-style-type:circle">감정 분석, 키워드 추출 등의 <strong>AI 처리</strong>가 가능합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="229f8917-466a-800b-b643-d9fb44d62a5e"/></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-808b-a5c4-efa870d1a789" class="">🔹 6. 에이전트 UI 제공</h3></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-8088-b5a7-d10809623488" class="bulleted-list"><li style="list-style-type:disc">최종적으로 변환된 텍스트 결과는 <strong>WebSocket</strong> 연결을 통해 <strong>Agent UI에 실시간 표시</strong>됩니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="229f8917-466a-8005-9ad3-c5dedb82bf00" class="bulleted-list"><li style="list-style-type:disc">상담사는 실시간으로 고객 발화를 <strong>텍스트 형태로 확인</strong>할 수 있습니다.</li></ul></div><div style="display:contents" dir="auto"><hr id="229f8917-466a-8079-8997-c279a4de20a3"/></div><div style="display:contents" dir="auto"><h2 id="229f8917-466a-805e-8ef6-e1c50527ef39" class="">사용된 AWS 서비스 요약</h2></div><div style="display:contents" dir="ltr"><table id="229f8917-466a-8075-9aae-dda4426bd7dc" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="229f8917-466a-80c7-840b-dce16bd59536"><th id="HziU" class="simple-table-header-color simple-table-header" style="width:274px">서비스</th><th id="va::" class="simple-table-header-color simple-table-header" style="width:448px">역할</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="229f8917-466a-8073-9c31-fc185238eae5"><td id="HziU" class="" style="width:274px"><strong>Amazon Connect</strong></td><td id="va::" class="" style="width:448px">고객과의 전화 연결, Contact Flow 설정</td></tr></div><div style="display:contents" dir="ltr"><tr id="229f8917-466a-804f-9769-d9ff04d0bc92"><td id="HziU" class="" style="width:274px"><strong>Amazon Kinesis Video Streams</strong></td><td id="va::" class="" style="width:448px">오디오 스트림 처리</td></tr></div><div style="display:contents" dir="ltr"><tr id="229f8917-466a-8056-86c4-ca317a79ed84"><td id="HziU" class="" style="width:274px"><strong>Amazon Transcribe</strong></td><td id="va::" class="" style="width:448px">음성을 실시간 텍스트로 변환</td></tr></div><div style="display:contents" dir="ltr"><tr id="229f8917-466a-804a-9e15-c3e52ca5185a"><td id="HziU" class="" style="width:274px"><strong>AWS Lambda</strong></td><td id="va::" class="" style="width:448px">이벤트 기반 로직 처리 (오디오 → 텍스트 연동 등)</td></tr></div><div style="display:contents" dir="ltr"><tr id="229f8917-466a-80cd-99e1-cab36453e3ec"><td id="HziU" class="" style="width:274px"><strong>Amazon DynamoDB</strong></td><td id="va::" class="" style="width:448px">실시간 텍스트 저장</td></tr></div><div style="display:contents" dir="ltr"><tr id="229f8917-466a-803e-8cde-f1ebe125bec9"><td id="HziU" class="" style="width:274px"><strong>Amazon S3</strong></td><td id="va::" class="" style="width:448px">오디오 파일 및 전체 기록 저장</td></tr></div><div style="display:contents" dir="ltr"><tr id="229f8917-466a-80f2-9b32-e898bbbedaa0"><td id="HziU" class="" style="width:274px"><strong>Amazon API Gateway + WebSocket</strong></td><td id="va::" class="" style="width:448px">상담사에게 실시간 텍스트 전송</td></tr></div><div style="display:contents" dir="ltr"><tr id="229f8917-466a-8022-89d3-d06028abbe4c"><td id="HziU" class="" style="width:274px"><strong>Amazon Translate / Comprehend</strong></td><td id="va::" class="" style="width:448px">(선택) 번역 및 AI 분석 처리</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="229f8917-466a-80cf-aa1c-c03f4e83c9ef"/></div><div style="display:contents" dir="auto"><h2 id="229f8917-466a-8024-bbdd-d52692469982" class="">요약</h2></div><div style="display:contents" dir="auto"><blockquote id="229f8917-466a-8050-b55c-e098efbe561a" class="">고객이 전화를 걸면 Amazon Connect가 오디오를 수신하고,<div style="display:contents" dir="auto"><p id="229f8917-466a-80dd-b1de-c57751afb102" class="">Lambda를 통해 Kinesis에 전달 → Transcribe로 텍스트 변환 →</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8022-a014-c07bcde9581d" class="">DynamoDB/S3 저장 및 WebSocket으로 상담사에게 실시간 전송.</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80b6-94a7-fba67db2aafb" class="">추가로 AI 처리를 거쳐 텍스트를 번역하거나 감정 분석도 가능.</p></div></blockquote></div><div style="display:contents" dir="auto"><hr id="229f8917-466a-8044-8ceb-c998aae46bf1"/></div><div style="display:contents" dir="ltr"><figure id="229f8917-466a-8054-8f11-d03284afc170" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%207.png"><img style="width:528px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%207.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-804d-804c-e62469e2984a" class="">Agent UI(상담원) ←—→ Amazon API Gateway</h3></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8051-9fbc-fd5268c19efc" class="">단순한 http 요청이 아니라, 실시간 통신을 위한 WebSocket 연결.</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-804a-b519-e53532061d63" class="">실시간으로 음성이 텍스트로 변환되어야 하기 때문에 WebSocket 통신이 필요함. 만약 HTTP만을 사용한다면 매번 Agent UI가 서버에 polling (요청) 해야됨. - 비효율적. 실시간성 떨어짐.</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80e9-8f9b-cb91e34411c5" class="">
+</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80f8-9c9c-d17027e7477b" class=""><strong>웹소켓은 한 번 연결되면 계속 열려있는 통로</strong>,</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8080-8c1b-f54195a7e046" class="">서버가 새 텍스트가 생기자마자 바로 push해서 Agent UI로 전달 가능.</p></div><div style="display:contents" dir="auto"><h1 id="229f8917-466a-80cd-b7d2-c2e28f7b2404" class=""><mark class="highlight-blue">Routing Configuration</mark></h1></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8068-8a85-f7bc50a44401" class="">스킬 → 숙련도</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8046-8bb9-ed88f4a6a43a" class="">스킬 라우팅 → 상담사 개인역량</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-800d-b5c6-de0e0f267ca7" class="">큐 → 최종적으로 콜 유입 지점 1, 2, 3 </p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8063-b0e0-d78b5bbe1e6b" class="">상담원 한명당 routing profile 하나는 가지고 있어야 한다. </p></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8023-89ed-e93807c00c47" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="231f8917-466a-80a4-bd88-c94fe97f9f41" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%208.png"><img style="width:709.96875px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%208.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="231f8917-466a-80c8-9616-f0ad3a2e3624" class="">이 다이어그램은 Amazon Connect에서 통화가 처리되는 전체 생명주기를 보여줍니다. </p></div><div style="display:contents" dir="auto"><h2 id="231f8917-466a-8071-b447-cba43c7342ee" class="">1. Arriving Calls (수신 전화)</h2></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8018-ab54-d8e8640624d9" class=""><strong>DNIS (Dialed Number Identification Service) 번호들</strong></p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-807e-b8e0-d8a30f9ea016" class="bulleted-list"><li style="list-style-type:disc"><strong>+1 222 333 4444, +1 222 333 4445</strong>: 고객 서비스 일반 문의</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-80d8-9bca-d8d55abca8d5" class="bulleted-list"><li style="list-style-type:disc"><strong>+1 333 333 3333</strong>: VIP 고객 전용 라인</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-80d5-9fe4-d1c86656fcdc" class="bulleted-list"><li style="list-style-type:disc"><strong>+1 444 333 4444</strong>: 기술 지원 전용 라인</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8007-8c91-fccbb9ec57a5" class="bulleted-list"><li style="list-style-type:disc"><strong>+1 555 333 5555</strong>: 영업 문의 전용 라인</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8057-99d1-d1fd431e96e6" class="">예시: 고객이 기술적 문제로 +1 444 333 4444로 전화를 걸면, 시스템은 이 번호를 식별하여 기술 지원팀으로 라우팅할 준비를 합니다.</p></div><div style="display:contents" dir="auto"><h2 id="231f8917-466a-8054-81de-c88ca49fcaa8" class="">2. Contact Flow (연락 플로우)</h2></div><div style="display:contents" dir="auto"><p id="231f8917-466a-80d6-8d01-e4a2f252226b" class=""><strong>Flow1</strong>: 일반 고객 서비스 플로우</p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-809c-9916-dac8e2b4ec78" class="bulleted-list"><li style="list-style-type:disc">인사말: &quot;안녕하세요, ABC 고객센터입니다&quot;</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8070-b9f1-f674bb9b7ca4" class="bulleted-list"><li style="list-style-type:disc">IVR 옵션: &quot;청구서는 1번, 제품 문의는 2번...&quot;</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8068-a0ad-f2e3bec639e0" class=""><strong>Flow2</strong>: 기술 지원 플로우</p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8024-95da-d1d3c383fcaf" class="bulleted-list"><li style="list-style-type:disc">인사말: &quot;기술 지원팀입니다&quot;</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8043-8ea5-f96a703abeca" class="bulleted-list"><li style="list-style-type:disc">문제 유형 선택: &quot;하드웨어는 1번, 소프트웨어는 2번...&quot;</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-80b8-a74c-e9d41a65df6e" class=""><strong>Flow3</strong>: 영업 플로우</p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8030-995d-cb1d75e49c19" class="bulleted-list"><li style="list-style-type:disc">인사말: &quot;영업팀입니다. 어떤 제품에 관심이 있으신가요?&quot;</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8006-8128-fcf13f2e64b0" class="bulleted-list"><li style="list-style-type:disc">제품 카테고리 선택 메뉴 제공</li></ul></div><div style="display:contents" dir="auto"><h2 id="231f8917-466a-8069-8b13-e403854c567d" class="">3. Call Queues (통화 대기열)</h2></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80a7-beb5-c9df1a7e7908" class="">: 스킬이다. 스킬별로 부서들이 있을 수 있다. 예를 들어 예금 상담 부서, 대출 상담 부서 등등</p></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80b9-a5b1-c1d983f03cfc" class="">
+</p></div><div style="display:contents" dir="auto"><p id="231f8917-466a-80e9-8ab0-d77d63025423" class=""><strong>Queue1</strong>: 일반 고객 서비스 대기열</p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8006-a76f-fe95f0e046a1" class="bulleted-list"><li style="list-style-type:disc">예상 대기 시간: 3분</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8081-b6cb-ddeebe75337f" class="bulleted-list"><li style="list-style-type:disc">대기 음악: 회사 홍보 메시지</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8026-982f-efb2bf2ee37e" class=""><strong>Queue2</strong>: 기술 지원 대기열</p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8051-abb4-f4455b5afe27" class="bulleted-list"><li style="list-style-type:disc">우선순위: 긴급 이슈는 앞으로 배치</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8090-a5f3-f0c67a795008" class="bulleted-list"><li style="list-style-type:disc">스킬 기반 라우팅: 하드웨어/소프트웨어 전문가 구분</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-80ad-af26-f3a5d6bf06b1" class=""><strong>Queue3</strong>: 영업 대기열</p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8014-9e48-fcf8300ec4df" class="bulleted-list"><li style="list-style-type:disc">지역별 라우팅: 고객 위치에 따른 담당자 배정</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-80d4-a3a3-c520ca1832b1" class="bulleted-list"><li style="list-style-type:disc">VIP 고객 우선 처리</li></ul></div><div style="display:contents" dir="auto"><h2 id="231f8917-466a-8025-b0fb-cbd3765e3016" class="">4. <mark class="highlight-yellow">Routing Profile (라우팅 프로필)</mark></h2></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80cd-b52d-c39aef7b4e3a" class=""><strong>상담원 한명은 적어도 하나의 라우팅 프로필은 가져야 한다 </strong></p></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80ca-996b-dae4c328113f" class="">정의 : 특정 상담원이 어떤 큐에 있는 고객들을 상담할지 결정하는 설정이다. 상담원 한명이 스킬별로 어떤 순서나 어떠한 큐를 응대를 할 지 결정하는 것.</p></div><div style="display:contents" dir="ltr"><figure id="232f8917-466a-8097-81d8-c15d2937f8cf" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%209.png"><img style="width:709.984375px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%209.png"/></a></figure></div><div style="display:contents" dir="auto"><blockquote id="232f8917-466a-80ca-a8a9-de6b5e5e95f3" class="">라우팅 프로필 안에서는 우선순위가 크게 작용하고, Delay가 n이라면 n초 뒤에 해당 상담원과 연결할 수 있다는 것을 의미한다.</blockquote></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80db-beeb-df85fbcf363a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="231f8917-466a-80e9-88b9-d0e0d2066783" class=""><strong>Profile1</strong>: 일반 상담원</p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8098-9649-fa653d76e302" class="bulleted-list"><li style="list-style-type:disc">Queue1만 처리</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-808a-81c6-c761158a5923" class="bulleted-list"><li style="list-style-type:disc">근무 시간: 09:00-18:00</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-80b0-9e12-fc7f49dedb5d" class="bulleted-list"><li style="list-style-type:disc">동시 통화: 1건</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-803f-9082-ed79c5b57963" class=""><strong>Profile2</strong>: 다기능 상담원</p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-801f-920f-c4fd783e2b37" class="bulleted-list"><li style="list-style-type:disc">Queue1과 Queue2 모두 처리 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8015-a673-e62d035af55e" class="bulleted-list"><li style="list-style-type:disc">기술 지원 자격증 보유</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-801f-98a6-fa72b76cba57" class="bulleted-list"><li style="list-style-type:disc">동시 통화: 1건</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8075-aaf4-ee1646bb45a7" class=""><strong>Profile3</strong>: 시니어 상담원</p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8035-90f8-c6ad984b2bcb" class="bulleted-list"><li style="list-style-type:disc">모든 Queue(1,2,3) 처리 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-80be-b617-c361204be076" class="bulleted-list"><li style="list-style-type:disc">복잡한 이슈 에스컬레이션 담당</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8096-8f3a-fe3bcd50cbdb" class="bulleted-list"><li style="list-style-type:disc">VIP 고객 우선 처리</li></ul></div><div style="display:contents" dir="auto"><h2 id="231f8917-466a-8082-a4cf-ff725ccfbc9c" class="">실제 시나리오 예시</h2></div><div style="display:contents" dir="auto"><h3 id="231f8917-466a-8081-9d23-f22b085e696e" class="">시나리오 1: 일반 고객 문의</h3></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-809d-bd8b-d6e19ce5da0e" class="numbered-list" start="1"><li>고객 A가 청구서 문의로 +1 222 333 4444 전화</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-8052-a3b5-fe6660dc942f" class="numbered-list" start="2"><li>Flow1 진입 → &quot;청구서 문의는 1번 선택&quot;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-8048-8b60-f07b033e98e8" class="numbered-list" start="3"><li>Queue1 대기 → 2분 대기</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-8045-9796-f3b66cc5de4f" class="numbered-list" start="4"><li>Profile1 상담원 연결 → 문제 해결</li></ol></div><div style="display:contents" dir="auto"><h3 id="231f8917-466a-8006-a174-c87954952429" class="">시나리오 2: 복잡한 기술 문제</h3></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-8055-9e24-d9bde687e1b3" class="numbered-list" start="1"><li>고객 B가 서버 다운으로 +1 444 333 4444 전화</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-80c9-afb9-d96fd46f4940" class="numbered-list" start="2"><li>Flow2 진입 → &quot;긴급 기술 지원은 1번&quot;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-80b4-8907-f519fcd7ce1f" class="numbered-list" start="3"><li>Queue2 대기 → 우선순위 높음으로 설정</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-8005-a2d2-e058fb8c8c46" class="numbered-list" start="4"><li>Profile2 상담원이 처리 불가 → Profile3로 에스컬레이션</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-808e-af09-c35e91e9a0fe" class="numbered-list" start="5"><li>Profile3 시니어 상담원이 원격 지원으로 해결</li></ol></div><div style="display:contents" dir="auto"><h3 id="231f8917-466a-804c-bc57-cfd31e7d429a" class="">시나리오 3: VIP 고객 영업 문의</h3></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-8072-a01d-e986cde95a13" class="numbered-list" start="1"><li>VIP 고객 C가 +1 333 333 3333 전화</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-80d8-b131-f32825a704e8" class="numbered-list" start="2"><li>Flow1 진입하지만 VIP 식별 → Flow3로 자동 전환</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-801d-acf4-f7e1d5342bdc" class="numbered-list" start="3"><li>Queue3 대기 → VIP 우선 처리로 즉시 연결</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-80c2-96c3-ca4618ad7ef9" class="numbered-list" start="4"><li>Profile3 시니어 상담원이 맞춤형 상담 제공</li></ol></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8059-b9d7-f6db53c1f947" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-806a-a00d-f01ddf4e798f" class="">고객 전화 → Contact Flow → [QUEUE 선택] → [Routing Profile 기반 상담사 탐색]<br/></h3></div><div style="display:contents" dir="ltr"><figure id="229f8917-466a-80c6-8538-fb01ef70585e" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2010.png"><img style="width:705px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2010.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80d1-9b9c-e00077892226" class="bulleted-list"><li style="list-style-type:disc">Incoming contacts are routed to Queues</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80e5-92ad-c74dd481dc4c" class="bulleted-list"><li style="list-style-type:disc">Queues look for the Logest Available Agent (가장 오래기다린 상담원을 우선적으로 배치해줌)</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8009-836d-d977f9267c01" class="bulleted-list"><li style="list-style-type:disc">If Outbound Calls are allowed, mush choose one Queue per Routing Profile for reporting purposes</li></ul></div><div style="display:contents" dir="auto"><p id="232f8917-466a-8009-b5ff-e2e91c0644be" class=""><br/></p></div><div style="display:contents" dir="ltr"><table id="229f8917-466a-801c-9fb2-f1fa373665e7" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="229f8917-466a-80bf-8b7c-f50fcf3c93b3"><th id="tGs~" class="simple-table-header-color simple-table-header" style="width:175px">요소</th><th id="Mk^i" class="simple-table-header-color simple-table-header" style="width:584px">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="229f8917-466a-805c-b124-f5c4654a9510"><td id="tGs~" class="" style="width:175px"><strong>Queue</strong></td><td id="Mk^i" class="" style="width:584px">고객이 기다리는 줄 (예: 영어 상담, 기술지원, VIP 등)</td></tr></div><div style="display:contents" dir="ltr"><tr id="229f8917-466a-807a-8003-d3662047efaf"><td id="tGs~" class="" style="width:175px"><strong>Skill Set (개념적)</strong></td><td id="Mk^i" class="" style="width:584px">특정 Queue를 다룰 수 있는 상담 능력 (예: 영어 가능, 대출 전문 등)</td></tr></div><div style="display:contents" dir="ltr"><tr id="229f8917-466a-80fa-8a2f-cbf082cfe725"><td id="tGs~" class="" style="width:175px"><strong>Routing Profile</strong></td><td id="Mk^i" class="" style="width:584px">어떤 Queue를 받을 수 있는 상담사인지 설정한 구성</td></tr></div><div style="display:contents" dir="ltr"><tr id="229f8917-466a-8053-9f02-c73e1fc0d10a"><td id="tGs~" class="" style="width:175px"><strong>상담사</strong></td><td id="Mk^i" class="" style="width:584px">Routing Profile에 따라 연결 대상이 됨</td></tr></div></tbody></table></div><div style="display:contents" dir="ltr"><figure id="229f8917-466a-8076-a23c-f22d9a4b5c27" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2011.png"><img style="width:709.984375px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2011.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="229f8917-466a-808a-a786-ca39f68e994a" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2012.png"><img style="width:709.96875px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2012.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8062-ac92-fa646ed51ed9" class="">
+</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80fd-b206-f810aa83bb30" class="">Routing Profile 안에서 Priority와 Delay를 설정할 수 있다.</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8071-9f23-fd43d5baace1" class="">Priority 순위가 높을수록 우선 라우팅이 될 확률이 높고, delay는 정해진 시간이 꼭 지나야만 해당 큐에 입장할 수 있다는 뜻이다.</p></div><div style="display:contents" dir="ltr"><figure id="229f8917-466a-8036-8370-ee5f94473aeb" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2013.png"><img style="width:709.984375px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2013.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80a7-8f84-c20f2b5c018b" class="">즉, ‘Savings’에 대한 문의를 했을 때, Savings를 갖는 큐의 우선순위를 먼저 보고, 그 후 delay를 보고 최종 큐를 선택하여 라우팅 해준다.</p></div><div style="display:contents" dir="ltr"><figure id="233f8917-466a-80f4-b88d-e71f87a393f0" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2014.png"><img style="width:710px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2014.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8063-9113-caab99d5a1cf" class="">테스트용</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-806c-a559-cd6fad75a0d2" class="">자격 증명 관리</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8031-a788-dd6bde392eeb" class=""><a href="https://[connect-인스턴스별칭].my.connect.aws/">https://[connect-인스턴스별칭].my.connect.aws</a></p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-802a-bd33-f044bef142d8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-806b-abd5-f3860e6763c8" class="">데이터 연결</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80dc-a368-f361ff39c9f0" class="">amazon-connect-[리소스ID-마스킹]/connect/[인스턴스별칭]</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80db-9b42-c580bb2f1497" class="">
+</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8043-bf24-fbba82b2007f" class="">흐름로그</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80bc-8cde-f589e35df1d6" class="">/aws/connect/[인스턴스별칭]</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80ed-a6f7-ce8617c98a38" class="">
+</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-801d-963a-c1c7d62a8f84" class="">이메일</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80fc-a75a-d28c3633a7ea" class="">[이메일-마스킹]</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8098-b161-f0f55e14fed9" class="">
+</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-805b-8997-cecf887b1733" class="">사용자 이름</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80a4-818d-ca2d018f6b9f" class="">[로그인-ID-마스킹]</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80f1-817a-d103e13596d4" class="">[비밀번호-마스킹]</p></div><div style="display:contents" dir="auto"><p id="238f8917-466a-8071-ba8a-f9fa1643b029" class="">
+</p></div><div style="display:contents" dir="auto"><p id="238f8917-466a-80c9-8edf-c94d049d628d" class="">Access Key : [삭제됨 — 공개 저장소에 비밀 키를 올리지 마세요. IAM에서 키를 회전하세요.]</p></div><div style="display:contents" dir="auto"><p id="238f8917-466a-8072-9a7d-c0fe2355986c" class="">Secret Access Key : [삭제됨]</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80cb-b135-e59d7caceeeb" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="22af8917-466a-8030-9c8f-d1b5db65677f" class="link-to-page"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/%5BAmazon%20Connect%5D%20%EC%82%AC%EC%9A%A9%EC%9E%90%20%EB%A7%A4%EB%89%B4%EC%96%BC%2022af8917466a80309c8fd1b5db65677f.html">[Amazon Connect] 사용자 매뉴얼</a></figure></div><div style="display:contents" dir="auto"><p id="231f8917-466a-80b5-802d-c06207ac136f" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="231f8917-466a-809b-99ea-e25dd00d89b7" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2015.png"><img style="width:709.984375px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2015.png"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="231f8917-466a-8067-9360-d0cc466f6299" class="">1. 통화 수신 및 에이전트 연결 단계</h2></div><div style="display:contents" dir="auto"><p id="231f8917-466a-806c-8b36-ee88a7b8ce43" class=""><strong>사용자 → Amazon Connect</strong></p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-807f-a60b-d1fd51774b27" class="bulleted-list"><li style="list-style-type:disc">고객이 전화를 걸면 Amazon Connect로 연결됩니다</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8008-8aaf-f4097c7bc522" class="bulleted-list"><li style="list-style-type:disc">CTR(Call Trace Record)이 생성되어 통화 정보를 추적합니다</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8018-bab1-f0f905ab47b3" class=""><strong>Lambda Function (get agent by extension)</strong></p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8087-8bff-e40795ebcb80" class="bulleted-list"><li style="list-style-type:disc">고객이 입력한 내선번호를 기반으로 담당 에이전트를 찾습니다</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8045-a013-e4905a96f124" class="bulleted-list"><li style="list-style-type:disc">DynamoDB 테이블(agent info)에서 에이전트 정보를 조회합니다</li></ul></div><div style="display:contents" dir="auto"><h2 id="231f8917-466a-8054-bb67-c6d676de0d42" class="">2. 음성메일 녹음 단계</h2></div><div style="display:contents" dir="auto"><blockquote id="232f8917-466a-804d-88cb-f8c3fefaae1f" class=""><mark class="highlight-yellow"><strong>Kinesis를 사용하지 않아도 자동으로 Recording은 S3로 저장됨. Kinesis를 사용하는 이유는 특정 구간에서 Voice Bot을 연동을 하고 싶다던가, 특정 부분만 텍스트로 떨구고 싶을 때 사용한다.</strong></mark></blockquote></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8017-8912-f3ecd33ca03a" class=""><strong>Amazon Connect → Amazon Kinesis Video Streams</strong></p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-801a-b388-d2e9a77c9b84" class="bulleted-list"><li style="list-style-type:disc">에이전트가 부재중일 경우, 고객의 음성 메시지가 Kinesis Video Streams로 전송됩니다</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-804d-91d0-c3f8de787ea2" class="bulleted-list"><li style="list-style-type:disc">실시간 오디오 스트리밍을 처리합니다</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8007-842d-e2b30665014e" class=""><strong>Amazon Kinesis Data Streams</strong></p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8052-8639-e0b04e62957b" class="bulleted-list"><li style="list-style-type:disc">CTR 데이터가 Kinesis Data Streams로 전송됩니다</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8028-b53a-f2d9f561e6a0" class="bulleted-list"><li style="list-style-type:disc">통화 메타데이터(발신자 정보, 시간, 내선번호 등)를 포함합니다</li></ul></div><div style="display:contents" dir="auto"><h2 id="231f8917-466a-8024-9a16-ff925c035f2b" class="">3. 음성메일 처리 단계</h2></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8037-a837-e72f547016de" class=""><strong>Lambda Function (process voicemail)</strong></p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8086-869f-c08e6d01ace3" class="bulleted-list"><li style="list-style-type:disc">Kinesis Video Streams에서 오디오를 읽고 인코딩합니다</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-806d-8ec8-c0da599a6850" class="bulleted-list"><li style="list-style-type:disc">처리된 음성메일 파일을 S3 버킷에 저장합니다</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8030-a25c-ce5cf079b596" class="bulleted-list"><li style="list-style-type:disc">DynamoDB 테이블(voicemails)에 음성메일 메타데이터를 저장합니다</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-80d5-9946-f21e5688f47f" class=""><strong>Amazon Transcribe</strong></p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8010-9b7c-d08ba5728172" class="bulleted-list"><li style="list-style-type:disc">S3에 저장된 음성메일을 텍스트로 변환합니다</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-806d-baa2-dbe4fcbd346d" class="bulleted-list"><li style="list-style-type:disc">음성-텍스트 변환이 완료되면 Lambda function을 트리거합니다</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8086-b26a-d5af66d8d0ed" class=""><strong>Lambda Function (process transcript)</strong></p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8038-8e52-f4ef33cdae92" class="bulleted-list"><li style="list-style-type:disc">Transcribe 결과를 처리하여 텍스트 형태의 메시지를 생성합니다</li></ul></div><div style="display:contents" dir="auto"><h2 id="231f8917-466a-8004-ba08-ce99cacd5212" class="">4. 알림 전송 단계</h2></div><div style="display:contents" dir="auto"><p id="231f8917-466a-80d4-bdcc-dbac6846652d" class=""><strong>Lambda Function (deliver voicemail)</strong></p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-809b-8b0c-caa3fe46c088" class="bulleted-list"><li style="list-style-type:disc">AWS Secrets Manager에서 AWS 액세스 키를 가져옵니다</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-80b0-a562-d638c19343bb" class="bulleted-list"><li style="list-style-type:disc">DynamoDB에서 음성메일 정보를 조회합니다</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-80e6-be92-dae2d4c8d508" class="bulleted-list"><li style="list-style-type:disc">알림을 전송할 준비를 합니다</li></ul></div><div style="display:contents" dir="auto"><p id="231f8917-466a-8045-bb96-fec8039bbfee" class=""><strong>Amazon SNS &amp; Amazon SES</strong></p></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-8040-b84b-eb6e659a750f" class="bulleted-list"><li style="list-style-type:disc">SNS: 에이전트에게 푸시 알림이나 SMS를 발송합니다</li></ul></div><div style="display:contents" dir="auto"><ul id="231f8917-466a-802c-abe8-c330af57fd62" class="bulleted-list"><li style="list-style-type:disc">SES: 음성메일 내용과 오디오 파일 링크가 포함된 이메일을 발송합니다</li></ul></div><div style="display:contents" dir="auto"><h2 id="231f8917-466a-8086-9edc-e57024008455" class="">주요 특징</h2></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-80e0-bc3c-ef7222f6d603" class="numbered-list" start="1"><li><strong>서버리스 아키텍처</strong>: Lambda 함수를 활용하여 확장성과 비용 효율성을 확보</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-8023-9dfd-e83374c92312" class="numbered-list" start="2"><li><strong>실시간 처리</strong>: Kinesis를 통한 실시간 스트리밍 처리</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-8005-a664-cd204eb6f365" class="numbered-list" start="3"><li><strong>다중 알림 채널</strong>: 이메일과 SMS/푸시 알림을 동시에 지원</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-8021-ad39-cdfdcab6c4ed" class="numbered-list" start="4"><li><strong>음성-텍스트 변환</strong>: Transcribe를 통해 음성메일 내용을 텍스트로도 제공</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="231f8917-466a-809f-862b-cb98db1072df" class="numbered-list" start="5"><li><strong>보안</strong>: Secrets Manager를 통한 안전한 자격 증명 관리</li></ol></div><div style="display:contents" dir="auto"><p id="231f8917-466a-804b-ba64-f2fbcdc4733f" class="">이 아키텍처는 고객이 에이전트와 연결되지 못했을 때 음성메일을 남기고, 에이전트가 다양한 채널을 통해 해당 메시지를 받을 수 있도록 하는 완전한 솔루션입니다.</p></div><div style="display:contents" dir="auto"><p id="232f8917-466a-807b-9e3f-e609c6598ce8" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="231f8917-466a-8089-b4a9-dc2f7e209f81" class=""><mark class="highlight-blue">Contact Flow</mark></h1></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80a8-85e7-f51df5efcc60" class="">Customer Queue Flow [e.g Queue Music]</h3></div><div style="display:contents" dir="auto"><p id="232f8917-466a-8015-90d8-ff4e065a972f" class="">: 고객이 큐에 들어 왔을때 실시되는 플로우 시나리오.</p></div><div style="display:contents" dir="auto"><p id="232f8917-466a-804d-8f55-c0be42c5c284" class="">This contact flow is executed when a customer is placed in a queue.</p></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8065-9fa7-ce9c362df900" class="">Customer Hold Flow [e.g Hold Music]</h3></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80a6-9cd1-f8f5253e96c0" class="">:  This contact flow starts when the customer is put on hold. It plays the audio that the customer hears while on hold.</p></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80c1-9d33-c61f7d8197c2" class="">Customer Whisper Flow [e.g Agent/Q Greeting]</h3></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80c6-91bd-c8b4da42fb37" class="">: 고객과 상담원이 연결되기 직전에 안내멘트, 등과 같은 속삭임 멘트</p></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80e8-bbd5-f98e79e43591" class="">This contact flow starts immediately before the call is connected. Default uses a “beep” sound to notify a customer thata their call has been connected to an agent.</p></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80ea-95f7-ee636b417d26" class="">Customer Outbound Whisper Flow</h3></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80ff-843a-e560203b5f96" class="">: 연결될때, 고객에게 알려주는 안내 멘트.</p></div><div style="display:contents" dir="auto"><p id="232f8917-466a-8018-a840-fa3a8d64f1fb" class="">Customer will hear whats is in the Outbound whisper flows after an agent made a direct dial or accept callback. Configured in “Edit Queue”</p></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8087-b754-d7902c8a1f76" class="">Agent Hold Flow [e.g Hold Music For Agent]</h3></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80ac-b715-c726415aced3" class="">: This contact flow starts when the customer is put on hold. It plays the audio that the Agent hears while customer is on hold.</p></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80be-a3be-d3207a3045dd" class="">Agent Whiper Flow [e.g Zip Tone For Agent]</h3></div><div style="display:contents" dir="auto"><p id="232f8917-466a-8025-91ef-f9863c7a3305" class="">: Executed before call is connected to agent. Like play a prompt for the agent for the name of the Queue.</p></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8045-8bbf-f1b28439aea5" class="">Transfer to Agent Flow</h3></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80df-b233-fd742fce4310" class="">: This default transfer flow is the customer’s experience when the customer is transferred to another agent. A Play prompt plays the message “Transferring now.” Then the Transfer to agent block is used to transfer the contact to the agent Specified in Quick Connect setup.</p></div><div style="display:contents" dir="auto"><h1 id="232f8917-466a-8063-94f4-c14b7992ee1d" class=""><mark class="highlight-blue">라우팅 전략</mark></h1></div><div style="display:contents" dir="ltr"><figure id="232f8917-466a-80e8-8252-eb1e80450f7a" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2016.png"><img style="width:709.953125px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2016.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80a9-b9b4-f5b7bb6a9e4d" class="">이 다이어그램은 Amazon Connect의 <strong>Queue Overflow 라우팅 전략</strong>을 보여줌. 대기 시간이 길어지거나 대기 중인 고객이 많을 때 자동으로 다른 상담원 그룹으로 통화를 전환하는 전략. </p></div><div style="display:contents" dir="auto"><blockquote id="232f8917-466a-80e7-a585-e209acaa0a8e" class="">Change Routing Priority / age 를 조정할 수 있다. 우선순위를 조정하여 상담원 연결을 앞당기거나, 대기시간(age)을 늘려서 오래 기다린 고객으로 지정하여 상담원 연결을 앞당길 수 있다.</blockquote></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-8096-900b-f84fed004678" class="">핵심 구성 요소</h2></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80a2-8bcb-d2775e2c957f" class="">1. 오버플로우 조건 (Overflow Conditions)</h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8076-afa8-cd5c8253633e" class="bulleted-list"><li style="list-style-type:disc"><strong>Longest Time in Queue &gt; 20 sec</strong>: 대기 시간이 20초를 초과할 때</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8059-9d74-deb821dc12a2" class="bulleted-list"><li style="list-style-type:disc"><strong>Calls in Queue &gt; 5</strong>: 대기 중인 통화가 5건을 초과할 때</li></ul></div><div style="display:contents" dir="auto"><p id="232f8917-466a-8027-b67a-d0757a96988e" class="">이 두 조건 중 하나라도 충족되면 오버플로우가 발생</p></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80b1-a852-c6dd8a0fd64d" class="">2. 큐 상태 체크 (Queue Status Check)</h3></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80f9-b84a-fbc499c0de24" class="">Contact Flow에서 실시간으로 큐 상태를 모니터링합니다:</p></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8084-82cb-e46c09ca4e07" class="bulleted-list"><li style="list-style-type:disc"><strong>Time in Queue &gt; 20</strong>: 현재 가장 오래 대기 중인 고객의 대기 시간</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80d1-ba52-cc5bb37617aa" class="bulleted-list"><li style="list-style-type:disc"><strong>Queue capacity &gt; 5</strong>: 현재 대기 중인 통화 수</li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-806c-b1a7-c9f0dd91e0e2" class="">3. 라우팅 프로필 계층 구조</h3></div><div style="display:contents" dir="auto"><p id="232f8917-466a-807e-928b-f64860bbd0b1" class=""><strong>Primary Queue: Savings (저축 상담)</strong></p></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-804f-b2ed-fbe0fc0b415b" class="bulleted-list"><li style="list-style-type:disc">Pri 1 (우선순위 1): Savings 큐</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80c7-9c1f-e3b41bc60133" class="bulleted-list"><li style="list-style-type:disc">Pri 1: Savings Overflow 큐 (대체 큐)</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8067-8748-d11ea0890f56" class="bulleted-list"><li style="list-style-type:disc">0 sec: 즉시 라우팅</li></ul></div><div style="display:contents" dir="auto"><p id="232f8917-466a-802f-9db0-d5bad0b91870" class=""><strong>Overflow Target: Senior Agents</strong></p></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8052-89bc-d9262aae337f" class="bulleted-list"><li style="list-style-type:disc">오버플로우 발생 시 시니어 상담원 그룹으로 전환</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80ad-add0-df6d443455d6" class="bulleted-list"><li style="list-style-type:disc">더 숙련된 상담원이 밀린 통화를 처리<div style="display:contents" dir="auto"><h2 id="232f8917-466a-80ea-a857-e6c359748c37" class="">실제 작동 예시</h2></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8077-8d3b-e0adca34a3f2" class="">시나리오 1: 정상 상황</h3></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-802b-9244-f5a39ccbb8a7" class="numbered-list" start="1"><li>고객이 저축 상담을 위해 전화</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-809b-a8d4-d6045cf47ce4" class="numbered-list" start="2"><li>Savings 큐로 라우팅</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8085-bbe6-cfba76d6d511" class="numbered-list" start="3"><li>대기 시간 15초, 대기 인원 3명</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-80d6-833b-fd69df7ff899" class="numbered-list" start="4"><li>정상적으로 Savings Agents가 처리</li></ol></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8006-8b71-ecb4f69f28f7" class="">시나리오 2: 오버플로우 발생</h3></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-80a2-ab01-c5638e29ef7f" class="numbered-list" start="1"><li>고객이 저축 상담을 위해 전화</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8003-a4d6-d4836d0dde7a" class="numbered-list" start="2"><li>현재 상황:<div style="display:contents" dir="auto"><ul id="232f8917-466a-8022-a230-fe0a6e826648" class="bulleted-list"><li style="list-style-type:disc">대기 시간: 25초 (20초 초과 ✓)</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-801f-8540-e8bcf4dffa7a" class="bulleted-list"><li style="list-style-type:disc">대기 인원: 7명 (5명 초과 ✓)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8053-abb3-c4595bc4fe65" class="numbered-list" start="3"><li>오버플로우 조건 충족</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8011-bb6a-eb241828bf4e" class="numbered-list" start="4"><li>자동으로 Senior Agents 그룹으로 라우팅</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8022-8a46-e8f42b44ec97" class="numbered-list" start="5"><li>시니어 상담원이 저축 상담 통화도 처리</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-801f-8148-fbcee03a6981" class="">이 전략의 장점</h2></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8003-8ac5-c89b8bcf55c2" class="numbered-list" start="1"><li><strong>고객 경험 개선</strong><div style="display:contents" dir="auto"><ul id="232f8917-466a-8086-8e90-c72ab6f86b68" class="bulleted-list"><li style="list-style-type:disc">긴 대기 시간 방지</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8020-a674-e1e41abbe0f5" class="bulleted-list"><li style="list-style-type:disc">포기 통화(Abandoned Calls) 감소</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8095-93b3-e5dd760eaf1c" class="numbered-list" start="2"><li><strong>리소스 효율성</strong><div style="display:contents" dir="auto"><ul id="232f8917-466a-80df-90b7-e76256963fdd" class="bulleted-list"><li style="list-style-type:disc">유휴 상담원 활용</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-808c-8903-fa099090f1dd" class="bulleted-list"><li style="list-style-type:disc">피크 시간대 유연한 대응</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8098-972f-dde2d0c3b295" class="numbered-list" start="3"><li><strong>서비스 레벨 유지</strong><div style="display:contents" dir="auto"><ul id="232f8917-466a-8007-9181-c16a3c6ae499" class="bulleted-list"><li style="list-style-type:disc">SLA(Service Level Agreement) 목표 달성</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8019-95df-d1ad1a84de4c" class="bulleted-list"><li style="list-style-type:disc">평균 대기 시간 감소</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8056-866a-d2bd8ce1d076" class="numbered-list" start="4"><li><strong>자동화된 관리</strong><div style="display:contents" dir="auto"><ul id="232f8917-466a-8060-b9ef-f5e790c35717" class="bulleted-list"><li style="list-style-type:disc">실시간 모니터링과 자동 전환</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80dd-94f9-e34ceac617b7" class="bulleted-list"><li style="list-style-type:disc">수동 개입 불필요</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-8065-85d1-e824c8507747" class="">구성 시 고려사항</h2></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80f3-aaf3-f0031a3a237e" class="bulleted-list"><li style="list-style-type:disc"><strong>스킬 매칭</strong>: Senior Agents가 Savings 상담도 처리할 수 있어야 함</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8025-bcc3-cba7e9185972" class="bulleted-list"><li style="list-style-type:disc"><strong>우선순위 설정</strong>: 오버플로우 통화의 우선순위 조정 필요</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8072-a068-eda7ac388d02" class="bulleted-list"><li style="list-style-type:disc"><strong>임계값 조정</strong>: 비즈니스 요구에 따라 20초, 5건 등의 값 조정</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80c3-a779-c777160d56fd" class="bulleted-list"><li style="list-style-type:disc"><strong>모니터링</strong>: 오버플로우 빈도 추적으로 인력 계획 수립</li></ul></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80e5-8969-dd7274fd0e38" class="">이 전략은 특히 예측하기 어려운 통화량 급증이나 계절적 피크 시즌에 매우 효과적입니다.</p></div><div style="display:contents" dir="auto"><hr id="232f8917-466a-80d0-82db-c4f0f351e1fb"/></div><div style="display:contents" dir="ltr"><figure id="232f8917-466a-80f9-970a-ffe8d768dbed" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2017.png"><img style="width:709.96875px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2017.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80b4-9000-dd9a95e6e064" class="">이 다이어그램은 Amazon Connect의 <strong>동적 라우팅 우선순위 조정 전략</strong>을 보여줌. AWS Lambda와 비즈니스 인텔리전스를 활용하여 실시간으로 큐의 우선순위를 조정하는 고급 라우팅 전략</p></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-80a9-898b-d280e7ba66b3" class="">핵심 구성 요소</h2></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8077-b1d1-e61190c00eaa" class="">1. Service Level Goal (서비스 레벨 목표)</h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80ba-a5a0-ca2eba632646" class="bulleted-list"><li style="list-style-type:disc"><strong>목표: 30초 이내 응답</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8056-ae22-e3d8e5ef79ae" class="bulleted-list"><li style="list-style-type:disc">모든 고객 통화를 30초 이내에 상담원과 연결하는 것이 목표</li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-804c-92bf-c62522449b57" class="">2. AWS Lambda 통합</h3></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80c6-8d21-ea1169cacc86" class="">Lambda 함수가 두 가지 데이터 소스와 연동:</p></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-805b-8059-dcf96f14b69b" class="bulleted-list"><li style="list-style-type:disc"><strong>Customer Databases</strong>: 고객 정보, 등급, 이력</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8007-82a2-e438c169cb9d" class="bulleted-list"><li style="list-style-type:disc"><strong>Business Intelligence</strong>: 실시간 큐 성능, 대기 시간 분석</li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80ad-b779-f9df9f0f1536" class="">3. 동적 우선순위 조정</h3></div><div style="display:contents" dir="auto"><p id="232f8917-466a-8086-b6be-e9f541fe8807" class=""><strong>초기 상태</strong>:</p></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8035-af32-d3b01ff859f5" class="bulleted-list"><li style="list-style-type:disc">Savings Agents: Savings Queue만 처리 (Pri 1, 0초)</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8046-b845-dbe83667058c" class="bulleted-list"><li style="list-style-type:disc">Senior Agents: Checking Queue (Pri 1, 15초), Savings Queue (Pri 1, 15초)</li></ul></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80ab-a738-d540382bb99c" class=""><strong>조정 후 (&quot;15 seconds later...&quot;)</strong>:</p></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80f6-8f14-cb013b18f094" class="bulleted-list"><li style="list-style-type:disc">Lambda가 실시간 분석을 통해 우선순위를 동적으로 재조정</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8026-b00e-c2edd4addc04" class="bulleted-list"><li style="list-style-type:disc">대기 시간이 긴 큐의 우선순위를 높이거나 라우팅 지연 시간을 조정</li></ul></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-80f0-a8bb-c779a338a928" class="">작동 메커니즘</h2></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8014-9939-f0db54b6efbb" class="">1. 실시간 모니터링</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="232f8917-466a-8060-b449-cd0a5dcf0f27" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Lambda 함수가 매 15초마다:
+- 각 큐의 평균 대기 시간 체크
+- Service Level 달성률 계산
+- 상담원 가용성 확인
+</code></pre></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8078-97d5-f3160c7cc16f" class="">2. 지능형 의사결정</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="232f8917-466a-80e8-b090-ce1b5b5a3f87" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">IF Savings Queue 평균 대기 &gt; 25초 THEN
+  - Senior Agents의 Savings Queue 지연 시간을 15초 → 5초로 단축
+  - 더 많은 Senior Agents가 Savings 통화 처리
+</code></pre></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-806c-8c4f-fd0f9fe76afa" class="">3. 비즈니스 규칙 적용</h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80d9-bd89-f12417cf564f" class="bulleted-list"><li style="list-style-type:disc">VIP 고객 식별 시 즉시 Senior Agents로 라우팅</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-805d-941b-d0afdf9f6fcf" class="bulleted-list"><li style="list-style-type:disc">고객 이력 기반 적절한 스킬 그룹 매칭</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8088-9d90-ceaaa9f85e49" class="bulleted-list"><li style="list-style-type:disc">피크 시간대 자동 조정<div style="display:contents" dir="auto"><h2 id="232f8917-466a-80cc-8050-f2032239c24c" class="">실제 시나리오 예시</h2></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8034-a3f2-f63e8d3d504c" class="">시나리오 1: 정상 운영</h3></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8009-8460-ecb5f6e2cb5f" class="numbered-list" start="1"><li>오전 10시, 평균 대기 시간 15초</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-805c-84f6-fc509309c9ef" class="numbered-list" start="2"><li>Lambda 분석: &quot;Service Level 목표 달성 중&quot;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-807c-a1e4-ef37d3f2d918" class="numbered-list" start="3"><li>기존 우선순위 유지</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-808d-8e41-e3593aaa4225" class="numbered-list" start="4"><li>Senior Agents는 주로 Checking 업무 집중</li></ol></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-800c-a2a4-d393952ef57d" class="">시나리오 2: Savings Queue 폭주</h3></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-80b4-9694-e817374fb7af" class="numbered-list" start="1"><li>오후 2시, Savings Queue 대기 시간 35초 초과</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8094-8ae1-d97528a251fd" class="numbered-list" start="2"><li>Lambda 분석: &quot;Service Level 위험&quot;</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-80c2-be09-d2747bc4b27c" class="numbered-list" start="3"><li>동적 조정 실행:<div style="display:contents" dir="auto"><ul id="232f8917-466a-8072-823b-fef3d604f8dd" class="bulleted-list"><li style="list-style-type:disc">Senior Agents의 Savings Queue 지연: 15초 → 0초</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-804f-aac9-dd9e143fcd0f" class="bulleted-list"><li style="list-style-type:disc">Checking Queue 지연: 15초 → 30초</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8046-97e4-ff941a201fc8" class="numbered-list" start="4"><li>더 많은 Senior Agents가 Savings 통화 즉시 처리</li></ol></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-803f-90a4-fc299ead51b3" class="">시나리오 3: VIP 고객 우선 처리</h3></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-80e5-b2b0-cd18c2f8d891" class="numbered-list" start="1"><li>VIP 고객 인입</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-8047-b2a5-d8cd01ae6ea8" class="numbered-list" start="2"><li>Lambda가 Customer Database에서 VIP 상태 확인</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-80ea-9e95-fd5aa8bef788" class="numbered-list" start="3"><li>즉시 Senior Agents 그룹으로 라우팅</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="232f8917-466a-808b-bc03-df443708e426" class="numbered-list" start="4"><li>일반 큐 대기 없이 우선 연결</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-803a-9c8f-d00d2d4e26a2" class="">이 전략의 장점</h2></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80fd-a2b7-ce0e1240acef" class="">1. <strong>지능형 자동화</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80dd-9188-d340851e15f6" class="bulleted-list"><li style="list-style-type:disc">수동 개입 없이 자동 최적화</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-802d-9d2d-fbe9f480d400" class="bulleted-list"><li style="list-style-type:disc">실시간 비즈니스 규칙 적용</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-807e-a1d0-c2d83c81667c" class="bulleted-list"><li style="list-style-type:disc">예측적 라우팅 가능</li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80ef-b864-d61da9dc25ab" class="">2. <strong>Service Level 보장</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-809c-bd5b-de1014fd4fc5" class="bulleted-list"><li style="list-style-type:disc">30초 목표 달성률 향상</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80f3-90a9-d5530e3cb56e" class="bulleted-list"><li style="list-style-type:disc">고객 만족도 증가</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80e5-a0d1-dd2fa18644e4" class="bulleted-list"><li style="list-style-type:disc">SLA 패널티 감소</li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8030-ab1c-fda0889884c0" class="">3. <strong>리소스 최적화</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-809c-9551-e58754cfd860" class="bulleted-list"><li style="list-style-type:disc">상담원 활용률 극대화</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8033-8046-e0e5e4cabe51" class="bulleted-list"><li style="list-style-type:disc">스킬 기반 동적 할당</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8091-a9ed-da0283174f64" class="bulleted-list"><li style="list-style-type:disc">유연한 인력 운영</li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80fa-95fe-ed4d708ad4ed" class="">4. <strong>데이터 기반 의사결정</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-801b-bc38-e0b6f140af3b" class="bulleted-list"><li style="list-style-type:disc">BI 도구와 연동한 실시간 분석</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8080-b797-d8728a3134f6" class="bulleted-list"><li style="list-style-type:disc">과거 패턴 학습</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-805e-a6ad-d8a90b371406" class="bulleted-list"><li style="list-style-type:disc">예측 모델 적용 가능</li></ul></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-8095-a8fb-d853bd9f199d" class="">구현 시 고려사항</h2></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8067-921b-e1018256b0d9" class="bulleted-list"><li style="list-style-type:disc"><strong>Lambda 성능</strong>: 15초 주기 실행 시 지연 시간 최소화</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80c3-aab8-f38d02549a3e" class="bulleted-list"><li style="list-style-type:disc"><strong>데이터 정확성</strong>: 실시간 큐 메트릭스의 정확한 수집</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8078-9b99-f36f4a92cdcd" class="bulleted-list"><li style="list-style-type:disc"><strong>복잡도 관리</strong>: 너무 빈번한 조정은 오히려 혼란 야기</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8080-ac4f-f5b89b0f5c12" class="bulleted-list"><li style="list-style-type:disc"><strong>비용 최적화</strong>: Lambda 실행 빈도와 비용 균형</li></ul></div><div style="display:contents" dir="auto"><p id="232f8917-466a-800b-a4f7-fba7a243d9fe" class="">이 전략은 특히 복잡한 콜센터 환경에서 다양한 서비스 레벨 목표를 동시에 달성해야 할 때 매우 효과적임.</p></div><div style="display:contents" dir="auto"><h1 id="232f8917-466a-805c-93a7-cc4b8407d48f" class=""><mark class="highlight-blue">고객 대화 녹취 - Call 녹취 및 Chat Transcript</mark></h1></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-80c4-9006-c6e85089082b" class="">Call 녹취 파일</h2></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8078-9c14-cee995259fd3" class="bulleted-list"><li style="list-style-type:disc">Call 종료 후 S3에 저장</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8011-8b96-e0eff7f9266b" class="bulleted-list"><li style="list-style-type:disc">PCM WAV - 8Khz, 256kbps, Stereo</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8018-b1f2-c2dc37ed90c7" class="bulleted-list"><li style="list-style-type:disc">화자 채널 분리</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-805c-bf43-f003d87b78cd" class="bulleted-list"><li style="list-style-type:disc">녹취 API (Start, Stop, Suspend, Resume)</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8033-8e99-ec9f5424396e" class="bulleted-list"><li style="list-style-type:disc">Transcribe(STT), Comprehend 고객 대화 분석</li></ul></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-803c-9255-e617a5bf10d7" class="">Chat Transcript</h2></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8061-832b-cf879368662a" class="bulleted-list"><li style="list-style-type:disc">Chat 세션 종료 후 S3에 저장</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8002-9910-e99f8012ba7f" class="bulleted-list"><li style="list-style-type:disc">JSON - 화자 구분 및 Timestamp</li></ul></div><div style="display:contents" dir="auto"><h1 id="232f8917-466a-80cb-a8d5-cacbdf43dcd7" class="">CTR(Contact Trace Records)</h1></div><div style="display:contents" dir="auto"><p id="232f8917-466a-8045-86ff-dc35846955f5" class="">CTR은 Amazon Connect에서 모든 고객 상호작용(통화, 채팅, 작업)에 대한 상세한 기록을 담은 데이터 레코드. 콜센터의 ‘블랙박스’라고 생각하면 됨.</p></div><div style="display:contents" dir="ltr"><figure id="232f8917-466a-8097-97b5-d8208cfeb416" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2018.png"><img style="width:709.96875px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2018.png"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-80f6-a0a6-fe33e2609db3" class="">CTR의 주요 구성 요소</h2></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8070-ba0f-e2716af3dc0d" class="">1. <strong>기본 정보</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8044-82e7-f3d235e09a8f" class="bulleted-list"><li style="list-style-type:disc"><strong>Contact ID</strong>: 각 상호작용의 고유 식별자</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80ac-a939-f4943da2ab19" class="bulleted-list"><li style="list-style-type:disc"><strong>시작/종료 시간</strong>: 통화 시작과 종료 시각</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-803f-aa67-dfefece63d20" class="bulleted-list"><li style="list-style-type:disc"><strong>채널</strong>: 음성, 채팅, 작업(task) 구분</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80e8-8307-f1d71dba1314" class="bulleted-list"><li style="list-style-type:disc"><strong>초기 연락 ID</strong>: 전환된 통화의 경우 원래 통화 추적</li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8079-81e1-c35523a406bc" class="">2. <strong>고객 정보</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80a8-9f23-d1bdcbd324cc" class="bulleted-list"><li style="list-style-type:disc"><strong>전화번호</strong>: 발신자 번호</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8015-b8cb-d96c166c527c" class="bulleted-list"><li style="list-style-type:disc"><strong>고객 엔드포인트</strong>: 고객이 사용한 디바이스/채널 정보</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80aa-a6cb-ec6c46dbfe74" class="bulleted-list"><li style="list-style-type:disc"><strong>위치 정보</strong>: 가능한 경우 지역 정보</li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8014-a4e6-fc2b1b76e75a" class="">3. <strong>라우팅 정보</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-801a-ab60-c95b9bcf4316" class="bulleted-list"><li style="list-style-type:disc"><strong>큐(Queue)</strong>: 어느 대기열을 거쳤는지</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8038-b129-d777c7eac98d" class="bulleted-list"><li style="list-style-type:disc"><strong>상담원</strong>: 담당한 상담원 ID와 이름</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80ef-b8fc-dce7bd25960c" class="bulleted-list"><li style="list-style-type:disc"><strong>라우팅 프로필</strong>: 사용된 라우팅 규칙</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80a2-b46e-f9fe78acaef4" class="bulleted-list"><li style="list-style-type:disc"><strong>전환 이력</strong>: 다른 상담원/큐로 전환된 기록</li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8013-9862-cf8157de919f" class="">4. <strong>시간 측정 데이터</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8043-a0a7-e52cacb6f096" class="bulleted-list"><li style="list-style-type:disc"><code>Queue Duration: 대기열에서 대기한 시간<br/>- Agent Interaction Duration: 상담원과 통화한 시간<br/>- Hold Time: 보류 시간<br/>- After Contact Work Time: 후처리 시간<br/>- Total Duration: 전체 통화 시간</code></li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8014-ad8a-ced2156b4c79" class="">5. <strong>통화 품질 메트릭</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80ce-a532-f3b411a568a9" class="bulleted-list"><li style="list-style-type:disc"><strong>녹음 여부</strong>: 통화 녹음 링크</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8096-83e2-e3da913146a8" class="bulleted-list"><li style="list-style-type:disc"><strong>전환 횟수</strong>: 상담원/부서 간 전환 횟수</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8062-a5a3-d199d2a7c3da" class="bulleted-list"><li style="list-style-type:disc"><strong>연결 해제 사유</strong>: 고객/상담원/시스템 중 누가 끊었는지</li></ul></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-8076-9e65-e9ca0718dddf" class="">CTR 데이터 예시</h2></div><div style="display:contents" dir="auto"><p id="232f8917-466a-809d-ba49-dde58952ba75" class="">json</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="232f8917-466a-80b6-bf71-e8a1f177cc51" class="code code-wrap"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;ContactId&quot;: &quot;12345-67890-abcde&quot;,
+  &quot;InitiationTimestamp&quot;: &quot;2024-01-15T10:30:00Z&quot;,
+  &quot;DisconnectTimestamp&quot;: &quot;2024-01-15T10:45:30Z&quot;,
+  &quot;Channel&quot;: &quot;VOICE&quot;,
+  &quot;CustomerEndpoint&quot;: {
+    &quot;Address&quot;: &quot;+1-555-123-4567&quot;,
+    &quot;Type&quot;: &quot;TELEPHONE_NUMBER&quot;
+  },
+  &quot;Queue&quot;: {
+    &quot;Name&quot;: &quot;TechnicalSupport&quot;,
+    &quot;EnqueueTimestamp&quot;: &quot;2024-01-15T10:30:15Z&quot;,
+    &quot;DequeueTimestamp&quot;: &quot;2024-01-15T10:32:45Z&quot;,
+    &quot;Duration&quot;: 150  // 2분 30초
+  },
+  &quot;Agent&quot;: {
+    &quot;Username&quot;: &quot;john.doe&quot;,
+    &quot;RoutingProfile&quot;: &quot;TechSupport-L2&quot;,
+    &quot;ConnectedTimestamp&quot;: &quot;2024-01-15T10:32:45Z&quot;,
+    &quot;AfterContactWorkDuration&quot;: 60
+  },
+  &quot;Recordings&quot;: [{
+    &quot;Location&quot;: &quot;s3://contact-recordings/12345-67890-abcde.wav&quot;
+  }],
+  &quot;Attributes&quot;: {
+    &quot;CustomerType&quot;: &quot;Premium&quot;,
+    &quot;IssueCategory&quot;: &quot;NetworkConnectivity&quot;,
+    &quot;Resolution&quot;: &quot;Resolved&quot;
+  }
+}</code></pre></div><div style="display:contents" dir="auto"><h2 id="232f8917-466a-80fa-98c0-c26e1186a278" class="">CTR 활용 사례</h2></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80ff-bbee-f4f051c79ad1" class="">1. <strong>실시간 모니터링</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8034-91bd-f7557a87aea5" class="bulleted-list"><li style="list-style-type:disc">현재 대기 중인 고객 수</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-805b-9ed8-d9db3d1f82bb" class="bulleted-list"><li style="list-style-type:disc">평균 대기 시간</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8052-aa19-e9226e1e4fc4" class="bulleted-list"><li style="list-style-type:disc">상담원 상태 추적</li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-8043-9079-fad50289aa3c" class="">2. <strong>성과 분석</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80e6-80e6-d2dce1909ddd" class="bulleted-list"><li style="list-style-type:disc">상담원별 처리 건수</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8054-9b0b-e2c2fb2b5cb8" class="bulleted-list"><li style="list-style-type:disc">평균 통화 시간</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-805b-bfae-f1af99ea298a" class="bulleted-list"><li style="list-style-type:disc">First Call Resolution (FCR) 비율</li></ul></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-80d6-9938-d59386abd99d" class="">3. <strong>고객 경험 개선</strong></h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-804f-b4b5-f13b622bb185" class="bulleted-list"><li style="list-style-type:disc">긴 대기 시간 패턴 파악</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8066-b4ac-f52e841b76be" class="bulleted-list"><li style="list-style-type:disc">자주 전환되는 통화 유형 분석</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8009-8e9a-cc5c74259506" class="bulleted-list"><li style="list-style-type:disc">포기 통화(Abandoned Calls) 원인 분석</li></ul></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80b9-9051-c5edda0bb166" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="232f8917-466a-8048-bb4f-eb87100e6480" class="">Live Media Streaming</h1></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8079-88da-e4a723098908" class="bulleted-list"><li style="list-style-type:disc">고객 및 에이전트 오디오</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8036-a6ef-e1f5ad77e328" class="bulleted-list"><li style="list-style-type:disc">Call Flow에서 시작/종료 시점 설정 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-807e-a60e-ce6fecca677d" class="bulleted-list"><li style="list-style-type:disc">Transcribe, Translate, Comprehend 등과 결함하여 감정 분석, 문맥 분석 등 다양한 AI 결합 기능 개발</li></ul></div><div style="display:contents" dir="ltr"><figure id="232f8917-466a-803a-b382-ce65d81276ce" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2019.png"><img style="width:709.96875px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2019.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="232f8917-466a-8004-9629-dd729cb3f09b" class="">Call Flow Log(IVR Logs)</h1></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80ce-8dbd-cd69bb3c1e22" class="bulleted-list"><li style="list-style-type:disc">Call Flow 내의 Block 단위로 콜에 대한 상세 처리 과정 및 결과 확인</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-803e-b2e5-f9f8003e3b23" class="bulleted-list"><li style="list-style-type:disc">Lambda 함수 결과값 실시간 저장</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80f1-89c5-d1047d26ad9d" class="bulleted-list"><li style="list-style-type:disc">Debugging, Auditing, Trouble-Shooting</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80e8-ae18-d5764ad67623" class="bulleted-list"><li style="list-style-type:disc">CloudWatch에 저장되며 CloudWatch Insight로 모니터링 가능</li></ul></div><div style="display:contents" dir="ltr"><figure id="232f8917-466a-80a0-afb6-ea892d121d4e" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2020.png"><img style="width:659px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2020.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="232f8917-466a-8025-ac42-e53ad7b9565d" class="">Cloudwatch Metrics</h1></div><div style="display:contents" dir="auto"><h3 id="232f8917-466a-802e-806d-cb3bf435e134" class="">Contact Center Health Monitoring</h3></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8011-9aa5-c0a1e807f9bd" class="bulleted-list"><li style="list-style-type:disc">동시 콜 수 </li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8084-a68c-f4c4f949acb6" class="bulleted-list"><li style="list-style-type:disc">전체 콜 수</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-809d-9fb6-d0c054bc499b" class="bulleted-list"><li style="list-style-type:disc">초당 처리 콜 수</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-801e-8364-e00ba55f75ad" class="bulleted-list"><li style="list-style-type:disc">전체 대기중인 콜 수</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80e6-b271-ebc225215e18" class="bulleted-list"><li style="list-style-type:disc">packet loss</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8007-abe5-e25991faf9a7" class="bulleted-list"><li style="list-style-type:disc">Missed Calls</li></ul></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80fa-bdaf-f55dc161c45c" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="232f8917-466a-80a7-af75-e2fbabf30c9c" class="">Reporting API</h1></div><div style="display:contents" dir="ltr"><figure id="232f8917-466a-80ba-9f5b-d700f10a84ca" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2021.png"><img style="width:394px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2021.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="232f8917-466a-8088-986f-e48d0c3cd5fe" class="column-list"><div style="display:contents" dir="auto"><div id="232f8917-466a-8077-b004-e5eb93dfd9c9" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="232f8917-466a-8049-b6fe-fa19adcff18a" class=""><strong>Real Time</strong></p></div><div style="display:contents" dir="ltr"><figure id="232f8917-466a-80c9-9432-da689fea36bd" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2022.png"><img style="width:331.984375px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2022.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="232f8917-466a-805c-b800-d2d7e2d1cd41" style="width:50%" class="column"><div style="display:contents" dir="auto"><p id="232f8917-466a-808f-9edc-c3a883d4a9dd" class=""><strong>Historical Reporting</strong></p></div><div style="display:contents" dir="ltr"><figure id="232f8917-466a-8083-b338-e8683f504535" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2023.png"><img style="width:331.984375px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2023.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h1 id="232f8917-466a-806d-8290-f69bf6a5b141" class="">Check Connectivity Tool</h1></div><div style="display:contents" dir="ltr"><figure id="232f8917-466a-8084-a5aa-d9669b670a07" class="image"><a href="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2024.png"><img style="width:709.953125px" src="%EC%95%84%EB%A7%88%EC%A1%B4%20%EC%BB%A4%EB%84%A5%ED%8A%B8/image%2024.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80a4-a4f2-d8af2e3a559b" class="">현재 Amazon Connect가 설치된 리전들의 latency를 보고, 가장 적은 latency를 갖는 리전에 구축을 하면 됨.</p></div><div style="display:contents" dir="auto"><p id="232f8917-466a-8050-898c-ca5a1a08018f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="232f8917-466a-80af-bc05-c36cbfd423f8" class="">POLLY /  LEX / COMPREHEND / TRANSCRIBE / PINPOINT / DIRECT / </p></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8005-babc-dc44e43b3a37" class="bulleted-list"><li style="list-style-type:disc">폴리는 SSML을 지원한다</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-80ea-863e-c3fbf30b7d5f" class="bulleted-list"><li style="list-style-type:disc">LEX는 다단계 대화 구성이 가능하다.</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-8006-91b7-f608ed4731c4" class="bulleted-list"><li style="list-style-type:disc">COMPREHEND는 텍스트를 통해 감성을 분석할 수 있다.</li></ul></div><div style="display:contents" dir="auto"><ul id="232f8917-466a-807f-a80a-fc794ba3e037" class="bulleted-list"><li style="list-style-type:disc">TRANSCRIBE는 화자인식, 채널분리가 가능하다</li></ul></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

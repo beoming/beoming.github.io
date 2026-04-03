@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>AI 기반 챗봇 구축 MVP 프로젝트 작업 기술서(Statement of Work)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="273f8917-466a-80b1-a26e-c25d2e328788" class="page sans"><header><h1 class="page-title" dir="auto">AI 기반 챗봇 구축 MVP 프로젝트 작업 기술서(Statement of Work)</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="273f8917-466a-808b-b6f5-c49d87c82f97" class="">
+</p></div><div style="display:contents" dir="auto"><p id="273f8917-466a-8098-8c43-f0c0b075c54c" class=""><strong>프로젝트 명:</strong> 무신사 AI 기반 챗봇 MVP 구축</p></div><div style="display:contents" dir="auto"><p id="273f8917-466a-801d-909b-c7716fdbe041" class="">고객사: 무신사 (이하 &quot;고객사&quot;)</p></div><div style="display:contents" dir="auto"><p id="273f8917-466a-803f-8f5e-f4793ff88f92" class="">수행사: GS네오텍 (이하 &quot;수행사&quot;)</p></div><div style="display:contents" dir="auto"><p id="273f8917-466a-80c9-b188-e28819d073df" class="">벤더사: Google</p></div><div style="display:contents" dir="auto"><p id="273f8917-466a-80b5-91f3-e319f95bad79" class="">작성일: 2025년 9월 19일</p></div><div style="display:contents" dir="auto"><p id="273f8917-466a-80ab-96a4-c5a46d3e3782" class="">문서 버전: 1.0</p></div><div style="display:contents" dir="auto"><hr id="273f8917-466a-804d-9fd5-fe7ed639b0a3"/></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-80c8-8306-ca802ef97b90" class="">1. 프로젝트 개요</h3></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-80a8-a950-cdd900d18caa" class="">1.1. 추진 배경</h3></div><div style="display:contents" dir="auto"><p id="273f8917-466a-80b3-b7dc-c4a36739aa7f" class="">무신사는 대한민국 최대 패션 플랫폼으로서, 고객 경험 향상과 운영 효율화를 위해 AI 기술 도입을 적극적으로 추진하고 있습니다1. 현재 고객 문의의 50% 이상이 배송, 반품/교환 등 단순 반복적인 유형에 집중되어 있어, 응대 대기 시간으로 인한 고객 만족도 저하 및 상담 리소스 비효율이 발생하고 있습니다.</p></div><div style="display:contents" dir="auto"><p id="273f8917-466a-80cf-9dee-fb318a7d7362" class="">본 프로젝트는 이러한 문제를 해결하기 위해 Google의 Contact Center Enterprise Solution(CES)을 기반으로 AI 챗봇 MVP(Minimum Viable Product)를 구축하여, 단순 문의에 대한 자동화되고 신속·정확한 응대 체계를 마련하고, 향후 전사적 디지털 전환의 기술적·사업적 타당성을 검증하는 것을 목표로 합니다.</p></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-809d-994a-ec5e0cf55ca6" class="">1.2. 프로젝트 목표</h3></div><div style="display:contents" dir="auto"><p id="273f8917-466a-803c-aab7-f82f4f8c20bb" class="">본 프로젝트의 목표는 다음과 같습니다.</p></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-80a2-bf55-cc2c18a149d8" class="bulleted-list"><li style="list-style-type:disc"><strong>정량적 목표:</strong><div style="display:contents" dir="auto"><ul id="273f8917-466a-80ed-8133-c01c023f881e" class="bulleted-list"><li style="list-style-type:circle"><div style="display:contents" dir="auto"><p id="273f8917-466a-8031-81a1-f71cee71351f" class=""><strong>문제 원인 분석률 90% 이상:</strong> 고객 문의 의도를 무신사 내부 문의유형(3-Level) 기준으로 90% 이상 정확하게 분석합니다4.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-802b-baf0-c5c8998eaadb" class="bulleted-list"><li style="list-style-type:circle"><div style="display:contents" dir="auto"><p id="273f8917-466a-8086-beca-e023bb14490e" class=""><strong>CSAT 점수 4.0 이상:</strong> 챗봇 응대 만족도 점수(5점 만점) 4.0 이상을 달성합니다.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8047-8c66-ddbf8a44302b" class="bulleted-list"><li style="list-style-type:circle"><div style="display:contents" dir="auto"><p id="273f8917-466a-80aa-b135-eadacd40052c" class=""><strong>셀프서비스 정답률 95% 이상:</strong> 시나리오 기반의 질의에 대해 95% 이상의 정확한 답변을 제공합니다.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-801c-86dc-f6c6cec0de37" class="bulleted-list"><li style="list-style-type:circle"><div style="display:contents" dir="auto"><p id="273f8917-466a-80fa-9796-d70261b3ad9f" class=""><strong>응답 시간 3초 이내:</strong> 고객 질의 후 챗봇의 첫 응답까지의 시간을 평균 3초 이내로 유지합니다.</p></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-802f-90de-f22390c455ae" class="bulleted-list"><li style="list-style-type:disc"><strong>정성적 목표:</strong><div style="display:contents" dir="auto"><ul id="273f8917-466a-803d-91fe-cd9a2478fbcf" class="bulleted-list"><li style="list-style-type:circle">Google CES 솔루션의 기술적 적합성 및 무신사 비즈니스 요구사항 부합도 검증.</li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-803b-b0b9-e909542965e5" class="bulleted-list"><li style="list-style-type:circle">AI 챗봇을 통한 차별화된 고객 경험 제공 및 운영 효율화 가능성 확인.</li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8035-8674-c5693f03cd28" class="bulleted-list"><li style="list-style-type:circle">본 프로젝트 확산 시 발생 가능한 이슈를 사전에 식별하고, ROI 분석을 통해 데이터 기반 의사결정 지원.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="273f8917-466a-8030-9c7b-f51ed7883614"/></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-8041-99c8-cf9e0720983b" class="">2. 프로젝트 범위</h3></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-809a-bf8d-cfa7fb9e2349" class="">2.1. 적용 대상</h3></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-80fc-a8ca-cba84ec6c57a" class="bulleted-list"><li style="list-style-type:disc"><div style="display:contents" dir="auto"><p id="273f8917-466a-80fa-948d-c60290e6fc7a" class=""><strong>플랫폼:</strong> 무신사, 29CM </p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-800c-9b29-c72936274e50" class="bulleted-list"><li style="list-style-type:disc"><div style="display:contents" dir="auto"><p id="273f8917-466a-8089-addd-f31c5b7fae90" class=""><strong>채널:</strong> 웹/앱 채팅봇 </p></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-80dd-9552-ce871f703cb5" class="">2.2. 주요 구축 범위 (In-Scope)</h3></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8064-aa63-d3d7d5021b81" class="bulleted-list"><li style="list-style-type:disc"><div style="display:contents" dir="auto"><p id="273f8917-466a-8026-9bb1-cbc417ed4a67" class=""><strong>AI 챗봇 시나리오 6종 구현:</strong> 고객 문의 빈도와 비즈니스 영향도가 높은 6개 핵심 시나리오(반품 5종, 교환 1종)를 대상으로 AI 챗봇을 구현합니다.</p></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8014-b0a1-e65b35cd5070" class="bulleted-list"><li style="list-style-type:circle">단순 변심 반품 (PO) </li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8020-aa18-f2f9cb65a44a" class="bulleted-list"><li style="list-style-type:circle">주문 실수 반품 (PO) </li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8033-8536-f0a0fbb3a381" class="bulleted-list"><li style="list-style-type:circle">검수 불합격 반품 (P1) </li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8009-a109-d987eaa009f7" class="bulleted-list"><li style="list-style-type:circle">송장 번호 조회 (P1) </li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-808a-b161-c19694bf10a2" class="bulleted-list"><li style="list-style-type:circle">누락 상품 재출고 (P1) </li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8089-a55b-e69b64516745" class="bulleted-list"><li style="list-style-type:circle">교환 상품 출고 일정 문의 (P3) </li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8046-9f31-d67ed5302af1" class="bulleted-list"><li style="list-style-type:disc"><div style="display:contents" dir="auto"><p id="273f8917-466a-80c3-a12e-c5dc0a689346" class=""><strong>Google CES 기능 검증:</strong> 챗봇 구축을 중심으로 Google CES의 핵심 기능을 검증합니다.</p></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-80f5-921a-d1d6c42769a5" class="bulleted-list"><li style="list-style-type:circle"><div style="display:contents" dir="auto"><p id="273f8917-466a-80eb-8a8d-e5b7ed44c306" class=""><strong>Conversational Agents:</strong> Dialogflow CX 기반 대화 모델 설계 및 구현.</p></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8006-ad2e-c82a5ca7e09d" class="bulleted-list"><li style="list-style-type:disc"><div style="display:contents" dir="auto"><p id="273f8917-466a-803c-a88a-dd44eb76a43c" class=""><strong>내부 시스템 연동:</strong> 무신사 백엔드 시스템(주문/배송, 반품/교환 등)과 API 연동을 통해 실시간 데이터 기반의 개인화된 응대를 구현합니다. <mark class="highlight-red">(MVP 프로젝트 이후, 운영 파일럿 프로젝트 시)</mark></p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-80d2-903e-c4307407a6cf" class="bulleted-list"><li style="list-style-type:disc"><div style="display:contents" dir="auto"><p id="273f8917-466a-8012-9576-e3fda739c55c" class=""><strong>성능 검증 프레임워크 구축:</strong> 응답 정확도, 유사도 등 AI 모델 성능을 객관적으로 측정하고 평가하는 체계를 구축합니다.</p></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-8071-918b-ff0f52888cce" class="">2.3. 제외 범위 (Out-of-Scope)</h3></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8096-93ac-c573014fb246" class="bulleted-list"><li style="list-style-type:disc">본 계약에서 명시한 6개 시나리오 외 추가 시나리오 개발</li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-80b1-85c3-e914a89a5e73" class="bulleted-list"><li style="list-style-type:disc">무신사, 29CM 외 Third Party 플랫폼(Soldout, Empty 등) 연동 </li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-804b-9e3d-df04e25f21db" class="bulleted-list"><li style="list-style-type:disc">음성봇(Voicebot)의 공식적인 구축 (테스트 결과 확보는 포함) </li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-806a-9f3e-fb8bcdbc1457" class="bulleted-list"><li style="list-style-type:disc">무신사 내부 시스템(API Gateway, 백엔드 로직 등)의 신규 개발</li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8044-af41-f7838964bb36" class="bulleted-list"><li style="list-style-type:disc">챗봇 운영을 위한 물리적 하드웨어 도입 및 구축</li></ul></div><div style="display:contents" dir="auto"><hr id="273f8917-466a-80c9-a01c-f667fb9417fb"/></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-80de-bdb1-da6673e1ed99" class="">3. 역할 및 책임 (Roles &amp; Responsibilities)</h3></div><div style="display:contents" dir="auto"><p id="273f8917-466a-805a-9ae2-c412d117468c" class="">프로젝트의 성공적인 수행을 위해 각 조직의 역할과 책임을 다음과 같이 정의합니다.</p></div><div style="display:contents" dir="ltr"><table id="273f8917-466a-80f1-9882-d0029e19c1cb" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="273f8917-466a-801b-bceb-ca95d5bf506f"><td id="D?d`" class="">구분</td><td id="kQOb" class="">주요 역할</td><td id="l|Xu" class="">고객사 (무신사)</td><td id="pdfX" class="">수행사 (GS네오텍)</td><td id="{@j^" class="">협력사 (Google)</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8013-b165-f42afbf449ad"><td id="D?d`" class=""><strong>프로젝트 관리</strong></td><td id="kQOb" class="">프로젝트 총괄 및 의사결정</td><td id="l|Xu" class=""><strong>A</strong></td><td id="pdfX" class="">R</td><td id="{@j^" class="">C</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80d4-99f4-c5be25acac78"><td id="D?d`" class=""></td><td id="kQOb" class="">프로젝트 계획, 일정, 이슈 및 리스크 관리</td><td id="l|Xu" class="">R</td><td id="pdfX" class=""><strong>A</strong></td><td id="{@j^" class="">I</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80c2-8d38-e92ba0f9ab27"><td id="D?d`" class=""></td><td id="kQOb" class="">주간 보고 및 커뮤니케이션</td><td id="l|Xu" class="">R</td><td id="pdfX" class=""><strong>A</strong></td><td id="{@j^" class="">I</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80ca-aaeb-ca00394458c6"><td id="D?d`" class=""><strong>요구사항 분석</strong></td><td id="kQOb" class="">비즈니스 요구사항 및 KPI 최종 확정</td><td id="l|Xu" class=""><strong>A</strong></td><td id="pdfX" class="">R</td><td id="{@j^" class="">C</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-802d-86f7-c362c92caec8"><td id="D?d`" class=""></td><td id="kQOb" class="">PoC 검증 시나리오 상세화</td><td id="l|Xu" class=""><strong>A</strong></td><td id="pdfX" class="">R</td><td id="{@j^" class="">C</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8011-b9f5-c2abf4e74e80"><td id="D?d`" class=""><strong>데이터 및 시스템</strong></td><td id="kQOb" class="">학습 데이터 제공 (문의 이력, KMS, FAQ)</td><td id="l|Xu" class=""><strong>A</strong></td><td id="pdfX" class="">R</td><td id="{@j^" class="">I</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8059-974d-f9add8d81833"><td id="D?d`" class=""></td><td id="kQOb" class="">테스트 데이터셋 제공 (주문번호 등)</td><td id="l|Xu" class=""><strong>A</strong></td><td id="pdfX" class="">R</td><td id="{@j^" class="">I</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80be-9ede-eea7d109cc3a"><td id="D?d`" class=""></td><td id="kQOb" class="">내부 시스템 연동 API 개발 및 제공</td><td id="l|Xu" class=""><strong>A</strong></td><td id="pdfX" class="">I</td><td id="{@j^" class="">I</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80c3-8845-f6ec7b1280ef"><td id="D?d`" class=""></td><td id="kQOb" class="">채팅 UX 페이지 개발 및 SDK 연동</td><td id="l|Xu" class=""><strong>A</strong></td><td id="pdfX" class="">R</td><td id="{@j^" class="">I</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8074-9a1d-e08a66c29902"><td id="D?d`" class=""><strong>설계 및 개발</strong></td><td id="kQOb" class="">To-Be 아키텍처 설계 및 최종안 도출</td><td id="l|Xu" class="">C</td><td id="pdfX" class=""><strong>A</strong></td><td id="{@j^" class="">C</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80f2-b9e6-c2bb0f1698d2"><td id="D?d`" class=""></td><td id="kQOb" class="">Google CES 기반 AI 에이전트 개발</td><td id="l|Xu" class="">I</td><td id="pdfX" class=""><strong>A</strong></td><td id="{@j^" class="">C</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-800b-854c-f25c672f1545"><td id="D?d`" class=""></td><td id="kQOb" class="">API 연동 로직 및 Cloud Run 코드 개발</td><td id="l|Xu" class="">I</td><td id="pdfX" class=""><strong>A</strong></td><td id="{@j^" class="">C</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8006-ba81-e862fbed5fdb"><td id="D?d`" class=""></td><td id="kQOb" class="">Websocket 환경 및 Chatbot SDK 제공</td><td id="l|Xu" class="">I</td><td id="pdfX" class=""><strong>A</strong></td><td id="{@j^" class="">C</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8011-8c93-cc81394fea83"><td id="D?d`" class=""><strong>테스트 및 검증</strong></td><td id="kQOb" class="">단위/통합 테스트(SIT) 계획 수립 및 수행</td><td id="l|Xu" class="">C</td><td id="pdfX" class=""><strong>A</strong></td><td id="{@j^" class="">I</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-808a-b2ac-d68564f73e04"><td id="D?d`" class=""></td><td id="kQOb" class="">사용자 인수 테스트(UAT) 주관 및 수행</td><td id="l|Xu" class=""><strong>A</strong></td><td id="pdfX" class="">R</td><td id="{@j^" class="">I</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8040-919b-db4e39d316fc"><td id="D?d`" class=""></td><td id="kQOb" class="">성능 및 정확도 검증</td><td id="l|Xu" class="">R</td><td id="pdfX" class=""><strong>A</strong></td><td id="{@j^" class="">C</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8001-bced-de35de9a4893"><td id="D?d`" class=""><strong>결과 보고</strong></td><td id="kQOb" class="">PoC 최종 결과 분석 및 보고서 작성</td><td id="l|Xu" class="">R</td><td id="pdfX" class=""><strong>A</strong></td><td id="{@j^" class="">C</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-807c-94d6-c5d2fbf27a09"><td id="D?d`" class=""></td><td id="kQOb" class="">향후 로드맵 수립 협의</td><td id="l|Xu" class=""><strong>A</strong></td><td id="pdfX" class="">R</td><td id="{@j^" class="">C</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-80c6-8658-fab46d70bd6c" class="bulleted-list"><li style="list-style-type:disc"><strong>A (Accountable):</strong> 최종 책임, <strong>R (Responsible):</strong> 실무 수행, <strong>C (Consulted):</strong> 협의/자문, <strong>I (Informed):</strong> 결과 공유</li></ul></div><div style="display:contents" dir="auto"><hr id="273f8917-466a-80bd-9c4f-ed1e8b6ada57"/></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-8020-89d5-e44fbd03de0d" class="">4. 프로젝트 산출물</h3></div><div style="display:contents" dir="ltr"><table id="273f8917-466a-80e3-bac7-cc76ae5e8156" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80ce-8c68-f9171033378c"><td id="gKR&lt;" class="">단계</td><td id="hLKi" class="" style="width:397.546875px">주요 산출물</td><td id="=^A;" class="" style="width:169.453125px">제출 주체</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80f1-9b30-c2aae7d07212"><td id="gKR&lt;" class=""><strong>착수/기획</strong></td><td id="hLKi" class="" style="width:397.546875px">프로젝트 계획서 (WBS, RACI 포함)</td><td id="=^A;" class="" style="width:169.453125px">GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80ef-b17b-f2f9dbc85e59"><td id="gKR&lt;" class=""></td><td id="hLKi" class="" style="width:397.546875px">최종 KPI 정의서</td><td id="=^A;" class="" style="width:169.453125px">공동 (무신사, GS네오텍)</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8082-9089-ecaa81be724b"><td id="gKR&lt;" class=""><strong>분석/설계</strong></td><td id="hLKi" class="" style="width:397.546875px">To-Be 시스템 아키텍처 설계서</td><td id="=^A;" class="" style="width:169.453125px">GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-808a-b338-d4c74900134f"><td id="gKR&lt;" class=""></td><td id="hLKi" class="" style="width:397.546875px">API 연동 명세서 (가데이터 기준)</td><td id="=^A;" class="" style="width:169.453125px">GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-807b-9586-e9e66491d10b"><td id="gKR&lt;" class=""></td><td id="hLKi" class="" style="width:397.546875px">챗봇 시나리오 상세 Flow Diagram</td><td id="=^A;" class="" style="width:169.453125px">GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80b2-80d5-c317e2941cc6"><td id="gKR&lt;" class=""><strong>구현/개발</strong></td><td id="hLKi" class="" style="width:397.546875px">개발된 Dialogflow CX 에이전트</td><td id="=^A;" class="" style="width:169.453125px">GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8010-800f-ffeb3baa11ca"><td id="gKR&lt;" class=""></td><td id="hLKi" class="" style="width:397.546875px">API 연동을 위한 Cloud Run 소스코드</td><td id="=^A;" class="" style="width:169.453125px">GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8057-bea0-c2c433281033"><td id="gKR&lt;" class=""></td><td id="hLKi" class="" style="width:397.546875px">Chatbot 연동 SDK 및 기술 가이드</td><td id="=^A;" class="" style="width:169.453125px">GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80eb-90dd-d32b4345ee89"><td id="gKR&lt;" class=""></td><td id="hLKi" class="" style="width:397.546875px">무신사 채팅 UX 페이지 (SDK 연동 완료)</td><td id="=^A;" class="" style="width:169.453125px">무신사</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-808d-a66a-c809896fe9a4"><td id="gKR&lt;" class=""></td><td id="hLKi" class="" style="width:397.546875px">Customer Context / Self-service API</td><td id="=^A;" class="" style="width:169.453125px">무신사</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80f8-95ab-da44b1d3c638"><td id="gKR&lt;" class=""><strong>테스트/검증</strong></td><td id="hLKi" class="" style="width:397.546875px">통합 테스트(SIT) 계획서 및 결과서</td><td id="=^A;" class="" style="width:169.453125px">GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-808b-b954-e37af0ec1a6d"><td id="gKR&lt;" class=""></td><td id="hLKi" class="" style="width:397.546875px">사용자 인수 테스트(UAT) 결과서</td><td id="=^A;" class="" style="width:169.453125px">무신사</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80a7-b4a8-d1c5c8d05027"><td id="gKR&lt;" class=""><strong>완료</strong></td><td id="hLKi" class="" style="width:397.546875px">PoC 최종 결과 보고서 (KPI 달성도, 기술/비즈니스 효과 분석, 향후 로드맵 제안 포함)</td><td id="=^A;" class="" style="width:169.453125px">GS네오텍</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="273f8917-466a-80ed-a72f-d227e0736f63"/></div><div style="display:contents" dir="auto"><p id="273f8917-466a-80d1-8abb-ecd03a09b2e1" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-80ee-9f10-e4a701c946fa" class="">5. 프로젝트 일정</h3></div><div style="display:contents" dir="auto"><p id="273f8917-466a-8087-be71-c2b7d34b5ae1" class="">본 프로젝트는</p></div><div style="display:contents" dir="auto"><p id="273f8917-466a-8099-88cc-d7e3b7c35771" class=""><strong>2025년 10월 15일</strong>부터 <strong>2025년 11월 28일</strong>까지 총 6주(1.5개월)간 수행됩니다.</p></div><div style="display:contents" dir="ltr"><table id="273f8917-466a-805c-a708-ed02d7342fa7" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="273f8917-466a-805a-bd24-e3b95aef9cfe"><td id="gYn{" class="">기간</td><td id="]sZ&lt;" class="" style="width:107px">주차</td><td id="kkzp" class="">주요 단계</td><td id="xrxW" class="" style="width:194px">세부 활동</td><td id="b^TP" class="" style="width:154.125px">주관</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8053-a18a-f224f2540fac"><td id="gYn{" class="">10.15 ~ 10.21</td><td id="]sZ&lt;" class="" style="width:107px">1주차</td><td id="kkzp" class=""><strong>착수/기획</strong></td><td id="xrxW" class="" style="width:194px">Kick-off 미팅, PoC 목표(KPI) 및 성공 기준 합의, 역할/책임(R&amp;R) 확정</td><td id="b^TP" class="" style="width:154.125px">무신사, GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8012-88b1-c9c8d92026c3"><td id="gYn{" class="">10.22 ~ 10.28</td><td id="]sZ&lt;" class="" style="width:107px">2주차</td><td id="kkzp" class=""><strong>데이터 준비, 설계</strong></td><td id="xrxW" class="" style="width:194px">Ground Truth 데이터 수집/정제, 아키텍처 설계, API 연동 범위 확정</td><td id="b^TP" class="" style="width:154.125px">무신사, GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80f0-91b3-cbb5a04ff76a"><td id="gYn{" class="">10.29 ~ 11.11</td><td id="]sZ&lt;" class="" style="width:107px">3~4주차</td><td id="kkzp" class=""><strong>솔루션 개발/구현</strong></td><td id="xrxW" class="" style="width:194px">CX 에이전트/Agent Assist 개발, API 연동 기능 구현, SIT 계획 수립</td><td id="b^TP" class="" style="width:154.125px">GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80d5-b44a-d9a5e55b33f3"><td id="gYn{" class="">11.12 ~ 11.22</td><td id="]sZ&lt;" class="" style="width:107px">5주차</td><td id="kkzp" class=""><strong>테스트/검증</strong></td><td id="xrxW" class="" style="width:194px">통합 테스트(SIT) 및 버그 수정, 사용자(UAT) 검증, 성능/정확도 검증</td><td id="b^TP" class="" style="width:154.125px">무신사, GS네오텍</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8042-9f1a-d986ea09eecb"><td id="gYn{" class="">11.23 ~ 11.28</td><td id="]sZ&lt;" class="" style="width:107px">6주차</td><td id="kkzp" class=""><strong>결과 분석/보고</strong></td><td id="xrxW" class="" style="width:194px">기술 적합성/비즈니스 효과 분석, PoC 결과 보고서 작성/공유, 후속 로드맵 협의</td><td id="b^TP" class="" style="width:154.125px">무신사, GS네오텍</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="273f8917-466a-80c4-bbac-f514eabb9916"/></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-80bd-96cc-dee681593478" class="">6. 성공 기준 및 검수 방법</h3></div><div style="display:contents" dir="auto"><p id="273f8917-466a-8025-8029-d0cfad73117f" class="">프로젝트의 성공적인 완료는 아래의 평가 지표 및 기준에 대한 충족 여부로 판단합니다.</p></div><div style="display:contents" dir="ltr"><table id="273f8917-466a-80a6-a074-f40ab597d346" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80ca-a261-d4503d0d589b"><td id="DA]N" class="" style="width:235.66666666666666px">평가 영역</td><td id="[oP~" class="" style="width:235.66666666666666px">지표명</td><td id="c:&gt;@" class="block-color-gray_background" style="width:235.66666666666666px">검증 방법</td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-809b-8336-ef61bd2351c2"><td id="DA]N" class="" style="width:235.66666666666666px"><strong>서비스 품질</strong></td><td id="[oP~" class="" style="width:235.66666666666666px"><strong>문제 원인 분석률</strong></td><td id="c:&gt;@" class="block-color-gray_background" style="width:235.66666666666666px"><strong>90% 이상</strong> </td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-805e-a0e8-cd6ddff57f0d"><td id="DA]N" class="" style="width:235.66666666666666px"></td><td id="[oP~" class="" style="width:235.66666666666666px"><strong>셀프서비스 정답률</strong></td><td id="c:&gt;@" class="block-color-gray_background" style="width:235.66666666666666px"><strong>95% 이상</strong> </td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-804b-af9f-d57bd5de6b63"><td id="DA]N" class="" style="width:235.66666666666666px"><strong>고객 경험</strong></td><td id="[oP~" class="" style="width:235.66666666666666px"><strong>CSAT (고객 만족도)</strong></td><td id="c:&gt;@" class="block-color-gray_background" style="width:235.66666666666666px"><strong>4.0점 / 5점 이상</strong> </td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-8036-ae48-d25979fff72d"><td id="DA]N" class="" style="width:235.66666666666666px"></td><td id="[oP~" class="" style="width:235.66666666666666px"><strong>Average Response Time</strong></td><td id="c:&gt;@" class="block-color-gray_background" style="width:235.66666666666666px"><strong>3초 내외</strong> </td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-80f6-82c7-de2685ec2011"><td id="DA]N" class="" style="width:235.66666666666666px"><strong>운영 효율성</strong></td><td id="[oP~" class="" style="width:235.66666666666666px"><strong>자동화율</strong></td><td id="c:&gt;@" class="block-color-gray_background" style="width:235.66666666666666px"><strong>60% 이상</strong> </td></tr></div><div style="display:contents" dir="ltr"><tr id="273f8917-466a-806b-bf21-ffced57d59a6"><td id="DA]N" class="" style="width:235.66666666666666px"><strong>가드레일</strong></td><td id="[oP~" class="" style="width:235.66666666666666px"><strong>시스템 구축비</strong></td><td id="c:&gt;@" class="block-color-gray_background" style="width:235.66666666666666px"><strong>50백만원 미만</strong> </td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="273f8917-466a-8059-b276-fba5ef41b641" class=""><strong>검수 절차:</strong></p></div><div style="display:contents" dir="auto"><ol type="1" id="273f8917-466a-80eb-8cdc-dbd00da44a01" class="numbered-list" start="1"><li><strong>SIT 완료 검수:</strong> 수행사가 SIT 결과 보고서를 제출하면, 고객사는 3영업일 내 검토 후 승인합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="273f8917-466a-80dc-a78a-d33640663dde" class="numbered-list" start="2"><li><strong>UAT 완료 검수:</strong> 고객사가 UAT를 주관하여 수행하고, 결과 보고서 작성을 통해 테스트 통과를 확인합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="273f8917-466a-807d-8714-c8a89a0676f9" class="numbered-list" start="3"><li><strong>최종 검수:</strong> 수행사가 최종 결과 보고서를 제출하면, 고객사는 상기 성공 기준 충족 여부를 5영업일 내 종합적으로 검토하여 최종 검수 완료를 통보합니다.</li></ol></div><div style="display:contents" dir="auto"><hr id="273f8917-466a-8063-8806-fff501df2453"/></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-806c-9080-e64d107b048b" class="">7. 제약 및 가정사항</h3></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-80f9-b80a-f4fa7689ce37" class="">7.1. 제약사항</h3></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-80c7-b4d0-f3ef447c7e65" class="bulleted-list"><li style="list-style-type:disc">본 프로젝트는 Google Cloud Platform(GCP) 및 Google CES 솔루션을 기반으로 수행합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-80f6-9fe0-fecad2db6e8f" class="bulleted-list"><li style="list-style-type:disc">프로젝트 범위는 본 문서 2항(프로젝트 범위)에 명시된 내용으로 한정하며, 범위 변경 시 상호 합의에 따른 변경관리 절차를 준수해야 합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8009-b616-f45126f08af1" class="bulleted-list"><li style="list-style-type:disc">프로젝트 일정은 5항에 명시된 일정을 기준으로 하며, 고객사의 데이터 및 API 제공 지연 등 귀책사유 발생 시 상호 협의하여 일정을 조정할 수 있습니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-806c-a09b-e293f61db6e9" class="">7.2. 가정사항</h3></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-80f9-b4d6-dd8e9370c618" class="bulleted-list"><li style="list-style-type:disc"><strong>고객사(무신사):</strong><div style="display:contents" dir="auto"><ul id="273f8917-466a-80dd-866f-ccb7f56a0de0" class="bulleted-list"><li style="list-style-type:circle">프로젝트 수행에 필요한 학습 데이터(최근 6개월 1:1 문의 내역 등)와 내부 정책 문서(CS SOP, FAQ)를 일정에 맞춰 제공합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-8095-bbfd-fab0865e5a37" class="bulleted-list"><li style="list-style-type:circle">안정적인 성능을 보장하는<div style="display:contents" dir="auto"><p id="273f8917-466a-80d1-9cee-e19ea5a0e361" class=""><code>Customer Context API</code> 및 <code>Self-service API</code>를 개발하여 일정에 맞춰 제공합니다. (협의 가능)</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-80ab-ac19-ce224f100240" class="bulleted-list"><li style="list-style-type:circle">원활한 프로젝트 진행을 위해 각 담당자(PM, 기술 담당자, UAT 테스터)를 지정하고, 의사결정을 신속하게 지원합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-802c-8d01-d190cc6ccd46" class="bulleted-list"><li style="list-style-type:disc"><strong>수행사(GS네오텍):</strong><div style="display:contents" dir="auto"><ul id="273f8917-466a-80d2-974f-e7cd9fb3bd10" class="bulleted-list"><li style="list-style-type:circle">제안된 역할 및 담당 인력을 프로젝트 기간 동안 변경 없이 투입하는 것을 원칙으로 합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-803c-ad00-c5774c891f8a" class="bulleted-list"><li style="list-style-type:circle">Google과의 긴밀한 협력을 통해 기술적 이슈 발생 시 신속하게 지원을 확보합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="273f8917-466a-80fb-8e55-d2f6b2f385bf"/></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-803a-8161-fb4d507e1c34" class="">8. 기타</h3></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-80db-a9d5-c51fcbfa8a44" class="">8.1. 보안 요구사항</h3></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-80e5-b923-c115c869d28c" class="bulleted-list"><li style="list-style-type:disc">양사는 프로젝트 수행 중 취득한 상대방의 모든 정보(고객 개인정보, 영업비밀 등)를 기밀로 유지하며, 본 프로젝트 목적 외 다른 용도로 사용하지 않습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-809f-9701-e1dd56c82c17" class="bulleted-list"><li style="list-style-type:disc">수행사는 고객의 개인정보 처리 시 PII 데이터 마스킹, 분리보관 등 무신사의 개인정보 보호 지침을 준수해야 합니다. ( 운영 구축 프로젝트 시)</li></ul></div><div style="display:contents" dir="auto"><ul id="273f8917-466a-807a-877f-c42dee2b38fc" class="bulleted-list"><li style="list-style-type:disc">프로젝트 완료 또는 중단 시, 제공받은 모든 데이터와 자료를 반환하거나 안전하게 파기해야 합니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="273f8917-466a-8032-a706-ed44f6c07516" class="">8.2. 변경 관리</h3></div><div style="display:contents" dir="auto"><p id="273f8917-466a-8005-9d97-f678c92c2d84" class="">프로젝트 범위, 일정, 비용 등 본 계약서의 내용에 변경이 필요한 경우, 변경 요청서(Change Request)를 통해 공식적인 절차를 따릅니다. 양사 프로젝트 관리자(PM)의 검토 및 합의 후, 서면 승인을 통해 변경 사항을 효력 발생시킵니다.</p></div><div style="display:contents" dir="auto"><p id="273f8917-466a-80a4-9d42-def9f75c5d37" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

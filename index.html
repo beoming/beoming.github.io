@@ -1,0 +1,35 @@
+---
+layout: default
+title: 홈
+---
+
+<h1>기술 블로그에 오신 것을 환영합니다</h1>
+<p>개발 경험과 지식을 공유하는 공간입니다.</p>
+
+<h2>최근 포스트</h2>
+<ul class="post-list">
+  {% for post in paginator.posts %}
+    <li>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <span class="post-meta"> — {{ post.date | date: "%Y년 %m월 %d일" }}</span>
+    </li>
+  {% endfor %}
+</ul>
+
+{% if paginator.total_pages > 1 %}
+<nav class="pagination" aria-label="블로그 포스트 페이지">
+  {% if paginator.previous_page %}
+    <a class="pagination-link" href="{{ paginator.previous_page_path | relative_url }}">← 이전</a>
+  {% else %}
+    <span class="pagination-link is-disabled">← 이전</span>
+  {% endif %}
+  <span class="pagination-info">{{ paginator.page }} / {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a class="pagination-link" href="{{ paginator.next_page_path | relative_url }}">다음 →</a>
+  {% else %}
+    <span class="pagination-link is-disabled">다음 →</span>
+  {% endif %}
+</nav>
+{% endif %}
+
+<p class="home-extra-links"><a href="{{ '/notions/' | relative_url }}">Notion 내보낸 문서 보기</a> · <a href="{{ '/admin/' | relative_url }}">글 관리</a></p>

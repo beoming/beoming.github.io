@@ -1,0 +1,718 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>스킬 기반 라우팅</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="233f8917-466a-807a-9be3-c8e405897d0d" class="page sans"><header><h1 class="page-title" dir="auto">스킬 기반 라우팅</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="233f8917-466a-8086-a1f3-e0c073efbbe2" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="233f8917-466a-805a-8ba8-ca074cdff951" class="image"><a href="%EC%8A%A4%ED%82%AC%20%EA%B8%B0%EB%B0%98%20%EB%9D%BC%EC%9A%B0%ED%8C%85/image.png"><img style="width:680px" src="%EC%8A%A4%ED%82%AC%20%EA%B8%B0%EB%B0%98%20%EB%9D%BC%EC%9A%B0%ED%8C%85/image.png"/></a></figure></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-808f-bff2-f5eb01056e9a"/></div><div style="display:contents" dir="auto"><h2 id="233f8917-466a-80ac-bf1b-fbae6c09137f" class=""> Amazon Connect Skill-Based Routing Flow 구성 정리</h2></div><div style="display:contents" dir="auto"><h3 id="233f8917-466a-807a-85f7-ffd705e857c4" class="">&lt;전체 목적&gt;</h3></div><div style="display:contents" dir="auto"><p id="233f8917-466a-805a-84fd-f39e7d03520f" class="">고객의 <code>Saving</code> 역량 요구 수준에 따라 적절한 상담원(<code>Routing Criteria</code>의 스킬 수준 기반)에게 연결하는 <strong>Skill-Based Routing</strong> 시나리오를 구현.</p></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-8028-8b06-d2a3f8f3cec7"/></div><div style="display:contents" dir="auto"><h2 id="233f8917-466a-804d-b250-caedc20da49d" class="">주요 블록별 역할</h2></div><div style="display:contents" dir="auto"><h3 id="233f8917-466a-802b-a6ca-dd57d782f0b8" class="">1. <code>Set Logging Behavior (UpdateFlowLoggingBehavior)</code></h3></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80c9-a2fc-e17417fa645e" class="bulleted-list"><li style="list-style-type:disc"><strong>역할</strong>: Connect Contact Flow 실행 로그를 CloudWatch에 남기도록 설정</li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-8067-8976-c6735bb043dc" class="bulleted-list"><li style="list-style-type:disc"><strong>중요 이유</strong>: 디버깅 및 오류 추적에 필수</li></ul></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-801c-b154-fe107cc8b7dd"/></div><div style="display:contents" dir="auto"><h3 id="233f8917-466a-800a-8a85-d077c5f50ebb" class="">2. <code>Check Hours of Operation</code></h3></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-8074-8c99-d80fd60aee7e" class="bulleted-list"><li style="list-style-type:disc"><strong>역할</strong>: 현재 시간이 근무 시간(<code>HoursOfOperation</code>) 내에 있는지 확인</li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80d3-9a66-eef95a66317d" class="bulleted-list"><li style="list-style-type:disc"><strong>조건 분기</strong>:<div style="display:contents" dir="auto"><ul id="233f8917-466a-80df-9e52-f322f21b1801" class="bulleted-list"><li style="list-style-type:circle">True: 다음 인사 메시지로 이동</li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80f9-959e-ea349a4dd5e3" class="bulleted-list"><li style="list-style-type:circle">False: “not working hour” 메시지 후 연결 종료</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-8040-a620-c49c5767fb4c"/></div><div style="display:contents" dir="auto"><h3 id="233f8917-466a-807e-8059-dbcae9fe4ca0" class="">3. <code>Set Contact Attributes (UpdateContactAttributes)</code></h3></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-8013-8134-ca762421d0e5" class="bulleted-list"><li style="list-style-type:disc"><strong>역할</strong>: 현재 컨택에 고객이 원하는 <code>Saving</code> 수준(예: 2, 3, 4 등)을 설정</li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80cc-b56b-cd5126dabed2" class="bulleted-list"><li style="list-style-type:disc"><strong>형식</strong>:<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="233f8917-466a-8070-bd94-c4686263d04e" class="code code-wrap"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">&quot;Attributes&quot;: {
+  &quot;Saving&quot;: &quot;2&quot;
+}</code></pre></div></li></ul></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-803e-bf7a-e7fbff95a69d"/></div><div style="display:contents" dir="auto"><h3 id="233f8917-466a-8047-a100-ca1b4d85ce41" class="">4. <code>Set Routing Criteria (UpdateContactRoutingCriteria)</code></h3></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80aa-8bdc-c24b4d5f74b2" class="bulleted-list"><li style="list-style-type:disc"><strong>역할</strong>: 현재 컨택에 대해 <strong>어떤 상담원과 연결할지 라우팅 기준 설정</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-802e-889b-cb9a6accb4c8" class="bulleted-list"><li style="list-style-type:disc"><strong>조건 예시</strong>:<div style="display:contents" dir="auto"><ul id="233f8917-466a-803f-bd31-cd4c82d4f3ca" class="bulleted-list"><li style="list-style-type:circle">Attribute: <code>Saving</code></li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80b9-94fa-cc51b998d766" class="bulleted-list"><li style="list-style-type:circle">ProficiencyLevel: <code>5</code></li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-8084-9a50-f6c240b3c019" class="bulleted-list"><li style="list-style-type:circle">ComparisonOperator: <code>NumberGreaterOrEqualTo</code></li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-8069-9f16-c8d0f3ea52ee" class="bulleted-list"><li style="list-style-type:circle">→ <code>Saving &gt;= 5</code>인 상담원만 매칭 가능</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-808e-bf96-de8f3019a8aa"/></div><div style="display:contents" dir="auto"><h3 id="233f8917-466a-8057-ab90-f24c904816ff" class="">5. <code>Invoke Lambda Function</code></h3></div><div style="display:contents" dir="auto"><p id="233f8917-466a-80e4-ba13-c90264f741d8" class="">람다 함수는 Amazon Connect 콘솔 홈에서 먼저 등록을 해줘야 목록에 뜬다.</p></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80f3-bde1-c89430d42451" class="bulleted-list"><li style="list-style-type:disc"><strong>함수명</strong>: <code>sb-connectTestFunction</code></li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80a0-b85d-f2f711e93652" class="bulleted-list"><li style="list-style-type:disc"><strong>역할</strong>: 고객의 <code>Saving</code> 값이 조건에 적합한지 Lambda에서 로직 판단</li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-803b-bc9e-fbde4c435d58" class="bulleted-list"><li style="list-style-type:disc"><strong>Lambda 반환값 예시</strong>:<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="233f8917-466a-809d-8c28-f0381ce1f4e0" class="code code-wrap"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;statusCode&quot;: 200,
+  &quot;savingCheckResult&quot;: &quot;allow&quot; | &quot;deny&quot;
+}
+</code></pre></div></li></ul></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-8006-af0a-fdaac2321306"/></div><div style="display:contents" dir="auto"><h3 id="233f8917-466a-8032-a026-fc9acf2fc3ac" class="">6. <code>Compare (조건 분기)</code></h3></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80d7-bcd7-f164ead0dced" class="bulleted-list"><li style="list-style-type:disc"><strong>역할</strong>: Lambda 함수의 결과(<code>savingCheckResult</code>)를 평가</li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80e0-901b-e37bcbce7591" class="bulleted-list"><li style="list-style-type:disc"><strong>조건</strong>:<div style="display:contents" dir="auto"><ul id="233f8917-466a-8022-ac70-fe07b93c6089" class="bulleted-list"><li style="list-style-type:circle"><code>allow</code> → <code>Transfer to Queue</code></li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80b0-9519-ddbf76b65c9b" class="bulleted-list"><li style="list-style-type:circle"><code>deny</code> → 메시지 후 연결 종료</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-8007-9415-ff86fa9d8ff5"/></div><div style="display:contents" dir="auto"><h3 id="233f8917-466a-8076-9d09-f5cb5236b364" class="">7. <code>Transfer to Queue</code></h3></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-8098-b84b-db68224f7c61" class="bulleted-list"><li style="list-style-type:disc"><strong>큐 이름</strong>: <code>sb-queue-test</code></li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-80f2-9c4f-d495b8e3b740" class="bulleted-list"><li style="list-style-type:disc"><strong>역할</strong>: 스킬 기준을 충족하는 상담원에게 연결 시도</li></ul></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-80d9-a08f-c5fea8c6c9c0"/></div><div style="display:contents" dir="auto"><h2 id="233f8917-466a-800a-b10b-ffca92463a77" class="">💡 핵심 개념 요약</h2></div><div style="display:contents" dir="ltr"><table id="233f8917-466a-8039-a6fb-fa219e5a7758" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="233f8917-466a-8076-830e-c437b167b57f"><th id="sMqB" class="simple-table-header-color simple-table-header">개념</th><th id="DdUM" class="simple-table-header-color simple-table-header" style="width:561px">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="233f8917-466a-80b2-a5aa-c821b7842e31"><td id="sMqB" class=""><strong>Contact Attribute</strong></td><td id="DdUM" class="" style="width:561px">고객에게 지정되는 속성 값 (ex. Saving 수준)</td></tr></div><div style="display:contents" dir="ltr"><tr id="233f8917-466a-806d-9306-cdb5e157a653"><td id="sMqB" class=""><strong>Routing Criteria</strong></td><td id="DdUM" class="" style="width:561px">상담원과 연결할 조건 (스킬 이름, 수준 등)</td></tr></div><div style="display:contents" dir="ltr"><tr id="233f8917-466a-8075-b2a2-e6076d88d119"><td id="sMqB" class=""><strong>ProficiencyLevel</strong></td><td id="DdUM" class="" style="width:561px">상담원의 역량 수준 (1~10)</td></tr></div><div style="display:contents" dir="ltr"><tr id="233f8917-466a-80d1-83ab-f5f8175b587f"><td id="sMqB" class=""><strong>Lambda Function</strong></td><td id="DdUM" class="" style="width:561px">외부 로직 처리 (조건 분기, 판단, API 연동 등)</td></tr></div><div style="display:contents" dir="ltr"><tr id="233f8917-466a-8063-9d3a-fcf073fad192"><td id="sMqB" class=""><strong>Compare 블록</strong></td><td id="DdUM" class="" style="width:561px">Lambda 결과값을 기준으로 분기 처리</td></tr></div><div style="display:contents" dir="ltr"><tr id="233f8917-466a-80c5-9fea-d1b64433c3c4"><td id="sMqB" class=""><strong>Queue</strong></td><td id="DdUM" class="" style="width:561px">연결 가능한 상담원 그룹</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-8033-bc8f-f7c46d9933cc"/></div><div style="display:contents" dir="auto"><h2 id="233f8917-466a-8034-acc0-d797ff6e9b78" class="">✅ 고객 → 상담원 연결 흐름 요약</h2></div><div style="display:contents" dir="auto"><ol type="1" id="233f8917-466a-807b-8373-d649c091fbf3" class="numbered-list" start="1"><li><strong>고객 인입</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="233f8917-466a-80ea-91ec-e06178a4bb05" class="numbered-list" start="2"><li><strong>근무 시간 확인</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="233f8917-466a-8044-8a8b-d198eb2b487f" class="numbered-list" start="3"><li><strong>고객이 원하는 </strong><code><strong>Saving</strong></code><strong> 수준 설정 → Set contact attributes —&gt; 람다 함수를 호출하기 위해 필요. </strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="233f8917-466a-80af-8c92-eb37a25dacf3" class="numbered-list" start="4"><li><strong>상담원 연결 기준 (</strong><code><strong>Routing Criteria</strong></code><strong>) 설정</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="233f8917-466a-802b-9be4-e1345c11efe8" class="numbered-list" start="5"><li><strong>Lambda에서 </strong><code><strong>Saving</strong></code><strong> 값 판단</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="233f8917-466a-8057-9c29-cdecd492b9c0" class="numbered-list" start="6"><li><code><strong>Compare</strong></code><strong> 블록으로 결과 분기</strong><div style="display:contents" dir="auto"><ul id="233f8917-466a-8092-bdf2-d4a38816f46a" class="bulleted-list"><li style="list-style-type:disc">allow: 상담원에게 연결</li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-8060-94a2-ef42178a6d37" class="bulleted-list"><li style="list-style-type:disc">deny: 안내 메시지 후 종료</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-809d-ad20-c1560950525a"/></div><div style="display:contents" dir="auto"><h2 id="233f8917-466a-80bb-ad08-eb07a38230eb" class="">🧪 테스트 팁</h2></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-808a-8b4c-c2d12500db2e" class="bulleted-list"><li style="list-style-type:disc">Lambda 함수 내 로그: <code>CloudWatch &gt; Log Group &gt; /aws/lambda/{function name}</code></li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-8068-8d9c-ee0bf72fe49c" class="bulleted-list"><li style="list-style-type:disc">Contact Attributes 확인: <strong>Flow &gt; Test 모드 &gt; Contact Summary</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="233f8917-466a-8065-9b19-f2b82b0d6d10" class="bulleted-list"><li style="list-style-type:disc">상담원 스킬 설정: <strong>Amazon Connect Admin &gt; Routing &gt; Users &gt; Agent &gt; Routing Profiles</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="233f8917-466a-8038-bb03-fbdeebf611cf"/></div><div style="display:contents" dir="auto"><p id="233f8917-466a-80f1-9d4b-c575b76a2822" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,850 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>ARCHITECTURE</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2ccf8917-466a-8007-8178-f1ef1c9f0dd6" class="page sans"><header><h1 class="page-title" dir="auto">ARCHITECTURE</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="2ccf8917-466a-8127-b0c9-e979bc107f17" class="">전체 아키텍처 문서</h1></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-817f-b3d3-d896b2b156bc" class="">1. 시스템 개요</h2></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-812a-8cbf-f8ce8a8e3cf5" class="">이 애플리케이션은 <strong>Spring Boot 기반의 대화형 에이전트 시스템</strong>으로, 고객과 상담사 간의 실시간 채팅을 지원하며 Dialogflow CX를 통한 AI 챗봇 기능을 제공합니다.</p></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-819a-9eae-dcfe37d1ff16" class="">주요 구성 요소</h3></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-81f8-80d1-d15904ef2cae" class="bulleted-list"><li style="list-style-type:disc"><strong>Chat Server</strong> (chat profile): 고객용 채팅 서버</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-81e1-84a0-d40d26481ba1" class="bulleted-list"><li style="list-style-type:disc"><strong>Monitor Server</strong> (monitor profile): 상담사용 모니터링 서버</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-81ea-9528-ef24710162fa" class="bulleted-list"><li style="list-style-type:disc"><strong>Dialogflow CX</strong>: Google의 대화형 AI 플랫폼</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-81cc-8766-c32eadb80924" class="bulleted-list"><li style="list-style-type:disc"><strong>Google Cloud Pub/Sub</strong>: 서버 간 비동기 메시지 전달</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-81e4-baab-f5b513137b37" class="bulleted-list"><li style="list-style-type:disc"><strong>H2 In-Memory Database</strong>: 각 서버별 독립적인 인메모리 데이터베이스</li></ul></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-81f1-b466-f05808f706b6"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-8186-9505-e47eb4c5464f" class="">2. 서버 구조</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-8153-9562-ec41ceef3ddd" class="">2.1 Chat Server (chat profile)</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81be-a175-ca1de7f7d510" class=""><strong>역할</strong>: 고객이 채팅을 하는 메인 서버</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8144-9624-e83f937b258f" class=""><strong>주요 기능</strong>:<br/>- 고객 메시지 수신 및 처리<br/>- Dialogflow CX API 호출<br/>- 고객 챗 UI 제공 (<code>/static/index.html</code>)<br/>- 상담사 메시지 수신 및 처리</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81a3-8af8-df25a5093ca2" class=""><strong>배포 정보</strong>:<br/>- <strong>서비스명</strong>: <code>customer-chat-server</code><br/>- <strong>프로파일</strong>: <code>chat</code><br/>- <strong>포트</strong>: 8080<br/>- <strong>데이터베이스</strong>: H2 In-Memory (독립적)</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-816d-b5ff-da54e9988a3d" class=""><strong>주요 엔드포인트</strong>:<br/>- <code>POST /api/send-message</code>: 고객 메시지 처리<br/>- <code>POST /api/agent-message</code>: 상담사 메시지 처리 (Monitor Server에서 호출)<br/>- <code>GET /api/sessions/{sessionId}/messages</code>: 세션 메시지 조회 (고객 UI 폴링용)</p></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-81f9-9884-e837ab36b57a" class="">2.2 Monitor Server (monitor profile)</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81dd-8b89-c4884791810f" class=""><strong>역할</strong>: 상담사가 고객 대화를 모니터링하고 개입하는 서버</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81ac-adf4-c31d75340488" class=""><strong>주요 기능</strong>:<br/>- 상담사 모니터링 대시보드 제공 (<code>/static/agent-monitor.html</code>)<br/>- 상담사 메시지 입력 및 Chat Server로 전달<br/>- Pub/Sub Push Subscription을 통한 실시간 이벤트 수신<br/>- WebSocket을 통한 실시간 UI 업데이트</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8156-9f14-e3f0926bbe3f" class=""><strong>배포 정보</strong>:<br/>- <strong>서비스명</strong>: <code>agent-monitor-server</code><br/>- <strong>프로파일</strong>: <code>monitor</code><br/>- <strong>포트</strong>: 8080<br/>- <strong>데이터베이스</strong>: H2 In-Memory (독립적, Chat Server와 분리)</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8128-a48f-fff4c872ffbb" class=""><strong>주요 엔드포인트</strong>:<br/>- <code>GET /api/agent/sessions</code>: 모든 세션 목록 조회<br/>- <code>GET /api/agent/sessions/{sessionId}</code>: 특정 세션 정보 조회<br/>- <code>GET /api/agent/sessions/{sessionId}/messages</code>: 세션 메시지 조회<br/>- <code>POST /api/agent/sessions/{sessionId}/respond</code>: 상담사 응답 전송<br/>- <code>POST /pubsub/push</code>: Pub/Sub Push Subscription 엔드포인트<br/>- <code>WebSocket /ws/agent</code>: 실시간 이벤트 브로드캐스트</p></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-8109-aba2-d678be87cf47"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-81fd-ba13-f4523841daba" class="">3. 데이터베이스 구조</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-81de-a138-f726c46832d9" class="">3.1 데이터베이스 분리</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81f6-a3be-dd34ba80c039" class=""><strong>Chat Server DB</strong>와 <strong>Monitor Server DB</strong>는 <strong>완전히 독립적인 H2 In-Memory 데이터베이스</strong>입니다.</p></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8112-a243-fcff9e76aec1" class="bulleted-list"><li style="list-style-type:disc"><strong>Chat Server DB</strong>: 고객 메시지, 상담사 메시지, AI 응답 저장</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8125-b93e-e32c5abb5b49" class="bulleted-list"><li style="list-style-type:disc"><strong>Monitor Server DB</strong>: Pub/Sub을 통해 동기화된 메시지 저장</li></ul></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-81d2-8a77-c39de861e3e1" class="">3.2 엔티티 구조</h3></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-8126-b9df-c1d685844958" class="">ChatSession</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ccf8917-466a-818d-9cf9-e5265a84a0d3" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">- sessionId (PK): 세션 고유 ID
+- language: 언어 설정
+- firstRequestAt: 첫 요청 시간
+- createdAt: 생성 시간
+- updatedAt: 업데이트 시간
+- responses: ChatResponse 리스트 (OneToMany)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-8170-abb9-d7f757ff4e49" class="">ChatResponse</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ccf8917-466a-81db-b9ee-f6831a62a237" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">- id (PK): 자동 증가 ID
+- responseId: 응답 고유 ID (중복 방지용)
+- session: ChatSession (ManyToOne)
+- userMessage: 고객 발화 (상담사 메시지인 경우 null)
+- reply: AI 응답 또는 상담사 메시지
+- status: &quot;SUCCESS&quot;, &quot;ERROR&quot;, &quot;AGENT_RESPONSE&quot; 등
+- intentDisplayName: 인텐트 이름
+- intentConfidence: 인텐트 신뢰도
+- intentMatchType: 인텐트 매칭 타입
+- intentsJson: 인텐트 리스트 (JSON, session_summary에서 추출)
+- entitiesJson: 엔티티 정보 (JSON)
+- createdAt: 생성 시간
+- images: ProductImage 리스트
+- shownProducts: ShownProduct 리스트</code></pre></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-81f9-ade2-d36d55883655"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-81c7-aa6a-c5b7a10c6639" class="">4. Pub/Sub 아키텍처</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-818e-86d1-da597f34391b" class="">4.1 Pub/Sub 구성</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81b7-ac6d-d9956f64d809" class=""><strong>Topic</strong>: <code>chat-events</code><br/>- <strong>프로젝트</strong>: <code>gsneotek-ncc-demo</code> (또는 환경 변수로 설정)<br/>- <strong>생성 위치</strong>: <code>infra/cloudrun-deploy-monitor.sh</code> 또는 <code>infra/pubsub-create.sh</code></p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8121-bc4b-c5221d6f6437" class=""><strong>Subscription</strong>: <code>agent-monitor-sub</code><br/>- <strong>타입</strong>: Push Subscription<br/>- <strong>Push Endpoint</strong>: <code>https://agent-monitor-server-{region}.run.app/pubsub/push?token={VERIFY_TOKEN}</code><br/>- <strong>인증</strong>: Service Account (<code>monitor-sa@{PROJECT_ID}.iam.gserviceaccount.com</code>)</p></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-819e-bd25-cbaa0ec66052" class="">4.2 Pub/Sub 데이터 흐름</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ccf8917-466a-81fc-9470-e944de4b1ad6" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[Chat Server]
+  ↓
+ChatEvent 발행 (ChatEventPublisher)
+  - sender: &quot;user&quot; | &quot;bot&quot; | &quot;agent&quot;
+  - conversationId: sessionId
+  - messageId: 고유 메시지 ID
+  - text: 메시지 내용
+  - status: &quot;SUCCESS&quot;, &quot;AGENT_RESPONSE&quot; 등
+  - intentList: 인텐트 리스트
+  ↓
+[Pub/Sub Topic: chat-events]
+  ↓
+[Pub/Sub Push Subscription: agent-monitor-sub]
+  ↓
+[Monitor Server: /pubsub/push]
+  ↓
+PubSubPushController.receiveMessage()
+  ↓
+1. Base64 디코딩
+2. ChatEvent 파싱
+3. Monitor Server DB에 저장 (saveEventToDatabase)
+4. WebSocket 브로드캐스트 (AgentSessionManager.broadcast)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-81e6-8aa4-fbc0400239dd" class="">4.3 ChatEvent 모델</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ccf8917-466a-810d-a4d4-edcd1d0e430b" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">ChatEvent {
+    conversationId: String      // 세션 ID
+    messageId: String          // 고유 메시지 ID
+    sender: String             // &quot;user&quot; | &quot;bot&quot; | &quot;agent&quot;
+    text: String               // 메시지 내용
+    timestamp: String          // ISO 8601 형식
+    channel: String            // &quot;web&quot;
+    intentDisplayName: String  // 인텐트 이름
+    intentConfidence: Double   // 인텐트 신뢰도
+    intentMatchType: String    // 인텐트 매칭 타입
+    intentList: List&lt;String&gt;   // session_summary에서 추출한 모든 인텐트
+    status: String             // &quot;SUCCESS&quot;, &quot;ERROR&quot;, &quot;AGENT_RESPONSE&quot;
+}</code></pre></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-813f-9a07-c5ef3df637ef" class="">4.4 Pub/Sub 발행 시점</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-819e-bc66-f024286f38ef" class=""><strong>Chat Server에서 발행하는 이벤트</strong>:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-8133-b22e-ffda0ae34f7f" class="numbered-list" start="1"><li><strong>고객 메시지 이벤트</strong> (<code>sender=&quot;user&quot;</code>)<div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8168-99c8-e4d5b36cb834" class="bulleted-list"><li style="list-style-type:disc"><code>ChatService.publishUserMessageEvent()</code> 호출</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-81f6-a48d-dbfd6f468241" class="bulleted-list"><li style="list-style-type:disc">고객이 메시지를 보낼 때</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-81f7-b7f7-ec4113623c82" class="numbered-list" start="2"><li><strong>AI 응답 이벤트</strong> (<code>sender=&quot;bot&quot;</code>)<div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8150-9952-f93857b93d00" class="bulleted-list"><li style="list-style-type:disc"><code>ChatService.publishBotResponseEvent()</code> 호출</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8103-863d-ea727b8d83fb" class="bulleted-list"><li style="list-style-type:disc">Dialogflow CX 응답을 받았을 때</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-811c-bcf1-c12c70362e14" class="bulleted-list"><li style="list-style-type:disc">상담사 메시지에 대한 AI 응답도 포함</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-81db-b155-d698d4753511" class="numbered-list" start="3"><li><strong>상담사 메시지 이벤트</strong> (<code>sender=&quot;agent&quot;</code>)<div style="display:contents" dir="auto"><ul id="2ccf8917-466a-81f7-bf65-c0ceb9040b37" class="bulleted-list"><li style="list-style-type:disc"><code>ChatService.publishAgentMessageEvent()</code> 또는 <code>saveAndPublishAgentMessage()</code> 호출</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8143-8fa5-e2ff1ac2c64f" class="bulleted-list"><li style="list-style-type:disc">상담사가 메시지를 입력했을 때</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-818d-b026-e7ecb4370e51"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-813f-b86b-d5ad7f14586f" class="">5. 데이터 흐름 상세</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-81f0-86ef-c4a663055010" class="">5.1 고객 메시지 처리 흐름</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ccf8917-466a-8161-843e-d7b773170335" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[고객 입력]
+  ↓
+[고객 챗 서버 UI: script.js]
+  POST /api/send-message
+  ↓
+[Chat Server: ChatController.sendMessage()]
+  ↓
+[ChatService.processMessage()]
+  ↓
+1. 세션 저장/조회 (saveSessionToDatabase)
+2. Dialogflow CX API 호출 (getDialogflowResponse)
+3. Chat Server DB에 저장 (saveChatResponse)
+   - userMessage: 고객 메시지
+   - reply: AI 응답
+   - status: &quot;SUCCESS&quot;
+4. Pub/Sub 발행
+   - 고객 메시지 이벤트 (sender=&quot;user&quot;)
+   - AI 응답 이벤트 (sender=&quot;bot&quot;)
+  ↓
+[Pub/Sub Topic: chat-events]
+  ↓
+[Monitor Server: PubSubPushController]
+  ↓
+1. Monitor Server DB에 저장
+   - 고객 발화: userMessage 저장, reply=null
+   - AI 응답: userMessage=null, reply 저장
+2. WebSocket 브로드캐스트
+  ↓
+[Monitor Server UI: agent-monitor.js] 
+  - WebSocket 또는 폴링으로 메시지 수신
+  - 실시간 UI 업데이트</code></pre></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-8134-a70d-de367569178c" class="">5.2 상담사 메시지 처리 흐름</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ccf8917-466a-8179-8a6b-dd5818a7b9b4" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[상담사 입력]
+  ↓
+[Monitor Server UI: agent-monitor.js]
+  POST /api/agent/sessions/{sessionId}/respond
+  ↓
+[Monitor Server: AgentMonitorService.saveAgentResponse()]
+  ↓
+1. Monitor Server DB에 저장하지 않음 (Pub/Sub을 통해 받아서 저장)
+2. Chat Server로 HTTP 요청
+   POST {CHAT_SERVER_URL}/api/agent-message
+  ↓
+[Chat Server: ChatController.processAgentMessage()]
+  ↓
+1. 상담사 메시지 저장 및 Pub/Sub 발행
+   - saveAndPublishAgentMessage()
+   - Chat Server DB에 저장 (status=&quot;AGENT_RESPONSE&quot;)
+   - Pub/Sub 발행 (sender=&quot;agent&quot;)
+2. Dialogflow CX로 상담사 메시지 전달
+   - processMessage() 호출 (agentMessage=true)
+   - Dialogflow CX API 호출
+3. AI 응답 저장 및 Pub/Sub 발행
+   - saveChatResponse() 호출 (userMessage=null, 상담사 메시지에 대한 응답)
+   - Pub/Sub 발행 (sender=&quot;bot&quot;)
+  ↓
+[Pub/Sub Topic: chat-events]
+  ↓
+[Monitor Server: PubSubPushController]
+  ↓
+1. 상담사 메시지 저장 (sender=&quot;agent&quot;)
+   - 중복 체크 (responseId 기반)
+   - Monitor Server DB에 저장
+2. AI 응답 저장 (sender=&quot;bot&quot;)
+   - Monitor Server DB에 저장
+3. WebSocket 브로드캐스트
+  ↓
+[Monitor Server UI]
+  - 실시간 UI 업데이트
+  ↓
+[고객 챗 서버 UI: script.js]
+  - 폴링으로 메시지 조회 (GET /api/sessions/{sessionId}/messages)
+  - 상담사 메시지 및 AI 응답 표시</code></pre></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-8135-9c7c-f39983fe43dc" class="">5.3 메시지 저장 전략</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-814c-82f0-e1c3b3c13876" class=""><strong>중복 저장 방지</strong>:<br/>- Monitor Server에서 상담사 메시지를 직접 저장하지 않음<br/>- Chat Server에서 저장하고 Pub/Sub으로 발행<br/>- Monitor Server는 Pub/Sub을 통해서만 받아서 저장<br/>- <code>responseId</code> 기반 중복 체크 (<code>existsByResponseId()</code>)</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8181-a97d-f3ccb8e95e15" class=""><strong>메시지 순서 보장</strong>:<br/>- 모든 메시지가 Pub/Sub을 통해 Monitor Server에 도착<br/>- <code>createdAt</code>과 <code>id</code>를 조합하여 정확한 순서 정렬<br/>- 프론트엔드에서 타입 순서 추가 정렬 (고객 → AI → 상담사 → AI)</p></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-81ec-9f1e-df21d1c1ad85"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-81f0-bfad-c7e56a01e4ae" class="">6. WebSocket 설정</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-819c-9f27-d777f276b1a5" class="">6.1 Monitor Server WebSocket</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81aa-b7b1-c9300a2ea31f" class=""><strong>엔드포인트</strong>: <code>/ws/agent</code></p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-816f-a2df-c16bcb8910c3" class=""><strong>설정 파일</strong>: <code>WebSocketConfig.java</code> (monitor profile 전용)</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81ee-a04c-ee832e984a37" class=""><strong>핸들러</strong>: <code>AgentWebSocketHandler</code><br/>- 연결 관리: <code>AgentSessionManager</code><br/>- 브로드캐스트: Pub/Sub 이벤트를 모든 연결된 상담사 세션에 전달</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-817c-84ce-f83c6418b504" class=""><strong>사용 목적</strong>:<br/>- 실시간 UI 업데이트 (폴링 대체)<br/>- Pub/Sub 이벤트를 WebSocket으로 브로드캐스트</p></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-815c-a272-c97b4b2effc6" class="">6.2 WebSocket 데이터 흐름</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ccf8917-466a-818d-8cc3-f8f153cc83ba" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[Pub/Sub 이벤트 수신]
+  ↓
+[PubSubPushController.receiveMessage()]
+  ↓
+[AgentSessionManager.broadcast(json)]
+  ↓
+[모든 연결된 WebSocket 세션에 전송]
+  ↓
+[Monitor Server UI: agent-monitor.js]
+  - WebSocket onmessage 이벤트
+  - 메시지 목록 새로고침
+  - 세션 목록 새로고침</code></pre></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-812d-99c1-cfde2b85569d"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-8189-a3dd-fec1551353fd" class="">7. 배포 구조</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-813d-b62e-dce27db507d5" class="">7.1 Google Cloud Run 배포</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81bf-add6-da4c468435ed" class=""><strong>Chat Server</strong>:<br/>- <strong>서비스명</strong>: <code>customer-chat-server</code><br/>- <strong>리전</strong>: <code>asia-northeast3</code><br/>- <strong>프로파일</strong>: <code>chat</code><br/>- <strong>이미지</strong>: <code>asia-northeast3-docker.pkg.dev/{PROJECT_ID}/chat-monitor-backend/chat-monitor-backend:latest</code></p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8137-a96a-f9cbd24eed11" class=""><strong>Monitor Server</strong>:<br/>- <strong>서비스명</strong>: <code>agent-monitor-server</code><br/>- <strong>리전</strong>: <code>asia-northeast3</code><br/>- <strong>프로파일</strong>: <code>monitor</code><br/>- <strong>이미지</strong>: 동일한 이미지 사용 (프로파일로 구분)</p></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-8126-91d8-f2a055b431ca" class="">7.2 환경 변수</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8139-84c2-c4a873b4b772" class=""><strong>Chat Server 환경 변수</strong>:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ccf8917-466a-81c5-9788-d21a2ce44b7e" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">SPRING_PROFILES_ACTIVE=chat
+DIALOGFLOW_PROJECT_ID={PROJECT_ID}
+DIALOGFLOW_LOCATION=asia-northeast1
+DIALOGFLOW_AGENT_ID={AGENT_ID}
+PUBSUB_TOPIC=chat-events
+PUBSUB_PROJECT_ID={PROJECT_ID}</code></pre></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8167-b059-f34e97b7f2fd" class=""><strong>Monitor Server 환경 변수</strong>:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ccf8917-466a-81cb-aee6-fb12185f1845" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">SPRING_PROFILES_ACTIVE=monitor
+PUBSUB_PROJECT_ID={PROJECT_ID}
+PUBSUB_VERIFY_TOKEN=secret-token
+CHAT_SERVER_URL={CHAT_SERVER_URL}  # Chat Server URL (자동 감지)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-81e0-aa32-f41b67a62189" class="">7.3 Service Account</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8167-8ff9-c80257191d4a" class=""><strong>Chat Server</strong>:<br/>- <code>chat-sa@{PROJECT_ID}.iam.gserviceaccount.com</code><br/>- Dialogflow CX API 호출 권한<br/>- Pub/Sub 발행 권한</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81c3-9943-efcdf29326b0" class=""><strong>Monitor Server</strong>:<br/>- <code>monitor-sa@{PROJECT_ID}.iam.gserviceaccount.com</code><br/>- Pub/Sub Push Subscription 인증<br/>- Chat Server 호출 권한</p></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-81df-95fd-d5843f33a7b0"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-811b-85a3-d3f6f6251dbf" class="">8. 주요 서비스 및 컴포넌트</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-8104-973d-c4de41eb96af" class="">8.1 Chat Server (chat profile)</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81b8-b16f-e37818911cc1" class=""><strong>서비스</strong>:<br/>- <code>ChatService</code>: 메시지 처리, Dialogflow CX 호출, DB 저장<br/>- <code>DialogflowCxApiService</code>: Dialogflow CX API 통신<br/>- <code>ChatEventPublisher</code>: Pub/Sub 이벤트 발행<br/>- <code>ExternalApiService</code>: 외부 API 전달 (선택적)</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8124-bae0-c4a381b085e8" class=""><strong>컨트롤러</strong>:<br/>- <code>ChatController</code>: 고객 메시지 및 상담사 메시지 처리<br/>- <code>HealthController</code>: 헬스 체크<br/>- <code>WebhookController</code>: Dialogflow CX Webhook (선택적)</p></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-812d-b8e0-c8031ed88f30" class="">8.2 Monitor Server (monitor profile)</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81c4-95d0-fec657877a0c" class=""><strong>서비스</strong>:<br/>- <code>AgentMonitorService</code>: 세션 조회, 메시지 조회, 상담사 응답 처리<br/>- <code>AgentSessionManager</code>: WebSocket 세션 관리 및 브로드캐스트<br/>- <code>AgentWebSocketHandler</code>: WebSocket 연결 처리</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81be-9bbd-f8d7ec45858c" class=""><strong>컨트롤러</strong>:<br/>- <code>AgentMonitorController</code>: 상담사 모니터링 API<br/>- <code>PubSubPushController</code>: Pub/Sub Push Subscription 엔드포인트<br/>- <code>HealthController</code>: 헬스 체크</p></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-8176-987f-d02e741f61fa"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-8137-885b-e4531a9d0636" class="">9. 데이터 동기화 전략</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-8157-a654-e2367233f5d6" class="">9.1 Chat Server → Monitor Server</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81ac-a404-c3dd615cd409" class=""><strong>방식</strong>: Pub/Sub Push Subscription</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-818a-856f-d2757c5af915" class=""><strong>흐름</strong>:<br/>1. Chat Server에서 이벤트 발행<br/>2. Pub/Sub이 Monitor Server의 <code>/pubsub/push</code>로 전달<br/>3. Monitor Server가 DB에 저장</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81a4-9bff-d6c11aa125be" class=""><strong>장점</strong>:<br/>- 실시간 동기화<br/>- 순서 보장 (Pub/Sub의 순서 보장)<br/>- 중복 방지 (responseId 기반)</p></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-81a1-9dfa-d5e13b6a8ac8" class="">9.2 Monitor Server → Chat Server</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8120-bc8b-c84bc72aca31" class=""><strong>방식</strong>: HTTP REST API</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8109-bcf5-e824477bbaf3" class=""><strong>흐름</strong>:<br/>1. Monitor Server에서 상담사 메시지 입력<br/>2. Chat Server로 HTTP 요청 (<code>/api/agent-message</code>)<br/>3. Chat Server가 처리 및 저장</p></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-8126-974b-ddc2a2e9f1f5" class=""><strong>이유</strong>:<br/>- 상담사 메시지를 Dialogflow CX로 전달해야 함<br/>- Chat Server가 단일 소스로 관리</p></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-8117-8bf1-c0bd45b3339b"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-8189-a843-ef450d1c2a01" class="">10. 메시지 순서 보장</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-814f-aa14-cb65febcbf9e" class="">10.1 정렬 기준</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-81e9-b4ca-ff52db4cc2f2" class="numbered-list" start="1"><li><strong>createdAt</strong> (시간순)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-8193-868a-df2142ac5ed6" class="numbered-list" start="2"><li><strong>타입 순서</strong> (같은 시간일 경우)<div style="display:contents" dir="auto"><ul id="2ccf8917-466a-819b-84db-f037377e9728" class="bulleted-list"><li style="list-style-type:disc">고객 발화 (1)</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8180-bd41-ec50d0fcd6fa" class="bulleted-list"><li style="list-style-type:disc">AI 응답 (2)</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8152-adc2-c498ce291740" class="bulleted-list"><li style="list-style-type:disc">상담사 메시지 (3)</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-81e6-8c11-f611d4210d3d" class="bulleted-list"><li style="list-style-type:disc">AI 응답 (2)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-81cc-b6a0-d5ca017625f7" class="numbered-list" start="3"><li><strong>id</strong> (최종 정렬)</li></ol></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-8170-90d1-dce02a99a713" class="">10.2 예상 순서</h3></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-81d6-b92e-fcab30c193a5" class=""><strong>일반 대화</strong>:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ccf8917-466a-8193-85da-f41274bd310e" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">고객 → AI → 고객 → AI</code></pre></div><div style="display:contents" dir="auto"><p id="2ccf8917-466a-816c-b17f-dfe5b6b7c1b9" class=""><strong>상담사 개입</strong>:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ccf8917-466a-8117-8ea4-faa44887e5b6" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">고객 → AI → 고객 → 상담사 → AI</code></pre></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-818f-82fb-c0f9ad2d8404"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-813e-90d3-cee47ba6b3e0" class="">11. 보안 및 인증</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-81c3-b49f-f9ac8a233ab0" class="">11.1 Pub/Sub Push Subscription 인증</h3></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8150-9809-cdd45d27eae1" class="bulleted-list"><li style="list-style-type:disc"><strong>토큰 검증</strong>: <code>PUBSUB_VERIFY_TOKEN</code> 환경 변수</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8162-ae79-fb13351007f8" class="bulleted-list"><li style="list-style-type:disc"><strong>Service Account</strong>: <code>monitor-sa@{PROJECT_ID}.iam.gserviceaccount.com</code></li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-81ed-a486-f6d34483fd41" class="bulleted-list"><li style="list-style-type:disc"><strong>엔드포인트</strong>: <code>/pubsub/push?token={VERIFY_TOKEN}</code></li></ul></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-81fa-a0a1-e0d9c2c09fb8" class="">11.2 Monitor Server 접근 제어</h3></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-81c6-aeaf-c5496bee1664" class="bulleted-list"><li style="list-style-type:disc"><strong>Basic Auth</strong>: 상담사 모니터링 대시보드 접근 제어</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-813b-8b95-db54ee77e51d" class="bulleted-list"><li style="list-style-type:disc"><strong>환경 변수</strong>: <code>AGENT_BASIC_USER</code>, <code>AGENT_BASIC_PASS</code></li></ul></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-818e-a182-caea53728866"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-8168-9094-e064e2dfec0c" class="">12. 주요 설정 파일</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-81b3-85aa-dd82a94c505b" class="">12.1 Application Properties</h3></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-814a-811d-efe30b5982d3" class="bulleted-list"><li style="list-style-type:disc"><code>application.yml</code>: 공통 설정 (H2 DB, JPA 등)</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-812c-9933-c4ec1ef50604" class="bulleted-list"><li style="list-style-type:disc"><code>application-chat.yml</code>: Chat Server 전용 설정</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-81ee-9098-f1e540980032" class="bulleted-list"><li style="list-style-type:disc"><code>application-monitor.yml</code>: Monitor Server 전용 설정</li></ul></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-811f-9b69-e29a8fca148c" class="">12.2 배포 스크립트</h3></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8155-a8da-ceaa1bc0f753" class="bulleted-list"><li style="list-style-type:disc"><code>infra/cloudrun-deploy-chat.sh</code>: Chat Server 배포</li></ul></div><div style="display:contents" dir="auto"><ul id="2ccf8917-466a-8105-a834-eeab896a46b8" class="bulleted-list"><li style="list-style-type:disc"><code>infra/cloudrun-deploy-monitor.sh</code>: Monitor Server 배포 및 Pub/Sub 설정</li></ul></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-81d8-9a6e-c3c29224a559"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-8131-8d4d-ccae4754c06f" class="">13. 현재 아키텍처의 특징</h2></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-813b-a7bf-d163a02737de" class="">13.1 장점</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-81c7-846a-ffc4a5032c19" class="numbered-list" start="1"><li><strong>서버 분리</strong>: Chat Server와 Monitor Server가 독립적으로 운영</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-81a1-bafa-dde5e80fb7f9" class="numbered-list" start="2"><li><strong>실시간 동기화</strong>: Pub/Sub을 통한 비동기 메시지 전달</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-818b-9d45-ce0d1ada0860" class="numbered-list" start="3"><li><strong>확장성</strong>: 각 서버를 독립적으로 스케일링 가능</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-81ef-970d-cdc037bf7435" class="numbered-list" start="4"><li><strong>단일 소스</strong>: Chat Server가 메시지의 단일 소스</li></ol></div><div style="display:contents" dir="auto"><h3 id="2ccf8917-466a-81dc-9906-fb186bdff10c" class="">13.2 제한사항</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-81a3-b2e3-d0234dbc640d" class="numbered-list" start="1"><li><strong>인메모리 DB</strong>: H2 In-Memory는 재시작 시 데이터 손실</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-8161-8b79-d7634cf69de0" class="numbered-list" start="2"><li><strong>데이터베이스 분리</strong>: Chat Server와 Monitor Server DB가 분리되어 있어 동기화 필요</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-81a1-9507-cefb88880133" class="numbered-list" start="3"><li><strong>Pub/Sub 의존성</strong>: Monitor Server는 Pub/Sub을 통해서만 메시지를 받음</li></ol></div><div style="display:contents" dir="auto"><hr id="2ccf8917-466a-81ae-a9ca-e378c56da04a"/></div><div style="display:contents" dir="auto"><h2 id="2ccf8917-466a-8142-a34d-cc8b90b7df93" class="">14. 향후 개선 방향</h2></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-810b-92d5-dcf891078428" class="numbered-list" start="1"><li><strong>영구 저장소</strong>: Cloud SQL 또는 Firestore로 마이그레이션</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-8146-b471-f08d071908cb" class="numbered-list" start="2"><li><strong>WebSocket 개선</strong>: Chat Server에도 WebSocket 추가 (고객 UI 실시간 업데이트)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-81b3-a33d-c362c7d3471c" class="numbered-list" start="3"><li><strong>에러 처리</strong>: Pub/Sub 실패 시 재시도 로직</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2ccf8917-466a-81e3-9fd4-f0da05501155" class="numbered-list" start="4"><li><strong>모니터링</strong>: Cloud Monitoring 통합</li></ol></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

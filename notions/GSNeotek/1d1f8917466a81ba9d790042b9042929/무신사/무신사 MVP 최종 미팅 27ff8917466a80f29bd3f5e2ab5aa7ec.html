@@ -1,0 +1,711 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>무신사 MVP 최종 미팅</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="27ff8917-466a-80f2-9bd3-f5e2ab5aa7ec" class="page sans"><header><h1 class="page-title" dir="auto">무신사 MVP 최종 미팅</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="27ff8917-466a-8012-8b83-f591d7e6fb20" class=""><strong>1) API 전달 일정 · 내부 개발 진행</strong></h1></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-80b9-a178-fbe23f36651a" class="bulleted-list"><li style="list-style-type:disc">현재 제공 가능한 API 목록과 문서(검색/카탈로그/가격·재고/주문상태/회원·장바구니/추천/프로모션)는 무엇인가요? Postman 컬렉션 또는 OpenAPI 스펙을 주실 수 있나요?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-80a9-b335-c4d205e8baa9" class="bulleted-list"><li style="list-style-type:disc">샌드박스(또는 스테이징) 환경 URL, 인증 방식(API Key/OAuth/IP 허용목록), 요청 한도·QPS는 어떻게 되나요?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-8074-be57-f279b92ed623" class="bulleted-list"><li style="list-style-type:disc">검색 API: 질의 파라미터, 정렬/필터(사이즈, 색상, 카테고리, 가격대), 페이지네이션 규칙(offset/limit vs cursor), 응답 스키마(상품 id/title/images/price/재고/카테고리/속성) 확정본을 공유해 주실 수 있나요?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-8015-be63-d9817e8e2238" class="bulleted-list"><li style="list-style-type:disc">카탈로그/재고 갱신 주기(실시간/주기배치), 가격 변동/할인/품절 이벤트의 전파 지연(SLA)은 얼마인가요?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-809c-9ba3-db2eb1bedd16" class="bulleted-list"><li style="list-style-type:disc">주문/배송/반품 조회 API가 1차 범위에 포함되나요? 포함 시 개인정보 마스킹 정책은?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-80ad-8c11-fabe716c6730" class="bulleted-list"><li style="list-style-type:disc">오류 코드/타임아웃/재시도 정책, 장애 시 대체 경로(캐시/디그레이드) 기준은?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-802b-bc7f-c53a089a5f3d" class="bulleted-list"><li style="list-style-type:disc">API 전달(문서/키/테스트 계정) 목표일자와 내부 개발 완료 예상일을 알려주실 수 있을까요?</li></ul></div><div style="display:contents" dir="auto"><h1 id="27ff8917-466a-807d-81a1-d9fb0b4c254a" class=""><strong>2) 데이터셋 전달 일정 (9/19 요청분 회신)</strong></h1></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-80b3-bbe3-c29bcc66ac69" class="bulleted-list"><li style="list-style-type:disc">9/19에 요청드린 데이터셋(샘플 발화, FAQ, 상품 카테고리/속성 사전, 과거 검색 로그 Top N, 품절/재입고 이벤트 샘플) 전달 가능 시점은 언제인가요?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-80fb-919f-dc71d928de13" class="bulleted-list"><li style="list-style-type:disc">제공 형식(CSV/JSON/Parquet)과 스키마 정의, 필드 설명서(딕셔너리)를 함께 주실 수 있나요?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-80ab-8117-c4a2e8447688" class="bulleted-list"><li style="list-style-type:disc">상품 카테고리 트리/태그/동의어 사전(예: “트랙팬츠=조거팬츠”)을 제공해 주실 수 있나요?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-8090-a19b-cf25e6cb796e" class="bulleted-list"><li style="list-style-type:disc">이미지 URL 사용 정책(만료/서명 URL 여부), 썸네일/대표 이미지 규칙은?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-801b-b319-d9c963e92b84" class="bulleted-list"><li style="list-style-type:disc">개인정보/저작권/보안 이슈가 있는 필드는 제거 또는 마스킹해서 제공 가능한가요?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-8044-b004-fb86e965cc60" class="bulleted-list"><li style="list-style-type:disc">정기 동기화 주기(일배치/시간단위/실시간)와 증분 방식(전체/증분플래그/업데이트 타임스탬프)은?</li></ul></div><div style="display:contents" dir="auto"><h1 id="27ff8917-466a-80ad-9878-f094fe26082a" class=""><strong>3) 착수 시작 예정일 · 마일스톤</strong></h1></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-8003-9bed-d47cd764c340" class="bulleted-list"><li style="list-style-type:disc">공식 착수일과 1차 알파/베타/런치 마일스톤(기능 범위)을 합의할 수 있을까요?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-806c-b292-c0647c18cd5e" class="bulleted-list"><li style="list-style-type:disc">RACI(무신사/당사 담당자·승인자)와 주간 정기 미팅 일정, 이슈 트래킹 채널(Jira/Slack/메일)은?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-801e-b3a0-f63d335bd3a2" class="bulleted-list"><li style="list-style-type:disc">채널 범위(웹/앱/상담센터/카카오톡 등) 우선순위와 채널별 커스텀 요구사항은?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-809a-978a-e7b415fe11f3" class="bulleted-list"><li style="list-style-type:disc">배포 프로세스(스테이징 → 검수 → 운영), 변경 관리/롤백 계획, 로그·모니터링(Cloud Logging/GA4/Amplitude/Looker) 도구는?</li></ul></div><div style="display:contents" dir="auto"><h1 id="27ff8917-466a-801a-bab2-ed8843521c4b" class=""><strong>4) 성공 지표(검수 항목 일부 제외 요청 관련)</strong></h1></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-807d-a527-fd2ee2dcf091" class="bulleted-list"><li style="list-style-type:disc">기준선(Baseline)은 무엇이며, 개선 목표(예: 무응답률 20%→10%)와 측정 기간은?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-80b8-88f1-cbadffe0d581" class="bulleted-list"><li style="list-style-type:disc">CS팀/MD팀과의 정성 지표(CSAT/NPS/상담사 피드백) 수집 방식은?</li></ul></div><div style="display:contents" dir="auto"><h1 id="27ff8917-466a-80d5-aafe-ce0e5e162745" class=""><strong>추가로 꼭 필요한 확인 사항</strong></h1></div><div style="display:contents" dir="auto"><h1 id="27ff8917-466a-8071-93e4-c3129ab7b5fe" class=""><strong>대화 설계/경험</strong></h1></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-804e-8800-c28912b22c21" class="bulleted-list"><li style="list-style-type:disc">챗봇 페르소나/톤앤매너(무신사 브랜드 가이드)와 금칙어/법무 문구(예: 가격 고지·품절 안내)는?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-806b-867d-d6de4ad07dcb" class="bulleted-list"><li style="list-style-type:disc">우선 지원 언어(ko/en)와 지원할 언어 범위는?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-8083-85b0-c17f2471af12" class="bulleted-list"><li style="list-style-type:disc">핵심 유즈케이스 우선순위: 예) 상품 탐색 → 필터링 → 비교 → 장바구니/관심상품 → 재입고 알림 → 주문조회/반품 중 1차 범위는?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-80bf-8cf8-e987013f1d0e" class="bulleted-list"><li style="list-style-type:disc">실패/무응답 시 휴먼 핸드오버 기준(상담 연결 조건, 운영 시간, 연결 채널)은?</li></ul></div><div style="display:contents" dir="auto"><h1 id="27ff8917-466a-80be-9afe-f4d1ed551130" class=""><strong>프론트/웹훅 계약 (현재 PoC 구조 반영)</strong></h1></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-8053-8f6a-c5d7573d135c" class="bulleted-list"><li style="list-style-type:disc">우리 쪽 표준 페이로드(response_payload / shown_products “id|title” / response_payload_sent / webhook_tag 등) 포맷을 운영에서도 그대로 사용해도 될까요?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-80d6-9397-df994eb3a852" class="bulleted-list"><li style="list-style-type:disc">무신사 프론트에서 필요한 추가 필드(예: 배송비, 쿠폰/프로모션, 리뷰 요약, 사이즈 추천)가 있나요?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-80e7-b7d9-de4a301d181d" class="bulleted-list"><li style="list-style-type:disc">웹훅 보안(헤더 시크릿/Basic Auth/IP 허용)과 타임아웃·재시도·멱등 키(responseId+session) 정책 합의가 필요합니다. 기준은?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-801c-8c37-f8fb029cd009" class="bulleted-list"><li style="list-style-type:disc">이미지/리치카드 UI 스펙(1행 N개, 캐러셀/그리드, 필수 필드)과 접속 채널별 제약은?</li></ul></div><div style="display:contents" dir="auto"><h1 id="27ff8917-466a-800a-b471-dba86db1c8e1" class=""><strong>품질/운영/보안</strong></h1></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-8021-a565-c6ed931b1475" class="bulleted-list"><li style="list-style-type:disc">개인정보(PII)·주문정보 처리에 대한 보안/컴플라이언스 요구(보관기간/암호화/마스킹/접근권한)는?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-808e-a27a-e225d4837471" class="bulleted-list"><li style="list-style-type:disc">장애 알림/온콜, 응답 지연/오류율 SLO, 패턴 학습용 로그 익명화 기준은?</li></ul></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-802a-ba11-d323e9ca0ee1" class="bulleted-list"><li style="list-style-type:disc">테스트 계정/더미 카드/테스트 주문 데이터 제공 가능 여부는?</li></ul></div><div style="display:contents" dir="auto"><h1 id="27ff8917-466a-8082-bc0e-f4bbedb6eb32" class=""><strong>데이터·검색 품질</strong></h1></div><div style="display:contents" dir="auto"><ul id="27ff8917-466a-807d-a584-fd57711e1b52" class="bulleted-list"><li style="list-style-type:disc">“브랜드/카테고리/스타일/핏/가격대/색상/사이즈” 의도 추출 시 우선 매핑 규칙과 동의어 사전 제공 가능 여부?</li></ul></div><div style="display:contents" dir="auto"><p id="27ff8917-466a-800e-b26d-ed7e8b0e5198" class="">‘</p></div><div style="display:contents" dir="auto"><p id="280f8917-466a-800f-ba62-d8223e109401" class="">추론의 영역</p></div><div style="display:contents" dir="auto"><p id="280f8917-466a-8071-9a76-c4a165972f0b" class="">ai가 하면 상담사 열명보다 정확할거야</p></div><div style="display:contents" dir="auto"><p id="280f8917-466a-8035-a722-d856f16aa06c" class="">반품 리스트 있음</p></div><div style="display:contents" dir="auto"><p id="280f8917-466a-8063-9a1d-c01f70eb34ad" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ff8917-466a-8027-9931-f670b689da29" class="">고객의 의도를 얼마나 잘 파악하냐 </p></div><div style="display:contents" dir="auto"><p id="280f8917-466a-80b9-9faf-ec27d33a32df" class="">무신사 gpt를 만들자 가장 기본적인 기능만</p></div><div style="display:contents" dir="auto"><p id="280f8917-466a-8077-84d0-c5545c8244dd" class="">주문취소</p></div><div style="display:contents" dir="ltr"><figure id="285f8917-466a-80ce-8c9b-e2509724c008" class="image"><a href="%EB%AC%B4%EC%8B%A0%EC%82%AC%20MVP%20%EC%B5%9C%EC%A2%85%20%EB%AF%B8%ED%8C%85/image.png"><img style="width:709.984375px" src="%EB%AC%B4%EC%8B%A0%EC%82%AC%20MVP%20%EC%B5%9C%EC%A2%85%20%EB%AF%B8%ED%8C%85/image.png"/></a></figure></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

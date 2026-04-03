@@ -1,0 +1,711 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>WiseN TM 쿠팡</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="31ff8917-466a-80bc-a973-f5da7091ea89" class="page sans"><header><h1 class="page-title" dir="auto">WiseN TM 쿠팡</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="ltr"><figure id="31ff8917-466a-80d7-a896-e981547e69ed" class="image"><a href="WiseN%20TM%20%EC%BF%A0%ED%8C%A1/Untitled_Diagram-Page-2.png"><img style="width:709.96875px" src="WiseN%20TM%20%EC%BF%A0%ED%8C%A1/Untitled_Diagram-Page-2.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80fa-9409-cdff1d68f646" class="bulleted-list"><li style="list-style-type:disc"><strong>Public Subnet</strong><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80fc-975d-dfff623a28ea" class="bulleted-list"><li style="list-style-type:circle">ALB (HTTP/L7)</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80bc-95a9-c4037bf407e4" class="bulleted-list"><li style="list-style-type:circle">외부용 NLB (MQTT)</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8009-9ca3-e056f152c6aa" class="bulleted-list"><li style="list-style-type:circle">Internet Gateway 연결</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8080-b64f-e4006f8553b3" class="bulleted-list"><li style="list-style-type:disc"><strong>Private Subnet</strong><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8088-aa7f-e79a3be21326" class="bulleted-list"><li style="list-style-type:circle">EC2 기반 WAS</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8070-8113-dda90b164b85" class="bulleted-list"><li style="list-style-type:circle">Docker/Containerized WAS</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80f6-b7f5-dce3421b163b" class="bulleted-list"><li style="list-style-type:circle">Message Broker</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8012-95c1-d418a4d2776a" class="bulleted-list"><li style="list-style-type:circle">필요 시 내부용 NLB</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-803d-9278-d7405c5b920d" class="bulleted-list"><li style="list-style-type:disc"><strong>멀티 AZ</strong><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80df-b41b-c1d3dbe1e705" class="bulleted-list"><li style="list-style-type:circle">AZ-a, AZ-c 각각 동일하게 구성</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8066-b655-f93b999abf98" class="bulleted-list"><li style="list-style-type:circle">한쪽 AZ 장애 시 다른 AZ에서 계속 서비스</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80a6-ab2e-e2081953fe83" class="">아래처럼 단계별로 보면 됩니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-8065-a337-d63a0ee6e992"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-8096-909d-ed0e4a1766cc" class="">1. 먼저 전체 구조를 이렇게 이해하면 됩니다</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-806f-8a5a-ff4f0c0196ec" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-802e-9820-f2db9bbc28ba" class="">HTTP 계열</h3></div><div style="display:contents" dir="auto"><ol type="1" id="31ff8917-466a-8016-9443-e514f2fa55e3" class="numbered-list" start="1"><li>휴대폰/PC가 외부 도메인으로 접속</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="31ff8917-466a-808c-b47c-d8f49dc9807d" class="numbered-list" start="2"><li>Public Subnet의 <strong>ALB</strong> 가 요청 수신</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="31ff8917-466a-80e6-9307-c76a5ddd313a" class="numbered-list" start="3"><li>ALB가 Private Subnet 안의 <strong>WAS EC2</strong> 또는 <strong>컨테이너 WAS</strong> 로 전달</li></ol></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8012-9cba-f2aa61b4cee8" class="">MQTT 계열</h3></div><div style="display:contents" dir="auto"><ol type="1" id="31ff8917-466a-80df-8828-dedaefe7de3c" class="numbered-list" start="1"><li>단말/앱이 MQTT 접속</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="31ff8917-466a-8053-aa74-cf8f12fc63e2" class="numbered-list" start="2"><li>Public Subnet의 <strong>NLB</strong> 가 TCP/TLS 레벨로 수신</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="31ff8917-466a-80c4-97ce-c280d504c54f" class="numbered-list" start="3"><li>Private Subnet 안의 <strong>Broker 또는 MQTT 처리 서버</strong> 로 전달</li></ol></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8015-8339-ec435f34a80e" class="">내부 서비스 연동</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8058-b331-d506189126b0" class="bulleted-list"><li style="list-style-type:disc">Private Subnet 내 WAS가 같은 서브넷 또는 다른 AZ의 브로커와 통신</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-803a-a320-fb89766efd2f" class="bulleted-list"><li style="list-style-type:disc">컨테이너, 브로커, WAS 간 내부 트래픽은 VPC 내부망으로만 통신</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8098-886f-f838a98e6739" class="bulleted-list"><li style="list-style-type:disc">외부 인터넷은 직접 노출하지 않음</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-805e-b898-d493b20b8bff" class="">즉, 질문하신 “private subnet을 이렇게 구성” 한다는 것은 결국 아래 의미입니다.</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80db-8d4f-f410b0fd8f34" class="bulleted-list"><li style="list-style-type:disc"><strong>애플리케이션 서버는 private subnet</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80ea-9677-d89027291855" class="bulleted-list"><li style="list-style-type:disc"><strong>public IP 없음</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-800c-87eb-e2e774374e3f" class="bulleted-list"><li style="list-style-type:disc"><strong>외부 트래픽은 반드시 ALB/NLB를 통해서만 들어옴</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8020-b2e6-c7e561285c5f" class="bulleted-list"><li style="list-style-type:disc"><strong>운영/배포/패치용 외부 통신은 NAT Gateway 또는 SSM으로 처리</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-802e-a803-c7863aca8288" class="bulleted-list"><li style="list-style-type:disc"><strong>AZ별로 동일 구성하여 이중화</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-8030-9f9d-d412724063ed"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-80ba-8c40-f516fe8f5601" class="">2. VPC 설계를 먼저 잡아야 합니다</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80e6-b87d-d0f5b8e2f823" class="">예시로 VPC를 하나 만든다고 하면:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-806b-9385-c680d6e6de4e" class="bulleted-list"><li style="list-style-type:disc">VPC: <code>10.0.0.0/16</code></li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8024-af94-f80dff7e6913" class="">서브넷은 최소 4개 이상 권장입니다.</p></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-800d-9678-d95e6daf6b8b" class="">Public Subnet</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8001-96c2-d5007c4aeb50" class="bulleted-list"><li style="list-style-type:disc"><code>10.0.1.0/24</code> → AZ-a</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8055-b4b9-eee8f7422de1" class="bulleted-list"><li style="list-style-type:disc"><code>10.0.2.0/24</code> → AZ-c</li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8080-a4ac-ff962a197510" class="">Private App Subnet</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80b8-a37c-f73020956eca" class="bulleted-list"><li style="list-style-type:disc"><code>10.0.11.0/24</code> → AZ-a</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80b2-bd4f-daf34f163dd1" class="bulleted-list"><li style="list-style-type:disc"><code>10.0.12.0/24</code> → AZ-c</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8095-9adf-d249c90dba1f" class="">필요하면 더 나눌 수도 있습니다.</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8091-86d5-cbf1e426c111" class="bulleted-list"><li style="list-style-type:disc">Private App Subnet: WAS/Container</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80c6-b6b3-ed85c5e467bc" class="bulleted-list"><li style="list-style-type:disc">Private Data Subnet: Broker/DB/Cache</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80cd-b5fa-c6e0e2c9916d" class="bulleted-list"><li style="list-style-type:disc">Private Management Subnet: bastion/ops</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80d0-a931-f2fe0ec37a97" class="">하지만 그림 수준에서는 보통 아래 2계층으로도 충분합니다.</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80b1-ba03-ddb1ee7d8641" class="bulleted-list"><li style="list-style-type:disc">Public</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-801a-9584-da46ef32547a" class="bulleted-list"><li style="list-style-type:disc">Private</li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80e5-8c37-cea674abf81c"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-80e5-b2a0-c39e1d10c1e4" class="">3. Public / Private Subnet의 차이는 라우팅입니다</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-800d-9378-f1f1d0a55e09" class="">많이 헷갈리는 부분인데, <strong>서브넷이 public인지 private인지는 이름이 아니라 Route Table이 결정</strong>합니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8087-ab8b-d834cfbd90c9" class="">Public Subnet의 Route Table</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80cc-996b-c12706fb8584" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-802b-84ba-e5e91e6f5b76" class="bulleted-list"><li style="list-style-type:disc"><code>10.0.0.0/16</code> → local</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80c6-8d5c-d1831efb8f20" class="bulleted-list"><li style="list-style-type:disc"><code>0.0.0.0/0</code> → Internet Gateway</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-809c-873e-c5bc25910e09" class="">이렇게 되어 있으면 인터넷과 직접 통신 가능하므로 Public Subnet입니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-808b-9ce4-cc8fcca5a1e9" class="">Private Subnet의 Route Table</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-809e-a9f5-e013f8a429de" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8008-b08e-fc58442bbe23" class="bulleted-list"><li style="list-style-type:disc"><code>10.0.0.0/16</code> → local</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8077-8c5d-c7ecd51383df" class="bulleted-list"><li style="list-style-type:disc"><code>0.0.0.0/0</code> → NAT Gateway</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80d2-b060-e12710827118" class="">또는 아예 인터넷 outbound도 막고 싶으면:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8092-95cc-f974e8ac8a30" class="bulleted-list"><li style="list-style-type:disc"><code>10.0.0.0/16</code> → local</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8039-a6ee-c7960b669c22" class="">이 경우 외부에서 직접 접근 불가, public IP도 안 붙이므로 Private Subnet입니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80d5-b2c4-ee256ef19c32"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-80dd-bfcd-d5c46677ed3a" class="">4. Internet Gateway와 NAT Gateway를 어떻게 둘지</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-805f-9ae5-f1c35d06801e" class="">이 구조에서 보통 이렇게 둡니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-80d6-a7a6-c556c4be22a1" class="">Internet Gateway</h2></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80ec-a048-d20554294060" class="bulleted-list"><li style="list-style-type:disc">VPC에 1개 연결</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-800b-b5b8-d9c85f14f9e4" class="bulleted-list"><li style="list-style-type:disc">Public Subnet의 ALB, Public NLB가 인터넷 수신 가능</li></ul></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8027-8dc2-eeaf71fd7569" class="">NAT Gateway</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8065-974c-ec7ef8800120" class="">Private 서버가 아래 작업을 해야 하면 필요합니다.</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-807c-b260-ed51e9e46df6" class="bulleted-list"><li style="list-style-type:disc">OS 패키지 다운로드</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8010-911d-c1a05bde179c" class="bulleted-list"><li style="list-style-type:disc">외부 API 호출</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80e1-b46e-cf736baa3dec" class="bulleted-list"><li style="list-style-type:disc">Docker image pull</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8027-9249-c382ccdee11a" class="bulleted-list"><li style="list-style-type:disc">CloudWatch/SSM/외부 인증서 갱신 등</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80f3-a299-ea4073749941" class="">권장 구성은:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8076-95a2-d0cd08b25702" class="bulleted-list"><li style="list-style-type:disc">NAT Gateway를 <strong>AZ별 Public Subnet에 1개씩</strong><div style="display:contents" dir="auto"><ul id="31ff8917-466a-801a-be4e-dc5065ff084a" class="bulleted-list"><li style="list-style-type:circle">AZ-a Public Subnet에 NAT 1개</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8083-a809-e54671cb411f" class="bulleted-list"><li style="list-style-type:circle">AZ-c Public Subnet에 NAT 1개</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8079-a31c-ddf752acab7b" class="">그리고</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-805b-bb15-d0c69a930076" class="bulleted-list"><li style="list-style-type:disc">AZ-a Private Route Table → NAT-a</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8013-827e-d3eb202b6898" class="bulleted-list"><li style="list-style-type:disc">AZ-c Private Route Table → NAT-c</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80e6-be8f-d3b199d9cb72" class="">이렇게 해야 AZ 독립성이 좋아집니다.</p></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80a8-881f-ffed4e73c4f4" class="">비용 아끼려고 NAT 하나만 둘 수도 있지만,</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8046-a06b-c901034f3b73" class="bulleted-list"><li style="list-style-type:disc">크로스 AZ 트래픽 발생 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8039-b635-c386fad56900" class="bulleted-list"><li style="list-style-type:disc">특정 AZ 장애 시 outbound 영향 가능</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80f5-a539-c530d87849b5" class="">그래서 운영서비스면 <strong>AZ별 NAT</strong>가 더 안전합니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-8001-bd89-f26867bbd89c"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-80f8-883b-dbdad1b2c0dc" class="">5. ALB / NLB는 어디에 배치해야 하나</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-807e-86b7-f83827a46c97" class="">그림 기준으로는 두 종류입니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-803a-967c-d29085c5cdbd" class="">5-1. ALB (HTTP/L7)</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8010-8558-f934ea305289" class="">ALB는 보통 <strong>Public Subnet 2개 이상</strong>에 배치합니다.</p></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8089-b906-e83ada7c6e07" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8009-9443-fda0b73ea29a" class="bulleted-list"><li style="list-style-type:disc">Public Subnet AZ-a</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80f8-97fd-edfcaae366e5" class="bulleted-list"><li style="list-style-type:disc">Public Subnet AZ-c</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8060-b1a4-e1d9ba694793" class="">ALB Listener:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80b4-bd1a-d1fbfc6085a5" class="bulleted-list"><li style="list-style-type:disc">80 → 443 redirect</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8080-aa57-d00ff74c5b02" class="bulleted-list"><li style="list-style-type:disc">443 → Target Group(Private EC2 or ECS)</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8003-aee6-ca8ed48d0d1d" class="">Target Group 대상:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80a3-a7b4-fc5a1788814f" class="bulleted-list"><li style="list-style-type:disc">Private Subnet의 WAS EC2</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8009-81d2-f5131c190594" class="bulleted-list"><li style="list-style-type:disc">또는 ECS 서비스/컨테이너</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80e7-9666-efd3d87e897f" class="bulleted-list"><li style="list-style-type:disc">또는 IP target 방식</li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8002-b6d4-d08b608ae33c" class="">왜 ALB를 Public에 두나</h3></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8037-9b71-c800c463d2cf" class="">외부 클라이언트 HTTP/HTTPS 요청을 받아야 하기 때문입니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-804e-a504-cba6ee93828e"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-80e2-bceb-e642db08f37e" class="">5-2. NLB (MQTT)</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80c0-a997-da4738766883" class="">MQTT는 보통 TCP/TLS 레벨이라 <strong>NLB</strong>가 맞습니다.</p></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80db-9f72-d6acece350f8" class="">외부 단말이 MQTT로 들어오면:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8028-b4c4-cf886be0e326" class="bulleted-list"><li style="list-style-type:disc">Public NLB</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-807a-81d2-c99386e50cf3" class="bulleted-list"><li style="list-style-type:disc">Listener: 1883 또는 8883(TLS)</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8070-a545-e796deb70fb8" class="bulleted-list"><li style="list-style-type:disc">Target Group: Private Subnet의 Broker/WAS</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8094-b895-dcf8ba17fef4" class="">이렇게 갑니다.</p></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8091-99bb-f54eb75db957" class="">포트 예시</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-808f-bee3-f7631ff4f350" class="bulleted-list"><li style="list-style-type:disc">MQTT 평문: 1883</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-807f-a41d-c3b468f60b78" class="bulleted-list"><li style="list-style-type:disc">MQTT over TLS: 8883</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-800f-b856-dab1a197dcc9" class="bulleted-list"><li style="list-style-type:disc">WebSocket MQTT: 경우에 따라 443 + ALB/NLB 조합도 가능</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80d9-b5ff-e67477dd7f62" class="">실서비스면 평문보다 <strong>TLS(8883)</strong> 권장입니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80dc-a5a1-fe164eb8739a"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-808d-9dea-c40ac939e76e" class="">6. Private Subnet 안에는 무엇을 어떻게 두나</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80b6-a845-c5bf80982096" class="">그림대로라면 Private Subnet 안에 다음이 들어갑니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-80fc-98da-f8eee5de2e78" class="">AZ-a</h2></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80ab-afaf-cea9ba437244" class="bulleted-list"><li style="list-style-type:disc">WAS #1 EC2</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8035-b846-e8e2238cc014" class="bulleted-list"><li style="list-style-type:disc">Message Broker #1 EC2</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-808a-8971-d39aa445a56b" class="bulleted-list"><li style="list-style-type:disc">Containerized WAS Layer</li></ul></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-80a7-a811-c18befda5983" class="">AZ-c</h2></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80fc-aae7-c1d9c4f16d68" class="bulleted-list"><li style="list-style-type:disc">WAS #2 EC2</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80a4-a02f-df22d7933045" class="bulleted-list"><li style="list-style-type:disc">Message Broker #2 EC2</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80cf-aa02-e787f4e51abe" class="bulleted-list"><li style="list-style-type:disc">Containerized WAS Layer</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8020-8466-cfce662eec79" class="">이때 실무적으로는 2가지 패턴이 있습니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-809e-8048-ce97c7858dcf"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8074-869f-cfd5dab3e8f1" class="">패턴 A. EC2 안에 Docker 직접 운영</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8024-b710-f400b5124280" class="">각 AZ의 EC2 안에 Docker를 띄워서:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8006-b53a-cdd2adedbfa1" class="bulleted-list"><li style="list-style-type:disc">Nginx / App container</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80b5-ac9f-c95d3b0cde07" class="bulleted-list"><li style="list-style-type:disc">Worker</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8045-b788-fdbb293f30da" class="bulleted-list"><li style="list-style-type:disc">MQTT handling app</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8006-9ea7-de5f17933424" class="">이런 식으로 운영</p></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8010-a6cf-ed73b279b2de" class="">장점</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-801b-8a2b-e3dd58d94f81" class="bulleted-list"><li style="list-style-type:disc">단순</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8093-8fde-dff30a521b92" class="bulleted-list"><li style="list-style-type:disc">익숙함</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8064-ad92-ddcbc9bba6eb" class="bulleted-list"><li style="list-style-type:disc">빠르게 구축 가능</li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8039-b437-c9c200178c0f" class="">단점</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-803a-8356-db86a754ecee" class="bulleted-list"><li style="list-style-type:disc">오토스케일/배포/헬스체크/운영 자동화가 ECS보다 불편</li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-8021-b196-fa749cc5715b"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-802c-b835-ff2a66f17087" class="">패턴 B. ECS on EC2 또는 ECS Fargate</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80b6-a182-dc080a217e54" class="">더 AWS스럽게 가려면:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80fe-ae78-e465be7c5ccb" class="bulleted-list"><li style="list-style-type:disc">ECS Cluster</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80db-b784-f56cd4f846b5" class="bulleted-list"><li style="list-style-type:disc">Service</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80a6-811c-d47555b1451e" class="bulleted-list"><li style="list-style-type:disc">Task</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80c6-987f-fb0637b903d1" class="bulleted-list"><li style="list-style-type:disc">Target Group 연동</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8036-b70d-ee58c7df2330" class="">이 구조가 더 깔끔합니다.</p></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80c8-a093-c79b537d78de" class="">다만 그림은 EC2 + Docker 느낌이 강해서, 현재 설계 의도는 아마 <strong>EC2 위 Docker</strong> 로 보입니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80d5-8a3e-cd901720966d"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-806e-a9be-fa8af7c6979f" class="">7. “Private Subnet으로 이렇게 구성”하는 실제 생성 순서</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80a7-af2b-db0ae29e7707" class="">아래 순서대로 만들면 됩니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80ac-9431-e4677e401f2a"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-80d2-bed8-c52f1c36df4d" class="">1단계. VPC 생성</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80ce-9251-ca5d9c5a9e6b" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8054-8787-c416fec81ace" class="bulleted-list"><li style="list-style-type:disc"><code>10.0.0.0/16</code></li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80cf-bcd2-e75583a2adb5" class="">DNS 옵션도 켜두는 게 좋습니다.</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80db-b0f9-d15f1e839646" class="bulleted-list"><li style="list-style-type:disc">DNS hostnames: enabled</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8063-853b-cd77fc82db75" class="bulleted-list"><li style="list-style-type:disc">DNS resolution: enabled</li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-808e-800e-dd43e1606f75"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-80e7-aef6-f21628d67ade" class="">2단계. Subnet 생성</h2></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80af-9694-fcc2712f7d17" class="">Public</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80f4-bc87-d271c7e54d26" class="bulleted-list"><li style="list-style-type:disc"><code>subnet-public-a</code> / AZ-a / <code>10.0.1.0/24</code></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-803d-aa46-c0e295ca7bdb" class="bulleted-list"><li style="list-style-type:disc"><code>subnet-public-c</code> / AZ-c / <code>10.0.2.0/24</code></li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8037-b453-d913a3a6078a" class="">Private</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80c4-ba08-f0fbf6db70fe" class="bulleted-list"><li style="list-style-type:disc"><code>subnet-private-app-a</code> / AZ-a / <code>10.0.11.0/24</code></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80aa-b3db-c96a75010d68" class="bulleted-list"><li style="list-style-type:disc"><code>subnet-private-app-c</code> / AZ-c / <code>10.0.12.0/24</code></li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-800d-8be3-f3e9a95e07df" class="">여기서 <strong>Private Subnet은 auto-assign public IP 비활성화</strong> 상태여야 합니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80b3-9fc8-eab7649d0cad"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8058-a352-e5675c1b9435" class="">3단계. IGW 연결</h2></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80d5-806d-d9298113b9dc" class="bulleted-list"><li style="list-style-type:disc">Internet Gateway 생성</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80ba-850f-cd897b992c9f" class="bulleted-list"><li style="list-style-type:disc">VPC에 Attach</li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80fa-ad0f-f7fb10a8fb0c"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-800b-ae6c-dbf281a82171" class="">4단계. Route Table 생성</h2></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80ff-b125-efa1fab9973c" class="">Public Route Table</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8064-bba2-dc217cd208dd" class="bulleted-list"><li style="list-style-type:disc"><code>0.0.0.0/0 -&gt; IGW</code></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8070-b498-dc0fe35b624d" class="bulleted-list"><li style="list-style-type:disc">Public Subnet 2개 연결</li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8094-af9b-dfde13698a13" class="">Private Route Table A</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-805b-a701-e458a9f841ac" class="bulleted-list"><li style="list-style-type:disc"><code>0.0.0.0/0 -&gt; NAT Gateway A</code></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80d2-8467-dcf8fe36892c" class="bulleted-list"><li style="list-style-type:disc">Private Subnet A 연결</li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80a6-9cdb-d3239480c9ad" class="">Private Route Table C</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8031-a565-dee601699559" class="bulleted-list"><li style="list-style-type:disc"><code>0.0.0.0/0 -&gt; NAT Gateway C</code></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80dc-a526-c8791dccdcca" class="bulleted-list"><li style="list-style-type:disc">Private Subnet C 연결</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-800f-b22c-fd31f37cde6c" class="">인터넷 outbound가 아예 필요 없으면 NAT 대신 local만 둬도 됩니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-808f-a446-ee7332013603"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-800d-8fbf-fded77388d9b" class="">5단계. NAT Gateway 생성</h2></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80a1-8676-c46c244392e7" class="bulleted-list"><li style="list-style-type:disc">Public Subnet A에 NAT-A</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8054-8eb8-f0d56a6cf283" class="bulleted-list"><li style="list-style-type:disc">Public Subnet C에 NAT-C</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80c1-835f-c52c0c5c9120" class="bulleted-list"><li style="list-style-type:disc">각각 Elastic IP 연결</li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-8080-8cc6-eb2c89748fd3"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-80bd-88e6-d2ecbb2c5f18" class="">6단계. 보안그룹 설계</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80de-bf14-c233f7e6f3f3" class="">이 부분이 제일 중요합니다.</p></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8084-bab5-d28b210e085d" class="">ALB Security Group</h3></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8044-a465-f55d67e1e696" class="">인바운드</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-804c-b8e5-db2df55ffb86" class="bulleted-list"><li style="list-style-type:disc">80 from 0.0.0.0/0</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8093-a29f-c76364dda46f" class="bulleted-list"><li style="list-style-type:disc">443 from 0.0.0.0/0</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80bf-965d-cf47f536326f" class="">아웃바운드</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8083-9b3a-f36198a6e47f" class="bulleted-list"><li style="list-style-type:disc">WAS SG의 8080/80/443 등 앱 포트</li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8095-bcfc-dbe93246cb6f" class="">WAS EC2 Security Group</h3></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-808d-9e1f-de72e51c5560" class="">인바운드</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8088-93be-efccc3bc2ea7" class="bulleted-list"><li style="list-style-type:disc">ALB SG에서만 8080 또는 80/443 허용</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8065-9495-c4536b873463" class="bulleted-list"><li style="list-style-type:disc">운영용이면 SSM 권장</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80d0-b502-f7d883ee3109" class="bulleted-list"><li style="list-style-type:disc">SSH는 가능하면 열지 않음</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80cb-9f7d-d6f99e98816e" class="">아웃바운드</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8004-ab73-f3f0e5fd358a" class="bulleted-list"><li style="list-style-type:disc">Broker 포트</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8003-a82f-e3828b0abdb1" class="bulleted-list"><li style="list-style-type:disc">내부 API</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8034-a787-c7ad7480c20a" class="bulleted-list"><li style="list-style-type:disc">CloudWatch/SSM/NAT outbound</li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8005-9565-d6d3b8423c17" class="">MQTT Broker SG</h3></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80c5-9c2a-c68de382a62f" class="">인바운드</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80cf-b916-e117fb7e755d" class="bulleted-list"><li style="list-style-type:disc">Public NLB 타겟 포트 허용</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80bf-8dc8-f82d6c631ef4" class="bulleted-list"><li style="list-style-type:disc">예: 1883, 8883</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80a9-b175-deb48e1a851f" class="bulleted-list"><li style="list-style-type:disc">WAS SG에서 broker 관리 포트 허용</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8038-8485-f27a5ad8c6f2" class="">아웃바운드</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80ef-83c3-dc0b42a48fca" class="bulleted-list"><li style="list-style-type:disc">필요 최소</li></ul></div><div style="display:contents" dir="auto"><blockquote id="31ff8917-466a-8050-9a8c-e046f825ce31" class="">참고로 NLB는 Security Group 동작 방식이 ALB와 다르게 느껴질 수 있으니, 실제 타겟 포트 기준으로 인스턴스 SG/NACL을 같이 봐야 합니다.</blockquote></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-8001-bc94-f4e66c2abb77"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-801d-9326-dfeb832ee1bf" class="">7단계. ALB 생성</h2></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8007-9316-ea63c2a00385" class="bulleted-list"><li style="list-style-type:disc">Internet-facing ALB</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-805a-b0d2-d41f9ea940e7" class="bulleted-list"><li style="list-style-type:disc">Public Subnet A, C 선택</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8055-8b8b-ca1f9b9056a1" class="bulleted-list"><li style="list-style-type:disc">HTTPS 리스너 구성</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-801c-a1dd-f3ca50130c2b" class="bulleted-list"><li style="list-style-type:disc">ACM 인증서 연결</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80df-a6c1-e2ed8fd626b1" class="bulleted-list"><li style="list-style-type:disc">Target Group 생성<div style="display:contents" dir="auto"><ul id="31ff8917-466a-809e-a649-e8facd034322" class="bulleted-list"><li style="list-style-type:circle">타입: instance 또는 ip</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-804c-aeb0-eb919ea1cb5b" class="bulleted-list"><li style="list-style-type:circle">대상: Private Subnet의 WAS EC2 또는 컨테이너 IP</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8026-beae-dc9938eb4edb" class="">헬스체크 경로도 설정합니다.<br/>예:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8070-9073-d3b51f1372a9" class="bulleted-list"><li style="list-style-type:disc"><code>/health</code></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80ab-8dd2-f0cd30639b60" class="bulleted-list"><li style="list-style-type:disc"><code>/actuator/health</code></li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80ac-980f-e9e035cc2fb4"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-80dc-aecd-d070ad56e95c" class="">8단계. NLB 생성</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-809d-bafa-e1c2e4ec70d6" class="">MQTT용으로 생성</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-805e-bde1-e112db80b714" class="bulleted-list"><li style="list-style-type:disc">Scheme: internet-facing</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80b6-889b-c44540e7fed1" class="bulleted-list"><li style="list-style-type:disc">Public Subnet A, C</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8082-9d7b-faff7f56c408" class="bulleted-list"><li style="list-style-type:disc">Listener:<div style="display:contents" dir="auto"><ul id="31ff8917-466a-808a-9a91-ffaff06f4bac" class="bulleted-list"><li style="list-style-type:circle">TCP 1883</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-807a-b663-e80c595022a5" class="bulleted-list"><li style="list-style-type:circle">또는 TLS 8883</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8077-bc07-ea5ab9a64a84" class="bulleted-list"><li style="list-style-type:disc">Target Group:<div style="display:contents" dir="auto"><ul id="31ff8917-466a-8044-8d6d-dc2467020fcd" class="bulleted-list"><li style="list-style-type:circle">Broker EC2</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80c8-8fbf-dbd6333ea5d1" class="bulleted-list"><li style="list-style-type:circle">또는 MQTT 처리 WAS</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80ce-b202-e7e23af3d99b"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-80a7-97a7-ecbf067e254b" class="">9단계. Private Subnet에 EC2 배치</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8043-b556-d6414f1006af" class="">각 AZ에 최소 1대씩</p></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-809f-a8f2-ffdc9cda3463" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80bc-b963-dfb5bfa9a06f" class="bulleted-list"><li style="list-style-type:disc"><code>ec2-was-a</code></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80c2-b0ae-dbd0d7ec3af5" class="bulleted-list"><li style="list-style-type:disc"><code>ec2-broker-a</code></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80a4-9d92-e73e5cdefc1b" class="bulleted-list"><li style="list-style-type:disc"><code>ec2-was-c</code></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8044-8e0d-c4196a3460fb" class="bulleted-list"><li style="list-style-type:disc"><code>ec2-broker-c</code></li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8084-b4ba-c6d288c1d1da" class="">설정 시 주의:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8054-a805-c7110e1386fd" class="bulleted-list"><li style="list-style-type:disc">Public IP 할당 안 함</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8044-9c0d-db045c41072e" class="bulleted-list"><li style="list-style-type:disc">Private IP만 사용</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80ae-bf22-f23cbab28ed6" class="bulleted-list"><li style="list-style-type:disc">IAM Role 연결<div style="display:contents" dir="auto"><ul id="31ff8917-466a-804e-9391-c685da6a23bd" class="bulleted-list"><li style="list-style-type:circle">CloudWatch Agent</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80a3-924e-fa0caaeb4792" class="bulleted-list"><li style="list-style-type:circle">SSM</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-800c-a754-d88eb4fed16e" class="bulleted-list"><li style="list-style-type:circle">ECR pull 필요 시 ECR 권한</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8067-b938-fa111966629a" class="bulleted-list"><li style="list-style-type:disc">보안그룹 최소 허용</li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-807d-8706-ea7a4bc81669"/></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-80f2-a84c-e2cdf85f4be8" class="">10단계. Docker/애플리케이션 배포</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80f5-bb84-d607890998f6" class="">Private EC2에 Docker 또는 container runtime 설치 후:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8069-8692-d7e965b349cb" class="bulleted-list"><li style="list-style-type:disc">App container 실행</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8019-9da0-e240974ab625" class="bulleted-list"><li style="list-style-type:disc">MQTT broker 실행</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8086-adc1-db644965592c" class="bulleted-list"><li style="list-style-type:disc">reverse proxy 필요 시 Nginx 추가</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80fd-bbc9-d38293b33802" class="bulleted-list"><li style="list-style-type:disc">systemd 또는 docker compose로 부팅 자동화</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8062-80fb-c0c56fc16bdf" class="">예시:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8087-9ef2-f9e27f970a57" class="bulleted-list"><li style="list-style-type:disc">EC2 WAS #1 → App container 2개</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-805e-bf02-da73499d0bda" class="bulleted-list"><li style="list-style-type:disc">EC2 Broker #1 → EMQX / Mosquitto / RabbitMQ MQTT plugin 등</li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-804f-b7f7-f21e7ebd2fc1"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-803e-8a9f-cd7023146e75" class="">8. Route 53 도메인 연결은 어떻게 하나</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8024-8d0a-dd01a35da110" class="">보통 이렇게 연결합니다.</p></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-806a-a9a1-cdc86309052b" class="">HTTP 도메인</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80bb-982a-ce501dd2054d" class="bulleted-list"><li style="list-style-type:disc"><code>api.example.com</code> → ALB Alias</li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80a5-b29d-eb5d3ed32f8f" class="">MQTT 도메인</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-801b-bde9-d16966288246" class="bulleted-list"><li style="list-style-type:disc"><code>mqtt.example.com</code> → NLB Alias</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8024-9cb0-d1cd602929ae" class="">이렇게 하면 외부에서는 도메인만 보고 접속하고,<br/>실제 서버는 Private Subnet에 숨겨집니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80ce-a479-dfae060617a4"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-80fb-bad5-da16c771a982" class="">9. 운영 접속은 어떻게 해야 하나</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-802f-a948-ef8de2c17e2d" class="">Private Subnet 서버는 외부에서 직접 SSH 접속하지 않는 게 좋습니다.</p></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8000-843a-e396e9aea166" class="">권장 순서:</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-809b-9ff7-c826e1ff214c" class="">가장 권장</h2></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-807a-a09c-e93fcc14b5e4" class="bulleted-list"><li style="list-style-type:disc"><strong>AWS Systems Manager Session Manager</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8024-a932-ecd791ffe781" class="bulleted-list"><li style="list-style-type:disc">인스턴스에 SSM Agent</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-805e-b0d9-f0816cbc0e27" class="bulleted-list"><li style="list-style-type:disc">IAM Role 부여</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8079-b32f-f8d2c7222972" class="bulleted-list"><li style="list-style-type:disc">VPC Endpoint까지 구성하면 NAT 없이도 가능</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8083-a2d4-cfda6f90b69e" class="">이 방식이면:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-804b-90b3-cdae7345625f" class="bulleted-list"><li style="list-style-type:disc">bastion host 불필요</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8011-aa9e-c1c3c7a797dc" class="bulleted-list"><li style="list-style-type:disc">22번 포트 불필요</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8056-85d9-e76a5c4969b9" class="bulleted-list"><li style="list-style-type:disc">감사 추적도 쉬움</li></ul></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8029-9d14-d84058cf218e" class="">차선책</h2></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80ec-8a2c-e9898988ba53" class="bulleted-list"><li style="list-style-type:disc">Bastion Host를 Public Subnet에 둠</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80cc-8681-fd3ee9a17e95" class="bulleted-list"><li style="list-style-type:disc">Bastion에서 Private EC2로 SSH</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8015-bd45-f8fc13eb0515" class="">하지만 요즘은 SSM이 더 깔끔합니다.</p></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-8020-989c-edbab0489050"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-80f8-a011-f88a18a48c4e" class="">10. Private Subnet에서 외부로 나가야 하는 경우</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-801f-b5bb-f165bc91e222" class="">서버가 외부와 통신해야 할 수도 있습니다.</p></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8079-b145-de3490f1d4be" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80de-aab5-d20b7c007095" class="bulleted-list"><li style="list-style-type:disc">OS 업데이트</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8031-a107-df204d337da4" class="bulleted-list"><li style="list-style-type:disc">패키지 설치</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8096-b599-f3d2ba16bf65" class="bulleted-list"><li style="list-style-type:disc">외부 API 호출</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80bf-b935-f84b2558dd28" class="bulleted-list"><li style="list-style-type:disc">Docker image pull</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8075-8a38-c33d9a397bc3" class="bulleted-list"><li style="list-style-type:disc">NTP, 인증서 관련</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-802c-82e2-c57f95f9e7aa" class="">이때 선택지는 2개입니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8039-8d67-f665f1e7713f" class="">방식 1. NAT Gateway 사용</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8083-b479-ff4ac5ddc3bc" class="">가장 일반적</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8075-92f2-c2dab85c1206" class="">방식 2. VPC Endpoint 적극 활용</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8066-bebb-cd75d79c6c93" class="">AWS 서비스만 쓴다면 NAT를 줄일 수 있습니다.</p></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-802e-aebe-c8ebc70b716f" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8016-af63-f67e5cdf6c7b" class="bulleted-list"><li style="list-style-type:disc">S3 Gateway Endpoint</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8077-bc47-ff0716889a04" class="bulleted-list"><li style="list-style-type:disc">ECR API Endpoint</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-801b-bbef-c69a9e686eb1" class="bulleted-list"><li style="list-style-type:disc">ECR DKR Endpoint</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80af-b349-c966a2f19e49" class="bulleted-list"><li style="list-style-type:disc">CloudWatch Logs Endpoint</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80f7-a72b-de40d2e05fa6" class="bulleted-list"><li style="list-style-type:disc">SSM Endpoint</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8000-9270-cff1878dabdb" class="bulleted-list"><li style="list-style-type:disc">EC2 Messages Endpoint</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80ef-90ff-c6a448069ea4" class="bulleted-list"><li style="list-style-type:disc">SSM Messages Endpoint</li></ul></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80ae-a712-e0eef0844cb4" class="">이렇게 하면 Private Subnet 서버가 인터넷 없이도 AWS 서비스와 내부적으로 통신 가능합니다.</p></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8063-8984-def5c2637508" class="">실무적으로는:</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80dd-bb69-c9d6684b3be8" class="bulleted-list"><li style="list-style-type:disc">AWS 서비스 위주면 VPC Endpoint 적극 권장</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80bc-9ce7-f50ed12f4ce2" class="bulleted-list"><li style="list-style-type:disc">외부 인터넷 호출 있으면 NAT 필요</li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80c6-9b7f-c502859a4307"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-8036-98b6-fa4820f318f4" class="">11. 그림처럼 AZ별 이중화하려면 꼭 필요한 것</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8054-9f75-d995d73c3edf" class="">이 부분이 핵심입니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8056-9305-e8013a9b3df2" class="">꼭 맞춰야 하는 것</h2></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8017-8d80-da46e94efaaa" class="bulleted-list"><li style="list-style-type:disc">Private Subnet을 <strong>AZ별로 분리</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80af-86f9-f145c049bdb7" class="bulleted-list"><li style="list-style-type:disc">각 AZ에 <strong>동일한 역할의 서버 배치</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8010-96ab-f72f66f2ac21" class="bulleted-list"><li style="list-style-type:disc">ALB/NLB를 <strong>2개 AZ 이상에 걸쳐 배치</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8050-8a68-e3abe3b46489" class="bulleted-list"><li style="list-style-type:disc">Target Group에 각 AZ의 서버 등록</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8007-86f8-daec376ead95" class="bulleted-list"><li style="list-style-type:disc">헬스체크 활성화</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-807b-b75d-c04224edf84e" class="bulleted-list"><li style="list-style-type:disc">세션 저장소가 있다면 외부화<div style="display:contents" dir="auto"><ul id="31ff8917-466a-8017-9992-e99723bf616b" class="bulleted-list"><li style="list-style-type:circle">Redis</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-803f-9aeb-e3c0b46be3a9" class="bulleted-list"><li style="list-style-type:circle">DB</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-809f-8679-eb982639b46f" class="bulleted-list"><li style="list-style-type:circle">ElastiCache</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8090-996b-d492470ef42e" class="bulleted-list"><li style="list-style-type:circle">DynamoDB 등</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80c1-8004-f7397070424c" class="">주의</h3></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8060-bf5b-d0d1ab64f05d" class="">WAS를 2대 두었는데 세션을 로컬 메모리에만 저장하면 장애 시 로그인/상태 유지 문제가 날 수 있습니다.</p></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80b7-9651-e850800e8c32" class="">그래서</p></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8064-b38d-e147f080a389" class="bulleted-list"><li style="list-style-type:disc">Stateless하게 설계하거나</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80e8-8a78-f34c46c512be" class="bulleted-list"><li style="list-style-type:disc">세션 저장소 분리해야 합니다.</li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-8077-946c-c86cb9c48237"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-8002-9782-d4a44cd9d774" class="">12. 이 구조에서 자주 하는 실수</h1></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8062-85cf-d94dc791514d" class="">1. Private Subnet인데 public IP 붙임</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-807a-8647-da67b0c4babf" class="">그러면 사실상 private 설계 의미가 약해집니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-802d-a0bc-cb4f92e3e70f" class="">2. ALB 없이 Private EC2를 직접 노출</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-809a-b641-c6a116c5c2d6" class="">보안/운영성 모두 안 좋아집니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8099-958e-f69e0a4a2d15" class="">3. AZ는 2개인데 NAT는 1개만 두고 장애 고려 안 함</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8084-bcbc-d2d388f1b2c6" class="">운영환경이면 신중해야 합니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-800c-9e1c-db188d052f61" class="">4. 보안그룹을 0.0.0.0/0으로 과하게 오픈</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-807c-82f4-d4d69a69e435" class="">특히 Private EC2의 8080, 22, 1883 같은 포트</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8096-8af2-c6b77e932fbd" class="">5. 헬스체크 경로 없음</h2></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-80e1-8fb2-d46e38728e49" class="">ALB가 정상/비정상을 판단 못합니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-805f-bf3a-dfbf161b0db5" class="">6. NLB와 ALB 역할을 혼동</h2></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8096-8039-ea561e5ca690" class="bulleted-list"><li style="list-style-type:disc">HTTP/HTTPS, URL/path 기반 분기 → <strong>ALB</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80af-b083-e655827c9d9a" class="bulleted-list"><li style="list-style-type:disc">TCP/TLS, MQTT → <strong>NLB</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-80c9-abb5-ee54480b544a"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-80fe-98f7-d4a36e76c7a2" class="">13. 구조를 AWS 리소스 기준으로 풀면</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8048-9964-ea406b0a358c" class="">아래 식으로 매핑하면 됩니다.</p></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-8061-ad00-f23dcebb6b2c" class="">네트워크</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8071-9ba4-c5fb97aac78e" class="bulleted-list"><li style="list-style-type:disc">1 VPC</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8055-924f-eb148c3f3e7e" class="bulleted-list"><li style="list-style-type:disc">2 Public Subnet</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8062-b3c3-c92fca65ea04" class="bulleted-list"><li style="list-style-type:disc">2 Private Subnet</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8006-bfa3-d20b5d749dce" class="bulleted-list"><li style="list-style-type:disc">1 IGW</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8071-bd52-f20dd0d845bf" class="bulleted-list"><li style="list-style-type:disc">2 NAT Gateway</li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80a9-8406-cbfe59341a37" class="">로드밸런서</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8086-bf75-f5d1bdabf1b9" class="bulleted-list"><li style="list-style-type:disc">1 Internet-facing ALB</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-802c-87cb-eab3f5c5b716" class="bulleted-list"><li style="list-style-type:disc">1 Internet-facing NLB(MQTT)</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8018-89a4-d9e16081725c" class="bulleted-list"><li style="list-style-type:disc">필요 시 1 Internal NLB</li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80cd-bb6d-d71b8d96b23e" class="">컴퓨팅</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-808f-8c81-eb3c12672afa" class="bulleted-list"><li style="list-style-type:disc">AZ-a Private:<div style="display:contents" dir="auto"><ul id="31ff8917-466a-800b-9f07-d3dbeb14438d" class="bulleted-list"><li style="list-style-type:circle">WAS EC2</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8016-a3b2-e8e173483118" class="bulleted-list"><li style="list-style-type:circle">Broker EC2</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-808e-90b9-f43c8115eaa1" class="bulleted-list"><li style="list-style-type:disc">AZ-c Private:<div style="display:contents" dir="auto"><ul id="31ff8917-466a-8072-b088-e52bcf060424" class="bulleted-list"><li style="list-style-type:circle">WAS EC2</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-807f-a918-d22685d6244a" class="bulleted-list"><li style="list-style-type:circle">Broker EC2</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80df-9bad-cbcb8b359f1b" class="">컨테이너</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8091-860b-d66c073f4af7" class="bulleted-list"><li style="list-style-type:disc">각 WAS EC2 내부 Docker container 2개 이상<br/>또는</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8066-b7d5-e2b273db3359" class="bulleted-list"><li style="list-style-type:disc">ECS Service 2세트</li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80e3-a442-fc861afe8e2d" class="">운영</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8010-907d-fa6d395038c3" class="bulleted-list"><li style="list-style-type:disc">IAM Role</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8021-a438-c5f35b97f0cc" class="bulleted-list"><li style="list-style-type:disc">CloudWatch Logs</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8099-b166-ed4adf73004f" class="bulleted-list"><li style="list-style-type:disc">SSM Session Manager</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80f6-841c-f8f59799e06c" class="bulleted-list"><li style="list-style-type:disc">Route 53</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80f8-9953-f672628349a1" class="bulleted-list"><li style="list-style-type:disc">ACM</li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-8086-867a-f866a9cc96da"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-8077-8b1c-e556efc6358c" class="">14. 가장 추천하는 실제 구현안</h1></div><div style="display:contents" dir="auto"><p id="31ff8917-466a-8027-b4d1-c58e16b31c56" class="">그림대로 최대한 유지하면서 운영성 좋게 가려면 이렇게 추천합니다.</p></div><div style="display:contents" dir="auto"><h2 id="31ff8917-466a-8076-b6b4-fd5a21bfdab9" class="">추천안</h2></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-808f-8d90-cbfad2fd944a" class="bulleted-list"><li style="list-style-type:disc">Public Subnet<div style="display:contents" dir="auto"><ul id="31ff8917-466a-8077-b370-f03aff5a2088" class="bulleted-list"><li style="list-style-type:circle">ALB</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8023-96c9-efe79483a9e4" class="bulleted-list"><li style="list-style-type:circle">MQTT용 NLB</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80f9-93e4-da1d1ef7df21" class="bulleted-list"><li style="list-style-type:circle">NAT Gateway</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80de-b5e0-c6acec34fef6" class="bulleted-list"><li style="list-style-type:disc">Private Subnet<div style="display:contents" dir="auto"><ul id="31ff8917-466a-8025-800b-dc739f54426b" class="bulleted-list"><li style="list-style-type:circle">WAS는 ECS 또는 EC2+Docker</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8056-a95b-f2e5e236eaa5" class="bulleted-list"><li style="list-style-type:circle">Broker는 전용 EC2 또는 매니지드 서비스 검토</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-803b-b4e8-e65a7deab83d" class="bulleted-list"><li style="list-style-type:disc">운영 접속<div style="display:contents" dir="auto"><ul id="31ff8917-466a-802f-82b4-f0b1c832ab72" class="bulleted-list"><li style="list-style-type:circle">Bastion 대신 SSM</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8046-9c94-ece20b4bf74c" class="bulleted-list"><li style="list-style-type:disc">AWS 서비스 통신<div style="display:contents" dir="auto"><ul id="31ff8917-466a-8064-b04a-d02d1be2bbd5" class="bulleted-list"><li style="list-style-type:circle">VPC Endpoint 적극 사용</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80d2-bf80-e1237cbb95cb" class="bulleted-list"><li style="list-style-type:disc">도메인<div style="display:contents" dir="auto"><ul id="31ff8917-466a-8041-aaf9-eec113264811" class="bulleted-list"><li style="list-style-type:circle">Route 53 + ACM</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80fe-a703-e2f3a48c448f" class="bulleted-list"><li style="list-style-type:disc">고가용성<div style="display:contents" dir="auto"><ul id="31ff8917-466a-80d2-96e1-e48c86fcee38" class="bulleted-list"><li style="list-style-type:circle">AZ-a, AZ-c 동일 배치</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="31ff8917-466a-8024-a6b5-c44d1533437b"/></div><div style="display:contents" dir="auto"><h1 id="31ff8917-466a-8017-a382-f2aa1d37a122" class="">15. 아주 간단한 배치 예시</h1></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80ad-8e08-c1d1fd3acfc1" class="">Public</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8003-86ec-fca489f76e2e" class="bulleted-list"><li style="list-style-type:disc"><code>subnet-public-a</code><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80d5-a4de-d233d93ed7b3" class="bulleted-list"><li style="list-style-type:circle">ALB ENI</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80d6-8029-f2c0dbbe10c6" class="bulleted-list"><li style="list-style-type:circle">NLB ENI</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80ee-a739-dd67e3322302" class="bulleted-list"><li style="list-style-type:circle">NAT Gateway A</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8039-a6b2-f972ea49701f" class="bulleted-list"><li style="list-style-type:disc"><code>subnet-public-c</code><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8005-9d58-c352d3b5940e" class="bulleted-list"><li style="list-style-type:circle">ALB ENI</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80ea-8196-f828288394b0" class="bulleted-list"><li style="list-style-type:circle">NLB ENI</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8097-b4f5-eb85afa6eeba" class="bulleted-list"><li style="list-style-type:circle">NAT Gateway C</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80cf-abf2-c674022bdf9f" class="">Private</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80a0-81cb-c387bbb24c68" class="bulleted-list"><li style="list-style-type:disc"><code>subnet-private-a</code><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8072-9965-d55e452d4bef" class="bulleted-list"><li style="list-style-type:circle">EC2-WAS-A</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8002-9487-c8524a18faf1" class="bulleted-list"><li style="list-style-type:circle">EC2-BROKER-A</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8009-a8a7-e570b21b1a33" class="bulleted-list"><li style="list-style-type:disc"><code>subnet-private-c</code><div style="display:contents" dir="auto"><ul id="31ff8917-466a-80f8-bca9-f3b3790bdb76" class="bulleted-list"><li style="list-style-type:circle">EC2-WAS-C</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-807d-8d2e-d614a3e15e0e" class="bulleted-list"><li style="list-style-type:circle">EC2-BROKER-C</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="31ff8917-466a-80d5-a4b3-c94c0271505b" class="">트래픽</h3></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8055-bfb3-e5943df99e99" class="bulleted-list"><li style="list-style-type:disc">인터넷 → ALB → WAS-A/C</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8041-977c-d25feaef7986" class="bulleted-list"><li style="list-style-type:disc">인터넷 → NLB → BROKER-A/C</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8000-b6f0-f88d4b37e738" class="bulleted-list"><li style="list-style-type:disc">WAS-A ↔ BROKER-A/C</li></ul></div><div style="display:contents" dir="auto"><ul id="31ff8917-466a-8016-a657-ee92d42c530d" class="bulleted-list"><li style="list-style-type:disc">WAS-C ↔ BROKER-A/C</li></ul></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

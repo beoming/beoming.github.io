@@ -1,0 +1,715 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Genesys 기반 Contact Center 구축</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d7f8917-466a-803a-9e69-d8dad4ba5c3c" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📘</span></div><h1 class="page-title" dir="auto">Genesys 기반 Contact Center 구축</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1d7f8917-466a-80e4-b26c-d3d9e4b81de2" class=""><strong>Genesys Cloud를 활용한 Contact Center 구축 → 운영 → 관리</strong> 전 과정에 필요한 <strong>핵심 기술 요소</strong>와 <strong>주요 용어</strong></p></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-80fe-b799-c07387f41ea8" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80e6-9765-d003bdcc2b88"/></div><div style="display:contents" dir="auto"><h1 id="1d7f8917-466a-8078-8a94-f4447c386978" class="">기술 &amp; 용어 정리</h1></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-8015-acfa-cd67c98b1dc9"/></div><div style="display:contents" dir="auto"><h2 id="1d7f8917-466a-8001-bec4-c40c3dadb53b" class="">🏗️ 1. <strong>구축 (Build / Setup)</strong></h2></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80b4-9434-fe0b37eb8885" class="">💡 핵심 기술</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-8046-b44b-c87e8a7c3a79" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80e3-a362-f6485892ae30"><td id="k}Oc" class="">항목</td><td id="QkF{" class="" style="width:431px">설명</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8095-981a-dc199d682e94"><td id="k}Oc" class=""><strong>SIP 트렁크 설정</strong></td><td id="QkF{" class="" style="width:431px">BYOC(BYO Carrier or Premises) 설정 시 필요. PSTN 또는 SIP망 연결</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8050-aa7b-d4c98284326b"><td id="k}Oc" class=""><strong>Edge 장비 구성</strong></td><td id="QkF{" class="" style="width:431px">BYOC Premises일 경우 SIP, RTP를 중계하는 로컬 장비</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8007-8de8-c70cc74e2306"><td id="k}Oc" class=""><strong>WebRTC 전화 설정</strong></td><td id="QkF{" class="" style="width:431px">브라우저 기반 상담사 전화 설정. 별도 장비 없이 통화</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80ef-ad18-db2be3757f9c"><td id="k}Oc" class=""><strong>전화번호(DID) 설정</strong></td><td id="QkF{" class="" style="width:431px">인바운드/아웃바운드 번호 등록 및 라우팅 연결</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-801a-aaae-f2a573d86bb9"><td id="k}Oc" class=""><strong>IVR(Call Flow)</strong></td><td id="QkF{" class="" style="width:431px">Architect로 통화 흐름 설계 (음성메뉴, 조건 분기, 대기음 등)</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80ed-95cb-c38e9095d4b9"><td id="k}Oc" class=""><strong>Queue 설정</strong></td><td id="QkF{" class="" style="width:431px">대기열 생성 및 상담사 연결 조건 정의</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8018-aabe-d139e45b6bd6"><td id="k}Oc" class=""><strong>스킬 기반 라우팅</strong></td><td id="QkF{" class="" style="width:431px">상담사 스킬 등록 및 고객 요청 매칭</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8089-9269-d265adcdde6e"><td id="k}Oc" class=""><strong>스케줄 / 업무시간 설정</strong></td><td id="QkF{" class="" style="width:431px">근무시간, 공휴일, 비상상황 라우팅 관리</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80e0-aaeb-f5d644679f02"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-807d-9dc1-d0b36b75ce95" class="">📘 주요 용어</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-80ac-a40e-f4cc2eef7534" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80b2-94c0-ccdd1a5db503"><td id=";E_Q" class="">용어</td><td id="KeTh" class="" style="width:371px">설명</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8046-8316-f580ae62c729"><td id=";E_Q" class=""><strong>BYOC (Bring Your Own Carrier)</strong></td><td id="KeTh" class="" style="width:371px">사용자가 자체 SIP 트렁크를 사용하여 Genesys Cloud와 연결</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-809e-8f60-ddae99eab8cd"><td id=";E_Q" class=""><strong>Edge</strong></td><td id="KeTh" class="" style="width:371px">SIP 트래픽을 중계하는 Genesys 전용 장비 (On-Premises 시 필요)</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8058-a22f-ef6f6ebea5af"><td id=";E_Q" class=""><strong>DID (Direct Inward Dialing)</strong></td><td id="KeTh" class="" style="width:371px">외부 고객이 직접 연결할 수 있는 전화번호</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8000-acce-cc756283dab9"><td id=";E_Q" class=""><strong>Architect</strong></td><td id="KeTh" class="" style="width:371px">Genesys의 IVR 및 콜 플로우 설계 도구</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8081-8936-f09887959360"><td id=";E_Q" class=""><strong>Flow</strong></td><td id="KeTh" class="" style="width:371px">Architect에서 설계하는 IVR 흐름 단위 (Inbound, Outbound 등)</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8087-a775-d28af085ed54"><td id=";E_Q" class="">TDM(Time Division Multiplexing)</td><td id="KeTh" class="" style="width:371px">여러 개의 디지털 또는 아날로그 신호를 시간을 나누어 하나의 채널로 전송하는 방식</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-801e-bbba-d973aa6a47d3"/></div><div style="display:contents" dir="auto"><h2 id="1d7f8917-466a-8020-ae01-da2b0b16bb41" class="">⚙️ 2. <strong>운영 (Run / Launch)</strong></h2></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80bc-8d1d-d53745b9843a" class="">💡 운영 중 필요한 기술</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-8072-b624-e617ac2130e5" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80cc-98d3-efb1f37dbc4f"><td id="vGFW" class="">항목</td><td id="QBSi" class="" style="width:432px">설명</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8091-8185-d1bebc5fbca6"><td id="vGFW" class=""><strong>Agent UI 구성</strong></td><td id="QBSi" class="" style="width:432px">상담사에게 할당된 Interaction 처리 화면</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8033-8dc3-fbc97398c0ae"><td id="vGFW" class=""><strong>스크린 팝(Screen Pop)</strong></td><td id="QBSi" class="" style="width:432px">고객 전화 시 CRM 정보 자동 팝업</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80fb-8b4f-ef6a45e00629"><td id="vGFW" class=""><strong>CTI 연동</strong></td><td id="QBSi" class="" style="width:432px">전화와 컴퓨터 시스템 통합. CRM, ERP 연동 필수</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8051-8619-e4e842bcf766"><td id="vGFW" class=""><strong>Call Recording / STT</strong></td><td id="QBSi" class="" style="width:432px">통화 녹취 및 음성 인식 데이터 저장</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80b8-bd11-e3d12e560fa5"><td id="vGFW" class=""><strong>ACD (자동 콜 분배)</strong></td><td id="QBSi" class="" style="width:432px">고객 콜을 가장 적합한 상담사에게 자동 연결</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80da-bdf7-cc7e4d70576f"><td id="vGFW" class=""><strong>Alert / Notification</strong></td><td id="QBSi" class="" style="width:432px">트래픽 급증, 장애 발생 시 관리자 알림</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8088-8497-ee20ea3c41dd"><td id="vGFW" class=""><strong>Omni-channel 처리</strong></td><td id="QBSi" class="" style="width:432px">음성 외 채널 (채팅, 이메일, 메신저 등) 통합 운영</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80c6-8c17-d9d19838aba7"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-805f-8c3c-d5972ebcaaf4" class="">📘 주요 용어</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-80b7-8830-d02c788bdca3" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8069-b764-c4601d2729fb"><td id="qVe|" class="">용어</td><td id="m\Ge" class="" style="width:362px">설명</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8070-9729-df219c73a912"><td id="qVe|" class=""><strong>WebRTC</strong></td><td id="m\Ge" class="" style="width:362px">브라우저 내 실시간 음성/영상 통신 기술</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-804b-b6e9-dc901dcb46c4"><td id="qVe|" class=""><strong>ACD (Automatic Call Distributor)</strong></td><td id="m\Ge" class="" style="width:362px">콜을 자동 분배해주는 엔진</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8035-9ff1-f3963ca90cee"><td id="qVe|" class=""><strong>Interaction</strong></td><td id="m\Ge" class="" style="width:362px">고객과의 통화, 채팅, 메시지 등 모든 상호작용 단위</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80e5-8ebd-e36bf693bd08"><td id="qVe|" class=""><strong>Presence / Routing Status</strong></td><td id="m\Ge" class="" style="width:362px">상담사의 상태 (Available, On Queue, Busy 등)</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-803f-a0ba-d06ffaa76156"><td id="qVe|" class=""><strong>Wrap-up Code</strong></td><td id="m\Ge" class="" style="width:362px">상담 종료 후 분류하는 결과 코드</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80a8-b0ce-c9d71f663131"/></div><div style="display:contents" dir="auto"><h2 id="1d7f8917-466a-80de-9443-fc17ca3b45a5" class="">🛠️ 3. <strong>관리 (Manage / Monitor)</strong></h2></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8001-91cf-e4cfe044d25b" class="">💡 관리에 필요한 기술</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-8014-a1dc-c5edc597cb1b" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80ce-a97f-eeca82b0b698"><td id="\F[n" class="">항목</td><td id="bkdl" class="" style="width:380px">설명</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-805a-933b-e3473a61d673"><td id="\F[n" class=""><strong>Performance Dashboard</strong></td><td id="bkdl" class="" style="width:380px">대시보드를 통해 큐, 에이전트, Interaction 실시간 모니터링</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80a7-b93b-e049358dfb57"><td id="\F[n" class=""><strong>보고서(Analytics)</strong></td><td id="bkdl" class="" style="width:380px">히스토리, 상담시간, 대기시간, 포기율 등 정량 분석</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8077-9fe5-f00da789eb95"><td id="\F[n" class=""><strong>Workforce Management(WFM)</strong></td><td id="bkdl" class="" style="width:380px">인력 스케줄링, 근무 예측, 이탈율 분석 등</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80db-a167-f4d1d3a1e92c"><td id="\F[n" class=""><strong>Quality Management(QM)</strong></td><td id="bkdl" class="" style="width:380px">상담 품질 관리. 통화 평가, 피드백, 코칭 기록</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80ee-bd22-ee1fd3e9bb56"><td id="\F[n" class=""><strong>Speech &amp; Text Analytics</strong></td><td id="bkdl" class="" style="width:380px">STT 기반 상담 분석 (감정, 키워드 등)</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8089-991f-cabce4c34949"><td id="\F[n" class=""><strong>Routing 변경 관리</strong></td><td id="bkdl" class="" style="width:380px">Architect에서 라우팅 수정 및 배포 이력 관리</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8046-9bb9-e7c34fbd3675"><td id="\F[n" class=""><strong>권한/역할(Role)</strong></td><td id="bkdl" class="" style="width:380px">사용자마다 접근 가능 메뉴 및 기능 설정</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80d4-8685-dcac762aaa85"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8010-a8c3-c28f756a0ed0" class="">📘 주요 용어</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-80d0-af5d-fe7a834b75f8" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80eb-b4f0-dcbb5f0783bd"><td id="b_;J" class="">용어</td><td id="~jwe" class="" style="width:358px">설명</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80ca-a70c-e819ae2de019"><td id="b_;J" class=""><strong>WEM (Workforce Engagement Management)</strong></td><td id="~jwe" class="" style="width:358px">WFM + QM + STT를 포함한 상담사 성과 관리 모듈</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80d2-8a99-d12aabc7747c"><td id="b_;J" class=""><strong>Divisions / Groups</strong></td><td id="~jwe" class="" style="width:358px">조직의 단위별로 자원 분할 (권한, 라우팅 등)</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8055-be9e-c72bddfb83e0"><td id="b_;J" class=""><strong>Role / Permission</strong></td><td id="~jwe" class="" style="width:358px">사용자 접근 권한 관리</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-802b-b0f4-ec98dfdae814"><td id="b_;J" class=""><strong>Flow Versioning</strong></td><td id="~jwe" class="" style="width:358px">Architect에서 흐름의 버전 관리</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8053-a8af-e5739eb3e367"><td id="b_;J" class=""><strong>Predictive Engagement</strong></td><td id="~jwe" class="" style="width:358px">실시간 고객 행동 기반 상담사 개입 추천 (AI 활용)</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-807a-9bd1-c3533cd7c738"/></div><div style="display:contents" dir="auto"><h2 id="1d7f8917-466a-80ba-a402-d3986eb12474" class="">🌐 기타 통합 기술 요소</h2></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-800d-853c-cf7eb6062746" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8061-a3c8-fe361b5ce093"><td id=";uk]" class="">요소</td><td id="~Jc]" class="" style="width:445px">설명</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8019-8b9e-dfa2a705e57b"><td id=";uk]" class=""><strong>REST API / Webhooks</strong></td><td id="~Jc]" class="" style="width:445px">외부 시스템과 연동 (CRM, ERP, Slack 등)</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8069-96c0-d15e0554a4af"><td id=";uk]" class=""><strong>Data Actions</strong></td><td id="~Jc]" class="" style="width:445px">외부 API 호출을 Flow에 삽입 가능</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8069-a2bd-f90fd7dd60dd"><td id=";uk]" class=""><strong>Lambda Integration</strong></td><td id="~Jc]" class="" style="width:445px">AWS Lambda와 통합하여 동적 라우팅 구현</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80ac-b247-ee846790d112"><td id=";uk]" class=""><strong>Single Sign-On (SSO)</strong></td><td id="~Jc]" class="" style="width:445px">SAML 기반 로그인 연동</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80ad-b8fe-cb0bc4cf1d7f"><td id=";uk]" class=""><strong>SCIM / AD 연동</strong></td><td id="~Jc]" class="" style="width:445px">사용자 계정 동기화 (Azure AD 등)</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-8000-9b26-d3c363d073f3"/></div><div style="display:contents" dir="auto"><h2 id="1d7f8917-466a-8092-af1f-d7f0f4352aba" class="">✅ 정리: Genesys Cloud Contact Center 구성 3단계</h2></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1d7f8917-466a-80d8-87f8-e565c07d3c61" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">1. 구축 (Build) → SIP, Edge, DID, Architect, Queue
+2. 운영 (Run) → Agent UI, Routing, CTI, Recording, WebRTC
+3. 관리 (Manage) → Dashboard, Analytics, WFM, QM, API
+</code></pre></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80ff-b895-c785f5a748fc"/></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-80a5-b4dd-fdb01bd5151b" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

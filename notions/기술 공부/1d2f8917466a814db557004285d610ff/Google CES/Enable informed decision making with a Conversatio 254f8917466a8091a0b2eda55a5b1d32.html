@@ -1,0 +1,711 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Enable informed decision making with a Conversational Agent that uses generators and data stores</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="254f8917-466a-8091-a0b2-eda55a5b1d32" class="page sans"><header><h1 class="page-title" dir="auto">Enable informed decision making with a Conversational Agent that uses generators and data stores</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="254f8917-466a-8059-92a4-c7e380f60f95" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-80b6-b3af-f91b8bd37181" class="">Enable informed decision making with a conversational agent that uses generators and data stores</h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80f4-8c57-e51a0270b9e6" class=""><strong>experimentLabschedule1 hour 30 minutesuniversal_currency_altNo costshow_chartIntermediate</strong></p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-802d-8b5a-d303e2a5cce9" class="">infoThis lab may incorporate AI tools to support your learning.</p></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-8018-9862-cf9697a8dbe2" class=""><strong>Overview</strong></h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8037-b065-ee5acc745edc" class="">This lab serves as a comprehensive guide to building Conversational Agents using Vertex AI Agent Builder. It walks you through the process of configuring agents in the new Conversational Agents console, leveraging Playbook-based, flow-based approaches.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80ee-ae59-ece9e831ee17" class="">Key concepts you will learn in this lab:</p></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-809f-bb8f-f41cfe135194" class="bulleted-list"><li style="list-style-type:disc">Vertex AI Agent Builder will be the starting point for building Conversational Agents.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-804e-9ff9-fe93dad9824c" class="bulleted-list"><li style="list-style-type:disc">The new Conversational Agents console, which builds on the Dialogflow CX console, will be used for most agent configurations.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-80eb-bae4-e412364da47e" class="bulleted-list"><li style="list-style-type:disc">Conversational agents can be Playbook-based, flow-based, or combination agents.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-806a-a688-ce8cd2da440d" class="bulleted-list"><li style="list-style-type:disc">Data stores are repositories of data, created in Vertex AI Agent builder, that are prepared so as to make grounded agent responses possible.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-809f-91a8-dd49d1380623" class="bulleted-list"><li style="list-style-type:disc">Generators are connections between an agent and an Large Language Model, where the agent can parse user input and generate agent output using the model.</li></ul></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-8070-85ee-ecd360b334af" class="">What you&#x27;ll build</h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8099-a0a0-df9477b491ad" class="">In this lab, you use Vertex AI Agent Builder and Conversational Agents to build, deploy and configure a conversational agent to assist people who want to donate blood and ensure they meet the required eligibility requirements. The agent uses real public data and Google&#x27;s generative large language models (LLMs) during Conversational Agents fulfillment.</p></div><div style="display:contents" dir="auto"><h3 id="254f8917-466a-8026-bbeb-f0b5b37cc197" class=""><strong>Conversational Agents</strong></h3></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80a5-ae47-c4d06a86233d" class="">Conversational Agents is a new natural language understanding platform built on generative models that can control conversations and on flows that can be used for more explicit conversation control. Conversational Agents makes it easy to design and integrate a conversational user interface into your mobile app, web application, device, bot, interactive voice response system, and so on. Using Conversational Agents, you can provide new and engaging ways for users to interact with your product.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-801f-bd25-c5bf56ed27c5" class=""><a href="https://cloud.google.com/dialogflow/cx/docs/concept/data-store">Data stores</a> are used by data store handlers and playbook data store tools to find answers for end-user&#x27;s questions from your data. Data stores are a collection of websites and documents, each of which references your data.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80dc-b3a0-f2be092fa6bd" class=""><a href="https://cloud.google.com/dialogflow/cx/docs/concept/data-store/settings">Data Store Settings</a> are the configurations that define how a conversational agent interacts with the data stores.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8001-896d-d3bbb600c904" class="">The <a href="https://cloud.google.com/generative-ai-app-builder/docs/introduction">Vertex AI Agent Builder</a> feature allows you to create conversational agents powered by data stores.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80a3-83f6-edb09f4619c5" class="">With this feature, you provide a website URL, structured data, or unstructured data (data stores), and Google parses your content to build a conversational agent that uses the data from these stores and large language models. The agent can then interact with customers and end users, allowing them to ask questions and get answers based on the provided content.</p></div><div style="display:contents" dir="auto"><h3 id="254f8917-466a-806f-91f0-c62a67cf9c0d" class=""><strong>Generators</strong></h3></div><div style="display:contents" dir="auto"><p id="254f8917-466a-801c-bf45-f4680fde4257" class="">The <a href="https://cloud.google.com/dialogflow/cx/docs/concept/generators">generator feature</a> is a Conversational Agents feature that allows developers to use Google&#x27;s latest generative large language models (LLMs) and custom prompts to generate agent responses at runtime. A generator can handle generic responses that involve general knowledge from a large textual dataset it was trained on or context from the conversation.</p></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-808b-be39-ccf48e53f37b" class="">Objectives</h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8087-86b1-c7d5a6887e5f" class="">In this lab, you learn how to perform the following tasks:</p></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8045-af57-d085f000fbef" class="bulleted-list"><li style="list-style-type:disc">Use Conversational Agent to create a app and add unstructured data to a data store.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-800e-bc1a-cd5c676ee347" class="bulleted-list"><li style="list-style-type:disc">Use knowledge handlers to allow end-users to have conversations with a conversational agent about the content added to a data store.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-80f6-924d-f0d809147516" class="bulleted-list"><li style="list-style-type:disc">Configure a generator text prompt and make it contextual by using built-in generator prompt placeholders.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-80f4-bd07-eb661a5452b4" class="bulleted-list"><li style="list-style-type:disc">Mark words as generator prompt placeholders and later associate them with session parameters in fulfillment to use their values during execution.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8035-b8d2-cf27e0de3409" class="bulleted-list"><li style="list-style-type:disc">Configure a generator to handle responses that involve knowledge from a large textual dataset and context from the current conversation.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-80f7-a443-dd4ee77d59ff" class="bulleted-list"><li style="list-style-type:disc">Generate a formal email using generators.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8089-9ad6-e513bd68b9da" class="bulleted-list"><li style="list-style-type:disc">Test your agent and simulate customer questions that trigger generated responses.</li></ul></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-80d0-8eef-c7b8df56c4c2" class=""><strong>Setup and requirements</strong></h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80b1-b64e-eb7ac8fa2f28" class="">In this task, you will use Qwiklabs to perform the initialization steps for your lab.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-802f-9392-c1a4594d6cbe" class="">For each lab, you get a new Google Cloud project and set of resources for a fixed time at no cost.</p></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-804a-a68b-fb8d505a3deb" class="numbered-list" start="1"><li>Make sure you signed into Qwiklabs using an <strong>incognito window</strong>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8071-a0e1-f3cdd0d17a57" class="numbered-list" start="2"><li>Note the lab&#x27;s access time (for example,  and make sure you can finish in that time block.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-80a3-973d-ff749d95ebd7" class="image"><a href="https://cdn.qwiklabs.com/aZQJ4BT7uCmM9XR6BTXgTRP1Hfu1T7q6V%2BcnbdEsbpU%3D"><img src="https://cdn.qwiklabs.com/aZQJ4BT7uCmM9XR6BTXgTRP1Hfu1T7q6V%2BcnbdEsbpU%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8056-9043-d2d67a3881df" class="">There is no pause feature. You can restart if needed, but you have to start at the beginning.</p></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80e1-ab4a-fbff4d51e596" class="numbered-list" start="1"><li>When ready, click .<div style="display:contents" dir="ltr"><figure id="254f8917-466a-802d-abf3-fee7bb7b94ed" class="image"><a href="https://cdn.qwiklabs.com/XE8x7uvQokyubNwnYKKc%2BvBBNrMlo5iNZiDDzQQ3Ddo%3D"><img src="https://cdn.qwiklabs.com/XE8x7uvQokyubNwnYKKc%2BvBBNrMlo5iNZiDDzQQ3Ddo%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80e5-b9df-d8c2ca26360c" class="numbered-list" start="2"><li>Note your lab credentials. You will use them to sign in to the Google Cloud Console.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-804a-90b7-ebd78855c0e7" class="image"><a href="https://cdn.qwiklabs.com/0d78dhX6IVMVWmixCPPSBbmi5O2GPokCXf1Ps1AkTgI%3D"><img src="https://cdn.qwiklabs.com/0d78dhX6IVMVWmixCPPSBbmi5O2GPokCXf1Ps1AkTgI%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8005-9c71-ccaf7cfa8f1f" class="numbered-list" start="3"><li>Click <strong>Open Google Console</strong>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80f0-bbc1-e1d74518e4ce" class="numbered-list" start="4"><li>Click <strong>Use another account</strong> and copy/paste credentials for <strong>this</strong> lab into the prompts.</li></ol></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8017-8088-f4b0f8f92cb3" class="">If you use other credentials, you&#x27;ll get errors or <strong>incur charges</strong>.</p></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-800d-a9d3-e8b7ec309144" class="numbered-list" start="1"><li>Accept the terms and skip the recovery resource page.</li></ol></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80ae-9721-d9ae8f73e03f" class="">Do not click <strong>End Lab</strong> unless you are finished with the lab or want to restart it. This clears your work and removes the project.</p></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-80b8-943f-d35bd18deec1" class=""><strong>Google Cloud console</strong></h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8040-8d2c-d90f79e6c006" class="">After you complete the initial sign-in steps, the project dashboard appears.</p></div><div style="display:contents" dir="ltr"><figure id="254f8917-466a-8097-a608-f499e50f9a91" class="image"><a href="https://cdn.qwiklabs.com/TaWCZKr0kBRqzVGc1uF1EwclVIRL0N4%2BaDJpy9oHEI8%3D"><img src="https://cdn.qwiklabs.com/TaWCZKr0kBRqzVGc1uF1EwclVIRL0N4%2BaDJpy9oHEI8%3D"/></a></figure></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80f1-b31b-f0dbedf8267d" class="">Ensure your project, <code>&lt;filled in at lab start&gt;</code> is selected. If not, then click <strong>Select a project</strong> at the top of the console, highlight your <code>Google Cloud project ID</code>, and click <strong>OPEN</strong> to select your project.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8045-b5f6-f812fecb6c24" class="">If you are not using Incognito mode, you will need to ensure that the correct project and user account are selected at all times to avoid accidental charges to your Google Cloud billing account.</p></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-80fc-9096-c43b10b81eb4" class=""><strong>Task 1. Enable APIs</strong></h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-803d-81b3-cdf9a602ce23" class="">Before you can start using Conversational Agent in <a href="https://cloud.google.com/generative-ai-app-builder/docs/introduction">Vertex AI Agent Builder</a>, you need to enable the Dialogflow as well as the Vertex AI Agent Builder APIs. These APIs should already be enabled for this lab, but you should verify this before moving forward.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80d7-af11-cf44fab86e68" class="">Enable the <strong>Dialogflow API</strong> by doing the following steps:</p></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-802d-be99-f98fafe3c7cb" class="numbered-list" start="1"><li>In your browser, navigate to the <a href="https://console.cloud.google.com/apis/library/dialogflow.googleapis.com">Dialogflow API Service Details page</a>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8044-a510-e4e92a6e5ce8" class="numbered-list" start="2"><li>If the API is not already enabled, click the <strong>Enable</strong> button to enable the Dialogflow API in your Google Cloud project.<div style="display:contents" dir="auto"><p id="254f8917-466a-800d-b929-d7026a3c0f32" class="">To enable the <strong>Vertex AI Agent Builder API</strong>, follow these steps:</p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80b2-80a2-e3205243df1d" class="numbered-list" start="3"><li>In the Google Cloud console, navigate to the <a href="https://console.cloud.google.com/gen-app-builder/start">Vertex AI Agent Builder</a>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8075-9f77-c1ae3f78724c" class="numbered-list" start="4"><li>If asked, read and agree to the Terms of Service, then click <strong>Continue and activate the API</strong>.</li></ol></div><div style="display:contents" dir="auto"><p id="254f8917-466a-800f-9036-e611825b895e" class="">Click <strong>Check my progress</strong> to verify the objectives.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-808f-b2ee-e06b0403a3fc" class="">Enable APIs</p></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-801d-b198-c8a0113082db" class=""><strong>Task 2. Create a new conversational agents and a data store for your app</strong></h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80cc-b82d-e0a6175c1063" class="">Now, you&#x27;ll create a new conversational agents for your agent and configure it with a data source. The purpose of the agent that you&#x27;ll build is to assist customers who have questions about blood eligibility. You will use the Australian Red Cross Lifeblood as the source of truth and you will create a data store based on unstructured data from the blood eligibility website.</p></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8059-b28e-f6d892bdd6c4" class="numbered-list" start="1"><li>To create a new conversational agent, in <a href="https://console.cloud.google.com/gen-app-builder/engines/create">Vertex AI Agent Builder Apps Console</a> choose <strong>Conversational agent</strong> as the app type. Click <strong>Create</strong>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-806f-b035-ea8f6aea534a" class="numbered-list" start="2"><li>Click <strong>Create agent</strong>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8091-b7f0-caa1ada916dc" class="numbered-list" start="3"><li>Select <strong>Build your own</strong> on Get started with Conversational Agents popup.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80e3-bc1d-f6892f3a90b2" class="numbered-list" start="4"><li>On Create agent page, enter a <strong>Display name</strong> as <code>Blood Donation Agent</code> for agent.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8067-92ab-c434d3e7b0a8" class="numbered-list" start="5"><li>Select location as <strong>global (Global serving, data-at-rest in US)</strong>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80cb-a02d-eea832f3a3dc" class="numbered-list" start="6"><li>Ensure the default <code>Conversation start</code> type is selected as <strong>Playbook</strong>, and then click on <strong>Create</strong> button.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8009-85cd-efc10ca39495" class="numbered-list" start="7"><li>Click <strong>+ Data store</strong> under <code>Available tools</code> in <strong>Default Generative Playbook</strong> page.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80b9-98d4-e41bfb4c6c20" class="numbered-list" start="8"><li>Click <strong>Add Data stores</strong> under Data store.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8022-aaa1-c6c28fbb2f18" class="numbered-list" start="9"><li>Click <strong>Create new data store</strong> on Add data stores page, it will be redirected to the Agent Builder page</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80a8-a5cd-f3029785ca09" class="numbered-list" start="10"><li>Click <strong>Select</strong> on the <strong>Cloud Storage</strong> as the data source for your data store.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8097-abfb-e1aa75958268" class="numbered-list" start="11"><li>Select <strong>Unstructured documents</strong> as the type of data you are importing.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80ba-a071-e8c70c3147f4" class="numbered-list" start="12"><li>Specify the following Google <strong>Cloud Storage</strong> folder that contains sample data for this lab, and note that the <code>gs://</code> prefix is not required:Copied!<div style="display:contents" dir="auto"><p id="254f8917-466a-807f-a951-f9e627e7a840" class=""><code>cloud-samples-data/dialogflow-cx/arc-lifeblood</code></p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8089-afa8-fab12508ec57" class="numbered-list" start="13"><li>Click <strong>Continue</strong>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-802a-9cbf-c8219878e3a9" class="numbered-list" start="14"><li>Specify a <strong>Data store name</strong> of <code>Australian Red Cross Lifeblood Unstructured</code>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80f3-908f-e7c6e4cb988c" class="numbered-list" start="15"><li>Click on <strong>Create</strong> to create the data store.<div style="display:contents" dir="auto"><p id="254f8917-466a-80b6-be46-e591717c1f72" class=""><strong>Note:</strong> This may take up to 1 minute to create the data store.</p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8058-82ec-e37d4fba818c" class="numbered-list" start="16"><li>In the list of data stores, select the newly created data store named <code>Australian Red Cross Lifeblood Unstructured</code>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80c5-af4a-fcb6af90c88e" class="numbered-list" start="17"><li>Click on the <strong>Activity</strong> tab to see the progress of the data import.<div style="display:contents" dir="auto"><p id="254f8917-466a-8057-857e-d65651da899e" class=""><strong>Note:</strong> Generally, it can take up to 4 hours for your documents to be available and ready for use by your agent while your newly added domains are being indexed depending on the number of documents or size of your domain. For this lab, it will take 10-15 minutes.</p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8070-be33-f31fa5387b90" class="numbered-list" start="18"><li>Once the agent is created, navigate back to the <code>Conversational Agents Tools</code> console and refresh the page.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80cd-b293-c862134a445a" class="numbered-list" start="19"><li>Enter <code>Blood_donation_tool</code> in the <strong>Tool name</strong> field and choose <strong>Data store</strong> as the tool type in the drop-down menu.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-805e-a9c5-fd2294d4a7e6" class="numbered-list" start="20"><li>Under <strong>Data Stores</strong>, click on <strong>Add Data Stores</strong>, choose <strong>Australian Red Cross Lifeblood Unstructured</strong>, then click <strong>Confirm</strong> and finally, click <strong>Save</strong>.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-80ff-80c7-c93f9e4e1ad3" class="image"><a href="https://cdn.qwiklabs.com/Dngc%2FG24zHqhSmjqyguTYQcCEGHOtfsQLimOFYKlbig%3D"><img src="https://cdn.qwiklabs.com/Dngc%2FG24zHqhSmjqyguTYQcCEGHOtfsQLimOFYKlbig%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80c5-a2d8-c5d1cf671f7f" class="numbered-list" start="21"><li>Navigate to the <strong>Playbooks</strong> tab, then click on <strong>Default Generative Playbook</strong>. Under <strong>Available tools</strong> choose the tool called <code>Blood_donation_tool</code> and click <strong>Save</strong>.<div style="display:contents" dir="auto"><p id="254f8917-466a-806c-9fd2-c37f67d9b52e" class="">Congratulations! You have finished building your knowledge-powered app that&#x27;s ready to help potential donors, so take a moment to celebrate!</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80c8-beba-f00c478cb26c" class="">But there&#x27;s still more work to do to make the agent accessible to your users. In the next section, you&#x27;ll use a knowledge handler to enable conversations between the agent and end-users about eligibility requirements.</p></div></li></ol></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8015-abba-d1ccb4da7d65" class="">Click <strong>Check my progress</strong> to verify the objectives.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8023-8853-e61f28be9422" class="">Create a new app</p></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-80cc-8851-d9548e85a529" class=""><strong>Task 3. Configure the agent to answer blood eligibility FAQs</strong></h1></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-80d3-b0e5-e2bdced1021c" class="">Provide the date store prompt</h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8018-8ce0-c112fec38571" class="">While the document collection process is running in the background, let&#x27;s give the agent a brand by editing the data store prompt.</p></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8062-a216-f5375391ffaf" class="numbered-list" start="1"><li>In the Conversational Agents console and from within your agent, click <strong>Agent settings</strong> (top right corner of the page).<div style="display:contents" dir="ltr"><figure id="254f8917-466a-801a-8de2-d62c42b42d39" class="image"><a href="https://cdn.qwiklabs.com/J4fmIM98duj7eeZDFEPAxd0O6qSR1D0ZBwy7xGQUuCo%3D"><img src="https://cdn.qwiklabs.com/J4fmIM98duj7eeZDFEPAxd0O6qSR1D0ZBwy7xGQUuCo%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8056-bbb3-e3c110793703" class="numbered-list" start="2"><li>Go to the <strong>Generative AI</strong> tab.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-803c-9dfb-c29546cfa101" class="image"><a href="https://cdn.qwiklabs.com/ixNbjkjQFBgJvsQu10Y9GdKpnIZNPDe0ECX5Impj5aQ%3D"><img src="https://cdn.qwiklabs.com/ixNbjkjQFBgJvsQu10Y9GdKpnIZNPDe0ECX5Impj5aQ%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-805a-b47a-c2ea8c370e43" class="numbered-list" start="3"><li>Click on <strong>General</strong> tab, and set the filters as below.<div style="display:contents" dir="ltr"><table id="254f8917-466a-80fb-b6ca-c9b35987ed12" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="254f8917-466a-8067-80f5-ca56826ffaf8"><th id="_YjE" class="simple-table-header-color simple-table-header"><strong>Filters</strong></th><th id="Ut}e" class="simple-table-header-color simple-table-header"><strong>Values</strong></th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="254f8917-466a-809d-b062-d72d655c91d7"><td id="_YjE" class="">Hate Speech</td><td id="Ut}e" class="">Block few</td></tr></div><div style="display:contents" dir="ltr"><tr id="254f8917-466a-800f-a6a4-e7c55938dccf"><td id="_YjE" class="">Dangerous content</td><td id="Ut}e" class="">Block few(default)</td></tr></div><div style="display:contents" dir="ltr"><tr id="254f8917-466a-80bf-83e6-fb09c0e0e856"><td id="_YjE" class="">Sexually explicit content</td><td id="Ut}e" class="">Block few</td></tr></div><div style="display:contents" dir="ltr"><tr id="254f8917-466a-80c8-b663-e138aacf72a3"><td id="_YjE" class="">Harassment</td><td id="Ut}e" class="">Block few</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80d5-8242-dc975543ea5e" class=""><strong>Output</strong>:</p></div><div style="display:contents" dir="ltr"><figure id="254f8917-466a-8028-abeb-e8452c6a5017" class="image"><a href="https://cdn.qwiklabs.com/z8wx7crKW%2FlIMR3jUSTdqJLZh5PmHgqSV7DzTAPcxQc%3D"><img src="https://cdn.qwiklabs.com/z8wx7crKW%2FlIMR3jUSTdqJLZh5PmHgqSV7DzTAPcxQc%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8069-b175-e0c2a2a4c2d4" class="numbered-list" start="4"><li>Click on <strong>Data store</strong> tab.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-80a4-8294-db2078b656d7" class="image"><a href="https://cdn.qwiklabs.com/bmlsMQHAB6hGwE1Ack%2B7%2FHcTEqW8zqH0C8VSUxHSjG4%3D"><img src="https://cdn.qwiklabs.com/bmlsMQHAB6hGwE1Ack%2B7%2FHcTEqW8zqH0C8VSUxHSjG4%3D"/></a></figure></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8005-bab9-cbc619ffbff3" class="">Fill out the form as below to generate the following data store prompt: Your name is <code>Donate</code>, and you are a helpful and polite <code>chatbot</code> at <code>Save a life, a fictitious organization</code>. Your task is to assist <code>humans with eligibility information</code>.</p></div><div style="display:contents" dir="ltr"><figure id="254f8917-466a-8065-8adb-d76194307c53" class="image"><a href="https://cdn.qwiklabs.com/dxY%2FhbDjM8CyUELFkWfKEnvu9Sfm3VVEWIsekZgx75A%3D"><img src="https://cdn.qwiklabs.com/dxY%2FhbDjM8CyUELFkWfKEnvu9Sfm3VVEWIsekZgx75A%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8063-a0cc-f451406226a6" class="numbered-list" start="5"><li>Click the <strong>Save</strong> button located at the top of the tab.</li></ol></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8026-8c10-c325927a8896" class="">Click <strong>Check my progress</strong> to verify the objectives.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80be-afb3-c7684e75da03" class="">Generate the data store prompt</p></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-80e6-b219-d0d8982f32e3" class="">Enable generative fallback for the Default Start Flow&#x27;s no-match event</h1></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80a6-94ff-eb6f75947e97" class="numbered-list" start="1"><li>Switch to the <strong>Flows</strong> tab on the top-left sidebar of the Conversational Agents console (below of <strong>Playbooks</strong>) and open the <strong>Start Page</strong>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80a5-8f0c-e9514982462e" class="numbered-list" start="2"><li>Click the <strong>sys.no-match-default</strong> event handler. Unless the box is already checked, enable the generative fallback feature and click <strong>Save</strong>.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-804e-9742-c63d1f831239" class="image"><a href="https://cdn.qwiklabs.com/82NmDd0Lzx0hc32m1Lf9SZxR7y%2BhlZ4s44QU0Mp5SNE%3D"><img src="https://cdn.qwiklabs.com/82NmDd0Lzx0hc32m1Lf9SZxR7y%2BhlZ4s44QU0Mp5SNE%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-80d2-b18b-fb0dbb9b44ef" class="">Review the Fulfillment Agent Response</h1></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8089-8f0f-d3fa3587eb49" class="numbered-list" start="1"><li>On the <strong>Start Page</strong> click <strong>Default Welcome Intent</strong>.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-8092-9f7e-ea6efbb04a60" class="image"><a href="https://cdn.qwiklabs.com/OmARXbphT9JiyOY5eM7dorNHeMoGuHK01apDKZlUClM%3D"><img src="https://cdn.qwiklabs.com/OmARXbphT9JiyOY5eM7dorNHeMoGuHK01apDKZlUClM%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8038-8965-e8f578bfd8a6" class="numbered-list" start="2"><li>Scroll down to <strong>Agent Responses</strong> under <strong>Fulfillment</strong>. A fulfillment is the agent response to the end user. Conversational Agents has pre populated <strong>Agent dialogue</strong> with the parameter <code>Hi! How are you doing?</code>.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-80b8-a7d2-dcc368b32ea3" class="image"><a href="https://cdn.qwiklabs.com/C2HaigQ88VOc%2BrJnXa7Zt1P0XIYYHQImPvSFJV1lJWA%3D"><img src="https://cdn.qwiklabs.com/C2HaigQ88VOc%2BrJnXa7Zt1P0XIYYHQImPvSFJV1lJWA%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-8028-bf4f-c50065eba1d7" class=""><strong>Task 4. Test the agent</strong></h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80a6-8b5a-ebf61ec14ccd" class="">Wait until the documents are available and ready for use by your agent to check out how good the answers are. You can check if the documents are available by going to the <a href="https://console.cloud.google.com/gen-app-builder/start">Vertex AI Agent Builder console</a> and clicking on the <code>view</code> link under <strong>Connected data stores</strong> beside of the <code>Blood Donation Agent</code> app and then clicking on <code>Australian Red Cross Lifeblood Unstructured</code>.</p></div><div style="display:contents" dir="ltr"><figure id="254f8917-466a-8036-9331-f00daff9b09b" class="image"><a href="https://cdn.qwiklabs.com/EbD3nrbgX7zeHdXmvx768xtQeQ41hX0Li1hglrtvzME%3D"><img src="https://cdn.qwiklabs.com/EbD3nrbgX7zeHdXmvx768xtQeQ41hX0Li1hglrtvzME%3D"/></a></figure></div><div style="display:contents" dir="auto"><p id="254f8917-466a-805e-b266-fc72ed63f923" class="">If you are not in the Conversational Agents console, then from the Vertex AI Agent Builder console, click the name of your app, which will redirect you to the Conversational Agents console.</p></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80ad-a1b5-cbc3052b76a0" class="numbered-list" start="1"><li>In the Conversational Agents console within your agent, click <strong>Toggle Simulator</strong> icon to open the Simulator.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-80f5-a460-de78f4e191a2" class="image"><a href="https://cdn.qwiklabs.com/C0%2FFcrPTiUJZJWhR4epDL1W%2BXnDTXzFNK6qilJFsrIo%3D"><img src="https://cdn.qwiklabs.com/C0%2FFcrPTiUJZJWhR4epDL1W%2BXnDTXzFNK6qilJFsrIo%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80f3-917d-d24060e36270" class="numbered-list" start="2"><li>Ask questions that you expect to find in the FAQ page of the website. For example:<div style="display:contents" dir="auto"><ul id="254f8917-466a-80eb-b8e2-d5e4d561f8c1" class="bulleted-list"><li style="list-style-type:disc">How can I book an appointment?</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-802a-af8c-eefc13fe6174" class="bulleted-list"><li style="list-style-type:disc">What age do I need to be to donate?</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-80ac-82a8-e6109687d18a" class="bulleted-list"><li style="list-style-type:disc">I&#x27;ve just come back from a trip to Africa. Can I donate?</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8080-84a3-e6d8fadc049f" class="bulleted-list"><li style="list-style-type:disc">Can pregnant women donate?</li></ul></div><div style="display:contents" dir="ltr"><figure id="254f8917-466a-8073-b163-f88fac7e6b8d" class="image"><a href="https://cdn.qwiklabs.com/SFAqibE%2Fa1LFTvTCAQZGRSFXwZCNobRmdDy7MYllccM%3D"><img src="https://cdn.qwiklabs.com/SFAqibE%2Fa1LFTvTCAQZGRSFXwZCNobRmdDy7MYllccM%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8003-890e-c1310d9fb990" class="numbered-list" start="3"><li>Lastly, let&#x27;s try and challenge the agent with a question totally unrelated to blood donation. For example:<div style="display:contents" dir="auto"><p id="254f8917-466a-804f-a4ec-d6ea0ebe5cea" class=""><code>What&#x27;s the weather like in Melbourne?</code></p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-803e-a4ac-e2dfa59159d1" class="">The agent should respond something like: <code>I&#x27;m sorry, I can&#x27;t provide weather information.</code></p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8098-b02d-d5ef694f9815" class="">This answer has AI generated content in it and derives from the text prompt that Conversational Agents has created starting from the knowledge connector setting provided before: &quot;Your name is Donate, and you are a helpful and polite chatbot at Save a Life. Your task is to assist humans with eligibility information&quot;. This text prompt contains the company name, the agent name, and most importantly what is in its scope which is used by Conversational Agents to generate the agent response.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8071-8629-ccbe05879f81" class="">Well done! So far you are using the data store to assist people with frequently asked questions related to blood donation. In the next part of the lab, we will look at how to bind a generator text prompt to the same content to make informed decisions.</p></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-8050-a3b7-de0d5b21a468" class=""><strong>Task 5. Set up the agent for the eligibility quiz</strong></h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-8019-9dc7-e547e758e9cc" class="">Our next task is to design the agent to determine the user&#x27;s eligibility to donate blood. There are strict requirements donors must meet such as age, weight, existing conditions, recent travels, etc. For the scope of this lab, we will only consider age and weight. A generator will use Google&#x27;s large language models (LLMs) to dynamically make an informed decision based on the context of the conversation and the knowledge base.</p></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-8076-a306-c753929cb284" class="">Configure new routes and parameters</h1></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-801f-b3e0-c8c5d5863cc7" class="numbered-list" start="1"><li>Switch to the <strong>Flows</strong> tab on the top-left sidebar of the Conversational Agents console (below of <strong>Playbooks</strong>) and open the <strong>Start Page</strong> and then click <strong>Default Welcome Intent</strong>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8041-ab98-dd068d0818f2" class="numbered-list" start="2"><li>Scroll down to the <strong>Fulfillment</strong> section and remove the current agent responses in the <strong>Agent dialogue</strong> field and insert the following response:Copied!<div style="display:contents" dir="auto"><p id="254f8917-466a-80fe-8e7d-d6c2033e3e59" class=""><code>Would you like to take the eligibility quiz to find out if you can donate blood, and start changing lives?</code></p></div><div style="display:contents" dir="ltr"><figure id="254f8917-466a-808f-8345-ff9ffa9868b8" class="image"><a href="https://cdn.qwiklabs.com/n6n5akvmrt5BNwP%2F5tFllRJxnHGFnSSG20cls64iECQ%3D"><img src="https://cdn.qwiklabs.com/n6n5akvmrt5BNwP%2F5tFllRJxnHGFnSSG20cls64iECQ%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8099-8371-d6bba411f9ab" class="numbered-list" start="3"><li>Scroll down to the <strong>Transition</strong> field and select <strong>Page &gt; + new page</strong> and set page name as <strong>User Blood Donation Decision</strong> and click on <strong>Save</strong> button.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8006-b181-d26e039c411f" class="numbered-list" start="4"><li>Navigate to the <strong>Manage</strong> tab to create the two intents with the below configurations, click <strong>+ Create</strong><div style="display:contents" dir="ltr"><table id="254f8917-466a-80ce-a030-c159b24f8bc8" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="254f8917-466a-8040-83e7-f66bff2d2d68"><th id="uI=@" class="simple-table-header-color simple-table-header"><strong>Display Name</strong></th><th id="DgE&gt;" class="simple-table-header-color simple-table-header"><strong>Property</strong></th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="254f8917-466a-8072-9baa-df94388a5721"><td id="uI=@" class="">confirmation.yes</td><td id="DgE&gt;" class=""><strong>Training phrases:</strong> &quot;Yes&quot;, &quot;yeah&quot;, &quot;yes please&quot;</td></tr></div><div style="display:contents" dir="ltr"><tr id="254f8917-466a-801d-ad89-ce75a817c699"><td id="uI=@" class="">confirmation.no</td><td id="DgE&gt;" class=""><strong>Training phrases:</strong> &quot;No&quot;</td></tr></div></tbody></table></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80d7-a08e-cfdbfc79573e" class="numbered-list" start="5"><li>Navigate to <strong>Build</strong> tab and click on the <strong>User Blood Donation Decision</strong> page.<div style="display:contents" dir="auto"><ul id="254f8917-466a-8041-8f76-d869b5877ded" class="bulleted-list"><li style="list-style-type:disc">To create the routes, click on <strong>+</strong> icon next to <strong>Routes</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8073-846c-e4ff1f18700e" class="bulleted-list"><li style="list-style-type:disc">In the <strong>Intent</strong> field, choose <strong>confirmation.yes</strong> from dropdown.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8072-9e13-c0fbd10a6f09" class="bulleted-list"><li style="list-style-type:disc">Scroll down to the <strong>Transition</strong> field and select <strong>Page &gt; + new page</strong> and set page name as <strong>Eligibility Quiz</strong> and click on <strong>Save</strong> button.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8063-85b0-f4f25cfb45e8" class="bulleted-list"><li style="list-style-type:disc">Click on <strong>+</strong> icon next to <strong>Routes</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-801d-a77e-c736c8dd5069" class="bulleted-list"><li style="list-style-type:disc">In the <strong>Intent</strong> field, select <strong>confirmation.no</strong> from the dropdown menu. Then, scroll down to the <strong>Fulfillment &gt; Agent responses</strong> section, click <strong>+ Add dialogue response</strong>, choose <strong>agent dialogue</strong> and insert the response as <code>Thanks, Have a nice day!</code> then click on <strong>Save</strong>.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-80bd-af0a-dbfb144860bb" class="">Create and configure the eligibility generator</h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-805b-bca3-e197ee9f4936" class="">The <a href="https://cloud.google.com/dialogflow/cx/docs/concept/generators">generator feature</a> is a Conversational Agents feature that allows developers to use Google&#x27;s latest generative large language models (LLMs) during Conversational Agents fulfillment. Generators to generate agent responses at runtime. A generator can handle generic responses that involve general knowledge from a large textual dataset it was trained on or context from the conversation.</p></div><div style="display:contents" dir="auto"><p id="254f8917-466a-809d-ae12-eaafe757e7ba" class="">We shall create a new generator that will compare the information provided by the user (such as age and weight) with the eligibility requirements to determine whether the user can donate.</p></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8091-a5f2-f326665270cc" class="numbered-list" start="1"><li>On the Conversational Agents console go to the <strong>Manage</strong> tab and select <strong>Generators</strong> and click <strong>Create new</strong>.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-80b8-b4a5-d4914a10c47c" class="image"><a href="https://cdn.qwiklabs.com/tHOLM9V8xNktIml6fHO0ZiJza1jpl5GLUfVrYAVk6ko%3D"><img src="https://cdn.qwiklabs.com/tHOLM9V8xNktIml6fHO0ZiJza1jpl5GLUfVrYAVk6ko%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-803a-b106-d0d2ab3f4c22" class="numbered-list" start="2"><li>Next, provide <code>Blood Donation Eligibility</code> as the display name and write the following text prompt.Copied!<div style="display:contents" dir="auto"><p id="254f8917-466a-8065-a87b-c0c0c376959c" class=""><code>Check the users eligibility against the following criteria: the minimum age is 18 and the maximum age is 75. Weight should be above 50 Kg. The user age and weight is $last-user-utterance. Be nice and tell the user if they are eligible to donate (also tell them why not in case)</code></p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8032-808d-dad8f39b9bab" class="numbered-list" start="3"><li>Leave the default model quality control settings. Then click <strong>Save</strong> to create the generator.<div style="display:contents" dir="auto"><p id="254f8917-466a-80d8-a51b-f049e6331b0d" class="">The text prompt is sent to the generative model during fulfillment at runtime. It should be a clear question or request in order for the model to generate a satisfactory response. You can use special built-in generator prompt placeholders in your text prompt:</p></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8059-979c-faea6d4bce6b" class="bulleted-list"><li style="list-style-type:disc"><code>$conversation</code>: The conversation between the agent and the user, excluding the very last user utterance.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8030-9b9e-fd845e259226" class="bulleted-list"><li style="list-style-type:disc"><code>$last-user-utterance</code>: The last user utterance.</li></ul></div><div style="display:contents" dir="auto"><p id="254f8917-466a-80a2-b421-fa9a45cfc658" class="">The text prompt you have configured expects the user to provide age and weight in once conversational turn (the last-userutterance).</p></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-80f4-8256-d8fd28df7dbc" class="">Use the generator in fulfillment and configure all the required parameters</h1></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80fc-adeb-cc6b27efe462" class="numbered-list" start="1"><li>Next, navigate to <strong>Build</strong> tab and click on <strong>Eligibility Quiz</strong> Page.<div style="display:contents" dir="auto"><ul id="254f8917-466a-80d5-8429-d9ccd5d71691" class="bulleted-list"><li style="list-style-type:disc">To add Parameters, click on <strong>+</strong> icon next to <strong>Parameters</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-80d8-8454-c8543715a4db" class="bulleted-list"><li style="list-style-type:disc">Enter display name as <strong>age-weight</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8004-8566-cdf07f12de4b" class="bulleted-list"><li style="list-style-type:disc">Select entity type as <code>@sys.any</code>.</li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-80e3-8b5d-c15c49e23451" class="bulleted-list"><li style="list-style-type:disc">Scroll down to <strong>Initial Prompt Fulfillment &gt; Agent responses</strong> and in <strong>Agent dialogue</strong> field add prompt, <code>What is your age and weight?</code> and then click <strong>Save</strong>.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8049-a351-e9608a1c417a" class="numbered-list" start="2"><li>On <strong>Eligibility Quiz</strong> page, click on <strong>+</strong> icon next to <strong>Routes</strong>.<div style="display:contents" dir="auto"><ul id="254f8917-466a-80c6-9f34-ec3d52d12760" class="bulleted-list"><li style="list-style-type:disc">Select the <code>Match AT LEAST ONE rule (OR)</code> option under <strong>Condition rules</strong> and enter the condition requirement <code>$page.params.status = &quot;FINAL&quot;</code>.</li></ul></div><div style="display:contents" dir="ltr"><figure id="254f8917-466a-807d-bba1-fae125859ab8" class="image"><a href="https://cdn.qwiklabs.com/PBHIhlga%2B2r6fDXsyR%2Bj1FvWBI4d81gONZDtWATYQk0%3D"><img src="https://cdn.qwiklabs.com/PBHIhlga%2B2r6fDXsyR%2Bj1FvWBI4d81gONZDtWATYQk0%3D"/></a></figure></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8002-ba42-f1098d22526c" class="bulleted-list"><li style="list-style-type:disc">Scroll down to <strong>Fulfillment &gt; Generators</strong>, click on <strong>Add Generator</strong>, and select <strong>Blood Donation Eligibility</strong> as the generator. Then, replace the value in the <strong>Output Parameter</strong> field with <code>$request.generative.eligibility-outcome</code> that will contain the result of the generator after execution.</li></ul></div><div style="display:contents" dir="ltr"><figure id="254f8917-466a-809d-9a97-c52b4403a3ff" class="image"><a href="https://cdn.qwiklabs.com/TGid2uQWAyOlB3XPV2rW2sNWD4stAWb7sfcRxEMimlE%3D"><img src="https://cdn.qwiklabs.com/TGid2uQWAyOlB3XPV2rW2sNWD4stAWb7sfcRxEMimlE%3D"/></a></figure></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-8055-8e91-c5ce73a1083a" class="bulleted-list"><li style="list-style-type:disc">In <strong>Fulfillment &gt; Agent responses &gt; Agent dialogue</strong> field add value as <code>$request.generative.eligibility-outcome</code> and then click <strong>Save</strong>.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-8033-a325-d86b371b2b0d" class=""><strong>Task 6. Retest your agent</strong></h1></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80fe-8ea3-fd56750b97cf" class="numbered-list" start="1"><li>Click on <strong>Toggle Simulator</strong> icon, available at top right corner.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-80b8-8755-e38dc19e47cb" class="image"><a href="https://cdn.qwiklabs.com/C0%2FFcrPTiUJZJWhR4epDL1W%2BXnDTXzFNK6qilJFsrIo%3D"><img src="https://cdn.qwiklabs.com/C0%2FFcrPTiUJZJWhR4epDL1W%2BXnDTXzFNK6qilJFsrIo%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80c1-90a1-ef118a4ad856" class="numbered-list" start="2"><li>Click the <strong>Reset conversation</strong> icon until the <strong>Preview: Default Start Flow</strong> page appears, as shown below.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-80f0-b5fb-c87e72d48e31" class="image"><a href="https://cdn.qwiklabs.com/5xgCDLIwu5Zpr22%2FmPwMiTf6AQpXR5ZR0Pf5Tt1SME4%3D"><img src="https://cdn.qwiklabs.com/5xgCDLIwu5Zpr22%2FmPwMiTf6AQpXR5ZR0Pf5Tt1SME4%3D"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="254f8917-466a-80fe-ab48-dce2c079099c" class="image"><a href="https://cdn.qwiklabs.com/8UA%2FVHc%2FWt8MHAzglfS8Wv7hyz1UY9TAKb7fglrBkHw%3D"><img src="https://cdn.qwiklabs.com/8UA%2FVHc%2FWt8MHAzglfS8Wv7hyz1UY9TAKb7fglrBkHw%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80ca-9edd-c935cba08147" class="numbered-list" start="3"><li>In the <strong>Start Resource</strong> section of the <strong>Preview: Default Start Flow</strong> page, select <strong>Default Start Flow</strong> and test your agent.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-80fc-9bf8-f2f18495ec9c" class="image"><a href="https://cdn.qwiklabs.com/HLc2%2BC%2BVn83jc8pjeqEq48NhyydArtSRVyDyhZlMAWw%3D"><img src="https://cdn.qwiklabs.com/HLc2%2BC%2BVn83jc8pjeqEq48NhyydArtSRVyDyhZlMAWw%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80c3-aefe-f9a3ff291ec7" class="numbered-list" start="4"><li>In the <strong>Toggle Simulator</strong>, start a new conversation with the agent by entering <code>Hi</code>, and then provide the response to the agent&#x27;s questions as shown below.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-80a2-8d8a-ca95e2b3898a" class="image"><a href="https://cdn.qwiklabs.com/EO1fg%2FrCB4tXmT35W4dHRDEiKDGj%2Bv2p%2FKgOGk6d%2Fsc%3D"><img src="https://cdn.qwiklabs.com/EO1fg%2FrCB4tXmT35W4dHRDEiKDGj%2Bv2p%2FKgOGk6d%2Fsc%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8030-b86d-c44f52424251" class="numbered-list" start="5"><li>Then check the eligibility check fails when one or both the requirements are not met.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-8015-98fc-d95bfd28b878" class="image"><a href="https://cdn.qwiklabs.com/v7y%2FHvaSB41m4LHtj2TM0M32gS%2FusK%2FJXlWBip9bRKI%3D"><img src="https://cdn.qwiklabs.com/v7y%2FHvaSB41m4LHtj2TM0M32gS%2FusK%2FJXlWBip9bRKI%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80e0-b4db-c39795aa453d" class="numbered-list" start="6"><li>Great, the generator works as expected! Or does it? What happens if the user provides the age but not the weight (or the other way around)?<div style="display:contents" dir="ltr"><figure id="254f8917-466a-80be-b049-e33d2087f591" class="image"><a href="https://cdn.qwiklabs.com/8SfghUKpThdw7bL28bk7k4Mp7WfESODu7VS1SHi57AY%3D"><img src="https://cdn.qwiklabs.com/8SfghUKpThdw7bL28bk7k4Mp7WfESODu7VS1SHi57AY%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-8055-a5be-d56725c7d760" class=""><strong>Task 7. Generator prompt tuning</strong></h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-809c-8443-f290eb481d3a" class="">Collecting age and weight in one ago doesn&#x27;t seem to work unless both age and weight are provided. We should instead create a form that collects both values as entity parameters. To make the prompt contextual of all the eligibility requirements (such as the age and the weight) we can use placeholders by adding a <code>$</code> before the word. We will later associate these generator prompt placeholders with session parameters in fulfillment and they will be replaced by the session parameter values during execution.</p></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-8083-918c-f39b63446fa1" class="numbered-list" start="1"><li>Open the <strong>Eligibility Quiz</strong> page, click on <strong>Parameters</strong>, remove the parameter <code>age-weight</code> and add two separate form parameters: one for <strong>weight</strong> and one for <strong>age</strong>. Pick <code>@sys.number-integer</code> as the entity type and mark the parameters required. Provide the initial prompt fulfillments such as <code>What is your correct weight?</code> for the <code>weight</code> parameter and <code>How old are you?</code> for the <code>age</code> parameter. Save all the changes.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-806e-885f-f78e3f08feb3" class="image"><a href="https://cdn.qwiklabs.com/f6nVe18ijXvILGhT2YgN8vYZ9iyFqFDT0uVW%2FJ38V0Y%3D"><img src="https://cdn.qwiklabs.com/f6nVe18ijXvILGhT2YgN8vYZ9iyFqFDT0uVW%2FJ38V0Y%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-802e-b443-f54debcac415" class="numbered-list" start="2"><li>Before we can update the text prompt of the generator to include two new custom placeholders, we first need to remove the generator. To do this, click on the created route, scroll down to the <strong>Fulfillment &gt; Generator</strong> section, remove the generator named <code>Blood Donation Eligibility</code>, and then click <strong>Save</strong>.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-802a-95f1-ec2c716b4e69" class="image"><a href="https://cdn.qwiklabs.com/3TH7grZPd0DSZrziCAozxVFpkmsHRbRXmQmfTCgI4L8%3D"><img src="https://cdn.qwiklabs.com/3TH7grZPd0DSZrziCAozxVFpkmsHRbRXmQmfTCgI4L8%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80c6-8d9b-f8cb8b819209" class="numbered-list" start="3"><li>Go to the <strong>Manage</strong> tab, select <strong>Generators</strong> and update the text prompt of the <strong>Blood Donation Eligibility</strong> generator with: <code>Check the users eligibility against the following criteria: the minimum age is 18 and the maximum age is 75. The weight must be at least 50 kg. The user is $age years old and weighs $weight Kg. Craft an email and politely explain to the user if they&#x27;re eligible to donate and if not why.</code><div style="display:contents" dir="auto"><p id="254f8917-466a-8092-a420-dd365ddf20f7" class="">Notice that we haven&#x27;t just made the text prompt contextual of the age and weight form parameters, we have also changed the last sentence to be able to generate a formal email to the user which contains the official outcome of the eligibility quiz.</p></div><div style="display:contents" dir="ltr"><figure id="254f8917-466a-8078-8e3e-ed247a721711" class="image"><a href="https://cdn.qwiklabs.com/IV5NulGzSwBW8moaPr6uGkhurdRBdAIxOxJdEl7RCyc%3D"><img src="https://cdn.qwiklabs.com/IV5NulGzSwBW8moaPr6uGkhurdRBdAIxOxJdEl7RCyc%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-809c-80ca-c0bd8fbca5b8" class="numbered-list" start="4"><li>Click <strong>Save</strong>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80b8-8b2a-f41326da6984" class="numbered-list" start="5"><li>Return to the <strong>Build</strong> tab. On the <strong>Eligibility Quiz</strong> page, select the route and expand the <strong>Generators</strong> section of the <strong>Fulfillment</strong> pane. Then, click <strong>Add generator</strong> and select the <code>Blood Donation Eligibility</code> generator. After selecting the generator you need to associate the new prompt placeholders with the respective session parameters. Moreover, you need to re-set the <code>input</code> and <code>output</code> parameters as below.<div style="display:contents" dir="auto"><ul id="254f8917-466a-8034-aa3a-db0089ac56a3" class="bulleted-list"><li style="list-style-type:disc">age : <code>$session.params.age</code></li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-809b-a5c8-ca9b531d82e1" class="bulleted-list"><li style="list-style-type:disc">weight : <code>$session.params.weight</code></li></ul></div><div style="display:contents" dir="auto"><ul id="254f8917-466a-80e9-9201-e39677c9b2f0" class="bulleted-list"><li style="list-style-type:disc">Output parameter : <code>$request.generative.eligibility-outcome</code></li></ul></div><div style="display:contents" dir="ltr"><figure id="254f8917-466a-80db-b492-d0504c6bbdc3" class="image"><a href="https://cdn.qwiklabs.com/63KA%2BEAm9oTZ4h3z5GgrHWX0LkMaZfwlQl2Gh4Ix8xM%3D"><img src="https://cdn.qwiklabs.com/63KA%2BEAm9oTZ4h3z5GgrHWX0LkMaZfwlQl2Gh4Ix8xM%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80ad-bbf2-df3e3bddbdfc" class="numbered-list" start="6"><li>Click on <strong>Save</strong>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="254f8917-466a-80bb-b23a-e9b9e15a91bf" class="numbered-list" start="7"><li>Retest the agent again. The eligibility check takes now into account both age and weight and the wording has changed from a conversational tone to a more polite response that is ready to be sent out without any potential human in the loop.<div style="display:contents" dir="ltr"><figure id="254f8917-466a-8025-9f99-c70ce7dbd733" class="image"><a href="https://cdn.qwiklabs.com/PmhPW%2FfRoI%2BXZeDwHz69dvxUuBuxcfO%2FFyIeXVn%2Bolc%3D"><img src="https://cdn.qwiklabs.com/PmhPW%2FfRoI%2BXZeDwHz69dvxUuBuxcfO%2FFyIeXVn%2Bolc%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="254f8917-466a-80a4-bd61-c5d0bf9fcad1" class=""><strong>Congratulations!</strong></h1></div><div style="display:contents" dir="auto"><p id="254f8917-466a-807c-81cf-ccf8f6aa736c" class="">Today we&#x27;ve investigated generators in the context of eligibility quizzes. You have seen that generators use LLMs to generate agent responses and when powered by a knowledge base they can also make well-informed decisions. Surely there are many other use cases that can be implemented leveraging generators and data stores and we can&#x27;t wait to get to know them!</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

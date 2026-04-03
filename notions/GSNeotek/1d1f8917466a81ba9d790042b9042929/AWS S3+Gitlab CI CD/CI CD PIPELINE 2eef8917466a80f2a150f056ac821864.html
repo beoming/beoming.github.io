@@ -1,0 +1,1280 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CI/CD PIPELINE</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2eef8917-466a-80f2-a150-f056ac821864" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">⚙️</span></div><h1 class="page-title" dir="auto">CI/CD PIPELINE</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="2eef8917-466a-815f-8ff3-f20f26b39b60" class="">WiseNTalk Zendesk App CI/CD 파이프라인 문서</h1></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8151-b121-ebfe7943afa0" class="code code-wrap"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">variables:
+  GIT_STRATEGY: fetch
+  CI: &quot;false&quot;
+
+stages:
+  - build
+  - deploy-dev
+  - update-zendesk
+  - promote-prod
+  - rollback
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+# ==========================================
+# 1. Build
+# ==========================================
+build_app:
+  stage: build
+  script:
+    - echo &quot;Build started...&quot;
+    - npm install --legacy-peer-deps
+    - npm run build
+  artifacts:
+    paths:
+      - build/
+    expire_in: 1 hour
+  only:
+    - main
+
+# ==========================================
+# 2. Deploy to Dev (S3 + CloudFront)
+# ==========================================
+deploy_to_dev:
+  stage: deploy-dev
+  dependencies:
+    - build_app
+  script:
+    - echo &quot;Deploying to Dev S3...&quot;
+    - aws s3 sync ./build s3://$DEV_S3_BUCKET --delete
+    - aws cloudfront create-invalidation --distribution-id $DEV_CF_ID --paths &quot;/*&quot;
+  only:
+    - main
+
+# ==========================================
+# 3-A. Zendesk App Update via ZCLI (Sequential with Variable Selection)
+# ==========================================
+update_zendesk_dev_apps_zcli:
+  stage: update-zendesk
+  needs: [&quot;deploy_to_dev&quot;]
+  when: manual
+  allow_failure: false
+
+  variables:
+    # DEPLOY_CLIENTS: 배포할 고객사 선택 (예: &quot;CLIENT1&quot;, &quot;CLIENT2&quot;, &quot;CLIENT1,CLIENT2&quot;)
+    # 비워두거나 설정하지 않으면 모든 고객사 배포
+    DEPLOY_CLIENTS: &quot;&quot;
+
+  script:
+    - |
+      set -e
+
+      echo &quot;=== Zendesk App Update via ZCLI (Sequential) START ===&quot;
+
+      # zcli 설치 확인
+      if ! command -v zcli &amp;&gt; /dev/null; then
+        echo &quot;Installing zcli...&quot;
+        npm install -g @zendesk/zcli
+      fi
+
+      APP_DIR=&quot;zendesk-private-app-dev&quot;
+      APP_DIR_ABS=&quot;$CI_PROJECT_DIR/$APP_DIR&quot;
+
+      # 클라이언트 목록 결정 (DEPLOY_CLIENTS 변수 또는 기본값)
+      if [ -n &quot;$DEPLOY_CLIENTS&quot; ] &amp;&amp; [ &quot;$DEPLOY_CLIENTS&quot; != &quot;&quot; ]; then
+        # 사용자가 지정한 고객사만 배포
+        IFS=&#x27;,&#x27; read -ra CLIENTS_ARRAY &lt;&lt;&lt; &quot;$DEPLOY_CLIENTS&quot;
+        CLIENTS=(&quot;${CLIENTS_ARRAY[@]}&quot;)
+        echo &quot;Selected clients: ${CLIENTS[*]}&quot;
+      else
+        # 모든 고객사 배포 (기본값)
+        CLIENTS=(&quot;CLIENT1&quot; &quot;CLIENT2&quot;)
+        echo &quot;Deploying to all clients: ${CLIENTS[*]}&quot;
+      fi
+
+      for CLIENT_PREFIX in &quot;${CLIENTS[@]}&quot;; do
+        echo &quot;&quot;
+        echo &quot;==========================================&quot;
+        echo &quot;Processing: $CLIENT_PREFIX&quot;
+        echo &quot;==========================================&quot;
+
+        # 환경변수 매핑
+        VAR_SUBDOMAIN=&quot;${CLIENT_PREFIX}_SUBDOMAIN&quot;
+        VAR_TOKEN=&quot;${CLIENT_PREFIX}_TOKEN&quot;
+        VAR_EMAIL=&quot;${CLIENT_PREFIX}_EMAIL&quot;
+
+        eval TARGET_SUBDOMAIN=\$$VAR_SUBDOMAIN
+        eval TARGET_TOKEN=\$$VAR_TOKEN
+        eval TARGET_EMAIL=\$$VAR_EMAIL
+
+        if [ -z &quot;$TARGET_SUBDOMAIN&quot; ] || [ -z &quot;$TARGET_TOKEN&quot; ]; then
+          echo &quot;  Skipping $CLIENT_PREFIX: missing credentials&quot;
+          continue
+        fi
+
+        echo &quot;Target domain: ${TARGET_SUBDOMAIN}.zendesk.com&quot;
+        echo &quot;Target email: ${TARGET_EMAIL:-${COMMON_EMAIL}}&quot;
+
+        # App ID 조회 (환경변수에서)
+        VAR_APP_ID=&quot;${CLIENT_PREFIX}_APP_ID&quot;
+        eval TARGET_APP_ID=\$$VAR_APP_ID
+
+        if [ -z &quot;$TARGET_APP_ID&quot; ]; then
+          echo &quot;  Skipping $CLIENT_PREFIX: missing APP_ID&quot;
+          continue
+        fi
+
+        # zcli 환경변수 인증 설정 (프로필보다 우선순위 높음)
+        # 기존 환경변수 unset (다른 고객사 인증 정보 제거)
+        unset ZENDESK_SUBDOMAIN ZENDESK_EMAIL ZENDESK_API_TOKEN ZENDESK_TOKEN
+
+        # 현재 고객사 환경변수 설정
+        export ZENDESK_SUBDOMAIN=&quot;$TARGET_SUBDOMAIN&quot;
+        export ZENDESK_EMAIL=&quot;${TARGET_EMAIL:-${COMMON_EMAIL}}&quot;
+        export ZENDESK_API_TOKEN=&quot;$TARGET_TOKEN&quot;
+
+        echo &quot;   Using environment variables for authentication&quot;
+        echo &quot;   Subdomain: $ZENDESK_SUBDOMAIN&quot;
+        echo &quot;   Email: $ZENDESK_EMAIL&quot;
+
+        # zcli.apps.config.json 파일 생성/업데이트 (app_id + test settings)
+        CONFIG_FILE=&quot;$APP_DIR_ABS/zcli.apps.config.json&quot;
+        MANIFEST_FILE=&quot;$APP_DIR_ABS/manifest.json&quot;
+        
+        # manifest.json에서 parameters 읽어서 test settings 생성 (default 값이 있는 것만)
+        # jq로 parameters에서 default가 null이 아니고 빈 문자열이 아닌 것들만 추출
+        TEST_SETTINGS_JSON=$(jq -r &#x27;.parameters // [] | 
+          map(select(.default != null and .default != &quot;&quot;)) | 
+          reduce .[] as $p ({}; . + {($p.name): $p.default})&#x27; &quot;$MANIFEST_FILE&quot; 2&gt;/dev/null || echo &quot;{}&quot;)
+        
+        if [ -f &quot;$CONFIG_FILE&quot; ]; then
+          # 기존 파일이 있으면 app_id와 test_settings 업데이트
+          jq --argjson app_id &quot;$TARGET_APP_ID&quot; --argjson test_settings &quot;$TEST_SETTINGS_JSON&quot; \
+            &#x27;.app_id = $app_id | .test_settings = $test_settings&#x27; &quot;$CONFIG_FILE&quot; &gt; &quot;$CONFIG_FILE.tmp&quot; &amp;&amp; mv &quot;$CONFIG_FILE.tmp&quot; &quot;$CONFIG_FILE&quot;
+          echo &quot;Updated zcli.apps.config.json with app_id: ${TARGET_APP_ID} and test_settings&quot;
+        else
+          # 새로 생성 (app_id + test_settings)
+          jq -n --argjson app_id &quot;$TARGET_APP_ID&quot; --argjson test_settings &quot;$TEST_SETTINGS_JSON&quot; \
+            &#x27;{app_id: $app_id, test_settings: $test_settings}&#x27; &gt; &quot;$CONFIG_FILE&quot;
+          echo &quot;Created zcli.apps.config.json with app_id: ${TARGET_APP_ID} and test_settings&quot;
+        fi
+
+        # zcli apps:update 실행 (재시도 로직 포함)
+        echo &quot;Running zcli apps:update...&quot;
+        cd &quot;$APP_DIR_ABS&quot;
+        
+        MAX_RETRIES=3
+        RETRY_COUNT=0
+        UPDATE_SUCCESS=false
+        
+        # set -e를 일시적으로 비활성화 (재시도 로직을 위해)
+        set +e
+        
+        while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+          RETRY_COUNT=$((RETRY_COUNT + 1))
+          
+          # zcli 실행 및 에러 캡처
+          zcli apps:update &gt; /tmp/zcli_update_${CLIENT_PREFIX}.log 2&gt;&amp;1
+          ZCLI_EXIT_CODE=$?
+          
+          if [ $ZCLI_EXIT_CODE -eq 0 ]; then
+            UPDATE_SUCCESS=true
+            cat /tmp/zcli_update_${CLIENT_PREFIX}.log
+            break
+          else
+            ERROR_LOG=$(cat /tmp/zcli_update_${CLIENT_PREFIX}.log 2&gt;/dev/null || echo &quot;&quot;)
+            cat /tmp/zcli_update_${CLIENT_PREFIX}.log
+            
+            # 502 Bad Gateway 에러인 경우에만 재시도
+            if echo &quot;$ERROR_LOG&quot; | grep -qE &quot;502|Bad Gateway|ERR_BAD_RESPONSE&quot;; then
+              if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                echo &quot;[$CLIENT_PREFIX] 502 Bad Gateway error (attempt $RETRY_COUNT/$MAX_RETRIES), retrying in 10 seconds...&quot;
+                sleep 10
+              else
+                echo &quot;[$CLIENT_PREFIX] zcli apps:update FAILED after $MAX_RETRIES attempts (502 errors)&quot;
+                set -e
+                exit 1
+              fi
+            else
+              echo &quot;[$CLIENT_PREFIX] zcli apps:update FAILED (non-retryable error)&quot;
+              set -e
+              exit 1
+            fi
+          fi
+        done
+        
+        # set -e 다시 활성화
+        set -e
+        
+        if [ &quot;$UPDATE_SUCCESS&quot; = &quot;true&quot; ]; then
+          echo &quot;[$CLIENT_PREFIX] zcli apps:update SUCCESS&quot;
+        fi
+        cd &quot;$CI_PROJECT_DIR&quot;
+      done
+
+      echo &quot;&quot;
+      echo &quot;All clients processed&quot;
+
+  only:
+    - main
+
+# ==========================================
+# 3-B. Zendesk App Update via ZCLI (Individual Client Jobs)
+# ==========================================
+# 각 고객사별로 개별 job 생성 (선택적 배포용)
+.update_zendesk_client_template: &amp;update_zendesk_client_template
+  stage: update-zendesk
+  needs: [&quot;deploy_to_dev&quot;]
+  when: manual
+  allow_failure: false
+  script:
+    - |
+      set -e
+
+      echo &quot;=== Zendesk App Update via ZCLI: ${CLIENT_PREFIX} ===&quot;
+
+      # zcli 설치 확인
+      if ! command -v zcli &amp;&gt; /dev/null; then
+        echo &quot;Installing zcli...&quot;
+        npm install -g @zendesk/zcli
+      fi
+
+      APP_DIR=&quot;zendesk-private-app-dev&quot;
+      APP_DIR_ABS=&quot;$CI_PROJECT_DIR/$APP_DIR&quot;
+
+      # 환경변수 매핑
+      VAR_SUBDOMAIN=&quot;${CLIENT_PREFIX}_SUBDOMAIN&quot;
+      VAR_TOKEN=&quot;${CLIENT_PREFIX}_TOKEN&quot;
+      VAR_EMAIL=&quot;${CLIENT_PREFIX}_EMAIL&quot;
+      VAR_APP_ID=&quot;${CLIENT_PREFIX}_APP_ID&quot;
+
+      eval TARGET_SUBDOMAIN=\$$VAR_SUBDOMAIN
+      eval TARGET_TOKEN=\$$VAR_TOKEN
+      eval TARGET_EMAIL=\$$VAR_EMAIL
+      eval TARGET_APP_ID=\$$VAR_APP_ID
+
+      if [ -z &quot;$TARGET_SUBDOMAIN&quot; ] || [ -z &quot;$TARGET_TOKEN&quot; ] || [ -z &quot;$TARGET_APP_ID&quot; ]; then
+        echo &quot;Missing credentials for ${CLIENT_PREFIX}&quot;
+        exit 1
+      fi
+
+      echo &quot;Target domain: ${TARGET_SUBDOMAIN}.zendesk.com&quot;
+      echo &quot;Target email: ${TARGET_EMAIL:-${COMMON_EMAIL}}&quot;
+      echo &quot;Target app id: ${TARGET_APP_ID}&quot;
+
+      # zcli 환경변수 인증 설정
+      unset ZENDESK_SUBDOMAIN ZENDESK_EMAIL ZENDESK_API_TOKEN ZENDESK_TOKEN
+      export ZENDESK_SUBDOMAIN=&quot;$TARGET_SUBDOMAIN&quot;
+      export ZENDESK_EMAIL=&quot;${TARGET_EMAIL:-${COMMON_EMAIL}}&quot;
+      export ZENDESK_API_TOKEN=&quot;$TARGET_TOKEN&quot;
+
+      echo &quot;Using environment variables for authentication&quot;
+
+      # zcli.apps.config.json 파일 생성/업데이트
+      CONFIG_FILE=&quot;$APP_DIR_ABS/zcli.apps.config.json&quot;
+      MANIFEST_FILE=&quot;$APP_DIR_ABS/manifest.json&quot;
+      
+      TEST_SETTINGS_JSON=$(jq -r &#x27;.parameters // [] | 
+        map(select(.default != null and .default != &quot;&quot;)) | 
+        reduce .[] as $p ({}; . + {($p.name): $p.default})&#x27; &quot;$MANIFEST_FILE&quot; 2&gt;/dev/null || echo &quot;{}&quot;)
+      
+      if [ -f &quot;$CONFIG_FILE&quot; ]; then
+        jq --argjson app_id &quot;$TARGET_APP_ID&quot; --argjson test_settings &quot;$TEST_SETTINGS_JSON&quot; \
+          &#x27;.app_id = $app_id | .test_settings = $test_settings&#x27; &quot;$CONFIG_FILE&quot; &gt; &quot;$CONFIG_FILE.tmp&quot; &amp;&amp; mv &quot;$CONFIG_FILE.tmp&quot; &quot;$CONFIG_FILE&quot;
+        echo &quot;Updated zcli.apps.config.json with app_id: ${TARGET_APP_ID}&quot;
+      else
+        jq -n --argjson app_id &quot;$TARGET_APP_ID&quot; --argjson test_settings &quot;$TEST_SETTINGS_JSON&quot; \
+          &#x27;{app_id: $app_id, test_settings: $test_settings}&#x27; &gt; &quot;$CONFIG_FILE&quot;
+        echo &quot;Created zcli.apps.config.json with app_id: ${TARGET_APP_ID}&quot;
+      fi
+
+      # zcli apps:update 실행 (재시도 로직 포함)
+      echo &quot;Running zcli apps:update...&quot;
+      cd &quot;$APP_DIR_ABS&quot;
+      
+      MAX_RETRIES=3
+      RETRY_COUNT=0
+      UPDATE_SUCCESS=false
+      set +e
+      
+      while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+        RETRY_COUNT=$((RETRY_COUNT + 1))
+        zcli apps:update &gt; /tmp/zcli_update_${CLIENT_PREFIX}.log 2&gt;&amp;1
+        ZCLI_EXIT_CODE=$?
+        
+        if [ $ZCLI_EXIT_CODE -eq 0 ]; then
+          UPDATE_SUCCESS=true
+          cat /tmp/zcli_update_${CLIENT_PREFIX}.log
+          break
+        else
+          ERROR_LOG=$(cat /tmp/zcli_update_${CLIENT_PREFIX}.log 2&gt;/dev/null || echo &quot;&quot;)
+          cat /tmp/zcli_update_${CLIENT_PREFIX}.log
+          
+          if echo &quot;$ERROR_LOG&quot; | grep -qE &quot;502|Bad Gateway|ERR_BAD_RESPONSE&quot;; then
+            if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+              echo &quot;  [${CLIENT_PREFIX}] 502 Bad Gateway error (attempt $RETRY_COUNT/$MAX_RETRIES), retrying in 10 seconds...&quot;
+              sleep 10
+            else
+              echo &quot; [${CLIENT_PREFIX}] zcli apps:update FAILED after $MAX_RETRIES attempts (502 errors)&quot;
+              set -e
+              exit 1
+            fi
+          else
+            echo &quot; [${CLIENT_PREFIX}] zcli apps:update FAILED (non-retryable error)&quot;
+            set -e
+            exit 1
+          fi
+        fi
+      done
+      
+      set -e
+      
+      if [ &quot;$UPDATE_SUCCESS&quot; = &quot;true&quot; ]; then
+        echo &quot; [${CLIENT_PREFIX}] zcli apps:update SUCCESS&quot;
+      fi
+      cd &quot;$CI_PROJECT_DIR&quot;
+
+update_zendesk_client1:
+  &lt;&lt;: *update_zendesk_client_template
+  variables:
+    CLIENT_PREFIX: &quot;CLIENT1&quot;
+  only:
+    - main
+
+update_zendesk_client2:
+  &lt;&lt;: *update_zendesk_client_template
+  variables:
+    CLIENT_PREFIX: &quot;CLIENT2&quot;
+  only:
+    - main
+
+# ==========================================
+# 4. Promote to Prod
+# ==========================================
+promote_to_prod:
+  stage: promote-prod
+  needs: [&quot;deploy_to_dev&quot;]
+  when: manual
+  script:
+    - |
+      set -e
+
+      TIMESTAMP=$(date +&quot;%Y%m%d-%H%M%S&quot;)
+      ROLLBACK_PATH=&quot;rollback/${TIMESTAMP}&quot;
+
+      echo &quot;Backing up Prod → ${ROLLBACK_PATH}&quot;
+
+      aws s3 sync \
+        s3://${PROD_S3_BUCKET} \
+        s3://${PROD_S3_BUCKET}/${ROLLBACK_PATH} \
+        --exclude &quot;rollback/*&quot;
+
+      echo &quot;Promoting Dev → Prod&quot;
+
+      aws s3 sync \
+        s3://${DEV_S3_BUCKET} \
+        s3://${PROD_S3_BUCKET} \
+        --delete \
+        --exclude &quot;rollback/*&quot;
+
+      aws cloudfront create-invalidation \
+        --distribution-id ${PROD_CF_ID} \
+        --paths &quot;/*&quot;
+
+      echo &quot; Promote to Prod completed&quot;
+
+  only:
+    - main
+
+# ==========================================
+# 5. Rollback
+# ==========================================
+rollback_prod:
+  stage: rollback
+  when: manual
+  script:
+    - |
+      set -e
+
+      LATEST_ROLLBACK=$(aws s3 ls s3://${PROD_S3_BUCKET}/rollback/ | tail -n 1 | awk &#x27;{print $2}&#x27;)
+
+      if [ -z &quot;$LATEST_ROLLBACK&quot; ]; then
+        echo &quot; No rollback snapshot found&quot;
+        exit 1
+      fi
+
+      echo &quot;Rolling back using snapshot: ${LATEST_ROLLBACK}&quot;
+
+      aws s3 sync \
+        s3://${PROD_S3_BUCKET}/rollback/${LATEST_ROLLBACK} \
+        s3://${PROD_S3_BUCKET} \
+        --delete \
+        --exclude &quot;rollback/*&quot;
+
+      aws cloudfront create-invalidation \
+        --distribution-id ${PROD_CF_ID} \
+        --paths &quot;/*&quot;
+
+      echo &quot; Rollback completed&quot;
+
+  only:
+    - main
+</code></pre></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-8167-8b73-fc5b70e54eca"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-8184-bf31-f65b01bf028a" class="">개요</h2></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-816c-ba35-f7552d1e9c9a" class="">이 CI/CD 파이프라인은 <strong>WiseNTalk</strong> Zendesk Private App을 여러 고객사 Zendesk 계정에 자동으로 배포하기 위해 구성되었습니다.</p></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81db-b269-ec20dcda5293" class="">주요 특징</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8141-aee3-c2c7481c5478" class="bulleted-list"><li style="list-style-type:disc"><strong>자동 빌드</strong>: React 앱을 빌드하여 정적 파일 생성</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81fa-b6b9-f002ab5624cb" class="bulleted-list"><li style="list-style-type:disc"><strong>Dev 환경 배포</strong>: S3 + CloudFront를 통한 개발 환경 배포</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8116-8fcf-d784517b7c7c" class="bulleted-list"><li style="list-style-type:disc"><strong>선택적 Zendesk 배포</strong>: 원하는 고객사만 선택하여 Zendesk 앱 업데이트</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81f4-9d0f-e5f07d93a305" class="bulleted-list"><li style="list-style-type:disc"><strong>Prod 승격</strong>: 수동 승인 후 프로덕션 환경으로 배포</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8189-8fd9-d4ba06c3a971" class="bulleted-list"><li style="list-style-type:disc"><strong>롤백 기능</strong>: 프로덕션 환경 롤백 지원</li></ul></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81ec-a0ca-d624cbeabd0e" class="">기술 스택</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8197-852d-f3211c6c595d" class="bulleted-list"><li style="list-style-type:disc"><strong>CI/CD</strong>: GitLab CI/CD</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8117-b6de-ea08cfd97090" class="bulleted-list"><li style="list-style-type:disc"><strong>빌드 도구</strong>: npm</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8125-bb46-ec6a8c86d421" class="bulleted-list"><li style="list-style-type:disc"><strong>배포</strong>: AWS S3, CloudFront</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-813b-a627-dda5255b0bb6" class="bulleted-list"><li style="list-style-type:disc"><strong>Zendesk 배포</strong>: Zendesk CLI (zcli)</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81ca-a55a-c5d2bb357137" class="bulleted-list"><li style="list-style-type:disc"><strong>스크립트</strong>: Bash</li></ul></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-810a-be1c-c986df50a4b5"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-819a-a280-edc70514affa" class="">파이프라인 구조</h2></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-819d-8374-ce8d5d222e31" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">┌─────────────┐
+│   Build     │ → npm install &amp; build
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ Deploy Dev  │ → S3 sync + CloudFront invalidation
+└──────┬──────┘
+       │
+       ├─────────────────┐
+       ▼                 ▼
+┌─────────────┐   ┌─────────────┐
+│ Update      │   │ Update      │
+│ Zendesk     │   │ Zendesk     │
+│ (Variable)  │   │ (Individual)│
+└─────────────┘   └─────────────┘
+       │
+       ▼
+┌─────────────┐
+│ Promote     │ → Dev → Prod (Manual)
+│ to Prod     │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ Rollback    │ → Restore from snapshot (Manual)
+└─────────────┘</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-814c-861f-f276e6e827f8" class="">Stages</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-81c5-bc45-fe6ac9eb884e" class="numbered-list" start="1"><li><strong>build</strong>: 앱 빌드</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-812b-90bb-ed9c84611c34" class="numbered-list" start="2"><li><strong>deploy-dev</strong>: 개발 환경 배포</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-8111-9e80-c7fa448b00ee" class="numbered-list" start="3"><li><strong>update-zendesk</strong>: Zendesk 앱 업데이트 (Manual)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-8101-add7-f90ec4d615fe" class="numbered-list" start="4"><li><strong>promote-prod</strong>: 프로덕션 승격 (Manual)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-81c2-bb6d-dc53e0268677" class="numbered-list" start="5"><li><strong>rollback</strong>: 프로덕션 롤백 (Manual)</li></ol></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-81a1-a1be-d07b564cdd79"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-8161-9f57-fce63141ada5" class="">각 Stage 상세 설명</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-814d-a246-fd5c9be8e800" class="">1. Build Stage</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-815f-9ed7-c25c1634e16f" class=""><strong>Job</strong>: <code>build_app</code></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-818d-814a-e40fc6806690" class="code code-wrap"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">build_app:
+stage: build
+script:
+- npm install --legacy-peer-deps
+- npm run build
+artifacts:
+paths:
+- build/
+expire_in: 1 hour</code></pre></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8121-b4b8-fe2ea28b8559" class=""><strong>동작</strong>:<br/>- <code>npm install --legacy-peer-deps</code>로 의존성 설치<br/>- <code>npm run build</code>로 React 앱 빌드<br/>- <code>build/</code> 디렉토리를 artifact로 저장 (1시간 유지)</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81d1-aaa3-cc76cbf494d6" class=""><strong>결과물</strong>: <code>build/</code> 디렉토리 (정적 파일들)</p></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-8146-93e8-d9f5e0af70b6"/></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-816d-a8b9-db8b36dfe754" class="">2. Deploy Dev Stage</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81fa-8a8e-dd91ba82aac5" class=""><strong>Job</strong>: <code>deploy_to_dev</code></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-817a-a445-d2b7cee2f139" class="code code-wrap"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">deploy_to_dev:
+stage: deploy-dev
+dependencies:
+- build_app
+script:
+- aws s3 sync ./build s3://$DEV_S3_BUCKET --delete
+- aws cloudfront create-invalidation --distribution-id $DEV_CF_ID --paths &quot;/*&quot;</code></pre></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81d8-ab10-de139a337fcf" class=""><strong>동작</strong>:<br/>1. <code>build/</code> 디렉토리를 Dev S3 버킷에 동기화 (<code>--delete</code> 옵션으로 삭제된 파일 제거)<br/>2. CloudFront 캐시 무효화 (<code>/*</code> 경로 전체)</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81ca-86b6-e2e4f1005e7c" class=""><strong>필수 환경변수</strong>:<br/>- <code>DEV_S3_BUCKET</code>: 개발 환경 S3 버킷 이름<br/>- <code>DEV_CF_ID</code>: 개발 환경 CloudFront Distribution ID</p></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-816e-9c57-c14862897e5d"/></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81ab-b402-f61bb7ff6e14" class="">3. Update Zendesk Stage</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8029-b125-fa527de13ef1" class="bulleted-list"><li style="list-style-type:disc">프로필 전환 방식이 아닙니다. → zcli profiles:use 와 같은 명령을 사용하지 않습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80c6-bf3c-f65b4fbd859b" class="bulleted-list"><li style="list-style-type:disc">환경변수 기반 인증 → zcli는 환경변수가 있으면 프로필보다 우선 사용합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80dc-b38b-c8fdd0c40d42" class="bulleted-list"><li style="list-style-type:disc">고객사별 순차 처리 :<div style="display:contents" dir="auto"><ul id="2eef8917-466a-8086-83da-f5e35556dbff" class="bulleted-list"><li style="list-style-type:circle">CLIENT1: 환경변수 설정 → zcli apps:update 실행</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8098-bef3-ecd49f010eb9" class="bulleted-list"><li style="list-style-type:circle">CLIENT2: 환경변수 재설정 → zcli apps:update 실행</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><blockquote id="2eef8917-466a-801e-95cd-fced083f746d" class="">위 방식은 프로필 관리가 불필요하며, 환경변수만 재설정하면 즉시 다른 고객사로 전환 가능합니다. </blockquote></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-807d-bc48-fc1fddcf133e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8179-94a7-dd73b9acdbce" class="">Zendesk 앱 업데이트는 두 가지 방법을 제공합니다.</p></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81fd-9ba1-cac6ad3cabf3" class="">3-A. 변수 기반 선택적 배포</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81ee-80e8-e306e0200747" class=""><strong>Job</strong>: <code>update_zendesk_dev_apps_zcli</code></p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-814b-be09-e2ac764837af" class=""><strong>특징</strong>:<br/>- <code>DEPLOY_CLIENTS</code> 변수로 배포할 고객사 선택<br/>- 여러 고객사를 순차적으로 배포<br/>- 변수가 없으면 모든 고객사 배포</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81ba-acd1-ca0d6b9e03fb" class=""><strong>동작 흐름</strong>:<br/>1. <strong>zcli 설치 확인</strong><code>bash    if ! command -v zcli &amp;&gt; /dev/null; then      npm install -g @zendesk/zcli    fi</code></p></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-81c0-9d8a-d19bc6ad26df" class="numbered-list" start="1"><li><strong>고객사 목록 결정</strong><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-81b6-bb29-e358d2aa6b3c" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">if [ -n &quot;$DEPLOY_CLIENTS&quot; ] &amp;&amp; [ &quot;$DEPLOY_CLIENTS&quot; != &quot;&quot; ]; then
+  # 사용자가 지정한 고객사만 배포
+  IFS=&#x27;,&#x27; read -ra CLIENTS_ARRAY &lt;&lt;&lt; &quot;$DEPLOY_CLIENTS&quot;
+  CLIENTS=(&quot;${CLIENTS_ARRAY[@]}&quot;)
+else
+  # 모든 고객사 배포 (기본값)
+  CLIENTS=(&quot;CLIENT1&quot; &quot;CLIENT2&quot;)
+fi</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-8159-b160-dbf723b1c450" class="numbered-list" start="2"><li><strong>각 고객사별 처리</strong> (for loop):<div style="display:contents" dir="auto"><ul id="2eef8917-466a-8105-acd7-ea269a37c817" class="bulleted-list"><li style="list-style-type:disc">환경변수 매핑 (<code>CLIENT1_SUBDOMAIN</code>, <code>CLIENT1_TOKEN</code>, etc.)</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81bf-85b7-c18bb866763f" class="bulleted-list"><li style="list-style-type:disc">zcli 인증 설정 (환경변수 기반)</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8165-92e7-ff04f39d6401" class="bulleted-list"><li style="list-style-type:disc"><code>zcli.apps.config.json</code> 생성/업데이트<div style="display:contents" dir="auto"><ul id="2eef8917-466a-8179-835f-fd774e0af16d" class="bulleted-list"><li style="list-style-type:circle"><code>app_id</code>: 고객사별 앱 ID</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8125-89ec-cfd338a2d963" class="bulleted-list"><li style="list-style-type:circle"><code>test_settings</code>: <code>manifest.json</code>의 parameters 기본값 자동 추출</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81ab-ab01-fdc31f27f2dc" class="bulleted-list"><li style="list-style-type:disc"><code>zcli apps:update</code> 실행 (502 에러 재시도 포함)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-81e2-a691-cb6cca9c4fc5" class="numbered-list" start="3"><li><strong>재시도 로직</strong>:<div style="display:contents" dir="auto"><ul id="2eef8917-466a-815a-bd76-c2f44501e2ed" class="bulleted-list"><li style="list-style-type:disc">최대 3회 재시도</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81a2-a1f5-fdde13139047" class="bulleted-list"><li style="list-style-type:disc">502 Bad Gateway 에러만 재시도</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81f0-a263-de8f4bed048f" class="bulleted-list"><li style="list-style-type:disc">재시도 간격: 10초</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8152-bf5f-cb2632b04f7c" class="">3-B. 개별 고객사 Job</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-810f-ad8d-f7c3606f76ec" class=""><strong>Jobs</strong>: <code>update_zendesk_client1</code>, <code>update_zendesk_client2</code></p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-810a-9308-c334c63e6e38" class=""><strong>특징</strong>:<br/>- 각 고객사마다 별도의 manual job<br/>- 원하는 고객사만 선택하여 실행 가능</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8173-9238-e967be530317" class=""><strong>동작</strong>: 3-A와 동일하지만 단일 고객사만 처리</p></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-8129-914f-f4a9073ddd0a"/></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81dd-8e1e-f73818ec997d" class="">4. Promote to Prod Stage</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81f0-a543-c9b51c9dfd8e" class=""><strong>Job</strong>: <code>promote_to_prod</code></p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8178-9227-fce57d5df12e" class=""><strong>동작</strong>:<br/>1. <strong>현재 Prod 백업</strong><code>bash    TIMESTAMP=$(date +&quot;%Y%m%d-%H%M%S&quot;)    ROLLBACK_PATH=&quot;rollback/${TIMESTAMP}&quot;    aws s3 sync \      s3://${PROD_S3_BUCKET} \      s3://${PROD_S3_BUCKET}/${ROLLBACK_PATH} \      --exclude &quot;rollback/*&quot;</code></p></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-811b-b554-e94b2cf6ad25" class="numbered-list" start="1"><li><strong>Dev → Prod 동기화</strong><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-810d-a9fb-d731c9af1d67" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">aws s3 sync \
+  s3://${DEV_S3_BUCKET} \
+  s3://${PROD_S3_BUCKET} \
+  --delete \
+  --exclude &quot;rollback/*&quot;</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-81ea-a214-e7da9dd30cf1" class="numbered-list" start="2"><li><strong>CloudFront 캐시 무효화</strong></li></ol></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-813b-9d6a-d19a73afe14b" class=""><strong>필수 환경변수</strong>:<br/>- <code>PROD_S3_BUCKET</code>: 프로덕션 S3 버킷 이름<br/>- <code>PROD_CF_ID</code>: 프로덕션 CloudFront Distribution ID</p></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-81e6-8df0-c19a0c25f47d"/></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8123-8855-ed789319252b" class="">5. Rollback Stage</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81b0-9e2f-edc52b10534e" class=""><strong>Job</strong>: <code>rollback_prod</code></p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-816f-9d3f-f24512b95ae5" class=""><strong>동작</strong>:<br/>1. <strong>최신 롤백 스냅샷 찾기</strong><code>bash    LATEST_ROLLBACK=$(aws s3 ls s3://${PROD_S3_BUCKET}/rollback/ | tail -n 1 | awk &#x27;{print $2}&#x27;)</code></p></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-81a6-9981-cce7351fdef3" class="numbered-list" start="1"><li><strong>스냅샷으로 복원</strong><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-81a6-a98c-f630f5db2b8b" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">aws s3 sync \
+  s3://${PROD_S3_BUCKET}/rollback/${LATEST_ROLLBACK} \
+  s3://${PROD_S3_BUCKET} \
+  --delete \
+  --exclude &quot;rollback/*&quot;</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-81ce-9d48-c00c911fc751" class="numbered-list" start="2"><li><strong>CloudFront 캐시 무효화</strong></li></ol></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-8131-a2b0-f2774acc01a2"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-8148-abb6-e51d6aa79881" class="">동작 로직</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8170-883e-dd18c827da6c" class="">전체 파이프라인 흐름</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-81a1-8ee8-c5d1edd2c116" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">1. main 브랜치에 push
+   ↓
+2. build_app 자동 실행
+   - npm install &amp; build
+   - build/ 디렉토리 생성
+   ↓
+3. deploy_to_dev 자동 실행
+   - build/ → Dev S3
+   - CloudFront 캐시 무효화
+   ↓
+4. update_zendesk_dev_apps_zcli (Manual)
+   - 사용자가 수동 실행
+   - DEPLOY_CLIENTS 변수로 고객사 선택
+   - zcli로 각 고객사 Zendesk 앱 업데이트
+   ↓
+5. promote_to_prod (Manual, 독립적)
+   - Dev → Prod 승격
+   - 자동 백업 생성
+   ↓
+6. rollback_prod (Manual, 필요시)
+   - 최신 스냅샷으로 복원</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81a7-831a-caad4e437b8f" class="">Zendesk 앱 업데이트 상세 로직</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-81a1-98ca-c40befaef632" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">for each CLIENT in CLIENTS:
+  1. 환경변수 읽기
+     - ${CLIENT}_SUBDOMAIN
+     - ${CLIENT}_TOKEN
+     - ${CLIENT}_EMAIL (optional)
+     - ${CLIENT}_APP_ID
+
+  2. zcli 인증 설정
+     export ZENDESK_SUBDOMAIN=&quot;...&quot;
+     export ZENDESK_EMAIL=&quot;...&quot;
+     export ZENDESK_API_TOKEN=&quot;...&quot;
+
+  3. zcli.apps.config.json 생성
+     {
+       &quot;app_id&quot;: &lt;CLIENT_APP_ID&gt;,
+       &quot;test_settings&quot;: {
+         &quot;vfApplicationName&quot;: &quot;WiseN Talk&quot;,
+         &quot;outboundType&quot;: &quot;connect&quot;,
+         ...
+       }
+     }
+     (test_settings는 manifest.json의 parameters에서 자동 추출)
+
+  4. zcli apps:update 실행
+     - 성공 시: 다음 고객사로
+     - 502 에러: 재시도 (최대 3회)
+     - 기타 에러: 실패 처리</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-817f-ab54-ea9a06132af3" class="">test_settings 자동 생성 로직</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-817d-9e78-e03efd7410c0" class=""><code>manifest.json</code>의 <code>parameters</code> 배열에서:<br/>- <code>default</code> 값이 존재하고<br/>- 빈 문자열이 아닌 항목만 추출<br/>- <code>{ &quot;parameter_name&quot;: &quot;default_value&quot; }</code> 형태로 변환</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8149-bda8-f6d7ef528ffe" class="">예시:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-812d-85b7-ffb6ec75187d" class="code code-wrap"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">// manifest.json
+{
+  &quot;parameters&quot;: [
+    { &quot;name&quot;: &quot;vfApplicationName&quot;, &quot;default&quot;: &quot;WiseN Talk&quot; },
+    { &quot;name&quot;: &quot;connectInstanceUrl&quot;, &quot;default&quot;: &quot;&quot; },
+    { &quot;name&quot;: &quot;defaultCountryPrefix&quot;, &quot;default&quot;: &quot;+82&quot; }
+  ]
+}
+
+// → test_settings
+{
+  &quot;vfApplicationName&quot;: &quot;WiseN Talk&quot;,
+  &quot;defaultCountryPrefix&quot;: &quot;+82&quot;
+}</code></pre></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-8195-a53e-eef28a4daf65"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-81bb-a453-f6e3efb863fd" class="">로컬 환경 구성</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81e3-91d0-f7d59ba5eaff" class="">1. 사전 요구사항</h3></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-818d-9008-de643c92252a" class="">필수 도구</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8118-9963-c114d5120c18" class="bulleted-list"><li style="list-style-type:disc"><strong>Node.js</strong> (v14 이상)</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81b9-a090-f3c0c1d7b587" class="bulleted-list"><li style="list-style-type:disc"><strong>npm</strong> 또는 <strong>yarn</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8159-bdfd-c5a8eb6c35d3" class="bulleted-list"><li style="list-style-type:disc"><strong>AWS CLI</strong> (v2 이상)</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-817b-8c66-c88080267232" class="bulleted-list"><li style="list-style-type:disc"><strong>Zendesk CLI (zcli)</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81f8-a4f2-d63c40341ec3" class="bulleted-list"><li style="list-style-type:disc"><strong>jq</strong> (JSON 파서)</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8161-b222-daf779705ccb" class="bulleted-list"><li style="list-style-type:disc"><strong>Git</strong></li></ul></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-816b-b131-d73eac692261" class="">설치 방법</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-811a-9c5f-d0517d50611b" class=""><strong>Node.js &amp; npm</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-81db-a825-f1a4edf80557" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all"># macOS (Homebrew)
+brew install node
+
+# 또는 공식 사이트에서 다운로드
+# https://nodejs.org/</code></pre></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-811a-b71a-f7c0fe592494" class=""><strong>AWS CLI</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-814d-86e6-ecf8de1deddd" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all"># macOS (Homebrew)
+brew install awscli
+
+# 또는 pip
+pip install awscli</code></pre></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8179-b919-fd0db0d24cd3" class=""><strong>Zendesk CLI</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8115-899c-c9f2d1117fa3" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">npm install -g @zendesk/zcli</code></pre></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81ef-8d0f-c2d09b21bf19" class=""><strong>jq</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8183-a6d3-c6908d517417" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all"># macOS (Homebrew)
+brew install jq
+
+# Linux (apt)
+sudo apt-get install jq</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8188-b132-eefc66e9b2c0" class="">2. 프로젝트 클론</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8116-bae1-c68025dac2ba" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">git clone &lt;repository-url&gt;
+cd WisenTalk</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8160-96e4-e2f3ad47941d" class="">3. 의존성 설치</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8103-99fe-e69791a9d455" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">npm install --legacy-peer-deps</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8198-8fb5-d86e5ddf806c" class="">4. AWS 자격증명 설정</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8109-ad3c-dd16402a2724" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">aws configure</code></pre></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8146-b849-daab3b0fbdf8" class="">입력 항목:<br/>- AWS Access Key ID<br/>- AWS Secret Access Key<br/>- Default region name<br/>- Default output format (json 권장)</p></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81ae-abd5-d8751f127b19" class="">5. Zendesk CLI 인증 설정</h3></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81d1-a528-ee230fb067cd" class="">방법 1: 환경변수 사용 (권장)</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-813d-a5c7-d3f8762ce6e7" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">export ZENDESK_SUBDOMAIN=&quot;your-subdomain&quot;
+export ZENDESK_EMAIL=&quot;your-email@example.com&quot;
+export ZENDESK_API_TOKEN=&quot;your-api-token&quot;</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81a6-a986-d87c7559860a" class="">방법 2: zcli login</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-816b-a44f-d4ba7c0417d5" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">zcli login</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8178-a5c2-f4ee1b826c86" class="">6. 로컬 테스트</h3></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8120-9a49-d8ca56be4b8f" class="">빌드 테스트</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8135-9c3f-d948469f71fa" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">npm run build
+# build/ 디렉토리 생성 확인</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81ff-a03d-fa28f646dd59" class="">Zendesk 앱 업데이트 테스트</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8190-9f98-c68bade5bd8a" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">cd zendesk-private-app-dev
+
+# zcli.apps.config.json 생성
+cat &gt; zcli.apps.config.json &lt;&lt; EOF
+{
+  &quot;app_id&quot;: &lt;YOUR_APP_ID&gt;,
+  &quot;test_settings&quot;: {
+    &quot;vfApplicationName&quot;: &quot;WiseN Talk&quot;
+  }
+}
+EOF
+
+# 앱 업데이트
+zcli apps:update</code></pre></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-8178-af07-f759f0cea6fe"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-8153-9dbf-c171029d8150" class="">필수 환경변수 설정</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81b3-bf30-feeab82909f2" class="">GitLab CI/CD Variables 설정</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81db-ba8f-f0de3a662ebe" class="">GitLab 프로젝트 → Settings → CI/CD → Variables에서 설정:</p></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81f5-9860-ec1453d30d4d" class="">AWS 관련</h3></div><div style="display:contents" dir="ltr"><table id="2eef8917-466a-813e-a2d3-de11834e5723" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-81c0-abdc-fd6878cf9545"><th id="peil" class="simple-table-header-color simple-table-header">변수명</th><th id="C\Gm" class="simple-table-header-color simple-table-header">설명</th><th id="s]Ey" class="simple-table-header-color simple-table-header">예시</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-815b-8c99-dc26983f3081"><td id="peil" class=""><code>DEV_S3_BUCKET</code></td><td id="C\Gm" class="">개발 환경 S3 버킷</td><td id="s]Ey" class=""><code>wisen-talk-dev</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-81ff-b9f9-c602982cb91c"><td id="peil" class=""><code>DEV_CF_ID</code></td><td id="C\Gm" class="">개발 환경 CloudFront ID</td><td id="s]Ey" class=""><code>E1234567890ABC</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8115-b861-f4e7b1bb953b"><td id="peil" class=""><code>PROD_S3_BUCKET</code></td><td id="C\Gm" class="">프로덕션 S3 버킷</td><td id="s]Ey" class=""><code>wisen-talk-prod</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8141-8d1e-ed3f29d090e5"><td id="peil" class=""><code>PROD_CF_ID</code></td><td id="C\Gm" class="">프로덕션 CloudFront ID</td><td id="s]Ey" class=""><code>E0987654321XYZ</code></td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8168-9d82-d3c1fb2cf9d8" class="">Zendesk 공통</h3></div><div style="display:contents" dir="ltr"><table id="2eef8917-466a-81cd-81c5-f91591833621" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-811c-8eb2-e30531fc8e79"><th id="`chR" class="simple-table-header-color simple-table-header">변수명</th><th id="gI;K" class="simple-table-header-color simple-table-header">설명</th><th id="?iJy" class="simple-table-header-color simple-table-header">예시</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-81a5-9e5d-ecb31d71449b"><td id="`chR" class=""><code>COMMON_EMAIL</code></td><td id="gI;K" class="">공통 이메일 (기본값)</td><td id="?iJy" class=""><code>admin@example.com</code></td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81a9-a7a0-caa7171f414c" class="">고객사별 Zendesk (CLIENT1 예시)</h3></div><div style="display:contents" dir="ltr"><table id="2eef8917-466a-8132-a301-e60dda450835" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-818f-ad9c-f2be10bd6ca9"><th id="Hzkx" class="simple-table-header-color simple-table-header">변수명</th><th id="atEL" class="simple-table-header-color simple-table-header">설명</th><th id="&gt;lzO" class="simple-table-header-color simple-table-header">예시</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8177-8899-d2fad06d9029"><td id="Hzkx" class=""><code>CLIENT1_SUBDOMAIN</code></td><td id="atEL" class="">서브도메인</td><td id="&gt;lzO" class=""><code>client1</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8117-a6fc-c9c1c4f88124"><td id="Hzkx" class=""><code>CLIENT1_TOKEN</code></td><td id="atEL" class="">API 토큰</td><td id="&gt;lzO" class=""><code>abc123...</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8186-a5d0-d1d02952dae6"><td id="Hzkx" class=""><code>CLIENT1_EMAIL</code></td><td id="atEL" class="">이메일 (선택)</td><td id="&gt;lzO" class=""><code>client1@example.com</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-813a-a48e-cf4e5d8102d6"><td id="Hzkx" class=""><code>CLIENT1_APP_ID</code></td><td id="atEL" class="">앱 ID</td><td id="&gt;lzO" class=""><code>123456</code></td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8111-ba7b-de47460e5a7b" class="">고객사별 Zendesk (CLIENT2 예시)</h3></div><div style="display:contents" dir="ltr"><table id="2eef8917-466a-81b1-8fbc-e5f4b7343b63" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8112-8acc-e14b3985af31"><th id="CyYM" class="simple-table-header-color simple-table-header">변수명</th><th id="L}Sm" class="simple-table-header-color simple-table-header">설명</th><th id="hxJ&lt;" class="simple-table-header-color simple-table-header">예시</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-81a0-8cac-e1f0b0364263"><td id="CyYM" class=""><code>CLIENT2_SUBDOMAIN</code></td><td id="L}Sm" class="">서브도메인</td><td id="hxJ&lt;" class=""><code>client2</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-81df-9c29-c649af919adf"><td id="CyYM" class=""><code>CLIENT2_TOKEN</code></td><td id="L}Sm" class="">API 토큰</td><td id="hxJ&lt;" class=""><code>def456...</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8147-b241-e8a1f331edc7"><td id="CyYM" class=""><code>CLIENT2_EMAIL</code></td><td id="L}Sm" class="">이메일 (선택)</td><td id="hxJ&lt;" class=""><code>client2@example.com</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-81b3-8b55-e9e4ce8f154a"><td id="CyYM" class=""><code>CLIENT2_APP_ID</code></td><td id="L}Sm" class="">앱 ID</td><td id="hxJ&lt;" class=""><code>789012</code></td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8114-8e3a-e05dfbc8632a" class="">환경변수 보안 설정</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-817e-bcaf-f47e548eb29d" class=""><strong>중요한 변수는 Protected/Masked로 설정</strong>:<br/>- <code>*_TOKEN</code>: Masked <br/>- <code>*_EMAIL</code>: Protected  (선택)<br/>- <code>*_APP_ID</code>: Protected  (선택)</p></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-81ae-9825-e4de7f31cc10"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-81d7-987d-c25bbde786eb" class="">사용 방법</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81bd-8ade-e02d3e2eefee" class="">1. 일반적인 배포 워크플로우</h3></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8122-989d-e3ab17ff521f" class="">Step 1: 코드 변경 및 커밋</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-81d0-9c4a-c35c64169e5a" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">git add .
+git commit -m &quot;feat: 새로운 기능 추가&quot;
+git push origin main</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-818c-b3ef-dc495bf7830b" class="">Step 2: 자동 빌드 및 Dev 배포</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-817b-b509-cadcd70cbd6c" class="bulleted-list"><li style="list-style-type:disc"><code>main</code> 브랜치에 push하면 자동으로 실행됨</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-819a-a122-cc044ebe4277" class="bulleted-list"><li style="list-style-type:disc">GitLab CI/CD → Pipelines에서 진행 상황 확인</li></ul></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81b7-b1a4-eb364465269f" class="">Step 3: Zendesk 앱 업데이트 (Manual)</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81d4-a9cf-e09650e284dd" class=""><strong>방법 A: 변수 기반 선택적 배포</strong><br/>1. GitLab CI/CD → Pipelines → <code>update_zendesk_dev_apps_zcli</code> 클릭<br/>2. “Run pipeline” 클릭<br/>3. Variables 섹션에 <code>DEPLOY_CLIENTS</code> 입력:<br/>- <code>CLIENT1</code> → CLIENT1만 배포<br/>- <code>CLIENT2</code> → CLIENT2만 배포<br/>- <code>CLIENT1,CLIENT2</code> → 둘 다 배포<br/>- 비워두기 → 모든 고객사 배포<br/>4. “Run job” 클릭</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-810d-9800-f3b70c5225ca" class=""><strong>방법 B: 개별 Job 사용</strong><br/>1. GitLab CI/CD → Pipelines에서 원하는 job 선택:<br/>- <code>update_zendesk_client1</code> → CLIENT1만<br/>- <code>update_zendesk_client2</code> → CLIENT2만<br/>2. “Run job” 클릭</p></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81b0-bc65-f4df9de6639c" class="">Step 4: 프로덕션 승격 (Manual, 독립적)</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-8138-8cc8-efb41ea634e3" class="numbered-list" start="1"><li>Dev 환경에서 테스트 완료 후</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-81d7-8f9f-e960a27a74d9" class="numbered-list" start="2"><li><code>promote_to_prod</code> job 실행</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-8111-93c5-ec17b66ad7a4" class="numbered-list" start="3"><li>자동으로 백업 생성 후 Prod에 배포</li></ol></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81ac-91d8-e791053d6844" class="">2. 특정 고객사만 배포하는 경우</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81e3-9125-d9de4ceb0f26" class=""><strong>시나리오</strong>: CLIENT1만 업데이트하고 싶을 때</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-81a8-bfba-cb1647a028ad" class=""><strong>방법 1</strong>: <code>update_zendesk_client1</code> job 실행</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-819b-b9c5-e59673a3febd" class=""><strong>방법 2</strong>: <code>update_zendesk_dev_apps_zcli</code> 실행 시 Variables에 <code>DEPLOY_CLIENTS=CLIENT1</code> 입력</p></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-819e-845b-d0e77bcdfc6d" class="">3. 롤백 방법</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8181-af12-ce867a7cd247" class="">프로덕션에 문제가 발생한 경우:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-8117-b9a1-d38f7b92f1c5" class="numbered-list" start="1"><li>GitLab CI/CD → Pipelines</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-8155-ba70-dac56c5105b8" class="numbered-list" start="2"><li><code>rollback_prod</code> job 실행</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-816f-8148-ed3b17973147" class="numbered-list" start="3"><li>최신 스냅샷으로 자동 복원</li></ol></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-81d4-9cca-e5a0c4187e55"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-81b7-89ed-e7a3eeeba2db" class="">추가 정보</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8106-bd95-c83f60b9c86c" class="">프로젝트 구조</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8162-9a45-e0aa5a060f5f" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">WisenTalk/
+├── .gitlab-ci.yml          # CI/CD 파이프라인 설정
+├── package.json            # npm 의존성
+├── src/                    # React 소스 코드
+├── build/                  # 빌드 결과물 (생성됨)
+├── zendesk-private-app-dev/ # Zendesk 앱 소스
+│   ├── manifest.json       # 앱 매니페스트
+│   ├── assets/            # 앱 에셋
+│   ├── translations/      # 번역 파일
+│   └── zcli.apps.config.json # zcli 설정 (자동 생성)
+└── ...</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-81d0-8b2e-f5fab67320d7" class="">주요 파일 설명</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81d3-8005-e75bfef4ffcb" class="bulleted-list"><li style="list-style-type:disc"><code><strong>.gitlab-ci.yml</strong></code>: GitLab CI/CD 파이프라인 정의</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-816e-96ed-e71ed8143de9" class="bulleted-list"><li style="list-style-type:disc"><code><strong>zendesk-private-app-dev/manifest.json</strong></code>: Zendesk 앱 설정 (위치, 파라미터 등)</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-814a-ad70-f1b02d334ccb" class="bulleted-list"><li style="list-style-type:disc"><code><strong>zendesk-private-app-dev/zcli.apps.config.json</strong></code>: zcli 앱 업데이트 설정 (자동 생성)</li></ul></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8142-b830-d346d32b5204" class="">참고 문서</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81d9-9467-fb68a14f4941" class="bulleted-list"><li style="list-style-type:disc"><a href="https://docs.gitlab.com/ee/ci/">GitLab CI/CD Documentation</a></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81f2-9405-ea9af86ae306" class="bulleted-list"><li style="list-style-type:disc"><a href="https://developer.zendesk.com/documentation/apps/app-developer-guide/zcli/">Zendesk CLI Documentation</a></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-81d1-9a73-d406df38557f" class="bulleted-list"><li style="list-style-type:disc"><a href="https://docs.aws.amazon.com/cli/">AWS CLI Documentation</a></li></ul></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-815b-8df6-e9a32237eba6"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-81c6-a7fd-f3d18eb4529e" class="">변경 이력</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-814b-b140-e1f70074e8dc" class="">주요 변경사항</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-8143-b6f3-c18f95f4ab2d" class="numbered-list" start="1"><li><strong>curl 방식 제거</strong>: 직접 API 호출 방식 제거, zcli 방식으로 통일</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-81f7-b732-d60348031808" class="numbered-list" start="2"><li><strong>선택적 배포 지원</strong>: 변수 기반 및 개별 job 방식 추가</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-817c-a1fa-ea3fb3ce7d3b" class="numbered-list" start="3"><li><strong>test_settings 자동 생성</strong>: manifest.json에서 자동 추출</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-8168-89ea-c4c681035957" class="numbered-list" start="4"><li><strong>502 에러 재시도</strong>: 자동 재시도 로직 추가</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-8164-a823-d5da76c4326c" class="numbered-list" start="5"><li><strong>환경변수 기반 인증</strong>: zcli 프로필 대신 환경변수 사용</li></ol></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-818a-b50b-cc95fe32e371"/></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-810f-818a-f7637370e770" class=""><strong>문서 작성일</strong>: 2026-01-20</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-818c-983d-f050645b7d98" class=""><strong>최종 업데이트</strong>: 2026-01-20</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

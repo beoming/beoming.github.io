@@ -1,0 +1,828 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Java Android</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="230f8917-466a-8066-a4d9-fee64f28ac91" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🤖</span></div><h1 class="page-title" dir="auto">Java Android</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="230f8917-466a-8157-bfc0-c26695ed38a1"><div style="font-size:1.5em"><span class="icon">❗</span></div><div style="width:100%"></div></figure></div><div style="display:contents" dir="auto"><div id="230f8917-466a-8163-9dd8-e8a9e2af8c44" class="column-list"><div style="display:contents" dir="auto"><div id="230f8917-466a-81b3-a30f-cb82c8f2c0b7" style="width:18.75%" class="column"><div style="display:contents" dir="ltr"><nav id="230f8917-466a-8167-907d-c972b8d32a66" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#230f8917-466a-81e5-841f-dd3e13fcd039">기본 개념 </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#230f8917-466a-813a-9f26-f6ae554fc526">안드로이드 4대 구성 요소</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#230f8917-466a-80bd-adce-f4e39af60e50">애플리케이션 동작 원리</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-81f0-81d1-f282dc50abe0">ViewBinding vs findViewById</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-8123-ac63-e2ccb029c6e9">DataBinding vs ViewBinding</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#230f8917-466a-8111-abfc-f1f4b481e0d3">ViewModel</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#230f8917-466a-81bc-889d-c8bebccfec79">Life Cycle</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-81d2-9f5a-dd2756305ca3"><mark class="highlight-pink">onCreate</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-81c8-8fa3-daec34217c5e"><mark class="highlight-pink">onStart</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-8112-b31c-dd1863569e20"><mark class="highlight-pink">onResume</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-81d5-8275-ceae4725421c"><mark class="highlight-pink">onPause</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-81a5-8644-ce932a24c785"><mark class="highlight-pink">onStop</mark> :</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-81d2-ac5e-cdc23e410281"><mark class="highlight-pink">onRestart</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-81c3-88b8-c570bf67760b"><mark class="highlight-pink">onDestroy</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#230f8917-466a-81d0-932a-f5c906767a21">코드 분석</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-81d2-9c35-e64eefe2a21a">한줄씩 분석하기</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#230f8917-466a-819b-ad15-d0730b7cc2db">MVVM 패턴</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-81d7-aca8-d7c1c2f4718d">LiveData + DataBinding + ViewModel</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#230f8917-466a-812a-9c98-e762817e4642">Map &amp; Switch Map</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#230f8917-466a-811a-acf4-e5b88d544981">실제 동작 흐름 예시</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#248f8917-466a-802a-97a6-d96b5f1b6f3a">Action Bar</a></div></nav></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8108-af90-fe7905955a9a" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="230f8917-466a-8116-b329-c1b560c7aa05" style="width:81.25%" class="column"><div style="display:contents" dir="auto"><h1 id="230f8917-466a-81e5-841f-dd3e13fcd039" class="">기본 개념 </h1></div><div style="display:contents" dir="auto"><p id="230f8917-466a-819c-b14f-eb69f4930b4d" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="230f8917-466a-813a-9f26-f6ae554fc526" class="">안드로이드 4대 구성 요소</h2></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81b3-b3f8-e7ca486ab5e4" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-81b8-95b5-dfe5b9a1164b" class="bulleted-list"><li style="list-style-type:disc">Activity : 눈에 보이는 화면을 관리하는 실행 단위</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-808e-94c7-e5107c182f9c" class="bulleted-list"><li style="list-style-type:disc">Service : 화면을 가지지 않은 실행 단위. 백그라운드 프로세싱</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-80df-a6f7-ea2d86ab8829" class="bulleted-list"><li style="list-style-type:disc">Broadcast Receiver : OS가 메세지를 받으면 실행되는 실행 단위</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-80f5-880e-c1535fcc69d9" class="bulleted-list"><li style="list-style-type:disc">Content Provider : 저장된 데이터를 제공하기 위해 실행되는 단위</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-80a6-a598-e7b6b9e41aa3" class="bulleted-list"><li style="list-style-type:disc">안드로이드 애플리케이션은 4대 구성 요소들을 통합 관리하는 번들 개념이다.</li></ul></div><div style="display:contents" dir="auto"><p id="230f8917-466a-807d-b034-dddb575be43a" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="230f8917-466a-80bd-adce-f4e39af60e50" class="">애플리케이션 동작 원리</h2></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8003-a026-f8ab24c72558" class="">  1.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-802d-8a1e-f902838db787" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">			&lt;activity
+            android:name=&quot;.MainActivity&quot;
+            android:exported=&quot;true&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81c6-8477-f1a1cfed1d15" class="">AndroidMainifest.xml에서 &lt;intent-filter&gt; 안에 있는 이름의 Activity를 찾는다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="230f8917-466a-80cd-bbfb-e92f5cd7366c" class="numbered-list" start="2"><li>activity의 name 속성의 클래스의 객체를 생성한 후 onCreate 메서드를 호출한다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="230f8917-466a-8031-a1fe-ea5217313330" class="numbered-list" start="3"><li>setContentView 메서드에 관리할 화면을 지정하는데 res 폴더의 layout에 있는 xml 파일을 지정하게 된다. 이를 통해 화면을 구성하고 단말기 화면에 나타나게 된다. </li></ol></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-81f0-81d1-f282dc50abe0" class="">ViewBinding vs findViewById</h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8148-a381-ee35b6fc8455" class="">뷰 결합에는 findViewById를 사용하는 것에 비해 다음과 같은 장점이 있다.</p></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-814e-ab94-e69f3e297330" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow">null 안전</mark> : 뷰 결합은 뷰의 직접적인 참조를 생성하므로 유효하지 않은 뷰 ID로 인해 null 포인터 예외가 발생할 위험이 없다. 또한 레이아웃의 일부 구성에만 뷰가 있는 경우 결합 클래스에서 참조를 포함하는 필드가 @Nullable로 표시된다.</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-813a-9193-c937de9058c2" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow">유형 안전</mark> : 각 바인딩 클래스에 있는 필드의 유형이 XML 파일에서 참조하는 뷰와 일치한다. 즉 클래스 변환 예외가 발생할 위험이 없다.</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-8115-9d5f-db7323f32ea4" class="bulleted-list"><li style="list-style-type:disc"><code>findViewById</code>는 런타임에 뷰를 찾기 때문에 해당 ID의 뷰가 없거나 잘못된 타입으로 캐스팅하면 앱 충돌로 이어질 수 있다. ViewBinding과 Data Binding은 생성 시점에 안전한 뷰 참조를 제공한다.</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-81ad-9cdf-d8df7bf4242a" class="bulleted-list"><li style="list-style-type:disc">어댑터의 ViewHolder에서 <code>findViewById</code> 대신 ViewBinding이나 Data Binding을 사용하면, 각 아이템 레이아웃에 대한 바인딩 객체를 통해 뷰에 직접 접근할 수 있어 코드가 간결해지고 런타임 오류 위험이 줄어든다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8123-ac63-e2ccb029c6e9" class="">DataBinding vs ViewBinding</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-81f2-9023-fc7cb4e01225" class="bulleted-list"><li style="list-style-type:disc">데이터 바인딩은 이름처럼 데이터를 연결해주는 역할을 할 수 있다. 데이터와 함께 결합해서 사용할 수 있으며, DataBinding과 LiveData를 함께 활용할 수 있다.</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-8115-b919-c88e0b3705f8" class="bulleted-list"><li style="list-style-type:disc">Data Binding은 XML 레이아웃 내에서 데이터 표현식 (<code>@{}</code>)을 사용하여 변수 값을 표시하거나, 조건에 따라 텍스트를 변경하거나, 클릭 이벤트를 함수에 연결하는 등 간단한 로직을 포함할 수 있다.</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-8125-a915-dd280d35ce6f" class="bulleted-list"><li style="list-style-type:disc">ViewBinding은 주로 <code>findViewById</code>를 대체하여 뷰 접근을 안전하게 만드는 데 초점을 맞춥니다. 반면, Data Binding은 뷰 접근 외에도 데이터를 UI 요소에 바로 연결하여 동적으로 업데이트하는 기능을 제공해요.</li></ul></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8122-a8af-f317353bbf1e" class="">구글이 Android 뷰 접근에 Kotlin Extensions 사용을 권장하지 않는 주된 이유는 강의에서 언급했듯이, Kotlin Extensions 방식이 특히 복잡한 프로젝트나 여러 화면에서 성능 저하와 널 객체 참조 같은 문제를 유발할 수 있기 때문입니다. 따라서 ViewBinding이나 Data Binding 사용이 권장됩니다.</p></div><div style="display:contents" dir="auto"><hr id="230f8917-466a-8174-906d-fcf1e5285e45"/></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8122-8e18-ee8060c6720f" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="230f8917-466a-8111-abfc-f1f4b481e0d3" class="">ViewModel</h2></div><div style="display:contents" dir="auto"><ol type="1" id="230f8917-466a-8183-a3fc-cdb2b7aae29a" class="numbered-list" start="1"><li>안드로이드 생명 주기를 관리하기 쉽다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="230f8917-466a-81c7-8c62-f8cd0266961e" class="numbered-list" start="2"><li>onSaveInstanceState()를 사용해서 데이터를 관리할 수 있지만 적절치 않다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="230f8917-466a-8196-941c-d1d1945d7c29" class="numbered-list" start="3"><li>상태(Life Cycle)가 변경될 때마다 데이터를 관리해줘야 하는데 이런 관리가 편하다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="230f8917-466a-81f7-8082-e0dabc52338d" class="numbered-list" start="4"><li>UI 컨트롤러(Activity, Fragment)에서 모든 것을 다 하려고 하면 복잡해진다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="230f8917-466a-817d-b9cd-f147d5280b32" class="numbered-list" start="5"><li>ViewModel을 사용하면 테스트나 관리가 용이하다.</li></ol></div><div style="display:contents" dir="auto"><p id="230f8917-466a-815b-a06c-e818b7cc5263" class="">
+</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-810a-9657-fdb67b403860" class="">뷰모델은 화면 회전 시 데이터 유실을 막고 UI 컨트롤러와 분리하여 생명주기에 안전하게 데이터를 관리한다.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81d1-95b7-d755b49739e8" class="">뷰모델은 연관된 액티비티나 프래그먼트가 설정 변경으로 파괴/재생성될 때에도 스스로는 파괴되지 않고 데이터를 유지한다.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-814f-9ad5-f7430434d00d" class="">공유 뷰모델은 액티비티와 프래그먼트 사이에서 데이터를 주고받거나 상태를 일관되게 유지하는 데 유용하며 생명주기 문제도 해결한다. (by activityViewModels())</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8183-b15f-f5396fdc2eab" class="">뷰모델 팩토리는 뷰모델을 생성할 때 생성자에 필요한 매개변수(예: 레포지토리)를 전달할 수 있게 해주는 표준적인 방법이다.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81a8-8066-d84e448e47a1" class="">뷰모델은 UI 컨트롤러에서 데이터 관리 로직을 분리하여 코드를 깔끔하게 만들고 단위 테스트를 더 쉽게 할 수 있도록 도와준다.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-818e-9ff1-df3d95e8e905" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="230f8917-466a-81bc-889d-c8bebccfec79" class="">Life Cycle</h2></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-81d2-9f5a-dd2756305ca3" class=""><mark class="highlight-pink">onCreate</mark> : </h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81b4-9bb2-d64ee844a8fa" class="">프로젝트를 새로 생성하면 MainActivity 클래스 안에 onCreate가 자동으로 생성된다. Activity가 시작될 때 호출되는 메서드로써 생명 주기 동안 딱 한번 실행되는 메서드이다. </p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81c8-86e4-d5ade72dc8cc" class="">액티비티 최초 실행 시에만 수행 해야된 작업들을 여기에 작성하면 된다. ex) 화면 레이아웃 정의, 뷰 생성</p></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-81c8-8fa3-daec34217c5e" class=""><mark class="highlight-pink">onStart</mark> : </h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81cd-bc0a-dd126744c07a" class="">Activity가 보이기 전에 호출되는 메서드. </p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8145-8989-ef17c17d4166" class="">화면에 진입할 때마다 실행되어야 하는 코드를 이곳에 작성해야한다.</p></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8112-b31c-dd1863569e20" class=""><mark class="highlight-pink">onResume</mark> : </h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8162-af65-e16bfab50e21" class="">Activity의 일부가 보일 때 호출되며 다른 Activity가 Activity를 덮어버리거나 앱 사용중 전화, 문자 등으로 잠시 앱을 떠나는 등 액티비티가 일시 정지되었다가 돌아오는 경우 onResume 메서드가 호출된다.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8111-b7d4-dbc36a624254" class="">Activity가 재개되었을 때 실행해야 하는 코드가 있다면 이곳에 작성하면 된다.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8192-b412-fa10b408c8e4" class=""><strong>다만, 일부가 보일때부터 전체가 보일 때까지의 시간만큼만 수행되기 때문에 가벼운 작업만 수행해야 한다.</strong></p></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-81d5-8275-ceae4725421c" class=""><mark class="highlight-pink">onPause</mark> : </h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8182-b4b3-f27b59978709" class="">방해되는 이벤트가 발생하고 Activity의 일부는 보이지만 다른 Activity가 foreground로 나올 때 이 메소드가 호출된다. </p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81a2-a8ea-c964a0e1d365" class="">onPause는 아주 잠깐 실행되는 메소드이므로 메소드가 완료되기 전에 작업이 끝나지 않을 수 있기 때문에 데이터를 저장하거나, 네트워크를 호출하는 등 무거운 작업을 하면 안된다고 경고하고 있다.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81ad-bca1-d9b71d3eabfd" class="">그렇기 때문에 무거운 작업을 수행할때는 바로 다음 설명할 onStop에서 수행해야한다.</p></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-81a5-8644-ce932a24c785" class=""><mark class="highlight-pink">onStop</mark> :</h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8102-9f19-f1ecf4dac15a" class="">Activity가 사용자에게 더 이상 보이지 않을때 이 메서드가 호출되며 앞서 말한것 처럼 무거운 작업은 이곳에서 처리해야 한다.</p></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-81d2-ac5e-cdc23e410281" class=""><mark class="highlight-pink">onRestart</mark> : </h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-815a-978b-f4d90d64dea6" class="">사용중인 앱에서 홈으로 나갔다가 다시 돌아오거나 다른 Activity로 갔다가 뒤로 가기 버튼을 통해서 돌아오는 경우 이 메소드가 호출된다.</p></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-81c3-88b8-c570bf67760b" class=""><mark class="highlight-pink">onDestroy</mark> : </h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8104-b4f8-ee11085dfe74" class="">활동이 종료되는 경우나 구셩변경(ex:기기 회천)으로 인해 시스템이 일시적으로 활동을 소멸시키는 경우에 호출되는 메소드이다.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8130-9a00-e59f91783d3c" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="230f8917-466a-81d0-932a-f5c906767a21" class="">코드 분석</h2></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-81f6-8ae9-eb463f55bf95" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">// LiveData Transformations
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding : ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        viewModel.liveCount.observe(this, Observer {
+
+            binding.resultArea1.text = (it + it).toString()
+            binding.resultArea2.text = (it * it).toString()
+        })
+
+        binding.btnArea.setOnClickListener {
+            val count = binding.inputArea.text.toString().toInt()
+            viewModel.setLiveDataValue(count)
+        }
+
+
+    }
+}</code></pre></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-81d2-9c35-e64eefe2a21a" class="">한줄씩 분석하기</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-81d8-9a16-d986ca58b605" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">class MainActivity : AppCompatActivity() {}</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81cc-ab59-d16f8635f0f4" class="">AppCompatActivity() : 기본 액티비티의 부모 클래스</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-811f-a9bd-ec76e57c76d2" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-8139-addc-ccbc8260e28b" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all"> private lateinit var binding : ActivityMainBinding
+ private lateinit var viewModel: MainViewModel</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8135-bfab-f5375017ec6d" class="">ViewBinding 또는 DataBinding을 통해 xml과 연결된 binding 객체를 선언</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8196-bf78-f86708362ece" class="">ViewModel 객체 선언</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81ef-b00a-f3ed4be973c5" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-81ad-ba74-f70667af1688" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">binding = DataBindingUtil.setContentView(this, R.layout.activity_main)</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8103-a4e2-e921e50b0a1e" class="">DataBinding 사용 선언부.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8101-b44a-dc97d18b3892" class="">기존의 setContentView() 대신 DataBindingUtil을 사용해 바인딩 객체를 초기화</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81d5-8d6b-e783e2cbf7b6" class="">이를 통해 xml의 뷰를 코드에서 직접 참조 가능(예. binding.resultArea1)</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81ed-b19f-ed7e53c43d6e" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-8161-944f-f66fad8b1849" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">viewModel = ViewModelProvider(this).get(MainViewModel::class.java)</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8131-babf-f7a2de85193a" class="">ViewModel을 생성 및 복원</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8166-b80b-c9bf82202638" class="">this는 현재 Activity의 생명주기를 기준으로 LiveData를 자동 관리함</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-814e-90bd-f86ac359dcca" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-8154-a6e3-ceea480aab39" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">viewMdoel.liveCount.observe(this, Observer{...</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81c4-b4e8-f631bb1d385e" class="">ViewModel 안에 있는 LiveData&lt;Int&gt;를 관찰함. observe</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8178-84fa-ce2ebee77a5a" class="">값이 바뀔 때마다 아래 블록이 실행됨.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81ef-9809-e871ae350f77" class="">this는 LifecycleOwner (Activity 객체)</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-817a-a8fb-faea252e408e" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-812b-a2c2-f7787a4c0bc8" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">binding.resultArea1.text = (it + it).toString()
+binding.resultArea2.text = (it * it).toString()</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81b9-b473-fd112cc0cc89" class="">it은 liveCount의 현재값.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8180-9db7-e4b78de4a823" class="">it + it → 덧셈 결과를 resultArea1에 표시함.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-816b-88e7-ecde9cfc3985" class="">it * it → 곱셈 결과를 resultArea2에 표시함.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-812c-9a5e-f1c74a36a2a6" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-819c-8bfd-dc2276357af9" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">				viewModel.liveCount.observe(this, Observer {
+
+            binding.resultArea1.text = (it + it).toString()
+            binding.resultArea2.text = (it * it).toString()
+        })
+
+        binding.btnArea.setOnClickListener {
+            val count = binding.inputArea.text.toString().toInt()
+            viewModel.setLiveDataValue(count)
+        }</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-819c-978b-e1e108ec627a" class="">사용자가 숫자를 입력하고 버튼을 클릭 → ViewModel의 LiveData(liveCount)의 값이 변함 → LiveData가 변경되면 관찰자(Observer)가 반응 → observe 블록이 실행됨.</p></div><div style="display:contents" dir="auto"><h2 id="230f8917-466a-819b-ad15-d0730b7cc2db" class="">MVVM 패턴</h2></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-81d7-aca8-d7c1c2f4718d" class="">LiveData + DataBinding + ViewModel</h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8173-9b36-d5c0ee637df2" class="">MVVM 패턴은 Mode, View, ViewModel 세 가지 구성 요소를 가지는 디자인 패턴이다. 각 구성 요소는 특정한 역할을 담당하고 서로 독립적으로 동작할 수 있도록 설계되어있다.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81b2-8091-fe46c00ddaf3" class="">뷰와 비즈니스 로직을 명확히 분리하기 위해 DataBinding과 LiveData를 사용한다. 이로 인해 뷰와 모델 간의 의존성은 없고, 뷰와 뷰모델 간의 의존성도 낮아서 모듈화, 재사용성, 유지보수성, 가독성이 향상된다. LiveData는 수명 주기를 인식하는 데이터 홀더 클래스로 데이터 변경 시 활성 상태의 관찰자에게만 알림을 보내 메모리 누수를 방지하고 데이터 일관성을 유지할 수 있다.<br/></p></div><div style="display:contents" dir="ltr"><figure id="230f8917-466a-8194-84f3-f9d9842754d4" class="image"><a href="%EC%BD%94%ED%8B%80%EB%A6%B0%20Jetpack/image.png"><img style="width:1152px" src="%EC%BD%94%ED%8B%80%EB%A6%B0%20Jetpack/image.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="230f8917-466a-813b-b29f-ecba3a394875" class="">
+</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81da-a2ed-d89ad4700368" class=""><strong>View 뷰</strong> : 사용자 인터페이스를 담당. 사용자의 입력을 뷰 모델(ViewModel)에게 전달하고, 데이터 바인딩을 통해 뷰 모델(ViewModel) 데이터가 화면에 자동으로 반영된다.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-810b-a526-f1f261238db7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8135-8745-d1fb1e60a232" class=""><strong>Model 모델</strong> : 데이터를 관리. 데이터 관련 비즈니스 로직을 처리한다.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8158-9233-cb061b3a2a1c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-813f-ae0c-da3dae3dcac6" class=""><strong>ViewModel 뷰 모델</strong> : 뷰와 모델을 연결하는 중간 관리자 역할. 사용자 입력을 처리하고 모델과 간접적인 상호 작용을 한다. 뷰와 데이터 바인딩을 통해 데이터가 변경될 때 뷰에게 알려준다. </p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-810f-b3ea-fe0947979b7c" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="230f8917-466a-812a-9c98-e762817e4642" class="">Map &amp; Switch Map</h2></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8113-bd83-d43483221662" class="">
+</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8174-ae79-f70a75106b36" class="">사용자가 값을 입력했을 경우, 해당 값은 ViewModel의 LiveData에 값이 저장됨. 이 값을 기반으로,</p></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-817a-8218-d7defc3530f6" class="bulleted-list"><li style="list-style-type:disc">단순 연산 결과 처리 → mapLiveData</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-818f-9f23-da9a38bfa15b" class="bulleted-list"><li style="list-style-type:disc">복잡한 처리 결과 → switchMapLiveData</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-81cf-9546-fda22eb54ec5" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">class MainViewModel : ViewModel() {
+
+    // Transformations -&gt; map / switchMap
+
+    // map -&gt; 값을 return
+
+    private var _mutableCount = MutableLiveData(0)
+    val liveCount : LiveData&lt;Int&gt;
+        get() = _mutableCount
+
+    val mapLiveData = Transformations.map(liveCount) {
+        it+it
+    }
+
+    val switchMapLiveData = Transformations.switchMap(liveCount) {
+        changeValue(it)
+    }
+
+    fun setLiveDataValue(count : Int) {
+        _mutableCount.value = count
+    }
+
+    fun changeValue(count : Int) : MutableLiveData&lt;Int&gt; {
+        val testLiveData = MutableLiveData(count*count)
+        return testLiveData
+    }
+
+
+}</code></pre></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-81b0-8817-dd24857a5f00" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">private var _mutableCount = MutableLiveData(0)
+val liveCount: LiveData&lt;Int&gt;
+    get() = _mutableCount</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81af-a20f-c81d2303bf97" class="">이 코드에서 <code>MutableLiveData</code>는 변경 가능한 내부 변수임.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8100-81d4-ea93c7756a20" class=""><code>LiveData</code>는 외부에 노출되는 읽기 전용 데이터</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-818c-a6fd-e1cdad4a25ce" class="">외부(Activity)에서는 직접 값을 바꿀 수 없고, <code>setLiveDataValue()</code>로만 바꿀 수 있음. → 캡슐화</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81bc-a1f2-d91bbecb5b58" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-81c7-892d-e34cb233e4fa" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">val mapLiveData = Transformations.map(liveCount) {
+    it + it
+}</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8106-b34a-ce21817d237b" class="">map()은 원본 LiveData의 값을 변형해서 새로운 LiveData를 만듦.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8179-af3c-dab01d7a3d31" class="">liveCount = 3이면 mapLiveData 는 6이됨. 이 값은 Activity에서 Observe 가능</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8180-8d17-cc1bc4ec3984" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-81fd-bbb7-e988b48d9b56" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">val switchMapLiveData = Transformations.switchMap(liveCount) {
+    changeValue(it)
+}
+
+fun changeValue(count: Int): MutableLiveData&lt;Int&gt; {
+    val testLiveData = MutableLiveData(count * count)
+    return testLiveData
+}</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8180-ad57-cef280e63aa0" class="">switchMap()은 LiveData 값을 기반으로 다른 LiveData를 만들어서 연결해줌.</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81f9-903a-fe5b3a233437" class="">changeValue(3) → MutableLiveData(9) → switchMapLiveData가 9가됨.</p></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-811a-acf4-e5b88d544981" class="">실제 동작 흐름 예시</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-812f-8db0-ecc07512ce0f" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">입력값 = 4
+↓
+setLiveDataValue(4)
+↓
+liveCount.value = 4
+↓
+mapLiveData → 4 + 4 = 8
+switchMapLiveData → 4 * 4 = 16
+↓
+UI에 결과 반영:
+	- resultArea1 → 8
+	- resultArea2 → 16</code></pre></div><div style="display:contents" dir="auto"><p id="230f8917-466a-81e1-b0ef-fdc39b8e1add" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="248f8917-466a-802a-97a6-d96b5f1b6f3a" class="">Action Bar</h2></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8163-8e0a-c612333572a3" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><p id="230f8917-466a-813b-bbc6-fc2caa2a4d51" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

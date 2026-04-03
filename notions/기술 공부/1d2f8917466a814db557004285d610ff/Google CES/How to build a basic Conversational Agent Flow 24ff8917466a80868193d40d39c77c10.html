@@ -1,0 +1,733 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>How to build a basic Conversational Agent Flow?</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="24ff8917-466a-8086-8193-d40d39c77c10" class="page sans"><header><h1 class="page-title" dir="auto">How to build a basic Conversational Agent Flow?</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-80d8-8792-de9f8c0ab651" class=""><strong>개요</strong></h1></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8054-8f22-ccbb3f0ba190" class="">Conversational Agents는 대화형 에이전트 설계에 대한 간단하고 시각적인 봇 구축 방식을 제공합니다. 봇 디자이너는 이제 전체 봇 구축 프로세스를 훨씬 더 명확하게 파악할 수 있으며, 여러 디자이너가 동일한 에이전트 빌드에 대해 쉽게 협업할 수 있습니다. Conversational Agents는 에이전트가 사용하고 이해할 수 있는 <a href="https://cloud.google.com/dialogflow/cx/docs/reference/language">다양한 언어를</a> 지원 하지만, 이 랩에서는 영어만 사용합니다.</p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80c8-9ed7-f14dbed0bfcc" class="">이 랩에서는 대화형 에이전트 콘솔을 사용하여 대화형 에이전트를 구축합니다.</p></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-8000-b347-e9d77dbaac87" class=""><strong>필수 조건</strong></h1></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80ac-b6d9-d4f71f1c958f" class=""><a href="https://cloud.google.com/dialogflow/cx/docs/basics">대화형 AI의 기본 개념</a> 에 대해 전반적으로 알고 있어야 합니다 . 이 <a href="https://docs.google.com/document/d/1AqokDOCJIOhGoLzZp9bNxV7khnZEqFADfaaEtO_Lg6Q/edit?usp=sharing">샘플 대본을</a> 읽고 고객 대본이 어떤 형태일지 감을 잡아보세요. 에이전트를 구축하는 첫 단계는 대개 고객 대본 및/또는 기타 상황 데이터를 읽고 사용 사례와 구체적인 비즈니스 요구 사항을 파악하는 것입니다.</p></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-8023-8ddf-ef834dd5a3a7" class="">랩을 시작하고 Google Cloud 콘솔에 로그인하는 방법</h1></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-808b-bfd1-f794fb376909" class="numbered-list" start="1"><li><strong>&#x27;실습 시작&#x27;</strong> 버튼을 클릭하세요 . 실습 비용을 결제해야 하는 경우, 결제 방법을 선택할 수 있는 대화 상자가 열립니다. 왼쪽에는 다음과 같은 실습 세부 정보 창이 있습니다.<div style="display:contents" dir="auto"><ul id="24ff8917-466a-8021-832e-cc95d6cb5bb5" class="bulleted-list"><li style="list-style-type:disc">Google Cloud 콘솔 열기 버튼</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80d8-aa1b-d7f905beee57" class="bulleted-list"><li style="list-style-type:disc">남은 시간</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80f6-b53a-de11375e81ff" class="bulleted-list"><li style="list-style-type:disc">이 랩에 사용해야 하는 임시 자격 증명</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80cb-ab8d-efa8b60f918f" class="bulleted-list"><li style="list-style-type:disc">이 랩을 단계별로 진행하기 위해 필요한 기타 정보</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-800f-9060-dc9cc470a77f" class="numbered-list" start="2"><li><strong>Google Cloud 콘솔 열기를</strong> 클릭합니다 ( Chrome 브라우저를 실행 중인 경우 마우스 오른쪽 버튼을 클릭하고 <strong>시크릿 창에서 링크 열기를 선택합니다).</strong><div style="display:contents" dir="auto"><p id="24ff8917-466a-80e1-ba7c-df9b16f8a7ee" class="">랩은 리소스를 회전시킨 다음, 로그인 페이지를 표시하는 또 다른 탭을 엽니다.</p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8079-a218-fa50847804a1" class=""><em><strong>팁:</strong></em> 탭을 별도의 창에 나란히 정리하세요.</p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-804d-927f-eac23fb4c7f6" class=""><strong>참고: 계정 선택</strong> 대화 상자가 나타나면 <strong>다른 계정 사용을</strong> 클릭하세요 .</p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80a9-94f7-f68568cda35b" class="numbered-list" start="3"><li>필요한 경우 아래의 <strong>사용자 이름을 복사하여 로그인</strong> 대화 상자 에 붙여넣으세요 .<div style="display:contents" dir="auto"><p id="24ff8917-466a-809a-8375-df70cc462c67" class=""><code>학생 &quot;토큰정보&quot; </code></p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8000-88fa-c583e0d36a8a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-806c-a9cf-f233c6c48282" class="">랩 세부 정보 창에서도 사용자 이름을 찾을 수 있습니다.</p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80af-abbc-e478c56b3d9b" class="numbered-list" start="4"><li><strong>다음을</strong> 클릭합니다 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8002-b30a-f9544d14de4e" class="numbered-list" start="5"><li><strong>아래의 비밀번호를</strong> 복사하여 <strong>환영</strong> 대화 상자 에 붙여넣으세요 .<div style="display:contents" dir="auto"><p id="24ff8917-466a-80f9-be26-ea8d15f5df83" class=""><code>password</code></p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80f2-a0fa-c554cf9238f7" class="">비밀번호는 랩 세부 정보 창에서도 찾을 수 있습니다.</p></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-80a2-a084-d52997556653" class="">Dialogflow 및 AI 애플리케이션 API 활성화</h1></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80c7-a09b-fb4eee2c122f" class="numbered-list" start="1"><li>Google Cloud Console 검색 필드에 &quot;Dialogflow API&quot;를 입력합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8088-8869-f7cf77d0adb5" class="numbered-list" start="2"><li><strong>Dialogflow API </strong>타일을 선택합니다 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-806c-9edd-ee375585c40f" class="numbered-list" start="3"><li><strong>사용 </strong>버튼을 클릭하세요 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80f3-b159-c55460664dd8" class="numbered-list" start="4"><li>AI 애플리케이션 API를 활성화하려면 <a href="https://console.cloud.google.com/gen-app-builder/start">AI 애플리케이션 콘솔</a>로 이동하여 ‘계속’을 클릭<strong>하고 API를 활성화하세요.</strong></li></ol></div><div style="display:contents" dir="auto"><hr id="24ff8917-466a-808d-b6a1-d4f78d0bfafd"/></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-803d-99cd-c151b55e1ff5" class=""><strong>작업 1. 에이전트 생성</strong></h1></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8031-a12e-fd982c887a5d" class="numbered-list" start="1"><li>새로운 대화형 에이전트를 만들려면 <a href="https://console.cloud.google.com/gen-app-builder/engines/create">AI Applications Apps Console</a> 에서 앱 유형으로 <strong>대화형 에이전트를 선택하고 만들기를</strong> 클릭합니다 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8043-ada7-c9dd07bf0a75" class="numbered-list" start="2"><li><strong>대화형 에이전트</strong> 를 위한 새 페이지가 열립니다. 프로젝트 선택 팝업이 나타나면 프로젝트 ID를 선택하세요.<code>qwiklabs-gcp-01-892f6d5b64c2</code>.<div style="display:contents" dir="auto"><p id="24ff8917-466a-80be-8362-f0e766c09dd7" class=""><strong>참고:</strong> 프로젝트 ID가 나열되어 있지 않으면 오른쪽에 있는 사용자를 보고 <strong>학생</strong> 으로 대화형 에이전트를 사용하고 있는지 확인하세요 .</p></div><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-8069-b9ee-e56f2f350487" class="image"><a href="https://cdn.qwiklabs.com/szY9gyZFENhksf7eR%2FQdJb%2FOQNSvZUPQLal1G2N3Vxk%3D"><img src="https://cdn.qwiklabs.com/szY9gyZFENhksf7eR%2FQdJb%2FOQNSvZUPQLal1G2N3Vxk%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80e6-a978-d6c50368a4f8" class="numbered-list" start="3"><li>팝업 에서 <strong>직접 만들기를</strong> 선택하세요 <code>Get started with Conversational Agents</code>.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80a8-a869-eed16de10748" class="numbered-list" start="4"><li>해당 <code>Create agent</code>페이지에서 에이전트 표시 이름으로 <strong>Flight booker를</strong> 입력합니다 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8094-804e-d37072b93b29" class="numbered-list" start="5"><li><strong>위치를 글로벌</strong> 로 선택하세요 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80f2-91e8-fc6d4ae7d56f" class="numbered-list" start="6"><li><strong>대화 시작을 플레이북</strong> 으로 설정한 다음, <strong>만들기</strong> 버튼을 클릭합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-803b-a84c-e745eddaba12" class="numbered-list" start="7"><li>대화형 에이전트 콘솔에서 <strong>에이전트 개요(Agent Overview)로 이동합니다. Default Generative Playbook을 클릭하고, </strong>설정(Settings)탭을 클릭합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80a9-9bc1-ea6189a00c55" class="numbered-list" start="8"><li>에이전트 로깅을 활성화하려면 <strong>에이전트 설정 페이지에서 &#x27;일반</strong> &#x27; 탭을 클릭하세요 . 그런 다음 아래로 스크롤하여 <strong>&#x27;클라우드 로깅 활성화&#x27;</strong> 와 <strong>&#x27;대화 기록 활성화&#x27;</strong><code>Logging settings</code> 옆의 확인란을 선택하세요 . 그러면 해당 에이전트에 대한 로그가 생성됩니다.<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80cd-b5fc-dcb031260e22" class="image"><a href="https://cdn.qwiklabs.com/I1fF2ufrF%2BlO4J3%2Fbc9uVFfbufhOtKb8ONFekMd%2BcF8%3D"><img style="width:605px" src="https://cdn.qwiklabs.com/I1fF2ufrF%2BlO4J3%2Fbc9uVFfbufhOtKb8ONFekMd%2BcF8%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80a4-ac98-ce812413ddf8" class="numbered-list" start="9"><li><strong>저장을</strong> 클릭하세요 .</li></ol></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-803a-ba3a-c8ed0b66ea6e" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="24ff8917-466a-80e9-909a-f0eb126ebb25"/></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-800b-8aff-f29e90795599" class=""><strong>작업 2. Intent 생성</strong></h1></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80f1-9ccf-e5c47de041db" class="">인텐트는 최종 사용자가 에이전트와 상호작용하는 이유(예: 주문)입니다. 사용자가 탐색하려는 모든 주제에 대해 <a href="https://cloud.google.com/dialogflow/cx/docs/concept/intent">인텐트를 만들 수 있습니다.</a></p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8011-86d7-d5d8337bd7bd" class="">인텐트는 여러 페이지와 플로우에서 재사용할 수 있습니다. 각 인텐트는 최종 사용자가 일반적으로 묻는 학습 문구로 정의됩니다. 이러한 문구에는 도착 도시나 출발 날짜와 같은 특정 매개변수를 수집하기 위해 주석을 달거나 &quot;레이블&quot;을 지정할 수 있습니다.</p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80bd-9be8-f455bcda1d42" class="">대화형 에이전트는 의도에 대한 훈련 문구를 포함할 때 주석을 제안합니다. 또한 최종 사용자와 에이전트의 상호 작용에서 추출하려는 매개변수 값을 수집하기 위해 수동으로 주석을 추가할 수도 있습니다.</p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8058-aa96-ccc3e0552070" class=""><strong>권장 사항:</strong> 인텐트를 재사용하고 유지 관리를 쉽게 하려면 인텐트에 명확하고 명시적인 이름을 지정하세요.</p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80a8-a09c-f35fac003384" class="">의도의 형식:<code>category.some_description</code></p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8067-adc8-d2cd9dde3ffa" class="">서식의 예:</p></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8078-9391-ccb45450beb2" class="bulleted-list"><li style="list-style-type:disc">핵심 의도:<code>main.book_a_flight</code></li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8072-92be-e6c6de0b4792" class="bulleted-list"><li style="list-style-type:disc">공통된 의도이지만 핵심은 아니다:<code>supplemental.flight_emissions</code></li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80c3-9099-c119f1443e16" class="bulleted-list"><li style="list-style-type:disc">재사용 가능한 인텐트: <code>confirmation.yesconfirmation_noredirect.live_agent</code></li></ul></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-8079-b175-e5b60e93d97a" class="">Intent 만들기</h1></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80a6-b8f9-ef4aeca43b31" class="numbered-list" start="1"><li>새로운 인텐트를 생성하려면 <strong>흐름</strong> 으로 이동한 다음 <strong>관리 탭을 클릭하고 인텐트를</strong> 선택한 다음 마지막으로 <strong>+ 생성을</strong> 클릭합니다 .<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-807e-875d-da99ee57c0b3" class="image"><a href="https://cdn.qwiklabs.com/GcImg1GqjboQZ3N61D6BY3vUvjdA6WzXlhpLWZRkxvM%3D"><img style="width:528px" src="https://cdn.qwiklabs.com/GcImg1GqjboQZ3N61D6BY3vUvjdA6WzXlhpLWZRkxvM%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80ab-9953-f3d29308e03e" class="numbered-list" start="2"><li><strong>main.book_a_flight를</strong><code>Display name</code> 입력 하세요 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-802e-bb19-c330d7119e35" class="numbered-list" start="3"><li><strong>훈련 문구</strong> 헤더 아래에서 다음 문구를 각각 필드에 추가 하고 각 문구 뒤에 <strong>Enter를</strong><code>Custom training phrase</code> 누릅니다 .<div style="display:contents" dir="auto"><ul id="24ff8917-466a-803b-9315-dcd13457e7dd" class="bulleted-list"><li style="list-style-type:disc">항공편을 예약하세요</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80c0-8c60-dbdbde8abf48" class="bulleted-list"><li style="list-style-type:disc">다음 달 샌프란시스코행 항공편을 예약할 수 있나요?</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-807e-87ec-d7720f07c91e" class="bulleted-list"><li style="list-style-type:disc">10월에 밀라노에서 출발하는 항공편을 예약하기 위해 보상 포인트를 사용하고 싶습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8034-bc7c-ee47dfbe81ac" class="bulleted-list"><li style="list-style-type:disc">우리 가족이 다음 주에 방문하는데 왕복 항공권 6장을 예약해야 해요.</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80f3-9166-e7475bbcfc75" class="bulleted-list"><li style="list-style-type:disc">6월 2일부터 30일까지 대만발 두바이행 비즈니스석 항공권 4매</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8090-888f-e49cd7745cb7" class="bulleted-list"><li style="list-style-type:disc">토요일에 LAX에서 San Jose까지 비행기가 필요합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8007-89ab-dfaa2362bcf3" class="bulleted-list"><li style="list-style-type:disc">8월 10일 SFO에서 MIA까지 편도 예약</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8096-b17d-e84ff6b0bebf" class="bulleted-list"><li style="list-style-type:disc">4월 10일부터 4월 15일까지 멕시코시티에서 콜롬비아 메데인까지 항공권 예매 도와주세요</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80a1-9f8c-d7beff8730d4" class="bulleted-list"><li style="list-style-type:disc">저는 엄마를 위해 5월 10일부터 5월 25일까지 코스타리카로 가는 깜짝 여행을 예약하고 있는데, 어떻게 준비할 수 있을까요?</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80f2-865f-f3917ae17a38" class="bulleted-list"><li style="list-style-type:disc">이번 주말에 뉴욕으로 가는 저렴한 항공편이 있나요?</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80e8-bf59-c203428c9273" class="bulleted-list"><li style="list-style-type:disc">나는 8월 8일에 몬트리올에서 사촌을 데려오고 싶습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-809e-8b95-dab8a0c7af43" class="bulleted-list"><li style="list-style-type:disc">7월 4일 파나마시티행 좌석 2개를 찾고 싶습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80ec-b48d-fd1cf7d8cfff" class="bulleted-list"><li style="list-style-type:disc">결혼기념일에는 크리스마스에 시애틀에 가고 싶어요</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><blockquote id="24ff8917-466a-80ff-9048-da0724178a78" class=""><strong>참고:</strong> 모델 정확도를 높이려면 짧고 긴 응답 옵션이 있는 20~50개의 학습 문구를 사용하는 것이 좋습니다.</blockquote></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8059-b50f-dec866fc731c" class="numbered-list" start="4"><li><strong>저장</strong>을 클릭합니다.</li></ol></div><div style="display:contents" dir="auto"><blockquote id="24ff8917-466a-8056-986f-dd996c1edc2c" class=""><strong>참고:</strong> 훈련 문구 CSV 파일을 만들어 대화형 에이전트에 업로드하여 대량으로 훈련 문구를 추가할 수도 있습니다.</blockquote></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80cb-877d-d2bc15e4651d" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="24ff8917-466a-80e3-a5cc-f0ec7d0193bd"/></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8015-a073-f663c3ace639" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-80db-ba85-c1b25e8d8c05" class=""><strong>작업 3. Flows and Pages</strong></h1></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80d2-9b8b-cb3a0879c264" class=""><a href="https://cloud.google.com/dialogflow/cx/docs/concept/flow">흐름은</a> 주제와 관련 대화 경로를 정의하는 데 사용됩니다. 모든 에이전트는 이라는 하나의 흐름을 갖습니다 <code>Default Start Flow</code>. 간단한 에이전트에는 이 단일 흐름만으로도 충분할 수 있습니다.</p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80e9-afbd-e59b00c016ae" class="">더 복잡한 에이전트에는 추가 흐름이 필요할 수 있으며, 다양한 개발팀 구성원이 이러한 흐름을 구축하고 유지 관리할 책임을 맡을 수 있습니다.</p></div><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-8052-8d79-ef8393d272c1" class="image"><a href="https://cdn.qwiklabs.com/d7XD2Pwy%2F8vwGLM47ZtSJeQM75y8i%2BzSpU2SjYIhUus%3D"><img style="width:601px" src="https://cdn.qwiklabs.com/d7XD2Pwy%2F8vwGLM47ZtSJeQM75y8i%2BzSpU2SjYIhUus%3D"/></a></figure></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80d4-9bd8-f470ad7abdcd" class="">모든 흐름은 하나 <a href="https://cloud.google.com/dialogflow/cx/docs/concept/page">의 페이지(Page)</a> 로 시작하며 , 이후 하나 이상의 서로 다른 페이지로 구성되어 특정 흐름 내의 대화를 처리합니다. 최종 사용자가 현재 보고 있는 페이지는 <strong>활성 페이지(Active Page)</strong> 로 간주됩니다 . 각 페이지는 최종 사용자로부터 필요한 정보를 수집하도록 구성할 수 있습니다.</p></div><div style="display:contents" dir="auto"><h2 id="24ff8917-466a-8062-bcaa-fde28708950d" class="">기본 시작 흐름에서 빌드</h2></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-803b-b5c3-e3915641b79f" class="">에이전트가 시작하는 페이지를 <em>기본 시작 흐름(Default Start Flow)</em> 이라고 합니다 . 이 페이지에는 라우팅 로직, 응답( 이행( <em>Fulfillment</em> )이라고 함 ), 인텐트를 일치시킬 수 없거나( 일치하지 않음( <em>no-match</em> )이라고 함 ) <em>입력이 없을</em> 때 (에이전트가 시간 내에 응답을 받지 못할 때) 수행할 특정 작업이 저장됩니다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80e5-8a85-ce7b264fa4e8" class="numbered-list" start="1"><li><strong>Flows</strong> 콘솔 에서 <strong>빌드</strong> 탭을 클릭합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-801c-a5b6-d1f91e08bb2f" class="numbered-list" start="2"><li><strong>시작 페이지를</strong> 클릭하여 페이지를 엽니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8091-b550-c0dfcd164dda" class="numbered-list" start="3"><li>확장된 옵션에서 <strong>경로</strong> 옆에 있는 <strong>+</strong><code>Start Page</code> 아이콘을 선택합니다 .<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-8068-bbf9-dc77cc954eb7" class="image"><a href="https://cdn.qwiklabs.com/rYdKrDS9SDT94MrlAfSdPtTFGElJ5KG1HCgXxJh3Bvs%3D"><img style="width:601px" src="https://cdn.qwiklabs.com/rYdKrDS9SDT94MrlAfSdPtTFGElJ5KG1HCgXxJh3Bvs%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80df-bf16-f46325a48c22" class="numbered-list" start="4"><li>드롭다운에서 <strong>main.book_a_flight 인</strong> 텐트를 선택한 다음 <strong>저장을</strong> 클릭합니다 .<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-805f-b207-ea7b9f1b20c4" class="image"><a href="https://cdn.qwiklabs.com/ogW5kyjQ7eBe6Xak%2B8PQwdzV9635Ybp004NZBRIrowc%3D"><img style="width:400px" src="https://cdn.qwiklabs.com/ogW5kyjQ7eBe6Xak%2B8PQwdzV9635Ybp004NZBRIrowc%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-806c-84e7-f65e4735f4d7" class="numbered-list" start="5"><li>다음으로, 섹션에서 <strong>main.book_a_flight</strong><code>Routes</code> 경로를 클릭합니다 .<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-803f-baec-e4e4d9e39ca0" class="image"><a href="https://cdn.qwiklabs.com/Sf%2BAfRVaakmipS%2F8ov%2B1T%2Bysg3QCZiJ395i8vZy4ojk%3D"><img style="width:350px" src="https://cdn.qwiklabs.com/Sf%2BAfRVaakmipS%2F8ov%2B1T%2Bysg3QCZiJ395i8vZy4ojk%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8043-8f34-c43773c3c1d4" class="numbered-list" start="6"><li>섹션 까지 아래로 스크롤하여 <strong>페이지</strong><code>Transition</code> 라디오 옵션을 선택한 다음 드롭다운 메뉴에서 <strong>+ 새 페이지를 선택합니다.</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8039-9970-ccba71da6c3e" class="numbered-list" start="7"><li>페이지 이름을 <strong>티켓 정보로</strong> 지정 하고 <strong>저장을</strong> 클릭합니다 .<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-805e-90f7-c56d2303c38c" class="image"><a href="https://cdn.qwiklabs.com/IPvTQqHkqn%2BrhOmQyB4mXDBdVdYxeUm%2F7TU6%2BARnXGo%3D"><img style="width:500px" src="https://cdn.qwiklabs.com/IPvTQqHkqn%2BrhOmQyB4mXDBdVdYxeUm%2F7TU6%2BARnXGo%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80a7-9707-fac5f9b4f39a" class="numbered-list" start="8"><li>창을 종료하고 흐름의 기본 표시로 돌아가서 <strong>시작</strong> 페이지 에 연결된 새 <strong>티켓 정보</strong> 페이지를 확인하세요 .<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-8079-8aa4-dc11031bbda6" class="image"><a href="https://cdn.qwiklabs.com/EuogJNSbBaQ0Dc9AlVZ6n%2FSH0A4pVA28KPEYjcioLTA%3D"><img style="width:350px" src="https://cdn.qwiklabs.com/EuogJNSbBaQ0Dc9AlVZ6n%2FSH0A4pVA28KPEYjcioLTA%3D"/></a></figure></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8045-a8b9-ee9d437a87bf" class="">이제 흐름의 시작 부분에는 인사말이 포함되고, 인텐트가 일치하면 <strong>티켓 정보</strong> 페이지 로 이동합니다. 이 페이지에서 최종 사용자가 항공편을 예약할 수 있도록 매개변수를 수집합니다. <code>main.book_a_flightTicket information</code></p></div></li></ol></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-801a-892e-f0504a37da12" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="24ff8917-466a-8025-bc88-cbda4bd1e0f2"/></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-802f-96b7-c45f2767aeef" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-80c9-bfb4-e9bc153ebd02" class=""><strong>작업 4. Entities and Parameters</strong></h1></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80c0-89d3-ce105c9eb3c6" class="bulleted-list"><li style="list-style-type:disc"><a href="https://cloud.google.com/dialogflow/cx/docs/concept/entity">엔티티는</a> 최종 사용자로부터 추출하려는 정보 유형을 정의합니다(예: 도착 도시). 날짜, 시간, 색상, 이메일 주소 등을 일치시키려면 대화형 에이전트에 내장된 &quot; <a href="https://cloud.google.com/dialogflow/cx/docs/reference/system-entities">시스템 엔티티 &quot;를 사용하세요.</a></li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8041-9b99-d9cd02a0de20" class="bulleted-list"><li style="list-style-type:disc">시스템 엔터티는 기본 시스템 값에 포함되지 않은 값을 포함하도록 &quot;확장&quot;될 수도 있습니다. 완전히 사용자 지정된 엔터티를 생성해야 하는 경우, 비즈니스에 맞게 사용자 지정되고 시스템 엔터티로 제공되지 않는 데이터와 일치하는 <a href="https://cloud.google.com/dialogflow/cx/docs/concept/entity-custom">사용자 지정 엔터티 유형을 생성하여 이를 수행할 수 있습니다.</a></li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8054-b56e-d6d67f3eb8b8" class="bulleted-list"><li style="list-style-type:disc"><a href="https://cloud.google.com/dialogflow/cx/docs/concept/parameter">매개변수는</a> 날짜, 시간, 목적지 도시 등 세션 중에 최종 사용자가 제공하는 정보입니다. 각 매개변수는 a <code>name</code>와 <code>entity type</code>.을 가지며, 단어 사이에 밑줄을 사용하여 소문자로 작성됩니다.</li></ul></div><div style="display:contents" dir="auto"><h2 id="24ff8917-466a-80e8-b48e-df2ee203f885" class="">첫 번째 매개변수 세트를 만듭니다.</h2></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80ed-81ea-fd03443f71ee" class="">다음으로, 엔터티를 사용하여 최종 사용자로부터 필요한 매개변수를 추출합니다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-807d-a3de-e9bb0f6f12f4" class="numbered-list" start="1"><li><strong>티켓 정보</strong> 페이지를 클릭한 다음 <strong>매개변수</strong> 별 <strong>+</strong> 를 클릭하여 항공편 데이터를 수집합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8079-bf8d-d6f9e5b29988" class="numbered-list" start="2"><li><strong>Display name</strong><code>departure_city</code> 필드 에 입력하세요 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-809e-8786-fccdcdb962e2" class="numbered-list" start="3"><li><strong>엔터티 유형</strong> 드롭다운 <code>@sys.geo-city</code>에서 선택합니다 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8056-a70d-ed71510fa1f7" class="numbered-list" start="4"><li>섹션 으로 스크롤하세요 <code>Initial prompt Fulfillment</code>. <strong>&#x27;에이전트 응답&#x27; 아래에서 &#x27;+ 대화 응답 추가&#x27;</strong> 를 클릭하고 <strong>&#x27;에이전트 대화&#x27;</strong> 를 선택한 후 &#x27; <strong>어떤 도시에서 항공편을 출발하시겠습니까?&#x27;를</strong> 추가하세요 .<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-8070-b91c-e96c63ac2bf5" class="image"><a href="https://cdn.qwiklabs.com/jq2sNSeOnTOWctj5uenLScF8UV%2BPVNMO8IhoxLjGqNs%3D"><img style="width:700px" src="https://cdn.qwiklabs.com/jq2sNSeOnTOWctj5uenLScF8UV%2BPVNMO8IhoxLjGqNs%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8077-bfa5-fffe3241235a" class="numbered-list" start="5"><li><strong>저장을</strong> 클릭하세요 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-801b-9d05-dd5762d0ce16" class="numbered-list" start="6"><li>이 창을 종료하고 다른 매개변수를 만드세요.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80d1-a07f-f4517e582cb8" class="numbered-list" start="7"><li><strong>매개변수</strong> 별로 <strong>+를</strong> 다시 클릭하면 이름, 엔터티 유형, 에이전트가 최종 사용자에게 메시지를 표시하는 방법을 지정하여 4개의 추가 매개변수를 하나씩 만들 수 있습니다.<div style="display:contents" dir="ltr"><table id="24ff8917-466a-8052-a950-cf83fd2035ad" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="24ff8917-466a-80a5-a7ce-e036a2dbdf68"><th id="hiei" class="simple-table-header-color simple-table-header"><strong>표시 이름</strong></th><th id="XMBy" class="simple-table-header-color simple-table-header"><strong>엔터티 유형</strong></th><th id="XSPe" class="simple-table-header-color simple-table-header"><strong>에이전트 대화</strong></th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="24ff8917-466a-80df-a88c-f9509e8c2c53"><td id="hiei" class="">출발일</td><td id="XMBy" class="">@sys.date</td><td id="XSPe" class="">출발일은 언제인가요?</td></tr></div><div style="display:contents" dir="ltr"><tr id="24ff8917-466a-80fa-a11a-fb26991718ad"><td id="hiei" class="">목적지_도시</td><td id="XMBy" class="">@sys.geo-city</td><td id="XSPe" class="">목적지 도시는 어디인가요?</td></tr></div><div style="display:contents" dir="ltr"><tr id="24ff8917-466a-8065-9568-c2c5158ef7c0"><td id="hiei" class="">귀국일</td><td id="XMBy" class="">@sys.date</td><td id="XSPe" class="">돌아오는 항공편은 몇 월, 몇 일입니까?</td></tr></div><div style="display:contents" dir="ltr"><tr id="24ff8917-466a-8091-805a-c78ddf5e69b2"><td id="hiei" class="">승객 이름</td><td id="XMBy" class="">@sys.any</td><td id="XSPe" class="">승객의 이름은 무엇입니까?</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-803f-b27d-d8dfa6fc562d" class="">완료되면 다음과 같이 나열됩니다.</p></div><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80de-bb5a-d9f4578a40c9" class="image"><a href="https://cdn.qwiklabs.com/qMEP%2FMXUgsReDFGzV%2FgBtHOCsmOLxc6bMrh%2BvJEo%2B5E%3D"><img src="https://cdn.qwiklabs.com/qMEP%2FMXUgsReDFGzV%2FgBtHOCsmOLxc6bMrh%2BvJEo%2B5E%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80f4-a388-dc97aef5f06f" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="24ff8917-466a-8006-b80e-cc8663ac0f89"/></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80f1-9cc8-fef8a332aa0c" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-8081-9db4-c5026065fdbf" class=""><strong>작업 5. Conditions</strong></h1></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-802d-9a94-c166d7b64635" class="">에이전트가 필요한 5개의 항공편 예약 매개변수를 수집하면, 다음에 생성할 라우팅 <em><a href="https://cloud.google.com/dialogflow/cx/docs/reference/condition">조건을</a></em> 사용하여 최종 사용자를 다른 페이지로 라우팅해야 합니다 .</p></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8022-a7d0-d8d91256374e" class="numbered-list" start="1"><li>매개변수 창을 종료하고 <strong>티켓 정보</strong> 페이지로 다시 돌아가세요.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8051-b3b6-fb5b2f60f23c" class="numbered-list" start="2"><li><strong>아래로 스크롤하여 경로를</strong> 찾은 다음 옆에 있는 <strong>+</strong> 기호를 클릭하세요 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80ee-b859-cce3f1d11b77" class="numbered-list" start="3"><li><strong>조건</strong> &gt; <strong>조건 규칙</strong> 으로 스크롤하여 &quot; <strong>최소 하나의</strong> 규칙과 일치(또는)&quot; 를 선택하세요.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80a1-9fd7-e67a61c5100e" class="numbered-list" start="4"><li>필드 에 <strong>$page.params.status를</strong><code>Parameter</code> 입력합니다 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8046-95bd-c1f9fe5d7d12" class="numbered-list" start="5"><li>드롭다운 에서 <strong>=</strong> 기호를 선택하세요 .<code>Operand</code></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8004-8b93-ffca84c6adc9" class="numbered-list" start="6"><li>필드 에 <strong>&quot;FINAL&quot;을</strong><code>Value</code> 입력하세요 (큰따옴표도 포함했는지 확인하세요).<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80bf-adca-dcf66bea07a9" class="image"><a href="https://cdn.qwiklabs.com/p%2BcH605wHAK6E0b83WLlxS3JYouoioXvhlpiGi%2FeHCg%3D"><img style="width:624px" src="https://cdn.qwiklabs.com/p%2BcH605wHAK6E0b83WLlxS3JYouoioXvhlpiGi%2FeHCg%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80bd-b7a0-e12ec89419fe" class="numbered-list" start="7"><li><strong>저장을</strong> 클릭하세요 .</li></ol></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8043-8189-de3fb6928ed7" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="24ff8917-466a-8093-9239-e46023e62ab0"/></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-802b-97fa-efcc2f5e5bab" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-804f-90fa-f17d939fa951" class=""><strong>작업 6. Fulfillment</strong></h1></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8076-99ca-e7ff3cf2c2db" class="">이제 예약 매개변수 5개가 모두 수집되면 최종 사용자에게 알리는 응답을 추가합니다. 이러한 응답을 <strong>&#x27;완료&#x27;</strong> 라고 합니다 .</p></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8066-84bf-dad35a078067" class="numbered-list" start="1"><li>방금 만든 조건에서 조금 아래로 스크롤하여 <strong>이행이라는</strong> 섹션을 찾으세요 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8022-8991-ccd474a7045f" class="numbered-list" start="2"><li>섹션 으로 스크롤하세요 <code>Fulfillment</code>. <strong>&#x27;에이전트 응답&#x27; 아래에서 &#x27;+ 대화 응답 추가&#x27;</strong> 를 클릭하고 <strong>&#x27;에이전트 대화&#x27;를</strong> 선택한 후 <strong>&#x27;정보 주셔서 감사합니다. 티켓 이용 가능 여부를 확인해 보겠습니다</strong> . &#x27;를 추가하세요.<div style="display:contents" dir="auto"><p id="24ff8917-466a-804b-8ad3-c3d6fc16ffd4" class="">(다음 단계인 정보 확인을 위해 이 페이지를 계속 읽어주세요.)</p></div><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-8019-b590-ccd950703cf9" class="image"><a href="https://cdn.qwiklabs.com/HC9rkzygSPQJgrf8seCxR0rejfcE5Y1EIvlw4dFmwo0%3D"><img style="width:624px" src="https://cdn.qwiklabs.com/HC9rkzygSPQJgrf8seCxR0rejfcE5Y1EIvlw4dFmwo0%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8033-883d-f4ac0bc3c7ad" class="numbered-list" start="3"><li>저장을 클릭하세요 <strong>.</strong></li></ol></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80d3-aaa0-c6892354aea6" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="24ff8917-466a-80fb-9173-cfd4fafe763a"/></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-807c-81ea-d25bf5b0cf8a" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-80f7-bb6f-f8bcabbd5612" class=""><strong>작업 7. 정보 확인</strong></h1></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-801e-9d4f-c99f1a3dfe5e" class="">응답(또는 <em>이행 )을 제공한 후에는 수집된 여행 정보( 매개변수</em> )가 올바른지 여부를 최종 사용자에게 다시 알려주는 새 페이지로의 전환을 만들어야 합니다 .</p></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80a4-9a1d-d14dc2b82a17" class="numbered-list" start="1"><li>방금 만든 이행을 지나서 계속 아래로 스크롤하여 <strong>전환</strong> 섹션에 도달합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8069-b314-c038c7e8d34b" class="numbered-list" start="2"><li><strong>페이지</strong> 라디오 옵션을 선택한 다음 드롭다운 메뉴에서 <strong>+ 새 페이지를 선택합니다.</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8061-a306-fcd109278472" class="numbered-list" start="3"><li><strong>페이지 이름</strong><code>Confirm trip</code> 이라는 필드에 입력하세요 .<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-8082-bd9e-e5480863e4cf" class="image"><a href="https://cdn.qwiklabs.com/kq1p%2FQJsMNTKDOEX5cbgLUa%2BQ%2BBVVAi9weYsO0YqpfY%3D"><img style="width:400px" src="https://cdn.qwiklabs.com/kq1p%2FQJsMNTKDOEX5cbgLUa%2BQ%2BBVVAi9weYsO0YqpfY%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8040-92cc-fee290c5c94d" class="numbered-list" start="4"><li><strong>저장을</strong> 클릭하세요 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80d3-8a00-f000d66366f1" class="numbered-list" start="5"><li>창밖으로 나가세요.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80a0-8557-cff44fcd96a9" class="numbered-list" start="6"><li>3페이지의 흐름을 살펴보세요.<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80c8-8f8b-e57161fe8c8d" class="image"><a href="https://cdn.qwiklabs.com/QmM3epbzwYVkpLv5WQZklCDRjpistCDL4DaaEH2v5XU%3D"><img style="width:601px" src="https://cdn.qwiklabs.com/QmM3epbzwYVkpLv5WQZklCDRjpistCDL4DaaEH2v5XU%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><h2 id="24ff8917-466a-80e2-bf44-cb71439e6165" class="">최종 사용자로부터 수집된 매개변수를 다시 반복합니다.</h2></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80c9-bf48-d9cf644380a2" class=""><a href="https://cloud.google.com/dialogflow/cx/docs/concept/parameter#session">세션 매개변수는 최종 사용자로부터 </a><em>이전에 수집된</em> 정보를 저장하며 세션 기간 동안 활성화됩니다. 또한 최종 사용자에게 정보를 다시 전달하는 데에도 도움이 됩니다.</p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80c1-a12f-e34406ef3c62" class="">예를 들어, 직원이 승객의 이름을 반복하도록 할 수 있습니다. <code>Thanks for providing that information, $session.params.passenger_name</code>이는 최종 사용자에게 다음과 같이 표시됩니다.<code>Thanks for providing information, John Day.</code></p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8040-b0c9-d59b6886e06a" class="">형식은 다음과 같습니다.</p></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8014-9a68-c542eb5079e9" class="bulleted-list"><li style="list-style-type:disc"><em>접두사</em><strong>$session.params.</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-803a-823e-f308c57a2b4a" class="bulleted-list"><li style="list-style-type:disc"><em>엔터티 이름: </em><strong>승객_이름</strong></li></ul></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8023-bce5-ea0befe86f47" class="">따라서 출발 도시를 참조하는 것은 다음과 같습니다: $session.params.departure_city</p></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-807b-a595-c27865dba122" class="numbered-list" start="1"><li>빌드 보기에서 시작하여 <strong>여행 확인</strong> 페이지 &gt; <strong>항목 이행</strong> &gt; <strong>이행 편집</strong> 필드를 클릭합니다.<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-800d-acd8-fc06a8660047" class="image"><a href="https://cdn.qwiklabs.com/JUGLq7lqxA9D2RI0KeVFu%2BCBSzHeR5Bb5lPsk4c5Y%2FY%3D"><img style="width:350px" src="https://cdn.qwiklabs.com/JUGLq7lqxA9D2RI0KeVFu%2BCBSzHeR5Bb5lPsk4c5Y%2FY%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8035-8176-e78aedb4cf98" class="numbered-list" start="2"><li>매개변수를 5개 사용했으므로 다음 세션 매개변수를 통해 사용자에게 다시 전달할 수 있습니다. 다음 텍스트를 &#x27; <strong>에이전트 응답 &gt; + 대화 응답 추가 &gt; 에이전트 대화&#x27;</strong> 섹션에 붙여넣으세요.<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24ff8917-466a-8028-8fca-db448473e7dd" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">This is to confirm that $session.params.passenger_name will fly
+From: $session.params.departure_city
+To: $session.params.destination_city
+Leaving on: $session.params.departure_date
+Returning on: $session.params.return_date
+
+Is this correct?</code></pre></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8098-bff4-d1669487ab71" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80ef-a924-e6a7f8d08e6b" class="image"><a href="https://cdn.qwiklabs.com/NZXdroBkuUdhAbMx3gsEmD1YHS9cVlR7Z700H3l4hUs%3D"><img style="width:522px" src="https://cdn.qwiklabs.com/NZXdroBkuUdhAbMx3gsEmD1YHS9cVlR7Z700H3l4hUs%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8039-983b-ffc95888308b" class="numbered-list" start="3"><li>그런 다음 저장을 클릭합니다 <strong>.</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8052-8876-d3f3469c08a1" class="numbered-list" start="4"><li>대화형 에이전트가 수집된 세션 매개변수를 다시 반복하면 최종 사용자에게 다음과 같이 표시됩니다.<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-800d-848d-dcfc039736ac" class="image"><a href="https://cdn.qwiklabs.com/R6ny1DtiT5WX4kqb0uhgGSNs8otACvrp8xR%2BX7wgNYA%3D"><img style="width:307px" src="https://cdn.qwiklabs.com/R6ny1DtiT5WX4kqb0uhgGSNs8otACvrp8xR%2BX7wgNYA%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-808b-98e6-f34bb1beafe6" class="">긍정(’예’라고 대답한) 확인 경로</h1></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80b9-b796-d19a40eaf085" class="numbered-list" start="1"><li>창을 닫고 &#x27; <strong>여행 확인&#x27;</strong> 페이지로 돌아가세요. 경로 옆의 <strong>+ 버튼을 클릭하세요 .</strong><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-805a-aedd-ff04ae8c804f" class="image"><a href="https://cdn.qwiklabs.com/Cqv1%2FEqESD2gEkobJY7cVaINUwvfGXh%2FrUt1watgXJY%3D"><img style="width:360px" src="https://cdn.qwiklabs.com/Cqv1%2FEqESD2gEkobJY7cVaINUwvfGXh%2FrUt1watgXJY%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-809c-8beb-fecffd19fe67" class="numbered-list" start="2"><li><strong>의도</strong> 드롭다운을 클릭한 다음 <strong>+ 새 의도를 클릭합니다.</strong><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-808c-9507-ef26aa132035" class="image"><a href="https://cdn.qwiklabs.com/bozs3Z6MHy8MPnwbU9leaKyuS8Qdqanx6WWlvu83ZaM%3D"><img style="width:350px" src="https://cdn.qwiklabs.com/bozs3Z6MHy8MPnwbU9leaKyuS8Qdqanx6WWlvu83ZaM%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80b8-b070-cb57d8a428de" class="numbered-list" start="3"><li><strong>확인을</strong> 입력 <code>Display name</code>하세요 .예 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80de-84d9-f118394b1378" class="numbered-list" start="4"><li><strong>&#x27;예&#x27;를</strong> 입력 <code>Training phrases</code>한 다음 &#x27; <strong>추가&#x27;를</strong> 클릭합니다 (이 의도에 대한 NLU 매칭을 개선하기 위해 &quot;정확함&quot;, &quot;그렇다&quot; 등의 구를 추가할 수 있습니다).<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80a2-8f3d-df5de370063d" class="image"><a href="https://cdn.qwiklabs.com/8ASAAIffQLQ7HeE0%2Fr349I12QO%2BdUafM1%2FgYiiFpxvQ%3D"><img style="width:341px" src="https://cdn.qwiklabs.com/8ASAAIffQLQ7HeE0%2Fr349I12QO%2BdUafM1%2FgYiiFpxvQ%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8035-a77e-fe0e2290f028" class="numbered-list" start="5"><li><strong>저장을</strong> 클릭하세요 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80c8-bdab-cdf55fe9e461" class="numbered-list" start="6"><li>저장 후 해당 섹션으로 스크롤하세요 <code>Fulfillment</code>. <strong>&#x27;에이전트 응답&#x27; 아래에서 &#x27;+ 대화 응답 추가&#x27;</strong> 를 클릭하고 <strong>&#x27;에이전트 대화&#x27;를</strong> 선택한 후 &#x27; <strong>좋습니다. 항공편이 예약되었습니다!&#x27;를 입력하세요.</strong><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80a9-bb63-ddf81ed5220e" class="image"><a href="https://cdn.qwiklabs.com/ohyOWsx%2BaOvcjD77MOVWnjV6vCJCyPduAsCIvPe%2BPoY%3D"><img style="width:624px" src="https://cdn.qwiklabs.com/ohyOWsx%2BaOvcjD77MOVWnjV6vCJCyPduAsCIvPe%2BPoY%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8095-b9a7-f5034a28c4f6" class="numbered-list" start="7"><li><strong>그런 다음 저장을</strong> 클릭합니다 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-801c-909f-c73de7c98d5f" class="numbered-list" start="8"><li><strong>경로</strong> 옆에 있는 뒤로 화살표를 클릭하세요 .<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80b9-b9f1-f163d3f93a9b" class="image"><a href="https://cdn.qwiklabs.com/GvhoJ%2B%2BxPGSe02H%2F6KOsnWZwa99ard6tQnNcyfzgz6g%3D"><img style="width:401px" src="https://cdn.qwiklabs.com/GvhoJ%2B%2BxPGSe02H%2F6KOsnWZwa99ard6tQnNcyfzgz6g%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-808b-ba8b-c3960b21de53" class="">부정(’No’라고 대답한) 확인 경로</h1></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80e7-8125-df29878e0b3f" class="">이제 최종 사용자가 정보가 정확하지 않다고 말할 경우 항공편 매개변수를 다시 수집하도록 경로를 지정하는 논리를 추가합니다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80cd-a3a1-e740c8370fcf" class="numbered-list" start="1"><li>경로 섹션에서 <strong>경로 추가를</strong> 선택합니다 .<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-8048-ba80-efea5bb52fdd" class="image"><a href="https://cdn.qwiklabs.com/kbEpP1cU%2BT%2BOzT8O5Pfndh3u9li%2FlxHB%2FcIEt7SNmUU%3D"><img style="width:400px" src="https://cdn.qwiklabs.com/kbEpP1cU%2BT%2BOzT8O5Pfndh3u9li%2FlxHB%2FcIEt7SNmUU%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8097-a9fd-d00510865516" class="numbered-list" start="2"><li>Intents 드롭다운에서 <strong>+ new Intent를</strong> 선택합니다 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-805b-ba7f-e0906aafd208" class="numbered-list" start="3"><li><code>confirmation.no</code>필드 에서 의도를 지정하세요 <code>Display name</code>.<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-8081-a095-e0ddcd6ef4fc" class="image"><a href="https://cdn.qwiklabs.com/shgQSeupOiYQRDgxjHv%2Fc0m%2FUltQRGh5NtroQWncUiY%3D"><img style="width:400px" src="https://cdn.qwiklabs.com/shgQSeupOiYQRDgxjHv%2Fc0m%2FUltQRGh5NtroQWncUiY%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8070-b3fa-ccafb3da25d9" class="numbered-list" start="4"><li><code>Training phrases</code>섹션 유형 <strong>&#x27;아니요&#x27;</strong> 로 스크롤한 후 <strong>&#x27;추가&#x27;를</strong> 클릭합니다 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80f6-841c-f3bc85e0e3ac" class="numbered-list" start="5"><li><strong>저장을</strong> 클릭하세요 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80d8-a977-c07accbaff9d" class="numbered-list" start="6"><li><strong>다음으로, 전환</strong> &gt; <strong>페이지</strong> 섹션으로 스크롤한 다음 드롭다운에서 <strong>티켓 정보를 선택합니다.</strong><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-8087-abad-e63f24fe1a71" class="image"><a href="https://cdn.qwiklabs.com/Il6Lisekr5B17vvfKTcpGN5lb4UUxuj5iGrU1NLOSBk%3D"><img style="width:406px" src="https://cdn.qwiklabs.com/Il6Lisekr5B17vvfKTcpGN5lb4UUxuj5iGrU1NLOSBk%3D"/></a></figure></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8080-9cbb-f0cef3bc06b8" class=""><strong>참고:</strong> 이는 사용자에게 항공편 정보를 다시 한 번 묻기 위한 것입니다.</p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-8065-9c83-f5880638ed03" class="numbered-list" start="7"><li><strong>&#x27;매개변수 사전 설정&#x27;</strong> 까지 스크롤하여 <strong>&#x27;매개변수 추가&#x27;를</strong> 클릭합니다 . 다음 <em>5개</em> 값을 입력하고 따옴표 없이 해당 값을 <strong>null 로 지정합니다.</strong><div style="display:contents" dir="auto"><p id="24ff8917-466a-8081-bc96-de90272f9cfb" class=""><strong>참고:</strong> 값 열의 따옴표를 삭제하고 <strong>null을</strong> 입력해야 합니다 . 이렇게 하면 최종 사용자로부터 수집된 매개변수가 삭제됩니다.</p></div><div style="display:contents" dir="ltr"><table id="24ff8917-466a-803f-bb66-e0917d6cf0f5" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="24ff8917-466a-804d-b88d-c254707f5295"><th id="[SYp" class="simple-table-header-color simple-table-header"><strong>매개변수</strong></th><th id="hKYf" class="simple-table-header-color simple-table-header"><strong>값</strong></th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="24ff8917-466a-805b-a11a-c57fb54b9dd5"><td id="[SYp" class=""><code>departure_city</code></td><td id="hKYf" class="">null</td></tr></div><div style="display:contents" dir="ltr"><tr id="24ff8917-466a-809b-ab35-f44dfcbcc47e"><td id="[SYp" class=""><code>destination_city</code></td><td id="hKYf" class="">null</td></tr></div><div style="display:contents" dir="ltr"><tr id="24ff8917-466a-80ac-8b51-d03123894c2f"><td id="[SYp" class=""><code>departure_date</code></td><td id="hKYf" class="">null</td></tr></div><div style="display:contents" dir="ltr"><tr id="24ff8917-466a-803e-9467-d0b549f3c5dc"><td id="[SYp" class=""><code>return_date</code></td><td id="hKYf" class="">null</td></tr></div><div style="display:contents" dir="ltr"><tr id="24ff8917-466a-8092-abfc-e46d981aea17"><td id="[SYp" class=""><code>passenger_name</code></td><td id="hKYf" class="">null</td></tr></div></tbody></table></div><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80af-a7b6-c32b4e425dd0" class="image"><a href="https://cdn.qwiklabs.com/omygsk45TRx1lA56XjoudPeuZUemBibxEugpWJXi6DI%3D"><img style="width:500px" src="https://cdn.qwiklabs.com/omygsk45TRx1lA56XjoudPeuZUemBibxEugpWJXi6DI%3D"/></a></figure></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-807f-a7bd-e5ebb2960c12" class="">이 기능의 목적은 이전에 최종 사용자로부터 수집된 값을 제거하여 사용자가 새 값을 제출할 수 있도록 하는 것입니다. 이 단계를 생략하면 봇에서 무한 루프가 발생할 수 있습니다!</p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80db-9601-cad725184e1d" class="numbered-list" start="8"><li><strong>저장을</strong> 클릭하세요 .</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80d3-8120-fce6be51b9c6" class="numbered-list" start="9"><li>창을 종료하고 빌드 보기로 돌아가면 세 페이지가 어떻게 연결되는지 확인할 수 있습니다. 마지막 페이지에는 인 텐트가 다시 연결되어 있기 때문에 페이지 <code>Confirm trip</code>와 <code>Ticket information</code>페이지 사이에 두 개의 화살표가 있습니다.<code>confirmation.no</code><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80f4-a6b6-eeff34bfe530" class="image"><a href="https://cdn.qwiklabs.com/n3x5AFtKI20ywB7pUTF0sJ6YTA6msGQxcJX4kRkNiNw%3D"><img style="width:450px" src="https://cdn.qwiklabs.com/n3x5AFtKI20ywB7pUTF0sJ6YTA6msGQxcJX4kRkNiNw%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8064-9535-e40b98e0696e" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="24ff8917-466a-80ee-a435-e01cbe196577"/></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8029-b5e0-c7049656e611" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-8014-8f72-f3cfa864c53e" class=""><strong>작업 8. 테스트</strong></h1></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80b4-99ce-f8294b3bf979" class="numbered-list" start="1"><li>에이전트가 의도한 대로 작동하는지 테스트하려면 화면 오른쪽 상단에 있는 <strong>토글 시뮬레이터 아이콘을 클릭하세요.</strong><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-8066-af17-cb4c3a43712f" class="image"><a href="https://cdn.qwiklabs.com/VaFR1qeHZpgdwXyQYlmczeOxKyFh5zh7byb%2FW3vbgx8%3D"><img style="width:500px" src="https://cdn.qwiklabs.com/VaFR1qeHZpgdwXyQYlmczeOxKyFh5zh7byb%2FW3vbgx8%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80a2-9364-e5f7251a823f" class="numbered-list" start="2"><li><strong>미리 보기: 기본 시작 흐름</strong> 페이지 의 <strong>시작 리소스</strong> 섹션 에서 <strong>기본 시작 흐름을</strong> 선택 하고 에이전트를 테스트합니다.<div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80d2-90b7-ee43e791c9f2" class="image"><a href="https://cdn.qwiklabs.com/QgTppMLscojo1EgRhc6Fv7b7gFIjk%2F9u5c1Cizygnk0%3D"><img src="https://cdn.qwiklabs.com/QgTppMLscojo1EgRhc6Fv7b7gFIjk%2F9u5c1Cizygnk0%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80e1-9c78-c333aa9db62d" class="numbered-list" start="3"><li>최종 사용자처럼 에이전트와 상호작용하세요. 주요 흐름을 따라가면서 생성한 페이지, 인텐트, 전환을 확인하세요.<div style="display:contents" dir="auto"><p id="24ff8917-466a-8026-b19b-ebe759168fbd" class="">매개변수 컬렉션을 어떻게 정렬했는지에 따라 다음 샘플 대화 상자를 입력해 보세요.</p></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80e1-8be4-d828ffa9c018" class="bulleted-list"><li style="list-style-type:disc">비행기를 예약하고 싶습니다</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80bd-bd11-eece11587fcf" class="bulleted-list"><li style="list-style-type:disc">오스틴</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80be-ad41-c6cf6c3d6a13" class="bulleted-list"><li style="list-style-type:disc">내일</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8000-9861-c81296f03d4e" class="bulleted-list"><li style="list-style-type:disc">보스턴</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-80ba-95e8-fbf6c1621ee2" class="bulleted-list"><li style="list-style-type:disc">다음 금요일</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8056-bf79-f16cbf3a7938" class="bulleted-list"><li style="list-style-type:disc">미키 마우스</li></ul></div><div style="display:contents" dir="auto"><ul id="24ff8917-466a-8020-8abb-ff6be5167fc8" class="bulleted-list"><li style="list-style-type:disc">예</li></ul></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-80e1-9312-e9ea99d89e1f" class="">이를 통해 당신의 에이전트(일반적으로 .이라고 함)를 통해 성공적인 거래가 이루어질 것입니다 <code>happy path</code>.</p></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-802a-af34-cb71eca7b4bf" class="">다음은 Test Agent 콘솔에서 위 에이전트를 테스트하는 예입니다.</p></div><div style="display:contents" dir="ltr"><figure id="24ff8917-466a-80da-a676-d2519bc5d711" class="image"><a href="https://cdn.qwiklabs.com/SbGf78R7ynyAPzb2mjc6bsT1VhZnhjaoqODAUXdaqmU%3D"><img src="https://cdn.qwiklabs.com/SbGf78R7ynyAPzb2mjc6bsT1VhZnhjaoqODAUXdaqmU%3D"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-8083-ad58-cc39c48e10a7" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="24ff8917-466a-8033-82e5-edc782fab0c4"/></div><div style="display:contents" dir="auto"><p id="24ff8917-466a-804d-a646-c7b1a05a6c92" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="24ff8917-466a-802e-b12a-f1683b18c7e9" class="">문제점</h1></div><div style="display:contents" dir="auto"><ol type="1" id="24ff8917-466a-80a2-8798-f0bcacb3aacf" class="numbered-list" start="1"><li>학습된 데이터 기반으로 대화를 하지 않다가 학습된 데이터 기반으로 대화를 하면 원하는 결과값을 얻기 힘들다. </li></ol></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

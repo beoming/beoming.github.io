@@ -1,0 +1,731 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>AWS Cloud Migration &amp; Application Modernization</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="27ef8917-466a-8089-9177-f026de39f1aa" class="page sans"><header><h1 class="page-title" dir="auto">AWS Cloud Migration &amp; Application Modernization</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="27ef8917-466a-801d-9db0-cd7a476352cd" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80c9-a33e-c63c45792e8b" class="">cloud migration은 기존 온프렘 데이터 센터에서 자체 관리하던 데이터, 애플리케이션, it 인프라와 같은 디지털 리소스를  클라우드로 이전하는 것을 의미합니다.</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-807c-a991-dedae3d8b0a8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80fd-9aa1-e5cedceecfc3" class="">cloud modernization은 container, serverless, msa, devops, api, ai/ml 등 최신 기술과 아키텍쳐를 접목시켜 디지털 혁신을 이끄는 클라우드 네이티브 기술 스택으로 전화하는 과정입니다. </p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80c2-ade2-ffc6534605ed" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8049-ada5-f8e6763050fa" class="">클라우드 마이그레이션의 두려움?</p></div><div style="display:contents" dir="auto"><ul id="27ef8917-466a-8029-bd25-f27dc4b2dc6e" class="bulleted-list"><li style="list-style-type:disc">전사적인 부서의 클라우드에 대한 이해 부족</li></ul></div><div style="display:contents" dir="auto"><ul id="27ef8917-466a-8094-8f1b-e4fa5a2fe40c" class="bulleted-list"><li style="list-style-type:disc">인프라, 솔루션, 개발 부서 별로 상이한 클라우드 견해</li></ul></div><div style="display:contents" dir="auto"><ul id="27ef8917-466a-8091-9fdf-d37b51b735c2" class="bulleted-list"><li style="list-style-type:disc">비용 지불 방법의 변화 및 it 예산 측정의 어려움</li></ul></div><div style="display:contents" dir="auto"><ul id="27ef8917-466a-8067-ba6d-f004c8d918aa" class="bulleted-list"><li style="list-style-type:disc">인력 부족 및 비즈니스 프로세스 변화</li></ul></div><div style="display:contents" dir="auto"><ul id="27ef8917-466a-803d-9ec0-c85c183dd28d" class="bulleted-list"><li style="list-style-type:disc">마이그레이션으로 인한 일시적인 비용 증가</li></ul></div><div style="display:contents" dir="auto"><ul id="27ef8917-466a-8031-9d37-c5195d442d1c" class="bulleted-list"><li style="list-style-type:disc">클라우드로 이전 작업 과정 중 비즈니스의 연속성 걱정</li></ul></div><div style="display:contents" dir="auto"><ul id="27ef8917-466a-8090-a7c8-d03341e4d6a8" class="bulleted-list"><li style="list-style-type:disc">마이그레이션 애플리케이션의 적합성 및 성능</li></ul></div><div style="display:contents" dir="auto"><ul id="27ef8917-466a-8046-9a75-f4258decfc86" class="bulleted-list"><li style="list-style-type:disc">긴급 서비스 장애 및 이벤트 프로세스 변화</li></ul></div><div style="display:contents" dir="auto"><ul id="27ef8917-466a-8076-8176-ce7369683745" class="bulleted-list"><li style="list-style-type:disc">새로운 정책 및 서비스 설정</li></ul></div><div style="display:contents" dir="auto"><ul id="27ef8917-466a-808a-8afe-f046e21bc639" class="bulleted-list"><li style="list-style-type:disc">보안 및 컴플라이언스 준수</li></ul></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80b6-ad66-fe2249f225c2" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-803f-aad3-d1ecadbc9173" class="">3가지 필수 준비 요소</p></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-80ec-9242-e16b4a93dad7" class="numbered-list" start="1"><li>경영진 레벨의 강력한 스폰서십</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-802d-be2b-cd3c2e1cbddb" class="numbered-list" start="2"><li>분명한 비즈니스 목표 설정</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-80e0-ba80-e55c30ab0d3e" class="numbered-list" start="3"><li>새로운 클라우드 기술, 운영, 개발, 보안에 대한 공백을 해결하려는 의지</li></ol></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8079-a5d1-e6540b957a26" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80d4-8df0-f690db044643" class="">Modernization 트랙</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80c6-a080-c0f8ecf82586" class="">aws 애플리케이션 현대화 전략, 어떻게 계호기을 하여 적용해야 할까?</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8077-97c6-e7297a14fbe6" class="">amazon eks는 오픈 소스인 쿠버네티스를 기반으로 aws 에서 제공하는 관리형 서비스입니다. re;Invent 2024에 발표된 주요 신기능으로는 자동화된 클러스터 관리를 지원하는 </p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-800a-b66a-f4291dba8ae4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8001-a6e2-cbc1501a3f48" class="">.net 애플리케이션 현대화를 위해 linux 기반 마이그레이션, 컨테이너화, 서버리스 전환 등 다양한 옵션을 제공합니다. sql server 역시 ec2 직접 운영, rds 관리형 서비스, aurora 전환 등 상황에 맞는 솔루션을 선택합니다.</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-806a-a30d-f3b1bcbf35ec" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80d4-a001-caeb8c88fc2b" class="">W-Concept</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80c9-a932-e77798c3e755" class="">기존 레거시 운영팀과 신규 클라우드 구축팀 분리</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-804c-b95d-c5cb193653a5" class="">6개월만에 elasticsearch 기반 검색엔진 내재화</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8085-8a4b-fb4cb1551113" class="">전시 도메인을 aws 클라우드 네이티브 애플리케이션으로 재구축</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-806c-8cdf-dc2ac40a3db8" class="">쿠폰/주문/결제 등 핵심 도메인 msa 재구축 진행</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80f8-a620-ed648f0d7f31" class="">전면 장애에서 부분 장애로 장애 범위 최소화</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8003-8f15-e2fae0deb027" class="">시스템 안정성 및 가용성 한 단계 향상</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80b7-bbaf-f41cb4b93fb5" class="">하이브리드 운영으로 관리 포인트 증가는 있었으나 전체적 안정성 개선</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80b4-aaae-e124d76fc769" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8090-bd80-fd019e055d08" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80dd-abdf-ce733fffe720" class="">AWS 애플리케이션 현대화 전략과 Amazon EKS 전략 소개</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8014-a3f1-ec923bb53a0a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8020-9324-f8d1edca7820" class="">우선순위</p></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-8073-9223-e02a6afe96a4" class="numbered-list" start="1"><li>민첩성, 속도, 혁신<div style="display:contents" dir="auto"><ol type="a" id="27ef8917-466a-80fb-a6b7-c558c4d01f10" class="numbered-list" start="1"><li>시장 출시 기간 단축, 새로운 시장 진출, 새 기능 출시 소요 시간 단축, 고객 만족도 향상</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-8028-b20b-fa390ce3845e" class="numbered-list" start="2"><li>성능과 복원력<div style="display:contents" dir="auto"><ol type="a" id="27ef8917-466a-8037-bb11-d2be828dbef5" class="numbered-list" start="1"><li>위험 및 가동 중지 최소화, 보안 패치를 더 빠르게 배포, 고객 이탈률 감소</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-80cb-8e50-cc4bdbe2f192" class="numbered-list" start="3"><li>효율성 및 가격 최적화<div style="display:contents" dir="auto"><ol type="a" id="27ef8917-466a-805b-a358-ccb3685d1450" class="numbered-list" start="1"><li>운영 비효율성 감소, 인프라 및 라이선스 비용 절감, 활용률(utilization) 증가</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80e8-9149-f299fb5d2cd3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8095-9e84-f7e6419f9252" class="">컨테이너에 대한 산업계 주요 트렌드</p></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-8087-bcfa-d98996e7ec9a" class="numbered-list" start="1"><li>플랫폼 표준화 및 규정 준수</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-8074-a2af-deae0524348a" class="numbered-list" start="2"><li>관리형 서비스를 통한 생산성 향상</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-805b-93be-e80721751d06" class="numbered-list" start="3"><li>시장/고객 요구에 따른 대응</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-8068-8be5-c15fee60c86b" class="numbered-list" start="4"><li>효율적인 리소스 활용</li></ol></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8071-96e5-da305706230d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80bd-be2c-c35d7d70cea9" class="">컨테이너를 통한 aws 애플리케이션 현대화 전략</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8015-93df-eb88fb10b906" class="">Amazon ECS + Fargate : 서버리스를 통한 Simplicity + Powerfulness</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8087-b90b-ca166c294959" class="">Amazon EKS : 개방성(openness) + 유연성</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8017-95d9-c33c51deb0a6" class="">RedHat OpenShift on AWS : 턴키 플랫폼</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-801d-9100-f123ab52cc42" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80f7-827e-ecc953492359" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8052-869a-e1ffc483150c" class="">Amazon EKS</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8009-9836-df5f8046d8d9" class="">최적화해서 배포 → Karpenter</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8060-919c-da2f1a54a578" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80ea-9202-c9332ca3bf46" class="">.NET 애플리케이션 현대화 경로</p></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-8086-9c9e-ddcec3d69041" class="numbered-list" start="1"><li>플랫폼(코드) <div style="display:contents" dir="auto"><ol type="a" id="27ef8917-466a-800c-9e97-efce83e7464d" class="numbered-list" start="1"><li>.NET 프레임워크에서 크로스 플랫폼 .NET으로 전환</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="27ef8917-466a-8009-a3c6-c558260adf41" class="numbered-list" start="2"><li>인프라 스트럭쳐</li></ol></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80de-b70a-eb21d0556904" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-803f-89e7-f2123f46f46c" class="">Nol Universe .NET 애플리케이션 현대화 사례</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80a2-9052-e6286a31db65" class="">초기 도입 단계 부터 150만 라인 이상의 대량의 코드를 변환</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80c4-97ff-c09c6770b60e" class="">대상 앱에 대한 변환 시간이 몇 개월에서 몇 주로 대폭 단축</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-80f2-8871-f7fae5c20429" class="">WINDOWS 종속성에서 벗어나 경량화 된 리눅스 기반 </p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8083-acb6-fe339ec0ab45" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-808c-92d7-ee8c63853f24" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8009-9acd-fdd6465a9534" class="">Agentic AI 혁신의 시대, sap on AWS 현대화 전략 및 고객 사례</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8034-9682-dad07c35dcd1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8023-be35-d9a8c8ab310a" class="">ERP 애플리케이션 SAP</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8022-a703-f2cb76aaf915" class="">
+</p></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-802b-b8b7-d3927f33c9f1" class="">amazon connect 서비스 소개</p></div><div style="display:contents" dir="auto"><ul id="27ef8917-466a-8022-99b3-f99c2b4b583d" class="bulleted-list"><li style="list-style-type:disc"></li></ul></div><div style="display:contents" dir="auto"><p id="27ef8917-466a-8097-b14a-cee374feba38" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,714 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>무신사</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="261f8917-466a-800f-9918-fc84ef148694" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="%EB%AC%B4%EC%8B%A0%EC%82%AC/%EB%AC%B4%EC%8B%A0%EC%82%AC.png"/></div><h1 class="page-title" dir="auto">무신사</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="261f8917-466a-8082-9803-ed0e5f3a9f54" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="261f8917-466a-80da-bc6e-e441d25062fd" class="">무신사 PoC 요청사항 관련 기술적 제약 및 고려사항</h2></div><div style="display:contents" dir="auto"><p id="261f8917-466a-80b4-a4c9-e724539b5095" class="">
+</p></div><div style="display:contents" dir="auto"><p id="261f8917-466a-80fe-95ba-c2be7aad3494" class="">무신사에서 요청하신 <strong>Conversational Agents(주) + Agent Assist(부) + Insights AI(부)</strong> PoC는 Google Cloud의 핵심 컨택센터 AI 기술 스택을 검증하는 이상적인 조합입니다.</p></div><div style="display:contents" dir="auto"><p id="261f8917-466a-80e5-b63f-d96b0e40f93a" class="">다만, 각 솔루션의 가치를 PoC 기간 내에 명확히 검증하기 위해서는 <strong>AI 모델의 핵심 성능 검증과 한국어 처리 및 지원 능력</strong>이 핵심 전제 조건입니다. </p></div><div style="display:contents" dir="auto"><hr id="262f8917-466a-80f2-8386-e91538d2b29c"/></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-80bc-a258-fb4ca4fd52eb" class="">AI 모델(Gemini) 성능 및 한국어 지원 능력 검증</h3></div><div style="display:contents" dir="auto"><p id="262f8917-466a-8077-aaf4-d97c325cee6e" class="">Google  CES 기능의 근간이 되는 AI 모델의 한국어 처리 능력과 한국어 자료 학습에 대한 신뢰도를 검증하는 단계입니다.</p></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-80aa-b663-ea44277032d3" class="">1.1 답변 품질 및 신뢰성 ( Hallucination ) 검증</h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8093-a252-c6a86f2ab67f" class="bulleted-list"><li style="list-style-type:disc"><strong>검증 목표</strong> : 챗봇 또는 음성봇이 학습 데이터에 없는 내용에 대해 답변을 지어내거나 사실과 다른 정보를 제공하는 현상이 없는지 확인해야 합니다. </li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8081-9ae4-f0b8e19941ce" class="bulleted-list"><li style="list-style-type:disc"><strong>실행 방안</strong> : PoC 시나리오의 핵심 질문들에 대한 정답(Ground Truth) 을 사전에 공동으로 정의하고, AI가 생성한 답변과 비교하여 정답률과 신뢰도를 측정합니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-806d-86d0-df432af98a3a" class="">1.2 한국어 자연어 처리(NLP) 검증</h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8066-9aec-dc7b8d64da0e" class="bulleted-list"><li style="list-style-type:disc"><strong>검증 목표 : </strong>한국어의<strong> </strong>복잡한 문장 구조, 중의적 표현, 구어체, 신조어, 높임말, 사투리 등을 Gemini가 얼마나 정확하게 이해하고, 대화의 맥락에 맞는 자연스러운 답변을 생성하는지 검증합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-802c-9278-f4dc177bce38" class="bulleted-list"><li style="list-style-type:disc">실행 방안 : 시나리오의 ‘고객 문의 예시’외, 실제 고객들이 사용할 법한 다양한 형태의 복잡한 문장으로 테스트를 진행하여 Gemini의 한국어 이해력을 검증합니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-80f8-8f34-f06918d16328" class="">1.3 음성 인식 및 사투리 대응 능력 검증</h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8047-b5d1-fa3e1b46916d" class="bulleted-list"><li style="list-style-type:disc">검증 목표 : 음성봇(Voice Bot)이 한국어(표준어)는 물론, 국내 주요 사투리와 다양한 억양, 발음을 얼마나 잘 인식하고 답변할 수 있는지 검증합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80e4-bdbd-ef06fb68d426" class="bulleted-list"><li style="list-style-type:disc">실행 방안 : 주요 지역별(경상, 전라, 충청 등) 사투리 및 억양이 포함된 테스트 스크립트를 공동으로 작성하고, 실제 음성으로  PoC를 진행하여 인식률을 측정합니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-8049-ae34-d34201176860" class="">1.4  학습 데이터 요구사항 확인</h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8085-8981-cd555702cad0" class="bulleted-list"><li style="list-style-type:disc">검증 목표 : 최적의 성능을 내기 위한 학습 데이터의 조건과 제약을 명확히 해야합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8068-9792-c26ad68ce391" class="bulleted-list"><li style="list-style-type:disc">주요 확인 사항 : <div style="display:contents" dir="auto"><ul id="262f8917-466a-8018-a3af-c67fe87d87bb" class="bulleted-list"><li style="list-style-type:circle">데이터 분량 : DataStore의 답변 품질을 높이기 위한 최소/권장 데이터(FAQ, 정책문서 등)의 분량은 어느 정도인지 논의합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-800d-8bff-c06681c90cc4" class="bulleted-list"><li style="list-style-type:circle">파일 제약 : 업로드하는 개별 파일(Pdf, Txt, Html)의 최대 용량 또는 글자 수 제한이 있는지 확인합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="261f8917-466a-804a-854a-c43f7dbe233b"/></div><div style="display:contents" dir="auto"><h3 id="261f8917-466a-803e-aaad-ccb4dc1a7757" class=""><strong>Conversational Agents (Dialogflow CX) 검증 관련</strong></h3></div><div style="display:contents" dir="auto"><blockquote id="261f8917-466a-80d2-867b-f1c179643327" class="">요청사항: PoC 우선 시나리오로 Conversational Agents를 기본으로 검증 희망</blockquote></div><div style="display:contents" dir="auto"><p id="261f8917-466a-8062-84c3-dc454f316acf" class="">Conversational Agents로 의미 있는 시나리오(예: 주문/배송 조회, 반품/교환 접수)를 구현하기 위해서는 무신사의 백엔드 시스템과의 실시간 데이터 연동이 필수적입니다.</p></div><div style="display:contents" dir="auto"><p id="261f8917-466a-809e-b8ed-e224b5edce7d" class="">요청 시나리오는 기술적 구현 난이도에 따라 크게 3단계로 구분하였습니다. </p></div><div style="display:contents" dir="auto"><p id="261f8917-466a-80b5-841b-ee94c1152990" class="">&lt;/br&gt;</p></div><div style="display:contents" dir="auto"><h3 id="261f8917-466a-8004-8131-da9eb5ffba3c" class="">Level 1. 정적 데이터 조회(Data Store 활용)</h3></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-80c7-b712-e6d31c362b61" class="bulleted-list"><li style="list-style-type:disc">해당 시나리오 :<div style="display:contents" dir="auto"><ul id="261f8917-466a-800d-b2f8-fbb8a5869672" class="bulleted-list"><li style="list-style-type:circle"><code>단순 변심</code>, <code>주문 실수</code> 시 반품/교환’정책’ 및 ‘절차’, ‘배송비’ 안내</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-806f-83f2-fb71686907e8" class="bulleted-list"><li style="list-style-type:disc">기술 구현 :<div style="display:contents" dir="auto"><ul id="261f8917-466a-8057-ab35-ea9711059f3d" class="bulleted-list"><li style="list-style-type:circle">무신사 스토어의 FAQ, 정책 안내 페이지 URL을 DataStore에 연결하여 Gemini가 학습 후 관련 질문에 자동으로 답변하도록 구성합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-808c-93ac-f6a2b1962d9d" class="bulleted-list"><li style="list-style-type:disc">제약 사항 :<div style="display:contents" dir="auto"><ul id="261f8917-466a-8023-b7a5-fccd3c5c8d12" class="bulleted-list"><li style="list-style-type:circle">데이터 정제 관련 : Gemini가 학습할 웹페이지의 내용이 텍스트 기반으로 명확하고 체계적으로 정리되어 있어야 합니다. 핵심 정보가 ‘이미지’ 안에 있거나, 복잡한 UI(탭, 아코디언 등) 속에 숨겨져 있다면 인식률이 저하될 수 있습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-803c-a042-dd58c9c02b65" class="bulleted-list"><li style="list-style-type:circle">정책 안내 페이지 URL 목록 및 해당 페이지의 크롤링 허용 여부 확인 필요</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="261f8917-466a-8029-bd03-da7e7dc5b0cb" class="">&lt;/br&gt;</p></div><div style="display:contents" dir="auto"><h3 id="261f8917-466a-8010-97fe-ee6b00a0cd1d" class="">Level 2. 실시간 동적 데이터 조회</h3></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-80f6-9ee2-cd56466850c5" class="bulleted-list"><li style="list-style-type:disc">해당 시나리오 :<div style="display:contents" dir="auto"><ul id="261f8917-466a-805d-9614-e3db5dffa13d" class="bulleted-list"><li style="list-style-type:circle"><code>배송 조회</code> : “배송이 시작되지 않아요”, “송장 번호 조회가 안돼요”</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-80a7-b2d2-d5ed686b915a" class="bulleted-list"><li style="list-style-type:circle"><code>누락 문의</code> : “주문한 상품 중 일부가 오지 않아요”</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8078-8364-cfb6c1116d68" class="bulleted-list"><li style="list-style-type:disc">기술 구현 :<div style="display:contents" dir="auto"><ul id="261f8917-466a-80d4-8c26-c88846db0019" class="bulleted-list"><li style="list-style-type:circle">고객의 주문번호를 입력받고, 무신사 주문/물류 시스템의 API를 호출하여 실시간 배송 정보 확인, 송장 번호, 출고 상품 목록 등을 조회 후 답변해야 합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8030-a803-c035964ea42c" class="bulleted-list"><li style="list-style-type:disc">제약 사항 :<div style="display:contents" dir="auto"><ul id="261f8917-466a-8068-a408-c0c591205a99" class="bulleted-list"><li style="list-style-type:circle">Read-Only API 필수 : 주문번호를 기반으로 배송 상태, 출고 내역을 조회할 수 있는 API가 Poc 기간 내에 제공되어야 합니다. 이 API가 없다면 해당 시나리오 검증은 불가능합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-80a1-926f-fed4d113a5a0" class="bulleted-list"><li style="list-style-type:disc">확인 필요 :<div style="display:contents" dir="auto"><ul id="261f8917-466a-8011-a3aa-eeec9b50d735" class="bulleted-list"><li style="list-style-type:circle">주문 정보 조회 API 존재 여부 및 명세서</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-805b-aa22-ce0459f91758" class="bulleted-list"><li style="list-style-type:circle">Poc를 위한 테스트용 API 엔드포인트 및 인증 방식</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="261f8917-466a-80c0-907d-c1a530f48826" class="">&lt;/br&gt;</p></div><div style="display:contents" dir="auto"><h3 id="261f8917-466a-80e3-b334-fce00a5a7a1f" class="">Level 3. 복합 트랜잭션 방법에 대한 논의 확정 필요</h3></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8070-9c54-d3658c1f738f" class="bulleted-list"><li style="list-style-type:disc">해당 시나리오 : <div style="display:contents" dir="auto"><ul id="261f8917-466a-8020-9f17-cfa76007160e" class="bulleted-list"><li style="list-style-type:circle"><code>검수 불만</code> 으로 인한 반품/교환 ‘접수’</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-80bb-9dc2-fe48e6492517" class="bulleted-list"><li style="list-style-type:circle"><code>교환 요청</code> 시 다른 사이즈/색상 ‘재고 확인’ 후 ‘교환 접수’</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-808d-8175-e99f13134ab8" class="bulleted-list"><li style="list-style-type:disc">기술 구현 1 :<div style="display:contents" dir="auto"><ul id="261f8917-466a-8096-be4f-dddc19d7063d" class="bulleted-list"><li style="list-style-type:circle">시스템에 실제 데이터를 생성하거나 수정(write)하는 작업입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-805c-ada5-c773729d64b9" class="bulleted-list"><li style="list-style-type:circle">Read &amp; Write API 활용 : 재고 확인 API, 반품/교환 접수 처리 API, 등 시스템을 직접 제어하는 API를 개발하여 실행합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-807c-91b9-f1035ddbb679" class="bulleted-list"><li style="list-style-type:disc">기술 구현 2 :<div style="display:contents" dir="auto"><ul id="261f8917-466a-8049-9eb2-f03d433006ea" class="bulleted-list"><li style="list-style-type:circle">Cloud Run을 활용하여 Target DB를 지정 후 데이터를 입력 및 수정합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-80b0-9082-e9622dc1e5bd" class="bulleted-list"><li style="list-style-type:circle">Publie IP 또는 Cloud VPN을 활용하여 GCP 내부 또는 외부 데이터베이스와 연결하여 통신할 수 있습니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-80ff-be1b-f2ada2288315" class="bulleted-list"><li style="list-style-type:disc">제약 사항 :<div style="display:contents" dir="auto"><ul id="261f8917-466a-80ae-9015-ebb5ec836955" class="bulleted-list"><li style="list-style-type:circle">트랜잭션 데이터를 기록할 Target DB의 확정 필요성<div style="display:contents" dir="auto"><ul id="261f8917-466a-8056-b580-d24eaaf0ce46" class="bulleted-list"><li style="list-style-type:square">고객의 요청이 실시간으로 기록되어야 하며, 어떤 데이터베이스에 어떤 형태로 저장할지에 대한 정의가 선행되어야 합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-803c-9fc5-d5e4bc72e2fd" class="bulleted-list"><li style="list-style-type:circle">BigQuery는 분석용 DB이므로 실시간 트랜잭션 처리에는 적합하지 않습니다. 단일 요청을 즉시 처리하고 기록하는 용도로는 Cloud SQL(MySQL, PostgreSQL)과 같은 정형 RDBMS나 Firebase, Mongo와 같은 비정형 NoSQL DB가 적합합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8082-807c-fa9d58340d95" class="bulleted-list"><li style="list-style-type:circle">Target DB가 확정되더라도 챗봇 또는 음성봇이 해당 DB에 안전하게 접근하여 데이터를 생성/수정할 수 있어야 합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="261f8917-466a-809a-8a7c-cc5287848691" class=""><strong>Level 4. 백엔드 시스템 연동 및 API 가용성</strong></h3></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-808f-b510-ebd237bcba33" class="bulleted-list"><li style="list-style-type:disc">제약사항<div style="display:contents" dir="auto"><ul id="261f8917-466a-80e0-ae05-cb05f149a970" class="bulleted-list"><li style="list-style-type:circle"><strong>구체적인 설명 및 확인 필요사항</strong><div style="display:contents" dir="auto"><ul id="261f8917-466a-80e9-9f9f-fec262479a13" class="bulleted-list"><li style="list-style-type:square"><strong>API 존재 여부:</strong> PoC에서 구현할 시나리오(예: 주문번호 기반 배송 상태 조회)를 위한 API가 현재 존재하는가?</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8066-8de9-ec834ebeae74" class="bulleted-list"><li style="list-style-type:square"><strong>API 문서:</strong> API 명세서(Request/Response 형식, 인증 방식 등)가 제공될 수 있는가?</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-800e-9e8f-dc5115bf1035" class="bulleted-list"><li style="list-style-type:square"><strong>API 환경:</strong> PoC를 위한 개발/테스트용 API 엔드포인트(Endpoint)가 제공되는가? 실제 운영 DB에 영향을 주지 않는 환경이 필요합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8034-9320-c04571c9335e" class="bulleted-list"><li style="list-style-type:square"><strong>인증/권한:</strong> API 호출을 위한 인증 토큰 발급 등 보안 정책은 어떻게 되는가? GS네오텍/Google의 개발 환경 IP에 대한 방화벽 허용이 필요한가?</li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="261f8917-466a-80cc-9640-f8747d5a48ca" class="">&lt;br&gt;</p></div><div style="display:contents" dir="auto"><h3 id="261f8917-466a-801e-8847-da5262e8a36b" class=""><strong>Level 5. 지식 데이터베이스(Knowledge Base) 활용을 위한 데이터 형태</strong></h3></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8042-aab1-c6f77342aa46" class="bulleted-list"><li style="list-style-type:disc">제약사항<div style="display:contents" dir="auto"><p id="261f8917-466a-80ec-8e93-fb3f49908375" class="">상품 정보, 정책 안내 등 방대한 데이터를 효과적으로 활용하는 Data Store 기능을 검증하려면, Google AI가 학습할 수 있는 형태의 데이터 소스가 필요합니다. 데이터가 분산되어 있거나 비정형적인 포맷(예: 이미지 속 텍스트, PDF) 위주일 경우 데이터 전처리 과정이 추가로 필요합니다.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8080-b4cf-e90c7a115d44" class="bulleted-list"><li style="list-style-type:disc"><strong>구체적인 설명 및 확인 필요사항</strong><div style="display:contents" dir="auto"><ul id="261f8917-466a-806a-a0e1-f642f4578060" class="bulleted-list"><li style="list-style-type:circle"><strong>데이터 소스:</strong> FAQ, 상품 정보, 반품 정책 등의 정보가 웹사이트(URL) 형태로 존재하는가, 아니면 내부 문서(PDF, DOCX) 형태로 관리되는가?</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8032-8999-cace1780fa9b" class="bulleted-list"><li style="list-style-type:circle"><strong>데이터 구조:</strong> 웹사이트의 경우, 정보가 체계적인 구조(HTML 태그)로 정리되어 있는가? 크롤링이 용이한 구조인지 확인이 필요합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8079-ae59-c3a638383938" class="bulleted-list"><li style="list-style-type:circle"><strong>데이터 범위:</strong> PoC 기간 동안 테스트에 사용할 특정 카테고리나 브랜드의 상품 데이터를 미리 선별하여 제공받을 수 있는가?</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="261f8917-466a-806d-b98b-c234f5007f3e"/></div><div style="display:contents" dir="auto"><h3 id="261f8917-466a-8020-bd70-f6e5349efbcf" class=""><strong>Agent Assist 검증 관련</strong></h3></div><div style="display:contents" dir="auto"><blockquote id="261f8917-466a-8084-8951-f362b6275ba8" class="">요청사항: 일부 Agent Assist 기능 검증 희망</blockquote></div><div style="display:contents" dir="auto"><p id="261f8917-466a-8080-ba2e-fa46ea164fb0" class="">Agent Assist는 독립적인 상담사 애플리케이션이 아닌, <strong>기존에 사용 중인 상담 솔루션(CTI, CRM)에 &#x27;통합&#x27;되는 방식</strong>으로 동작합니다. 따라서 기존 시스템과의 연동 가능성 확인이 가장 중요합니다.</p></div><div style="display:contents" dir="auto"><p id="261f8917-466a-80c1-a4a0-c850c5b8f441" class="">&lt;br&gt;</p></div><div style="display:contents" dir="auto"><h3 id="261f8917-466a-80d7-a285-fd36a87d4edb" class=""><strong>1.1. 기존 상담 솔루션(CTI/CRM)과의 통합(Integration) 제약</strong></h3></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8053-9f33-e234887c2ca4" class="bulleted-list"><li style="list-style-type:disc">제약사항<div style="display:contents" dir="auto"><p id="261f8917-466a-8076-bb7c-cb9719cdff67" class="">Agent Assist의 핵심 기능인 &#x27;실시간 답변 추천(Smart Reply)&#x27;, &#x27;관련 문서 추천(Article Suggestion)&#x27;은 상담사가 고객과 대화하는 화면에 실시간으로 표시되어야 합니다. 현재 무신사에서 사용하는 상담 솔루션이 Google의 Agent Assist API 연동을 지원하지 않거나, 커스터마이징이 불가능한 솔루션일 경우 PoC 검증이 어려울 수 있습니다.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-80bb-acb0-d274cf51bff7" class="bulleted-list"><li style="list-style-type:disc"><strong>구체적인 설명 및 확인 필요사항</strong><div style="display:contents" dir="auto"><ul id="261f8917-466a-80db-abff-ecde11e96696" class="bulleted-list"><li style="list-style-type:circle"><strong>현재 솔루션 확인:</strong> 현재 상담사들이 사용하는 주된 상담용 애플리케이션은 무엇인가? (예: 자체 개발 CRM, Genesys, Zendesk 등)</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-803b-95dd-c2934d58aed3" class="bulleted-list"><li style="list-style-type:circle"><strong>API 연동 지원 여부:</strong> 해당 솔루션이 외부 API를 호출하고 화면에 정보를 표시하는 기능(UI Customization)을 제공하는가?</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8002-811a-ce9d300c4b94" class="bulleted-list"><li style="list-style-type:circle"><strong>대안:</strong> 만약 직접 연동이 어렵다면, PoC 기간 동안 Google에서 제공하는 &#x27;데모용 Agent Assist 화면&#x27;을 통해 기능 자체를 검증하는 방식으로 진행 범위를 협의해야 합니다. 이 경우 실제 상담 환경과는 차이가 있을 수 있습니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="261f8917-466a-80ee-9c5b-c49c65f169a6"/></div><div style="display:contents" dir="auto"><h3 id="261f8917-466a-80e8-a19f-d2a22495f9a3" class=""><strong>Insights AI 검증 관련 (대화 데이터 분석)</strong></h3></div><div style="display:contents" dir="auto"><blockquote id="261f8917-466a-8022-b56d-d0a399326897" class="">요청사항: 일부 AI Insight 기능 검증 희망</blockquote></div><div style="display:contents" dir="auto"><p id="261f8917-466a-80e5-a677-d2bd9aa84678" class="">Insights AI는 수많은 고객과의 <strong>&#x27;대화 데이터(녹취, 채팅로그)&#x27;를 분석</strong>하여 의미 있는 인사이트를 도출하는 솔루션입니다. 따라서 충분한 양의 고품질 데이터 확보가 관건입니다.</p></div><div style="display:contents" dir="auto"><p id="261f8917-466a-8047-9dfe-d8c977edfbdf" class="">&lt;br&gt;</p></div><div style="display:contents" dir="auto"><h3 id="261f8917-466a-8006-b2e5-fea0cf88208b" class=""><strong>2.1. 분석을 위한 대화 데이터(Call/Chat Log) 확보</strong></h3></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8003-886a-dca2ccdcaace" class="bulleted-list"><li style="list-style-type:disc">제약사항<div style="display:contents" dir="auto"><p id="261f8917-466a-806b-bc62-e28a264c34ec" class="">PoC 기간(보통 1~2개월) 동안 수집되는 데이터만으로는 통계적으로 의미 있는 트렌드나 이상 감지를 발견하기 어렵습니다. 솔루션의 가치를 제대로 검증하려면, 과거에 축적된 대화 데이터를 활용하는 것이 필수적입니다.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-8036-ae01-e6d29775849e" class="bulleted-list"><li style="list-style-type:disc"><strong>구체적인 설명 및 확인 필요사항</strong><div style="display:contents" dir="auto"><ul id="261f8917-466a-808a-8ac0-c0915f6c5f18" class="bulleted-list"><li style="list-style-type:circle"><strong>데이터 제공 가능 여부:</strong> 분석을 위해 과거 3~6개월 치의 고객 상담 데이터(음성 녹취 파일, 채팅 로그 텍스트)를 제공받을 수 있는가?</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-809a-a35b-fa1a36a75edb" class="bulleted-list"><li style="list-style-type:circle"><strong>데이터 포맷:</strong><div style="display:contents" dir="auto"><ul id="261f8917-466a-803e-b222-fe7f633554a4" class="bulleted-list"><li style="list-style-type:square"><strong>음성:</strong> 고객과 상담사의 음성이 분리된 스테레오(Stereo) 녹취 파일(wav, mp3 등)인가? GCS(Google Cloud Storage)에 업로드 가능한 형태인가?</li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-80b6-9dba-f80afe2a7567" class="bulleted-list"><li style="list-style-type:square"><strong>채팅:</strong> 발화자, 시간 등이 구분된 정형화된 포맷(JSON, CSV 등)으로 추출이 가능한가?</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="261f8917-466a-80eb-abb1-ef829353207c" class="bulleted-list"><li style="list-style-type:circle"><strong>개인정보보호(PII):</strong> 데이터 제공 시, 주민번호, 주소, 카드번호 등 민감한 개인정보를 비식별화(Masking) 처리하여 제공할 수 있는가? 이는 PoC의 가장 중요한 보안 요건입니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="261f8917-466a-8059-aed4-df5d3ee31b5d"/></div><div style="display:contents" dir="auto"><h2 id="262f8917-466a-80b2-b3ee-cebad88296fb" class="">이번 PoC에서 검증할 Google CES 기능 상세 소개</h2></div><div style="display:contents" dir="auto"><blockquote id="262f8917-466a-808d-881a-e3ee29909be3" class="">단순히 챗봇, 상담사 지원, 음성봇 등을 개별적으로 보는 것이 아니라, 세부 기술들이 어떻게 유기적으로 결합하여 하나의 완성된 AI 컨택센터를 구성하는지 검증하는 과정입니다.</blockquote></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-80ab-b8cd-e4553a14e913" class=""><strong>Conversational Agents (Dialogflow CX): 대화형 AI 플랫폼</strong></h3></div><div style="display:contents" dir="auto"><p id="262f8917-466a-80ea-aee4-c1071f8f40d2" class="">고객과의 모든 상호작용을 처리하는 핵심 엔진입니다. 단순히 질문에 답하는 것을 넘어, 정교한 업무 처리와 지능적인 대화 생성까지 가능한 다층적 구조를 가지고 있습니다.</p></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-8049-89e6-e1ecf0cd2d28" class=""><strong>1. 대화 흐름 제어 계층 (Orchestration Layer)</strong></h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8092-ac65-dd9b3d92b0d0" class="bulleted-list"><li style="list-style-type:disc"><strong>Flows &amp; Pages:</strong> 대화의 전체적인 시나리오를 시각적으로 설계하는 &#x27;설계도&#x27;입니다. 고객의 &#x27;반품 요청&#x27; 시나리오를 예로 들면, <code>주문번호 확인 페이지</code> -&gt; <code>반품 사유 선택 페이지</code> -&gt; <code>최종 접수 확인 페이지</code> 등으로 상태를 나누어, 어떤 경우에도 대화가 길을 잃지 않도록 정교하게 제어합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8053-a1e9-ce98d0a09d76" class="bulleted-list"><li style="list-style-type:disc"><strong>Intents &amp; Entities:</strong> 사용자의 &#x27;의도(Intent)&#x27;와 &#x27;핵심 정보(Entity)&#x27;를 파악하는 언어 이해의 핵심입니다. &quot;검정색 맨투맨 L사이즈로 교환해주세요&quot;라는 문장에서 &#x27;교환&#x27;이라는 의도와 함께 &#x27;색상: 검정&#x27;, &#x27;상품: 맨투맨&#x27;, &#x27;사이즈: L&#x27;이라는 정보를 정확하게 추출해냅니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-803f-8bab-ca655ba5b298" class=""><strong>2. 생성형 AI 계층 (Generative Layer)</strong></h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8023-91ac-de754ec5da78" class="bulleted-list"><li style="list-style-type:disc"><strong>Data Store (Vertex AI Search):</strong> AI 상담원의 &#x27;지식 두뇌&#x27; 역할을 합니다.<div style="display:contents" dir="auto"><ul id="262f8917-466a-80bc-8899-d962bb3edb81" class="bulleted-list"><li style="list-style-type:circle"><strong>기능:</strong> 무신사의 방대한 FAQ 웹페이지, 상품 상세페이지, 정책 문서(PDF, TXT 등)를 그대로 학습하여, <strong>별도의 대화 흐름을 만들지 않아도</strong> 관련 질문에 대해 Gemini 모델이 문서 내용을 근거로 <strong>요약형/답변형 대화를 실시간으로 생성</strong>해냅니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-803d-9c84-ecb1d53e4435" class="bulleted-list"><li style="list-style-type:circle"><strong>PoC 검증 포인트 (Phase 1):</strong> 복잡한 반품/교환 정책 문의에 대해 얼마나 정확하고 할루시네이션 없이 답변을 생성하는지를 검증합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80b8-9c94-f52a64775184" class="bulleted-list"><li style="list-style-type:disc"><strong>Generators:</strong> AI 상담원의 &#x27;창의적 문장 생성&#x27; 능력입니다.<div style="display:contents" dir="auto"><ul id="262f8917-466a-801e-a5eb-f6f001005074" class="bulleted-list"><li style="list-style-type:circle"><strong>기능:</strong> &quot;배송 지연에 대해 고객에게 정중하게 사과하고, 현재 배송 상태와 예상 도착일을 포함하여 안내 이메일 초안을 작성해줘&quot; 와 같이, 정해진 답변이 아닌 특정 목적을 가진 새로운 문장을 동적으로 생성할 수 있습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-806b-9320-d481f2538f75" class="bulleted-list"><li style="list-style-type:circle"><strong>PoC 검증 포인트:</strong> PoC의 핵심은 아니지만, 특정 상황(예: 불만 고객 응대)이나 특정 인텐트에서 얼마나 인간적인 뉘앙스의 답변을 만드는지 추가 검증이 가능합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-808a-ad71-dc4c0d4972cb" class=""><strong>3. 시스템 연동 계층 (Integration Layer)</strong></h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80c7-bed4-df1f0a05ef2e" class="bulleted-list"><li style="list-style-type:disc"><strong>Tools (OpenAPI):</strong> AI 상담원이 외부 시스템과 통신하는 &#x27;표준화된 연결 통로&#x27;입니다.<div style="display:contents" dir="auto"><ul id="262f8917-466a-8078-a7cc-e3e61da781c7" class="bulleted-list"><li style="list-style-type:circle"><strong>기능:</strong> 무신사의 주문 시스템 API 명세(OpenAPI Spec)를 등록하면, AI가 스스로 &quot;어떤 정보를 보내야 주문 조회가 가능한지&quot; 등을 학습합니다. 이를 통해 <strong>재고 조회, 배송 상태 확인</strong> 등 실시간 정보 조회가 가능해집니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80d1-a983-ce3cac8a74ae" class="bulleted-list"><li style="list-style-type:circle"><strong>PoC 검증 포인트 (Phase 2):</strong> 주문 조회 API와 연동하여 실시간 배송 상태를 정확히 가져오는지 검증합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80ec-a71f-e919a9313094" class="bulleted-list"><li style="list-style-type:disc"><strong>Cloud Run:</strong> AI 에이전트의 서버리스 실행 환경입니다.<div style="display:contents" dir="auto"><ul id="262f8917-466a-80e0-932a-fb4b2b923f9d" class="bulleted-list"><li style="list-style-type:circle"><strong>기능:</strong> API가 없는 경우에도, Cloud Run에 작성된 코드(Python 등)를 통해 <strong>DB에 직접 데이터를 읽거나 쓸 수 있습니다.</strong> 예를 들어 &#x27;반품 접수&#x27; 요청이 오면, Cloud Run 코드가 직접 무신사의 <strong>Target DB</strong>에 반품 정보를 Insert/Update 합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8037-b04b-ef5f9fe0c7e0" class="bulleted-list"><li style="list-style-type:circle"><strong>PoC 검증 포인트 (Phase 3):</strong> 재고 확인 후 교환 접수 등, 실제 DB의 데이터를 변경하는 복합 트랜잭션을 안정적으로 처리하는지 검증합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8034-b8ef-c3a09cce08ee" class="bulleted-list"><li style="list-style-type:disc"><strong>Agentspace (Optional):</strong> 기업용 &#x27;AI 비서 포털&#x27;입니다.<div style="display:contents" dir="auto"><ul id="262f8917-466a-803c-b17d-dfee400f8cc3" class="bulleted-list"><li style="list-style-type:circle"><strong>기능:</strong> 단순 챗봇을 넘어, 여러 AI 에이전트와 Tool들을 하나의 통합된 인터페이스에서 사용할 수 있는 기업용 어시스턴트 앱입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-806c-97d4-fea2ac6d199a" class="bulleted-list"><li style="list-style-type:circle"><strong>PoC 검증 포인트:</strong> 이번 PoC의 직접적인 범위는 아니지만, AgentSpace는 여러 전문봇(예약봇, 환불/교환 봇, 고객불만문의 봇 등)들을 한 곳에 모아주는 허브 역할을 합니다.<div style="display:contents" dir="auto"><ul id="262f8917-466a-809c-a29f-ef6580f6173e" class="bulleted-list"><li style="list-style-type:square"><strong>Conversational Agent의 각 실무에 맞는 봇을 콜하는가?</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-8061-8927-fe5a19a1b1a3" class="bulleted-list"><li style="list-style-type:disc">사용자가 ‘A 부터 B까지 C를 목적으로 D부터 E까지 기간동안의 제품을 교환하고싶어’ 와 같이 복잡한 문장으로 요청했을 때, 이름, 구매일시, 재고확인, 불만사항 등 모든 정보를 정확하게 추출해 내는지 검증합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80e9-b818-d32bce34a599" class="bulleted-list"><li style="list-style-type:square"><strong>Cloud Run 의 실행 능력이 있는가?</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-80b2-8d2c-fd3398939607" class="bulleted-list"><li style="list-style-type:disc">Conversational Agent가 호출했을 때, Cloud Run 함수가 JSON 형태의 데이터를 정상적으로 수신하는지 검증합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-809a-889d-eee771f7b84e" class="bulleted-list"><li style="list-style-type:disc">수신한 데이터를 가지고 Target DB 테이블에 새로운 행을 정확하게 insert 하는지 검증합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8020-b3d1-d117c5579657" class="bulleted-list"><li style="list-style-type:square"> <strong>사용자가 AgentSpace에 요청했을 때, 요청의 의도를 파악하고 정확한 전문 에이전트에게 작업을 위임하는가?</strong></li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="262f8917-466a-80cb-a5d3-f03e5e997c5d"/></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-80c7-aecf-fbf11ce5d02e" class=""><strong>Agent Assist: 상담사 AI 코파일럿</strong></h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8010-a7f6-efacb79fd16d" class="bulleted-list"><li style="list-style-type:disc"><strong>기술 상세:</strong> 사람 상담사와 고객의 대화(음성/채팅)를 <strong>실시간으로 텍스트로 변환</strong>하고, 이 텍스트의 맥락을 분석하여 동작합니다. AI는 이 분석 결과를 바탕으로 상담사의 CRM 화면에 <strong>연관성이 가장 높은 지식(Data Store 연동)이나 추천 답변(Smart Reply)을 제시</strong>합니다. 이는 Conversational Agents와 동일한 NLU 기술 및 지식 기반을 공유하기에 일관된 정보 제공이 가능합니다.</li></ul></div><div style="display:contents" dir="auto"><hr id="262f8917-466a-809f-8e8c-e6645d02f0b7"/></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-8057-afa6-c584f251689d" class=""><strong>Insights AI: AI 데이터 분석가</strong></h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80fc-9fe2-ec575ed7b568" class="bulleted-list"><li style="list-style-type:disc"><strong>기술 상세:</strong> 녹취 파일이나 채팅 로그가 저장소(Google Cloud Storage)에 업로드되면, <strong>AI가 자동으로 화자를 분리(Diarization)하고 전체 대화를 텍스트로 변환</strong>합니다. 이 변환된 텍스트 전체에 대해 Google의 강력한 NLP 모델이 적용되어, 대화의 <strong>핵심 주제, 고객의 감정, 특정 키워드의 출현 빈도 등을 분석</strong>하고 시각적인 대시보드로 보여줍니다. PoC에서는 이 과정에서 한국어 분석의 정확도를 집중적으로 검증하게 됩니다.</li></ul></div><div style="display:contents" dir="auto"><p id="262f8917-466a-8076-9d96-dbae452ac754" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="262f8917-466a-800c-a083-fa279bf41b47"/></div><div style="display:contents" dir="auto"><h3 id="261f8917-466a-80f5-a64d-d8abbe5be042" class=""><strong>PoC 킥오프 미팅 사전 논의 사항</strong></h3></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-808e-a2ba-e4011c72d5ef" class=""><strong>1. PoC 목표 및 운영 방안</strong></h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80c2-a1d7-f2f5c4bc6f84" class="bulleted-list"><li style="list-style-type:disc"><strong>1-1. PoC 성공 측정 지표(KPI) 정의</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-80a7-8942-cc1c451882ef" class="bulleted-list"><li style="list-style-type:circle"><code>[논의]</code> PoC 완료 후 성공 여부를 판단할 핵심 비즈니스/기술 지표를 사전에 정의합니다.<div style="display:contents" dir="auto"><ul id="262f8917-466a-80ca-ae05-f4916178ed3f" class="bulleted-list"><li style="list-style-type:square">(예: 단순 문의 자동화 처리율, 답변 정확도, 평균 상담 처리 시간(AHT) 감소율 등)</li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8064-95cf-eab8a1b15049" class="bulleted-list"><li style="list-style-type:disc"><strong>1-2. PoC 기술 지원 담당자 지정</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-8002-867a-fdb8f85f4e40" class="bulleted-list"><li style="list-style-type:circle"><code>[제안]</code> PoC 기간 동안 API, 데이터, 내부 시스템 관련 문의에 대응해주실 무신사 측 기술 담당자(Point of Contact)를 지정 요청 드립니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80e2-855c-c93560450001" class="bulleted-list"><li style="list-style-type:circle"></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-8090-ab27-d08fe1fd8b10" class=""><strong>2. AI 모델 성능 및 한국어 지원 검증</strong></h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80e6-81af-dc7270684771" class="bulleted-list"><li style="list-style-type:disc"><strong>2-1. 답변 품질(Hallucination) 및 자연어 처리(NLP) 검증 방안</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-804a-93f2-c40a7606b4a4" class="bulleted-list"><li style="list-style-type:circle"><code>[논의]</code> AI 답변의 신뢰도(Hallucination) 및 한국어 이해력(복잡한 문장, 신조어 등)을 검증할 테스트 케이스와 평가 기준을 확정합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80e3-89e3-dd4a34b59e06" class="bulleted-list"><li style="list-style-type:disc"><strong>2-2. 음성(사투리) 인식률 검증 방안</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-8009-8fe8-f7dcff411881" class="bulleted-list"><li style="list-style-type:circle"><code>[논의]</code> 음성봇의 사투리, 억양 등 인식률을 검증할 테스트 스크립트의 범위와 내용을 논의합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80eb-8cbd-f889577fdd43" class="bulleted-list"><li style="list-style-type:disc"><strong>2-3. 학습 데이터 요구사항 확인</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-80a1-a1b6-f88ec4ce4382" class="bulleted-list"><li style="list-style-type:circle"><code>[확인]</code> Data Store의 최적 성능을 위한 데이터 분량, 파일 형식, 용량/글자 수 제한 등 제약사항을 확인합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-8022-877c-fe481799d15b" class=""><strong>3. Conversational Agents 시나리오 범위 확정</strong></h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8080-b6dd-f3f25970e670" class="bulleted-list"><li style="list-style-type:disc"><strong>3-1. [Phase 1] 정적 정보 안내</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-80e4-b6f8-d41c271963dc" class="bulleted-list"><li style="list-style-type:circle"><code>[확인]</code> AI가 학습할 FAQ/정책 안내 페이지 URL 목록 또는 문서 파일을 제공받습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-803d-bc1a-cb3650573107" class="bulleted-list"><li style="list-style-type:circle"><code>[논의]</code> 해당 데이터의 정제 수준 및 크롤링 제약 여부를 논의합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8064-ade0-d7afbc0f7dbe" class="bulleted-list"><li style="list-style-type:disc"><strong>3-2. [Phase 2] 실시간 정보 조회</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-807d-94f4-c3beebf67d4b" class="bulleted-list"><li style="list-style-type:circle"><code>[논의]</code> &#x27;배송 조회&#x27;, &#x27;누락 문의&#x27; 등 실시간 조회 시나리오를 PoC 범위에 포함할지 결정합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8068-9097-fb515d885d9a" class="bulleted-list"><li style="list-style-type:circle"><code>[확인]</code> 포함 시, 필수적인 <strong>Read-Only API</strong>의 제공 가능 여부와 테스트 환경을 확인합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80e6-bed3-f7f636755d95" class="bulleted-list"><li style="list-style-type:disc"><strong>3-3. [Phase 3] 복합 트랜잭션 처리</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-80ef-9aae-d3588b337055" class="bulleted-list"><li style="list-style-type:circle"><code>[논의]</code> &#x27;반품/교환 접수&#x27; 등 실제 데이터 쓰기(Write) 시나리오를 PoC에 포함할지 결정합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-807e-8f30-ccfd854bb247" class="bulleted-list"><li style="list-style-type:circle"><code>[논의]</code> 포함 시, 트랜잭션 데이터를 기록할 <strong>Target DB를 선정</strong>하고 <strong>Write API</strong> 제공 방안을 논의합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-809e-bb8b-c2252e92ec09" class=""><strong>4. Agent Assist 연동 방안</strong></h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8019-acbf-d1dc1b78d5fd" class="bulleted-list"><li style="list-style-type:disc"><strong>4-1. 기존 상담 시스템 연동 가능성 확인</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-80c1-a2ef-d14f361caece" class="bulleted-list"><li style="list-style-type:circle"><code>[확인]</code> 현재 사용 중인 상담 솔루션(CRM/CTI)을 식별하고, API/UI 연동 지원 여부를 확인합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-800c-b919-c534319a157b" class="bulleted-list"><li style="list-style-type:circle"><code>[논의]</code> 직접 연동이 어려울 경우, <strong>Google 제공 데모 환경</strong>을 통한 기능 검증으로 범위를 축소하는 방안을 논의합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="262f8917-466a-80d8-9d7c-f531fd63e15b" class=""><strong>5. Insights AI 데이터 준비</strong></h3></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-80a4-a179-dc895565ee80" class="bulleted-list"><li style="list-style-type:disc"><strong>5-1. 분석용 과거 대화 데이터 확보 방안</strong><div style="display:contents" dir="auto"><ul id="262f8917-466a-8009-8b4e-f9d14f52e409" class="bulleted-list"><li style="list-style-type:circle"><code>[논의]</code> 분석을 위해 제공 가능한 과거 상담 데이터의 기간과 양을 확정합니다. (3~6개월 분량 권장)</li></ul></div><div style="display:contents" dir="auto"><ul id="262f8917-466a-8099-b7ad-c9831936b54b" class="bulleted-list"><li style="list-style-type:circle"><code>[확인]</code> 데이터 포맷(스테레오 음성, 정형화된 채팅 로그) 및 <strong>개인정보 비식별화(PII Masking) 처리 방안</strong>을 최종 확정합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="273f8917-466a-80f2-b352-f2aaa6a8d42d" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="273f8917-466a-80b1-a26e-c25d2e328788" class="link-to-page"><a href="%EB%AC%B4%EC%8B%A0%EC%82%AC/AI%20%EA%B8%B0%EB%B0%98%20%EC%B1%97%EB%B4%87%20%EA%B5%AC%EC%B6%95%20MVP%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%9E%91%EC%97%85%20%EA%B8%B0%EC%88%A0%EC%84%9C(Statement%20of%20Work)%20273f8917466a80b1a26ec25d2e328788.html">AI 기반 챗봇 구축 MVP 프로젝트 작업 기술서(Statement of Work)</a></figure></div><div style="display:contents" dir="ltr"><figure id="27ff8917-466a-80f2-9bd3-f5e2ab5aa7ec" class="link-to-page"><a href="%EB%AC%B4%EC%8B%A0%EC%82%AC/%EB%AC%B4%EC%8B%A0%EC%82%AC%20MVP%20%EC%B5%9C%EC%A2%85%20%EB%AF%B8%ED%8C%85%2027ff8917466a80f29bd3f5e2ab5aa7ec.html">무신사 MVP 최종 미팅</a></figure></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

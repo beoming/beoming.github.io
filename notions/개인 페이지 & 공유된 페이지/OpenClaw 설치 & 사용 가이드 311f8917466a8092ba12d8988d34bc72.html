@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>OpenClaw 설치 &amp; 사용 가이드 </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="311f8917-466a-8092-ba12-d8988d34bc72" class="page sans"><header><h1 class="page-title" dir="auto">OpenClaw 설치 &amp; 사용 가이드 </h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><hr id="311f8917-466a-80f5-aadf-f152b633a91b"/></div><div style="display:contents" dir="auto"><h1 id="311f8917-466a-80fc-b5e3-cef503076df5" class="">1. 오픈클로(OpenClaw)가 대체 뭔가요?</h1></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-803e-a5f4-e95e6c66d22b" class="">1-1. 한 줄 요약</h2></div><div style="display:contents" dir="auto"><p id="311f8917-466a-801a-80bc-fd6e1cb0cfcb" class="">OpenClaw는 내 컴퓨터에 설치하는 개인 AI 비서입니다. 텔레그램, 왓츠앱, 디스코드 같은 메신저로 AI에게 말을 걸면, AI가 내 컴퓨터에서 직접 파일 정리, 웹 검색, 일정 관리, 코드 실행 등을 대신 해줍니다.</p></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-80a1-8f2c-d5e782f4f6ae" class="">1-2. 쉬운 비유로 이해하기</h2></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8059-a3e0-dd53bed3e190" class="">영화 아이언맨의 자비스(JARVIS)를 떠올려보세요. 토니 스타크가 “자비스, 이것 좀 해줘”라고 말하면 자비스가 알아서 처리하죠? OpenClaw가 바로 그 자비스입니다.</p></div><div style="display:contents" dir="ltr"><table id="311f8917-466a-8067-9b61-c03cadacb8ba" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="311f8917-466a-806e-8eed-d0316b539d04"><th id="zyyy" class="simple-table-header-color simple-table-header">비교 항목</th><th id="Nc}D" class="simple-table-header-color simple-table-header">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="311f8917-466a-8042-8d3e-f10d34c5739b"><td id="zyyy" class="">ChatGPT / Claude 웹</td><td id="Nc}D" class="">대화만 가능 (&quot;말만 하는 AI&quot;)</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80e6-bc50-e0995ecd003e"><td id="zyyy" class="">시리 / 빅스비</td><td id="Nc}D" class="">알람 설정 정도만 가능 (권한 제한)</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80b3-b308-e91d13d510be"><td id="zyyy" class="">OpenClaw</td><td id="Nc}D" class="">내 컴퓨터를 실제로 조작하는 AI (&quot;일하는 AI&quot;)</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8034-b5ba-e887a3466c81" class="">1-3. 왜 지금 OpenClaw가 중요한가?</h2></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-807d-8ca8-d8b8c553e098" class="bulleted-list"><li style="list-style-type:disc"><strong>AI 에이전트(Agent) 시대의 개막</strong>: 2024~2025년은 AI가 ‘대답만 하는 단계’에서 ‘실제로 행동하는 단계’로 넘어가는 전환점입니다. OpenClaw는 이 전환을 가장 먼저, 가장 쉽게 체험할 수 있는 오픈소스 도구입니다. GitHub 스타 10만 개를 돌파하며 역대 가장 빠른 성장세를 기록 중입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8075-8b23-c19cb7e19f33" class="bulleted-list"><li style="list-style-type:disc"><strong>왜 비전공자에게도 중요한가?</strong><div style="display:contents" dir="auto"><p id="311f8917-466a-8044-94ea-e984a5fab61e" class="">이제 AI는 단순히 질문에 답하는 것을 넘어, 여러분 대신 이메일을 보내고, 파일을 정리하고, 뉴스를 요약하고, SNS에 글을 올리는 시대가 열리고 있습니다. OpenClaw를 지금 경험해두면, 앞으로 모든 사람이 사용하게 될 ‘AI 비서 시대’를 미리 준비하는 셈입니다.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8057-93e6-d3aecbd5ceca" class=""><strong>핵심 포인트</strong></p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8066-9303-c72a0dfe61fb" class="">OpenClaw = 내 컴퓨터에 사는 AI 비서. 메신저로 말 걸면 진짜로 일해줌. 오픈소스라 완전 무료. 다만 AI 두뇌(API) 연결 비용은 별도 (월 몇천원 수준).</p></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8000-bb70-cbdb6a23f2f5" class="">1-4. OpenClaw가 할 수 있는 것들</h2></div><div style="display:contents" dir="ltr"><table id="311f8917-466a-8081-950d-cf87235b8ad1" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80e8-ac4c-ccb274f31e4f"><th id="QoJP" class="simple-table-header-color simple-table-header">기능 카테고리</th><th id="QPo\" class="simple-table-header-color simple-table-header">구체적인 예시</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="311f8917-466a-8046-968f-e13e679a619c"><td id="QoJP" class="">파일 관리</td><td id="QPo\" class="">폴더 정리, 파일 이름 변경, 중복 파일 삭제</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80d4-bf0a-cbe882e7a74f"><td id="QoJP" class="">웹 검색/요약</td><td id="QPo\" class="">뉴스 검색 후 요약, 날씨 확인, 환율 조회</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-8088-90f3-e9ffc80e110d"><td id="QoJP" class="">메시지 자동화</td><td id="QPo\" class="">정해진 시간에 브리핑 메시지 전송</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80f1-8fd8-f9781258f60c"><td id="QoJP" class="">코드 실행</td><td id="QPo\" class="">파이썬 스크립트 실행, Git 커밋/푸시</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-8079-9652-e7fedde25b03"><td id="QoJP" class="">브라우저 제어</td><td id="QPo\" class="">웹 페이지 스크린샷, 폼 자동 입력</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80af-b3b4-e83d32559599"><td id="QoJP" class="">스마트홈</td><td id="QPo\" class="">Philips Hue, Home Assistant 제어</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-806e-8efc-cb38e4039147"><td id="QoJP" class="">생산성 도구 연동</td><td id="QPo\" class="">Notion, Obsidian, Trello, GitHub 등</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-800b-a437-f018a2138fd2" class="">1-5. OpenClaw의 이름 변천사</h2></div><div style="display:contents" dir="auto"><p id="311f8917-466a-806a-b81c-f63ed354fe6f" class="">OpenClaw는 원래 <strong>Clawdbot(클로드봇)</strong> 이라는 이름으로 시작했습니다. Anthropic(Claude 개발사)의 요청으로 <strong>Moltbot(몰트봇)</strong> 으로 변경되었다가, 현재의 <strong>OpenClaw(오픈클로)</strong> 라는 이름으로 최종 정착했습니다. 인터넷에서 이전 이름으로 검색해도 같은 프로젝트입니다.</p></div><div style="display:contents" dir="auto"><hr id="311f8917-466a-8005-90e6-f92c2a08ed5a"/></div><div style="display:contents" dir="auto"><h1 id="311f8917-466a-804e-a352-cb4f35fc4c16" class="">2. 설치 전 준비사항 (체크리스트)</h1></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-808c-8a3c-e1e945db91db" class="">2-1. 내 컴퓨터가 가능한지 확인</h2></div><div style="display:contents" dir="ltr"><table id="311f8917-466a-802e-b264-d9bb739b11c7" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="311f8917-466a-8086-90b6-da8c8d680c89"><th id="sa[F" class="simple-table-header-color simple-table-header">항목</th><th id="a{up" class="simple-table-header-color simple-table-header">필수 조건</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="311f8917-466a-8083-86ee-e98d72e703ba"><td id="sa[F" class="">운영체제</td><td id="a{up" class="">Windows 10 (버전 2004 이상) 또는 Windows 11</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80f3-b465-ef28e0173fca"><td id="sa[F" class="">RAM (메모리)</td><td id="a{up" class="">최소 4GB, 권장 8GB 이상</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-803c-a696-d97d8b4f424f"><td id="sa[F" class="">저장 공간</td><td id="a{up" class="">최소 5GB 여유 공간</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80e9-b714-e9eaa37ef05f"><td id="sa[F" class="">인터넷</td><td id="a{up" class="">안정적인 인터넷 연결 필수</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-803b-9278-f60f6f869c8a"><td id="sa[F" class="">관리자 권한</td><td id="a{up" class="">소프트웨어 설치를 위해 관리자 계정 필요</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="311f8917-466a-809e-bb1d-cd5aabe12eac" class=""><strong>윈도우 버전 확인 방법</strong></p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80b7-bdff-f6bab7fd9d35" class="">키보드에서 <code>Windows 키 + R</code> → <code>winver</code> 입력 → Enter.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8081-a4f7-d0af106dc516" class="">‘버전 2004’ 이상이면 됩니다.</p></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8040-af51-efbbb9f034f7" class="">2-2. 반드시 미리 준비할 것들</h2></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-800b-ab8c-f8fb3c699e6b" class="">A. AI 모델 API 키 (택 1)</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80e3-9e0e-e7ee3fa9c27e" class="">OpenClaw는 AI의 ‘손과 발’이지, ‘두뇌’는 아닙니다. 두뇌 역할을 해줄 AI 서비스에 가입하고 API 키를 발급받아야 합니다.</p></div><div style="display:contents" dir="ltr"><table id="311f8917-466a-80c9-8e71-fb1c8fb381b9" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80fe-8646-c582129705af"><th id="u~Dx" class="simple-table-header-color simple-table-header">AI 서비스</th><th id="Hhwd" class="simple-table-header-color simple-table-header">특징</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="311f8917-466a-8033-9030-fa3b3bc3d655"><td id="u~Dx" class="">Google Gemini (추천)</td><td id="Hhwd" class="">무료 티어 넉넉, 초보자에게 최적</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80da-9309-e4f6eedfc58d"><td id="u~Dx" class="">Anthropic Claude</td><td id="Hhwd" class="">성능 우수, 유료 (종량제)</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80b1-8710-eb9ed8073e1d"><td id="u~Dx" class="">OpenAI (ChatGPT)</td><td id="Hhwd" class="">범용적, 유료 (종량제)</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-809a-8aa0-d71ab282fc5d"><td id="u~Dx" class="">Ollama (로컬)</td><td id="Hhwd" class="">완전 무료, 내 컴퓨터에서 직접 실행</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80db-8e00-e2f03fd7e0a9" class=""><strong>초보자 추천: Google Gemini Flash</strong></p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-805e-9cf5-ec394f8d3058" class="">Gemini 2.5 Flash는 무료 티어가 넉넉해서 실험용으로 최적입니다. 비용 걱정 없이 OpenClaw를 충분히 체험할 수 있습니다. Google AI Studio(<a href="http://aistudio.google.com/">aistudio.google.com</a>)에서 API 키를 무료로 발급받으세요.</p></div><div style="display:contents" dir="auto"><blockquote id="311f8917-466a-8084-a975-c5cbca580ac6" class="">가이드는 openAI 위주로 가이드를 했기 때문에 openAI 로 합니다.</blockquote></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-804d-87f3-c288a001dee8" class="">B. 텔레그램 계정 (메신저 연동용)</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80a6-9997-d5851acae22f" class="">OpenClaw와 대화하려면 메신저가 필요합니다. 초보자에게는 텔레그램(Telegram)이 가장 쉽습니다. 스마트폰에 텔레그램 앱을 설치하고 계정을 만들어두세요. PC에도 텔레그램 데스크톱 앱을 설치해두면 편합니다.</p></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-8095-a3d0-e3c9049ba66c" class="">보안 경고 (매우 중요!)</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80c7-95ce-c14c0727d224" class="">OpenClaw는 실험적 소프트웨어입니다. 개발자 본인도 ‘기술에 익숙하지 않은 사람은 설치하지 말라’고 경고했습니다. 반드시 다음을 지켜야 합니다:</p></div><div style="display:contents" dir="auto"><ol type="1" id="311f8917-466a-80e3-a982-d8d474ad19b8" class="numbered-list" start="1"><li>개인 중요 파일이 없는 PC나 가상머신에 설치할 것</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="311f8917-466a-8000-a0f9-cf123b40bde0" class="numbered-list" start="2"><li>API 키를 절대 타인에게 공유하지 말 것</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="311f8917-466a-8055-b25e-e23ea5bd0a99" class="numbered-list" start="3"><li>검증되지 않은 스킬(확장 기능)을 설치하지 말 것</li></ol></div><div style="display:contents" dir="auto"><p id="311f8917-466a-803b-873b-c525102313c3" class="">API 키가 유출되면 타인이 사용해 과금될 수 있습니다.</p></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-80b7-97ec-cfa6cc0ceb4e" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.40.32.png"><img style="width:689px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.40.32.png"/></a></figure></div><div style="display:contents" dir="auto"><hr id="311f8917-466a-805b-a1b1-e7f2ea8192ab"/></div><div style="display:contents" dir="auto"><h1 id="311f8917-466a-80e6-86e9-e2f885efd972" class="">3. WSL2 설치하기 (리눅스 환경 준비)</h1></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8028-bddb-cb81a81ce123" class="">3-1. WSL이 뭔가요?</h2></div><div style="display:contents" dir="auto"><p id="311f8917-466a-800f-87b5-ddb739579339" class="">WSL(Windows Subsystem for Linux)은 윈도우 안에서 리눅스를 돌릴 수 있게 해주는 마이크로소프트의 공식 기능입니다. OpenClaw는 원래 맥/리눅스용으로 만들어졌기 때문에 윈도우에서는 WSL2를 통해 설치해야 합니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80be-bb47-ec4562dd4bf7" class=""><strong>쉬운 비유</strong>: 윈도우라는 큰 집 안에 ‘리눅스 방’을 하나 만드는 겁니다. OpenClaw는 이 리눅스 방에서 생활하게 됩니다.</p></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8015-b7f0-f812531bb484" class="">3-2. 설치 과정 (5분 소요)</h2></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-80d8-838b-ec5b360ca78b" class="">STEP 1) PowerShell을 관리자 모드로 실행</h3></div><div style="display:contents" dir="auto"><ol type="1" id="311f8917-466a-808d-bb8a-d6f000052351" class="numbered-list" start="1"><li>Windows 검색창(돋보기 아이콘)에 <strong>PowerShell</strong> 입력</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="311f8917-466a-80f1-948e-c74530c050d7" class="numbered-list" start="2"><li>‘Windows PowerShell’ → 마우스 오른쪽 클릭 → <strong>관리자 권한으로 실행</strong></li></ol></div><div style="display:contents" dir="auto"><p id="311f8917-466a-806d-9d8d-f9797c3b002f" class=""><strong>왜 관리자 모드인가요?</strong></p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8013-8cc9-c4e56cf97c2e" class="">WSL 설치는 윈도우 시스템 설정을 변경하는 작업이라 관리자 권한이 필요합니다. 일반 모드로 실행하면 설치가 되지 않습니다.</p></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-80da-ad29-e909dfce356d" class="">STEP 2) WSL2 설치 명령어 입력</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80da-9c21-ec9f7ab1a214" class="">파란색 PowerShell 창에서 아래 명령어를 복사/붙여넣고 Enter:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="311f8917-466a-80b7-a439-dc088536c5a9" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">wsl --install</code></pre></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80f5-b523-dc5f75290c20" class="">WSL2와 Ubuntu 24.04가 자동으로 설치됩니다. 설치에 몇 분이 걸릴 수 있습니다.</p></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-8049-87ad-dd39f5430360" class="">STEP 3) 컴퓨터 재시작</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80c0-8eb2-ce96d650a83f" class="">설치가 완료되면 컴퓨터를 반드시 재시작해야 합니다. 재시작하지 않으면 WSL이 제대로 작동하지 않습니다.</p></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-80a2-a995-f6ffdde70912" class="">STEP 4) Ubuntu 초기 설정</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80c5-947c-de1a31ef4fad" class="">재시작 후 Ubuntu 창이 자동으로 열립니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80a3-93a5-dfd506e73fd4" class="">(안 열리면 시작 메뉴에서 Ubuntu를 검색해서 실행하세요.)</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80ea-bf3b-e056d1934f3d" class="">입력 항목은 아래와 같습니다:</p></div><div style="display:contents" dir="ltr"><table id="311f8917-466a-80cd-bb00-eeb54593c947" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80ff-914a-e985fe80cce9"><th id="LvuI" class="simple-table-header-color simple-table-header">입력 항목</th><th id="~aON" class="simple-table-header-color simple-table-header">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80c1-a58a-f013d8bd5859"><td id="LvuI" class="">username</td><td id="~aON" class="">영문 소문자로 원하는 이름 입력 (예: myname)</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80fa-9923-ec692e37ec63"><td id="LvuI" class="">password</td><td id="~aON" class="">비밀번호 설정 (입력 시 화면에 안 보이는 게 정상!)</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="311f8917-466a-800f-ba1d-f1426503a155" class=""><strong>비밀번호는 안 보입니다.  (윈도우 보안 정책 때문임)</strong></p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80a2-9195-cb1543e58537" class="">리눅스에서 비밀번호 입력 시 보안을 위해 화면에 아무것도 표시되지 않습니다(별표도 안 나옴). 그냥 비밀번호 입력 후 Enter.</p></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-8079-814f-e1b388c211b5" class="">STEP 5) 설치 확인</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80b6-a445-fd3006d073fc" class="">프롬프트(명령어 입력 대기 상태)가 <code>사용자이름@DESKTOP-XXXXX:~$</code> 형태로 바뀌면 성공입니다.</p></div><div style="display:contents" dir="auto"><hr id="311f8917-466a-80e7-9865-dd15be01edfe"/></div><div style="display:contents" dir="auto"><h1 id="311f8917-466a-801f-af98-e9d59db59890" class="">4. Node.js 설치하기 (OpenClaw의 엔진)</h1></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-803c-9f46-c36bfd02be9a" class="">4-1. Node.js가 뭔가요?</h2></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80de-889e-ea10bb258a5d" class="">쉬운 비유: 자동차에 엔진이 필요하듯, OpenClaw도 돌아가려면 Node.js라는 ‘엔진’이 필요합니다. Node.js는 JavaScript라는 프로그래밍 언어를 실행시켜주는 프로그램입니다. OpenClaw가 JavaScript로 만들어져 있기 때문에 반드시 설치해야 합니다.</p></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-806c-bb9c-edd4bd00f6cb" class="">4-2. 설치 과정</h2></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8084-b885-c99c4c7355e1" class="">Ubuntu 창(까만 터미널 창)에서 아래 명령어를 한 줄씩 실행합니다.</p></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-8009-8806-d035cd1cb505" class="">STEP 1) 시스템 업데이트</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="311f8917-466a-80cf-805e-fbf21551cf86" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">sudo apt update &amp;&amp; sudo apt upgrade -y</code></pre></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-800a-acc6-c5c268092330" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.47.41.png"><img style="width:686px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.47.41.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8068-adaf-fcde546e96b3" class=""><code>sudo</code>는 ‘관리자 권한으로 실행해줘’라는 뜻입니다. 비밀번호를 입력하라고 나올 수 있습니다.</p></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-80c4-b83a-fc6131f156f6" class="">STEP 2) Node.js 22 설치</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="311f8917-466a-809e-a979-f8c993b50cf1" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs</code></pre></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-8032-9f6d-e674c4e49e99" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.48.03.png"><img style="width:690px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.48.03.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-8059-a48b-d07c19298f49" class="">STEP 3) 설치 확인</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="311f8917-466a-8073-80dd-f43fde89e15f" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">node --version</code></pre></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-8078-86cc-e97b7664bb9c" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.48.18.png"><img style="width:518px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.48.18.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="311f8917-466a-807b-828b-c14248da2ebd" class=""><code>v22.x.x</code> 같은 버전 번호가 나오면 성공입니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80c0-8420-d12a9b4c6d26" class=""><strong>Ubuntu(WSL) 창에 붙여넣기 방법</strong></p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-808b-be00-f309dc6a4cc3" class="">Ubuntu(WSL) 터미널에서는 Ctrl+V가 아니라 <mark class="highlight-yellow"><strong>마우스 오른쪽 클릭</strong></mark>으로 붙여넣기 합니다! 또는 <code>Ctrl+Shift+V</code> 사용 가능.</p></div><div style="display:contents" dir="auto"><hr id="311f8917-466a-80b2-b635-d26d018e8fb4"/></div><div style="display:contents" dir="auto"><h1 id="311f8917-466a-80ed-9212-dcaa1253ae3c" class="">5. OpenClaw 설치하기 </h1></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-806d-93e3-d2fb8b6e381d" class="">5-1. 설치 명령어 </h2></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80f6-b11e-e6daf49ef301" class="">Ubuntu 창에서 아래 명령어를 입력합니다.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="311f8917-466a-8055-9589-edc11076b477" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">npm install -g openclaw@latest</code></pre></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8078-9b01-ef24d936fcba" class="bulleted-list"><li style="list-style-type:disc"><code>npm</code>은 Node.js의 패키지(프로그램) 설치 도구입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8073-a473-d4f1c8ea4f09" class="bulleted-list"><li style="list-style-type:disc"><code>g</code>는 ‘전체(global)에 설치해줘’라는 뜻입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-802f-9099-e8ffd0d87c31" class="bulleted-list"><li style="list-style-type:disc"><code>openclaw@latest</code>는 ‘오픈클로 최신 버전’이라는 뜻입니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-8032-8127-f52da70f5a1e" class="">STEP 확인) 설치 확인</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="311f8917-466a-8075-b4ce-deb5ace27218" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">openclaw --version</code></pre></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8034-b523-e8691c89c647" class=""><code>openclaw/2026.x.x</code> 같은 버전 정보가 나오면 설치 성공입니다</p></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-80bd-9c11-fbc8accade58" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.48.56.png"><img style="width:621px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.48.56.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80f8-9331-ef2a3bd66c40" class=""><strong>에러가 발생했다면?</strong></p></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8089-aa7c-ca005ba67133" class="bulleted-list"><li style="list-style-type:disc"><code>EACCES</code> 에러: <code>sudo npm install -g openclaw@latest</code> 로 재시도</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-80ee-b33e-cf6c5d5efffc" class="bulleted-list"><li style="list-style-type:disc"><code>network</code> 에러: 인터넷 연결 확인</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-80df-99bb-d1e6047deedf" class="bulleted-list"><li style="list-style-type:disc"><code>node: command not found</code>: Node.js 설치부터 다시 진행</li></ul></div><div style="display:contents" dir="auto"><hr id="311f8917-466a-8059-9df2-d51b7448ffa0"/></div><div style="display:contents" dir="auto"><h1 id="311f8917-466a-80a6-866e-cf9a245cfc0a" class="">6. AI 모델 API 키 발급받기</h1></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-80f5-8239-dad100a717b4" class="">6-1. Open AI API 키 발급 (유료, 추천)</h2></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-809f-9392-ff69023468e6" class="">STEP 1) Open AI API platform 접속</h3></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-80e4-97db-f09f08129b08" class="">STEP 2) API 키 생성</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80a9-b9d8-d7a57277fc79" class="">OpenAI API 키 발급 </p></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8033-ac5f-fcb427556a99" class="bulleted-list"><li style="list-style-type:disc"><code>platform.openai.com</code> 접속 → 회원가입</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-800e-ad03-f7be7adaf86c" class="bulleted-list"><li style="list-style-type:disc"><code>API keys</code> 메뉴 → <code>Create new secret key</code> 클릭</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-805f-9ea6-fdc49407b918" class="bulleted-list"><li style="list-style-type:disc">신용카드를 등록해야 합니다.</li></ul></div><div style="display:contents" dir="auto"><blockquote id="311f8917-466a-8016-8153-f1e411e271f2" class="">api 사용시 초기 사용금액을 미리 충전해둬야 합니다.</blockquote></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-804f-a226-ea860d12d70d" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.49.32.png"><img style="width:689px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.49.32.png"/></a></figure></div><div style="display:contents" dir="auto"><hr id="311f8917-466a-8008-bbdb-c1b456f167c1"/></div><div style="display:contents" dir="auto"><h1 id="311f8917-466a-80d1-9d78-ecea142a3de5" class="">7. 텔레그램 봇 만들기</h1></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-80b9-b500-dd13ece554ed" class="">7-1. 왜 텔레그램인가요?</h2></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80a7-9f07-e37ad4ef03a1" class="">OpenClaw와 대화하려면 메신저 채널이 필요합니다. 텔레그램은 봇 생성이 가장 간단하고, 초보자에게 가장 추천됩니다. 카카오톡처럼 개인 메신저 앱인데, 봇(자동 응답 프로그램)을 무료로 만들 수 있다는 점이 특별합니다.</p></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-801a-9057-eff73e8a35b9" class="">7-2. 봇 만들기 과정 </h2></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-8069-942e-d224f15b1ef6" class="">STEP 1) 텔레그램에서 @BotFather 찾기</h3></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-8025-8550-efc298a973a8" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.49.52.png"><img style="width:688px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.49.52.png"/></a></figure></div><div style="display:contents" dir="auto"><ol type="1" id="311f8917-466a-8057-8346-dedc44b3aaa4" class="numbered-list" start="1"><li>텔레그램 앱(스마트폰 또는 PC) 실행</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="311f8917-466a-80d9-a1c3-c5133ee4bc0d" class="numbered-list" start="2"><li>검색창에 <code>@BotFather</code> 입력</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="311f8917-466a-8097-b847-eb0e815c9390" class="numbered-list" start="3"><li>파란색 체크 표시가 있는 공식 계정 선택</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="311f8917-466a-8030-94e1-ea93ece1ef8b" class="numbered-list" start="4"><li>대화 시작</li></ol></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-809a-a1ae-e52821afb793" class="">STEP 2) /newbot 명령어 입력</h3></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-800e-8260-d6784573f20c" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.50.15.png"><img style="width:666px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.50.15.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80db-84dc-d9d2aadfcf80" class="">채팅창에 <code>/newbot</code> 입력 후 전송</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8031-82ec-d185b96ca923" class="">BotFather가 봇의 이름을 물어봅니다.</p></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-8053-be7a-fcf374d41de9" class="">STEP 3) 봇 이름 설정</h3></div><div style="display:contents" dir="auto"><ol type="1" id="311f8917-466a-8052-a247-c191718bbc37" class="numbered-list" start="1"><li>먼저 ‘표시 이름’ 입력 (예: My AI Assistant)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="311f8917-466a-803c-b97e-f3fc20f43b7e" class="numbered-list" start="2"><li>그 다음 ‘사용자명’ 입력 → 반드시 <code>bot</code> 으로 끝나야 함 (예: <code>myai_helper_bot</code>)<div style="display:contents" dir="ltr"><figure id="311f8917-466a-8056-9f36-fc0df3098572" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.50.43.png"><img style="width:569px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.50.43.png"/></a></figure></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-80e6-aa2d-c57718c76e07" class="">STEP 4) 봇 토큰 복사</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8094-87e1-f1fa9a394114" class="">BotFather가 <code>123456789:ABCdefGHIjkl...</code> 형태의 긴 문자열을 보내줍니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-808e-8a36-daa39404b6c8" class="">이것이 봇 토큰(Bot Token)입니다. 복사해서 메모장에 안전하게 저장하세요. 온보딩에서 필요합니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-805a-88e5-f31e8002295e" class=""><strong>봇 토큰도 비밀번호와 같습니다</strong></p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80af-af9e-e99a27bddeb1" class="">유출되면 남이 내 봇을 제어할 수 있습니다. API 키와 마찬가지로 절대 공개하면 안됩니다.</p></div><div style="display:contents" dir="auto"><hr id="311f8917-466a-805f-ba9b-c43754c3a50a"/></div><div style="display:contents" dir="auto"><h1 id="311f8917-466a-80fa-b3ca-efcdb74e3528" class="">8. OpenClaw 초기 설정 (온보딩)</h1></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8035-8761-dc1375fcd75f" class="">8-1. 온보딩 마법사 시작</h2></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8035-8014-d2e41e066437" class="">이제 모든 재료가 준비되었고, Ubuntu 창에서 아래 명령어를 입력하세요.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="311f8917-466a-8005-9b1e-f27b0c15e127" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">openclaw onboard --install-daemon</code></pre></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-80d3-abcd-c465c5e70b93" class="bulleted-list"><li style="list-style-type:disc"><code>-install-daemon</code>은 “컴퓨터가 켜질 때마다 OpenClaw가 자동으로 시작”되게 해주는 옵션입니다. 이걸 붙여야 매번 수동으로 실행할 필요가 없습니다.</li></ul></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80f3-bc5e-ca740083aa02" class="">온보딩 마법사가 시작되면 아스키 아트와 함께 환영 메시지가 나타납니다. 여러 가지 질문이 순서대로 나옵니다.</p></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-800b-8c93-cd03235caf01" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.51.51.png"><img style="width:693px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.51.51.png"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8011-b703-c22de3e270c7" class="">8-2. 설정 질문별 안내</h2></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-80ec-bdd4-d0baead29d9b" class="">질문 1) 위험성 이해 동의</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8024-ad5f-da9bc9007bcb" class=""><code>I understand this is powerful and inherently risky</code> 메시지가 나옵니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8010-96a5-d0db8e91e32d" class="">화살표 키로 <strong>Yes</strong> 선택 후 Enter.</p></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-808f-b855-cc4798544a49" class="">질문 2) 설치 모드 선택</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80c8-b56f-c37fe99d8543" class=""><strong>QuickStart</strong> 선택. 초보자에게 최적화된 모드입니다.</p></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-8034-9f4a-d0761ec0cebe" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.52.33.png"><img style="width:681px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.52.33.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-800d-b5f8-d0ad173272d9" class="">질문 3) AI 모델 선택</h3></div><div style="display:contents" dir="ltr"><table id="311f8917-466a-80ad-aecc-ca08dddc2fcb" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="311f8917-466a-8096-b1bf-ca80e6065e72"><th id=":e}G" class="simple-table-header-color simple-table-header">선택지</th><th id="t&gt;Za" class="simple-table-header-color simple-table-header">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="311f8917-466a-8095-8635-efdab9368cde"><td id=":e}G" class="">Google Gemini (추천)</td><td id="t&gt;Za" class="">앞서 발급받은 Gemini API 키 입력</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-80f1-aefb-d2f36c8ad04b"><td id=":e}G" class="">Anthropic Claude</td><td id="t&gt;Za" class="">Claude API 키 입력</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-8023-842c-fca6345a750b"><td id=":e}G" class="">OpenAI</td><td id="t&gt;Za" class="">OpenAI API 키 입력</td></tr></div><div style="display:contents" dir="ltr"><tr id="311f8917-466a-807a-8fff-d286cd822f39"><td id=":e}G" class="">Ollama (로컬)</td><td id="t&gt;Za" class="">로컬에서 돌리는 무료 모델</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80c6-934b-fa727a48c28e" class="">원하는 모델 선택 후 해당 API 키 입력.</p></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-80ab-bcd1-e5ae0989950a" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.52.53.png"><img style="width:477px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.52.53.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-8096-94cf-c47912f11805" class="">질문 4) 메신저 채널 선택</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80ef-a796-d2212e2cd8dc" class=""><strong>Telegram (Bot API)</strong> 선택 → 봇 토큰 입력 → Enter</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8022-aa99-f5c97d0fd5a0" class=""><strong>Ubuntu 창에서 붙여넣기</strong></p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8023-bef4-f67a5d9e4a28" class="">토큰 복사 후 Ubuntu 창에서 <strong>마우스 오른쪽 클릭</strong>하면 붙여넣기됩니다. Ctrl+V는 작동하지 않습니다!</p></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-8095-a508-e6de363c0a0e" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.53.18.png"><img style="width:491px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.53.18.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-8026-9e70-eb531e35c8ae" class="">질문 5) Gateway &amp; 데몬 설정</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80b6-b335-c7a1aef077d1" class="">기본값 그대로 Enter.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8028-8537-c9f92dd5cac8" class="">포트 <code>18789</code>, loopback 바인드가 기본 설정이며 보안상 가장 안전한 옵션입니다.</p></div><div style="display:contents" dir="auto"><blockquote id="311f8917-466a-805f-82c7-e933255447f5" class="">각종 api 쓸거냐고 묻는데 쓸거면 발급받아서 연동하시고 넘어가도 됩니다.</blockquote></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8026-94d5-c73ec0445519" class="">8-3. 설정 완료 확인</h2></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80a7-908b-ecc200e4d3d0" class="">정상 작동 확인:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="311f8917-466a-803d-bf1a-f204de9ced7e" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">openclaw gateway status</code></pre></div><div style="display:contents" dir="ltr"><figure id="311f8917-466a-80bc-b19d-f9e491ea517d" class="image"><a href="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.53.50.png"><img style="width:692px" src="OpenClaw%20%EC%84%A4%EC%B9%98%20&amp;%20%EC%82%AC%EC%9A%A9%20%EA%B0%80%EC%9D%B4%EB%93%9C/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-02-24_16.53.50.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8031-a598-dd30bdf69624" class="">“내 친구가 깨어났어요”</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80ba-9c93-c2bfdfe3ca41" class="">아래와 같은 출력이 나오면 성공:</p></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-804a-bf16-d9ae53c7ca57" class="bulleted-list"><li style="list-style-type:disc"><code>Gateway is running (PID: 12345)</code></li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8062-b408-ffbc15e9c944" class="bulleted-list"><li style="list-style-type:disc"><code>Port: 18789</code></li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8071-ba74-fade871f9d95" class="bulleted-list"><li style="list-style-type:disc"><code>Uptime: 0 hours</code></li></ul></div><div style="display:contents" dir="auto"><hr id="311f8917-466a-80fd-b1a6-f696ce6031ee"/></div><div style="display:contents" dir="auto"><h1 id="311f8917-466a-80f8-bbec-f8b3986d1e6d" class="">9.대화 해보기</h1></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8021-9025-fc2b823121e0" class="">9-1. 텔레그램으로 테스트</h2></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-80f3-9ca2-fb106e614d70" class="">STEP 1) 텔레그램에서 내 봇 찾기</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80c2-9319-dd5c946d477d" class="">텔레그램에서 봇 사용자명 검색 (예: <code>@myai_helper_bot</code>) → 대화 시작 → <code>/start</code> 입력</p></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-804a-8bbd-c2bf9dd3b4b2" class="">STEP 2) 페어링 코드 승인</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80ee-830e-da6d60fe7489" class="">봇이 페어링 코드(예: <code>ABC123</code>)를 보내줍니다. Ubuntu 창에서 아래 명령어 실행:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="311f8917-466a-8018-af6c-f8af552f5443" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">openclaw pairing approve telegram ABC123</code></pre></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8030-a5ef-d8925171142b" class=""><code>ABC123</code>은 실제로 받은 코드로 변경하세요.</p></div><div style="display:contents" dir="auto"><h3 id="311f8917-466a-80b2-b3bc-db62bbcd9fba" class="">STEP 3) 첫 메시지 보내기!</h3></div><div style="display:contents" dir="auto"><p id="311f8917-466a-808f-b13a-fd7a2e237262" class="">텔레그램에서 봇에게 “안녕, 오늘 날씨 어때?” 같은 메시지를 보내보세요. 잠시 후 AI가 답장을 보내줍니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80f4-9545-e8d170b66232" class=""><strong>축하합니다!</strong></p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80e7-9e69-d1a7f1b5bfba" class="">여기까지 성공했다면, 여러분은 이제 자신만의 AI 비서를 가진 겁니다! 이제부터 텔레그램으로 언제 어디서든 AI에게 일을 시킬 수 있습니다.</p></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-80bb-9c47-dd1bfa0cb802" class="">9-2. 웹 대시보드로 테스트 </h2></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8051-ad5f-dcedec2ccefd" class="">텔레그램 설정이 어렵다면, 웹 대시보드로도 테스트할 수 있습니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8072-a5d6-d2b6afffaad3" class="">윈도우 브라우저에서 아래 주소로 접속:</p></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8028-81d4-f8c84cf94c1c" class="bulleted-list"><li style="list-style-type:disc"><code>http://localhost:18789</code></li></ul></div><div style="display:contents" dir="auto"><p id="311f8917-466a-802f-aaa6-fc8ac49562b8" class="">온보딩 시 생성된 게이트웨이 토큰을 입력하면 대시보드에서 바로 AI와 대화할 수 있습니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80ba-9b6e-f6977d452fae" class="">토큰 확인:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="311f8917-466a-80d9-86de-fa008201a8e5" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">cat ~/.openclaw/openclaw.json</code></pre></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8006-8149-d0c182330edc" class="">예시:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="311f8917-466a-804e-b25c-c4b2f73e2b6d" class="code code-wrap"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">&quot;gateway&quot;: {
+  &quot;token&quot;: &quot;여기에_긴_문자열&quot;
+}</code></pre></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8084-b32a-f2edb2e96a62" class="">주소창에 이렇게 입력:</p></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-808e-ad0a-fe731c7bbdbd" class="bulleted-list"><li style="list-style-type:disc"><code>http://127.0.0.1:18789/?token=YOUR_TOKEN</code></li></ul></div><div style="display:contents" dir="auto"><p id="311f8917-466a-803c-9a65-ddbffe51a800" class="">이제 일반적인 웹사이트처럼 소통이 가능합니다.</p></div><div style="display:contents" dir="auto"><hr id="311f8917-466a-8095-b1c9-efdbf37ec403"/></div><div style="display:contents" dir="auto"><h1 id="311f8917-466a-80a2-8bc4-c8f0f18cfa89" class="">추가: 외부 API 확장 아이디어</h1></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8045-bb37-dcc85f3671b5" class="">봇의 이름을 설정해주면 시작입니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80e3-9b7a-e77c0cb57ad7" class="">Claude는 기본 모델 성능만으로도 강력하지만, 외부 API를 추가로 연동하면 기능을 훨씬 확장할 수 있습니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80d8-b9c4-d4a9823d3eaf" class="">검색, 시장 데이터, 온체인 분석, 자동화, 음성 생성 등 필요한 기능을 선택적으로 붙여 전문 리서치 도구나 자동화 봇 수준으로 강화할 수 있습니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80ae-9e09-cee19fd9231c" class="">다만 API는 대부분 별도 과금 구조이므로, 실제로 자주 사용할 기능만 추가하는 것이 효율적입니다.</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-8071-a49f-e81cd4a0cce4" class="">아래는 사람들이 실제로 많이 붙여서 사용하는 대표 API들만 정리한 것입니다.</p></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8064-9b77-e4f2d6a8ff97" class="">웹 검색 확장</h2></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8070-bc39-ecbee2deb9b1" class="bulleted-list"><li style="list-style-type:disc">Brave Search API</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-80bc-9eb6-ea5f1574b0b9" class="bulleted-list"><li style="list-style-type:disc">SerpAPI</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-80a8-baee-d937e18e60f8" class="bulleted-list"><li style="list-style-type:disc">Bing Search API</li></ul></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8091-9533-d1934b4a7c9b" class="">코인·시장 데이터</h2></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-80e7-b229-d0ef29396b68" class="bulleted-list"><li style="list-style-type:disc">CoinGecko API</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-809e-8ffb-f3399d1d860d" class="bulleted-list"><li style="list-style-type:disc">Binance / OKX API</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8007-bc9f-f2bb69e66f00" class="bulleted-list"><li style="list-style-type:disc">Alpha Vantage</li></ul></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-80d4-9771-d7a1fd52109a" class="">온체인 분석</h2></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-80de-a71d-e27e6a66ccd4" class="bulleted-list"><li style="list-style-type:disc">Etherscan API</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8012-b9d9-dcb596196abf" class="bulleted-list"><li style="list-style-type:disc">Solscan API</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8016-84e7-ff6c7b97fb7f" class="bulleted-list"><li style="list-style-type:disc">DeBank API</li></ul></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8007-b9ba-ed581b860000" class="">자동화·데이터 관리</h2></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-802f-8f80-d8362b7937f4" class="bulleted-list"><li style="list-style-type:disc">Google Sheets API</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-80c9-834c-d117b3387faf" class="bulleted-list"><li style="list-style-type:disc">Notion API</li></ul></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-8084-95df-eaebfe2ba873" class="">AI 확장 기능</h2></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-808e-af3a-d06a7b2fe3eb" class="bulleted-list"><li style="list-style-type:disc">OpenAI API</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-80a2-9715-d52cd1747e8c" class="bulleted-list"><li style="list-style-type:disc">Stability AI (이미지 생성)</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-80c5-a42c-d79d82e479bb" class="bulleted-list"><li style="list-style-type:disc">ElevenLabs (음성 생성)</li></ul></div><div style="display:contents" dir="auto"><p id="311f8917-466a-800c-a35e-f596af9cef8c" class="">핵심은 많이 붙이는 것이 아니라,</p></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80e3-bc36-ee8be8ac410c" class=""><strong>내가 반복적으로 사용하는 기능만 최소 구성으로 연결하는 것</strong>입니다.</p></div><div style="display:contents" dir="auto"><h2 id="311f8917-466a-80c8-aebb-eb0cdb1dbb10" class="">Brave API 등록 예시</h2></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-800c-9392-f5a6c9e15a06" class="bulleted-list"><li style="list-style-type:disc">Brave Search API Free tier: 월 2,000 쿼리 무료</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8047-b6e9-c66b21713945" class="bulleted-list"><li style="list-style-type:disc">그 이상 쓰면 유료 (예: 10K 쿼리 $15/mo 부터)</li></ul></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8098-84dc-cb88207545e2" class="bulleted-list"><li style="list-style-type:disc">모닝 브리핑 + 가끔 검색 정도면 무료 플랜으로 충분</li></ul></div><div style="display:contents" dir="auto"><p id="311f8917-466a-80d1-920b-c1edd9f1a306" class="">참고:</p></div><div style="display:contents" dir="auto"><ul id="311f8917-466a-8053-80d6-f74f7835f318" class="bulleted-list"><li style="list-style-type:disc"><a href="https://brave.com/search/api/">https://brave.com/search/api/</a></li></ul></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

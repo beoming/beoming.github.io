@@ -1,0 +1,714 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Integration Agent Assist with Chatbot Systems</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="327f8917-466a-80d0-ab67-c9c45b85f179" class="page sans"><header><h1 class="page-title" dir="auto">Integration Agent Assist with Chatbot Systems</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="327f8917-466a-8002-a1a8-f9ebb5ef23a9" class="">Backend Integration - Pub/Sub</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80bf-846f-dc336edf105e" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="327f8917-466a-8065-8db3-eda1a168c02e" class="image"><a href="Integration%20Agent%20Assist%20with%20Chatbot%20Systems/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_10.33.12.png"><img style="width:709.984375px" src="Integration%20Agent%20Assist%20with%20Chatbot%20Systems/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_10.33.12.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="327f8917-466a-804f-90b2-d603c8e48e67" class="">
+</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8038-b45e-c5357f4d7132" class="">Agent Desktop에 Agent Assist를 실시간으로 붙이기 위한 백엔드 연동 구조.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-805c-9048-eb83ae8a0ee1" class="">
+</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8018-b56a-daf1d3e5e0d8" class="">conversational agent에서 발생한 이벤트를 Pub/Sub으로 받고 → Redis를 거쳐 → UI Connector가 WebSocket으로 상담사 화면에 실시간 전달하는 구조이다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-800a-b462-ea8ac4f03f22" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-80ac-aa72-e2df626e95aa" class="">1. 전체 목적</h2></div><div style="display:contents" dir="auto"><p id="327f8917-466a-803c-94d0-f9875a3ac93d" class="">상담사가 사용하는 Agent Desktop 안에 iFrame 형태의 Agent Assist UI 가 들어있고, 대화 중에 발생하는 추천 답변, 가이드, 이벤트 같은 정보를 실시간으로 화면에 띄우는 것이 목표임.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-805d-b4f7-c268ba7d5f26" class="">다만, Conversational Agent의 이벤트는 바로 브라우저로 가지 않고, 중간에 여러 백엔드 컴포넌트를 거친다. </p></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-8006-9153-c278907ebbf6" class="">2. 각 컴포넌트 역할</h2></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-80d2-930f-d86939be4d97" class="">2-1. <mark class="highlight-yellow_background">Conversational Agents</mark></h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80bf-b2ef-c8470ad19c09" class="">이벤트를 발생시키는 원천입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80d5-8340-fc4785172887" class="">예를 들면:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-803f-846d-f602ccd0adfc" class="bulleted-list"><li style="list-style-type:disc">대화 상태 변경</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-802a-8cf2-f74562e89aa9" class="bulleted-list"><li style="list-style-type:disc">Agent Assist 추천 생성</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80c4-83fc-dd248e09fedb" class="bulleted-list"><li style="list-style-type:disc">상담사 피드백 필요</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-808c-b47f-c5d35d0d807f" class="bulleted-list"><li style="list-style-type:disc">특정 conversation 업데이트</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80f1-b23b-f547885e68e5" class="">이런 이벤트를 <strong>Cloud Pub/Sub</strong>로 publish 합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-8000-8b97-c9058a608fa1"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-8000-a485-d7f5faefb562" class="">2-2. <mark class="highlight-yellow_background">Cloud Pub/Sub</mark></h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80ba-85c6-c7db69652ed7" class="">이벤트를 받아두는 <strong>메시지 큐 / 이벤트 버스</strong> 역할입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8038-8e69-cedb686eb9d8" class="">왜 필요한가:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8042-af51-c090bef6bce1" class="bulleted-list"><li style="list-style-type:disc">이벤트 생산자와 소비자를 느슨하게 분리</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8045-bbf3-c83e418c8929" class="bulleted-list"><li style="list-style-type:disc">순간적인 이벤트 폭증을 흡수</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80ff-af7b-fc4400b28f92" class="bulleted-list"><li style="list-style-type:disc">비동기 처리 가능</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8061-bcad-d4bff6c2d83b" class="">즉, Conversational Agents는 “이벤트를 Pub/Sub에 던지기만” 하면 되고,</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80e3-871c-c12489befa60" class="">그 다음 처리는 뒤의 서비스들이 맡습니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-805e-954c-d6684cf8ab3c"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-805c-bc9f-f711a3a7b1f3" class="">2-3. <mark class="highlight-yellow_background">Cloud Pub/Sub Interceptor (Cloud Run)</mark></h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80ee-bfb1-ecadd7c52793" class="">이 서비스는 <strong>Pub/Sub 이벤트를 받아 Redis로 옮기는 중계기</strong>입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8021-b5cb-fc941b20ea0b" class="">역할:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8069-8e51-fbc31833e720" class="bulleted-list"><li style="list-style-type:disc">Pub/Sub가 HTTP POST로 넘긴 이벤트 수신</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-803d-9300-d4ce0f9150df" class="bulleted-list"><li style="list-style-type:disc">이벤트 payload 해석</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-803a-89f9-cbee18dda409" class="bulleted-list"><li style="list-style-type:disc">어떤 conversation에 대한 이벤트인지 파악</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-803d-9ffd-dd0dde8b8ad2" class="bulleted-list"><li style="list-style-type:disc">해당 이벤트를 Redis Pub/Sub 채널에 publish</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8034-aa83-f3cb84f65776" class="">쉽게 말하면:</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-802f-962e-fe1237faf6a3" class=""><strong>“Pub/Sub 메시지를 UI Connector가 읽기 좋은 형태로 Redis에 다시 전달하는 서비스”</strong></p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8081-b5aa-dd20e2a0cbc1" class="">입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8082-85b2-e35ee4a3eee9" class="">또 중요한 포인트는,</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8059-9fdc-f9fc7078a3d9" class="">이 서비스가 이벤트를 그냥 공통 채널에 뿌리는 게 아니라</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80ad-8325-e9686a9b4514" class=""><strong>어느 UI Connector 인스턴스가 어떤 conversation을 담당 중인지</strong>를 기준으로 맞는 채널로 보내야 한다는 점입니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-8046-8546-eece0edbbea3"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-80f9-b08c-dac44b2ace89" class="">2-4. <mark class="highlight-yellow_background">Memory Store Redis</mark></h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8010-a1a4-fb94915a3464" class="">여기서는 Redis가 두 가지 역할을 합니다.</p></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-804f-b9e3-e6554fafca4c" class="">1) 매핑 저장소</h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-804d-a520-e623722da9ee" class="">어떤 conversation이 현재 어떤 UI Connector 인스턴스에 붙어 있는지 저장합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80b3-b2e4-d90ea8fe5388" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80fc-a9cc-c0941bbe73f6" class="bulleted-list"><li style="list-style-type:disc">conversation A → connector-1</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8005-b815-f473513fbe2d" class="bulleted-list"><li style="list-style-type:disc">conversation B → connector-3</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80fe-9553-d5d471be38ed" class="">이 매핑이 있어야 Interceptor가 이벤트를 정확한 대상에게 보낼 수 있습니다.</p></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-8052-be8f-f9fc4b3091f9" class="">2) <mark class="highlight-yellow_background">Pub/Sub 브로커</mark></h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80a9-9953-d40d4abd441d" class="">이벤트를 Redis 채널로 publish 하고, UI Connector가 subscribe 합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80bc-b99b-f548f3a2e428" class="">즉 Redis는 여기서:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80f1-b37d-ef14e53242bb" class="bulleted-list"><li style="list-style-type:disc">단순 캐시</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8017-a890-c328c17b3af4" class="bulleted-list"><li style="list-style-type:disc">상태 매핑 저장소</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80f8-970e-fdc2a134fa7e" class="bulleted-list"><li style="list-style-type:disc">실시간 publish/subscribe 허브</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8037-920d-c9d9c2817ca8" class="">역할을 동시에 합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-802b-973b-cd04f12f708b"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-8057-ae06-ecd1eb589ed6" class="">2-5. <mark class="highlight-yellow_background">UI Connector (Cloud Run)</mark></h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80e5-b6e7-c6b020141bbb" class="">이 구조에서 가장 핵심입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-808a-b848-c133d416eb8f" class="">이 서비스는 3가지 역할을 합니다.</p></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-80aa-9ac1-c969817d8e0c" class="">1) 인증 게이트웨이</h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8089-8074-c060af4a830c" class="">Agent Desktop이 처음 접속할 때 커스텀 토큰(예: Salesforce Bearer Token)을 받아 검증하고,</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80aa-be5e-d0d5e4a29d64" class="">그 다음 내부적으로 사용할 <strong>임시 JWT</strong>를 발급합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80be-8056-eaa1c6cc795c" class="">즉:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80b0-abef-e84bf91dd67e" class="bulleted-list"><li style="list-style-type:disc">외부 시스템 토큰 → 검증</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8019-92d5-fefbb4aca990" class="bulleted-list"><li style="list-style-type:disc">내부 통신용 JWT 발급</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8019-b272-d55aa4d51865" class="">이후 프론트엔드는 원래 토큰 대신 이 JWT로 UI Connector와 통신합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-80bc-a68e-d1f18188655a"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-806e-8885-cd6095535792" class="">2) <mark class="highlight-yellow_background">Conversational Agents API 프록시</mark></h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8082-91c3-e8869a84e108" class="">프론트엔드가 Conversational Agents API를 직접 부르지 않고,</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80ef-8b6d-e7a152f7cc52" class="">UI Connector를 통해 요청을 보냅니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80c9-bad0-caa9358b9d49" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80f8-ab39-d76e60b882f8" class="bulleted-list"><li style="list-style-type:disc">피드백 전송</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8060-bb73-c6c4040ff029" class="bulleted-list"><li style="list-style-type:disc">특정 assist 요청</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80a2-9212-df1ddfb71bad" class="bulleted-list"><li style="list-style-type:disc">conversation 관련 API 호출</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-802c-b51f-f1207e8432b9" class="">이렇게 하면:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8071-84ce-ef60712fc3ab" class="bulleted-list"><li style="list-style-type:disc">인증 제어가 쉬워지고</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8018-9d53-ec0ce0bc43ae" class="bulleted-list"><li style="list-style-type:disc">백엔드에서 공통 로직 처리 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80b9-a913-f83e058a4d44" class="bulleted-list"><li style="list-style-type:disc">프론트엔드에 민감한 자격정보를 노출하지 않게 됩니다</li></ul></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-8009-bd60-e1cadb89d583"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-8062-a063-ccf07da6236a" class="">3) <mark class="highlight-yellow_background">WebSocket 서버</mark></h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80fd-95f3-d66aab86fb46" class="">프론트엔드와 <strong>stateful WebSocket 연결</strong>을 유지합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8016-9eeb-e5976f4d24b9" class="">이게 중요한 이유는:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8054-9933-f0c2e17f941c" class="bulleted-list"><li style="list-style-type:disc">실시간 이벤트를 즉시 push 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-808e-9dce-c532950195ec" class="bulleted-list"><li style="list-style-type:disc">Agent Desktop이 conversation 진행 중 계속 같은 컨테이너와 연결됨</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80dd-9c9d-c36938c5c23b" class="bulleted-list"><li style="list-style-type:disc">UI Connector가 Redis 채널 구독 후 받은 이벤트를 브라우저로 바로 전달 가능</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80f7-9e94-c175b8f121cb" class="">즉 UI Connector는</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8051-ae1c-e97f2c78fa66" class=""><strong>Redis subscriber + WebSocket push server + API proxy + auth server</strong></p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80ba-9a29-c7f80ccbeb0b" class="">를 모두 맡고 있습니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-80c3-8338-cec44f7ccae5"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-808c-9898-d60ca56adcf8" class="">2-6. <mark class="highlight-yellow_background">Agent Assist UI</mark></h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8083-8bf4-ffa5831ef8da" class="">상담사 화면에 들어가는 프론트엔드입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-807a-aac8-cfacc2e26245" class="">보통 iFrame 형태로 Agent Desktop 안에 삽입됩니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8088-b839-de402fb9700e" class="">역할:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8064-a942-e30a7080fc33" class="bulleted-list"><li style="list-style-type:disc">UI Connector에 register 요청</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80af-8d21-cc22430d4168" class="bulleted-list"><li style="list-style-type:disc">JWT 발급받기</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8033-a947-f17df19a9386" class="bulleted-list"><li style="list-style-type:disc">WebSocket 연결</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80f7-a632-fef4b35103f5" class="bulleted-list"><li style="list-style-type:disc">실시간 이벤트 수신</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8000-af0b-f882cbddea0c" class="bulleted-list"><li style="list-style-type:disc">상담사에게 추천, 힌트, 상태 변화 표시</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80d1-b6d1-f4cadc95a498" class="bulleted-list"><li style="list-style-type:disc">필요 시 UI Connector를 통해 Conversational Agents에 API 요청</li></ul></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-803f-bf78-e907264b13c5"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-801c-bbf4-fbc4a391ada9" class="">2-7. <mark class="highlight-yellow_background">Secret Manager</mark></h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80a6-8654-dba5ab7e17d8" class="">보안 정보 저장소입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8095-951d-ca01b5718efc" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80f9-bbf7-dfb465a17b06" class="bulleted-list"><li style="list-style-type:disc">JWT signing key</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80b6-9267-fd13c03ba97d" class="bulleted-list"><li style="list-style-type:disc">서비스 인증용 secret</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8026-9328-f99d762cad58" class="bulleted-list"><li style="list-style-type:disc">기타 민감 설정값</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80a7-b6db-f5c2bf444a0e" class="">즉, 인증 관련 비밀값을 코드나 환경에 직접 하드코딩하지 않고 여기서 관리합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-806e-be94-d058c10170be"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-800b-b564-dd09fb64fe97" class="">2-8. <mark class="highlight-yellow_background">Authentication Backend</mark></h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8065-9a00-ca4c6c69538c" class="">외부 인증 시스템입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8039-90d4-e48277ca49d5" class="">예를 들어:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-804d-8e75-c569e1518dee" class="bulleted-list"><li style="list-style-type:disc">Salesforce</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8074-b2c7-d5957889b351" class="bulleted-list"><li style="list-style-type:disc">사내 SSO</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8030-ab4d-e374948e4fbf" class="bulleted-list"><li style="list-style-type:disc">별도 인증 API</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80bd-914f-d610769a34ed" class="">UI Connector가 register 시점에 이 백엔드와 연동해서</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-805b-8b21-e06b572382eb" class="">“이 상담사 토큰이 유효한가?”를 검증합니다.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

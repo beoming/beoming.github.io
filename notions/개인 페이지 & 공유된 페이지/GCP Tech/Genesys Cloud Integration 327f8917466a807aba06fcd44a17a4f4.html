@@ -1,0 +1,714 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Genesys Cloud Integration</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="327f8917-466a-807a-ba06-fcd44a17a4f4" class="page sans"><header><h1 class="page-title" dir="auto">Genesys Cloud Integration</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="327f8917-466a-80f8-a820-f369c9af0cd3" class="">Genesys Cloud Agent Desktop 안에 Google Cloud Agent Assist UI를 통합해서 상담사가 채팅 중에 AI 기능을 바로 사용할 수 있게 하는 것.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-808a-a5a1-f218b6281cd7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8041-81b4-e7afea4b9e2c" class=""><strong>지원 방식</strong></p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-807d-8512-c038f22a4b8b" class="bulleted-list"><li style="list-style-type:disc">하나의 통합 패널(Container) 안에 여러 AI 기능을 넣는 방식</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80de-96f4-fac74ee872ec" class="bulleted-list"><li style="list-style-type:disc">필요한 기능만 개별 모듈로 붙이는 방식</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80ca-a95f-dfea5d3cf00d" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="327f8917-466a-8007-b6fa-fe50aeffdbfa" class="image"><a href="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.10.04.png"><img style="width:709.96875px" src="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.10.04.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="327f8917-466a-80fb-ac66-ed65782d8c0a" class="image"><a href="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.10.58.png"><img style="width:709.984375px" src="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.10.58.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="327f8917-466a-80d5-958a-d6143c61f631" class="image"><a href="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.11.21.png"><img style="width:709.96875px" src="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.11.21.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="327f8917-466a-8036-8311-c87bbd0a5558" class="image"><a href="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.11.51.png"><img style="width:709.96875px" src="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.11.51.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="327f8917-466a-80b0-aa8c-dd0398246e2b" class="image"><a href="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.12.10.png"><img style="width:709.984375px" src="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.12.10.png"/></a></figure></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-80b8-aebf-d4e5827c72ac" class="">제공되는 주요 UI 기능</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8064-bab0-e0f7b791f568" class="">Agent Assist는 미리 만들어진 UI 모듈을 제공합니다.</p></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-808a-9de8-dc922cb396cc" class="">1. Container</h3></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80be-9b2d-fcfa61d0dba5" class="bulleted-list"><li style="list-style-type:disc">여러 Agent Assist 기능을 한 패널에 모아 보여주는 메인 컨테이너</li></ul></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-8020-a8b3-fef07497d804" class="">2. Generative Knowledge Assist</h3></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80c7-b6bc-f9356c95015f" class="bulleted-list"><li style="list-style-type:disc">대화 맥락에 맞는 지식 문서 추천</li></ul></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-80fa-a001-c6651834089e" class="">3. Proactive Generative Knowledge Assist</h3></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80c3-80fd-ee8157d4383d" class="bulleted-list"><li style="list-style-type:disc">문서 추천을 넘어서</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-809e-acaa-d01775c1724f" class="bulleted-list"><li style="list-style-type:disc">대화 내용을 바탕으로 <strong>AI 응답 초안</strong>까지 생성</li></ul></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-80f3-9f7b-f76f962ebd85" class="">4. Smart Reply</h3></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8061-a152-f13d302b4b98" class="bulleted-list"><li style="list-style-type:disc">자주 쓰는 답변을 빠르게 추천</li></ul></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-805f-b554-d0ca19ddaf0f" class="">5. Conversation Summarization</h3></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8065-b909-e63248466018" class="bulleted-list"><li style="list-style-type:disc">상담 요약 자동 생성</li></ul></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-80c5-b5d8-ec1d262f35ab" class="">6. Live Transcription</h3></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-806b-8559-e18f94631841" class="bulleted-list"><li style="list-style-type:disc">대화 기록/실시간 대화 내용 표시</li></ul></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-80f4-90f3-d2e52ed19bee" class="">7. Sentiment Analysis</h3></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8069-b3ab-ded749036395" class="bulleted-list"><li style="list-style-type:disc">고객 감정 분석</li></ul></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-8092-8b26-fc467c5be354"/></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-808d-8f6a-d5723d47f7cc" class="">전체 통합 절차</h1></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-80f1-ad48-d5996fb1cf54" class="">1) 애플리케이션 서버 배포</h2></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8009-832f-ea9008499d2f" class="">먼저 UI를 렌더링할 <strong>애플리케이션 서버</strong>를 배포합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80d2-a44f-cff84f2551a4" class="">역할:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80a7-ab87-fc86d6274192" class="bulleted-list"><li style="list-style-type:disc">Agent Assist UI 화면 제공</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80f0-8264-e269f44a4c55" class="bulleted-list"><li style="list-style-type:disc">iFrame으로 Genesys Cloud 안에 삽입될 화면 제공</li></ul></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-80ae-a1c2-cb553a10527c"/></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-8016-8b58-ecff4562eb7c" class="">2) 백엔드 서버 배포</h2></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8050-afe4-f77566b535c7" class="">다음으로 백엔드 서버를 배포합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8022-8f69-c1aae2d86104" class="">역할:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8093-88ad-eaafe602475c" class="bulleted-list"><li style="list-style-type:disc">API 호출 처리</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8037-a990-d8078026367d" class="bulleted-list"><li style="list-style-type:disc">인증 처리</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8075-85ce-da8e7dcb4706" class="bulleted-list"><li style="list-style-type:disc">데이터 관리</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80e8-b900-cc10edd7f1cf" class="bulleted-list"><li style="list-style-type:disc">프록시 역할</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80b5-a18f-fb4d0e4a326e" class="">즉, 프론트 UI만 띄우는 게 아니라 뒤에서 API와 인증을 처리할 서버도 필요합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-804d-9afb-deae7a354a9e"/></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-80c3-a046-f42f6b3f22f8" class="">3) Genesys Cloud Interaction Widget 설정</h2></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80e3-8086-d353af2bb5e1" class="">Genesys Cloud에서 <strong>Interaction Widget</strong>을 설정해야 합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8033-81a0-c5757b6397ff" class="">이 위젯 안에 Agent Assist UI를 iFrame 형태로 붙이게 됩니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80f8-bd14-d69a6b3ee6d5" class="">여기서 중요한 건:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-806d-91eb-db790a9687ce" class="bulleted-list"><li style="list-style-type:disc">위젯 URL</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80c6-8390-ffdda7672857" class="bulleted-list"><li style="list-style-type:disc">동적 파라미터(conversation ID, host origin 등)</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8052-8b93-e9ddb6531088" class="bulleted-list"><li style="list-style-type:disc">iFrame sandbox/permission 설정</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80d6-a2fb-f692473b4bc3" class="">입니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-8009-8128-e5cdbbd0b1bc"/></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-80d0-8576-df2bb43ff935" class="">OAuth Client 설정</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80d7-bfaf-c915765b2599" class="">이 단계가 핵심입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80d5-965d-d2b3d1a857f6" class="">Genesys Cloud와 Agent Assist 앱이 안전하게 인증하려면</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8038-b0b5-edbf4048ab68" class=""><strong>OAuth Client</strong>를 만들어야 합니다.</p></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-80de-92ef-e181452761fe" class="">필수 설정 포인트</h2></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-80c4-9ef7-c45111419328" class="">Grant Type</h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-807e-964e-f8a9d99c8815" class="">반드시: <strong>Implicit Grant (Browser)</strong></p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80ff-abd5-dae5bb156cd7" class="">또는 설명대로</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80d4-9093-cac22dfa54f5" class=""><strong>Token Implicit Grant 방식</strong></p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80f7-8384-da25e9c936d3" class="">으로 설정해야 합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80ad-a1c1-ff3db664f178" class="">이건 브라우저 기반 앱에서 로그인 후 토큰을 받기 위한 방식입니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-80ee-b83e-e4fce613cf4e"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-8062-afd7-e64dea2865f1" class="">Authorized redirect URIs</h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80e5-b5b0-fb3c1c1cbf77" class="">인증 완료 후 Genesys Cloud가 사용자를 돌려보낼 URL을 등록해야 합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-802b-8356-d1389828885d" class="">즉:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80a3-acda-d09516eb7bef" class="bulleted-list"><li style="list-style-type:disc">Agent Assist 앱 URL</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8031-aab4-e4c328586e1e" class="bulleted-list"><li style="list-style-type:disc">redirect 처리 URL</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80a7-80ed-e681ba988053" class="">을 정확히 넣어야 합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-8003-9a86-f3913921ecd4"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-80c7-90c5-e7305a3269d5" class="">Token Duration</h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80ad-8983-fa60642bc4cb" class="">토큰 만료 시간은:</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8001-9ea4-eaafe60a887b" class=""><strong>3600초 (1시간)</strong></p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-807f-b0ae-e9d7a2507a77" class="">로 설정합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80a0-afa8-c117ba30938a" class="">이유:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80a1-96a9-e2c4138bdd63" class="bulleted-list"><li style="list-style-type:disc">Dialogflow API access token도 1시간 기준이라</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80ed-9f8b-f6412dcf40e9" class="bulleted-list"><li style="list-style-type:disc">만료 시간을 맞춰두는 게 운영상 편리함</li></ul></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-8016-81e7-c4530d2d4904"/></div><div style="display:contents" dir="auto"><h3 id="327f8917-466a-80a1-8f66-ff627ab9f550" class="">생성 후 필요한 값</h3></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8043-b11d-ee0bc033e597" class="">OAuth Client 생성 후에는 <strong>Client ID</strong>를 복사해서</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8058-ad5d-ec8e03e8639d" class="">애플리케이션 서버 환경 변수에 넣어야 합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80d9-8c9b-d3c2a3c6102f" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8010-a27a-ca1807c35899" class="bulleted-list"><li style="list-style-type:disc"><code>OAUTH_CLIENT_ID</code></li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-809e-9dc8-f931671a87b4" class="bulleted-list"><li style="list-style-type:disc"><code>REDIRECT_URI</code></li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80d9-9150-ce63c89d8a10" class="">그리고 환경 변수 반영 후 서버를 다시 배포해야 합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-8047-9678-e856e0754883"/></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-8070-a019-ceb33477d03d" class="">Messenger 권장</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-808f-be5e-ccb61298f0b6" class="">문서에서는 <strong>Chat V2보다 Messenger 사용을 권장</strong>합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-804f-a882-eee7f51628c5" class="">이유:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80b8-9539-dd0b36e90d3a" class="bulleted-list"><li style="list-style-type:disc">기능이 더 풍부함</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8049-936d-d273e9728197" class="bulleted-list"><li style="list-style-type:disc">최신 기능과 확장성이 더 좋음</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-801c-8374-fde4c7edb0ed" class="">즉, 새로 구성한다면 가능하면 <strong>Genesys Cloud Messenger 기반</strong>으로 가는 게 좋다는 뜻입니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-80c5-bbd3-f25ade5829d1"/></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-804e-bc58-c8e3ce7b59a2" class="">애플리케이션 서버 환경 변수</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-805b-b256-c3e3aba79c46" class="">앱 서버에는 최소한 아래 정보들이 들어갑니다.</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80a1-904d-f4fc2779a378" class="bulleted-list"><li style="list-style-type:disc"><strong>OAuth Client ID</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-800c-a2fe-f8a5e413fff4" class="bulleted-list"><li style="list-style-type:disc"><strong>Genesys Cloud Region</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80fd-a411-de6037cbb375" class="bulleted-list"><li style="list-style-type:disc"><strong>Proxy Server URL</strong></li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80c5-bc88-e952a43ec33a" class="">즉, 서버는:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80e6-b36c-c4546a11fb48" class="bulleted-list"><li style="list-style-type:disc">어느 Genesys 리전에 붙을지</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8065-8c9c-e70b6cfa6e1b" class="bulleted-list"><li style="list-style-type:disc">어떤 OAuth client를 쓸지</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80ec-afa0-ec7b4e2912a2" class="bulleted-list"><li style="list-style-type:disc">어떤 백엔드/프록시와 통신할지</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80a0-9f13-cec1bd261447" class="">알고 있어야 합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-80e0-b16d-e30cc0afa77a"/></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-8027-9a95-fae0067e48f7" class="">Interaction Widget URL 설정</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8090-b963-f874b4a0ddf4" class="">Interaction Widget URL에는 정적인 URL만 넣는 게 아니라</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8005-9883-e26dca7224b8" class=""><strong>동적 값 placeholder</strong>를 포함해야 합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-800d-8931-ed568ca077be" class="">예시 개념:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8036-b603-e715022e92c0" class="bulleted-list"><li style="list-style-type:disc">conversation ID</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80fd-9f04-d06271e1f74d" class="bulleted-list"><li style="list-style-type:disc">host origin</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8050-a4ca-ed0ff271793c" class="bulleted-list"><li style="list-style-type:disc">기타 현재 세션 관련 값</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-808b-a52f-d612b17cb418" class="">이렇게 해야 상담 세션마다 올바른 conversation context를 받아서</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8046-9923-d6e44bcf45b7" class="">Agent Assist가 맞는 채팅에 연결됩니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-80a5-9542-e133e659472e"/></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-8088-8877-d0ea4bd40d9b" class="">iFrame 관련 설정</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8081-b586-d4e87ae4d6b1" class="">Genesys Cloud 안에 Agent Assist UI를 iFrame으로 넣기 때문에</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8040-9b06-c93bc7b39fdb" class="">브라우저 보안 설정이 중요합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8019-a825-ce6788b22e2c" class="">조정해야 하는 항목:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8078-b8a2-fcbb855d4c8d" class="bulleted-list"><li style="list-style-type:disc"><strong>Iframe Sandbox Options</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80af-b5eb-feeb5bdde6ef" class="bulleted-list"><li style="list-style-type:disc"><strong>Iframe Feature and Permissions Policies</strong></li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80fd-91b9-fb3dfd18b24a" class="">이걸 적절히 안 열어주면:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80a3-8f3e-c8f32ae0fa08" class="bulleted-list"><li style="list-style-type:disc">인증 팝업</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8059-aa87-c62be7e9a03b" class="bulleted-list"><li style="list-style-type:disc">스크립트 실행</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-805f-8e44-fef155622961" class="bulleted-list"><li style="list-style-type:disc">API 호출</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8088-bea9-e2c84d590f20" class="bulleted-list"><li style="list-style-type:disc">임베드 기능</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80e6-99de-e6213a1a4943" class="">등이 정상 동작하지 않을 수 있습니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-80a3-ba51-d62f2a6b2d32"/></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-8013-8290-de015c33e547" class="">테스트 방법</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8069-9356-eb1c21306b3e" class="">통합 후에는 반드시 테스트해야 합니다.</p></div><div style="display:contents" dir="ltr"><figure id="327f8917-466a-804f-82c2-ddb164fa65b8" class="image"><a href="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.12.28.png"><img style="width:709.984375px" src="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.12.28.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="327f8917-466a-8017-8ede-c2f10825aca1" class="image"><a href="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.12.59.png"><img style="width:709.96875px" src="Genesys%20Cloud%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_11.12.59.png"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-80b6-b87a-dccd41c14da6" class="">테스트 포인트</h2></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8055-8566-c585c8ec110c" class="bulleted-list"><li style="list-style-type:disc">Genesys Cloud developer tools로 테스트</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80c9-8e09-d8d6fecc936b" class="bulleted-list"><li style="list-style-type:disc">Web Messenger / Web Chat V2 동작 확인</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80c7-bd30-d67e0c6a522c" class="bulleted-list"><li style="list-style-type:disc">Agent가 <strong>On Queue</strong> 상태인지 확인<div style="display:contents" dir="auto"><ul id="327f8917-466a-80a0-92c9-dd20d1aca64b" class="bulleted-list"><li style="list-style-type:circle">그래야 테스트 채팅이 실제로 상담사에게 들어옴</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8073-a125-c404bf231829" class="">즉, UI만 잘 떠도 끝이 아니라:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8010-93ad-f828bcc70b63" class="bulleted-list"><li style="list-style-type:disc">상담 유입</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8043-ac19-f89986182a0a" class="bulleted-list"><li style="list-style-type:disc">위젯 로딩</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8068-99dd-d26a8d03822d" class="bulleted-list"><li style="list-style-type:disc">OAuth 인증</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-809e-82df-f2002298a937" class="bulleted-list"><li style="list-style-type:disc">Agent Assist 패널 표시</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8088-a990-c11874afd78c" class="bulleted-list"><li style="list-style-type:disc">추천/요약/코칭 기능 동작</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8012-97fc-c8f05920544b" class="">까지 확인해야 합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-801e-901f-f020bdbaa607"/></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-801f-98e0-e42599a37939" class="">최종적으로 보이게 되는 모습</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80a0-bbb0-ec391f4a3e58" class="">구성이 끝나면 Genesys Cloud Agent Desktop 안에서:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80ab-bdab-cef6938f9fb0" class="bulleted-list"><li style="list-style-type:disc">Agent Coaching</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80c7-9690-dba898eab103" class="bulleted-list"><li style="list-style-type:disc">Proactive Generative Knowledge Assist</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80d5-8963-db99e3a64fd0" class="bulleted-list"><li style="list-style-type:disc">각종 AI 추천 기능</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8010-b14d-e5013e15c38a" class="">이 상담 화면 옆 패널 또는 통합 패널 안에서 보이게 됩니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-802a-af5b-c9280d12253f" class="">즉 상담사는 기존 Genesys 화면을 크게 벗어나지 않고</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8072-baff-dc6ac0936bd1" class="">같은 데스크톱 안에서 AI 기능을 바로 활용할 수 있습니다</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80ad-8a44-cb581ef1be94" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="327f8917-466a-80c8-9d0a-e0d18f26e3af" class="link-to-page"><a href="Genesys%20Cloud%20Integration/Genesys%20Cloud%20for%20Voice%20327f8917466a80c89d0ae0d18f26e3af.html">Genesys Cloud for Voice</a></figure></div><div style="display:contents" dir="auto"><p id="327f8917-466a-800d-ad50-e6c1a5d6e096" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

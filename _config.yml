@@ -1,0 +1,31 @@
+theme: jekyll-theme-minimal
+
+title: 기술 블로그
+description: 개발 경험과 지식을 공유하는 기술 블로그
+
+# GitHub 저장소 (로컬 빌드 시 관리자 링크용). GitHub Pages 빌드에서는 site.github.repository_nwo가 우선됩니다.
+blog_repository: beoming/beoming.github.io
+blog_branch: main
+
+# 빌드 설정
+markdown: kramdown
+highlighter: rouge
+
+# 퍼머링크 설정
+permalink: /:year/:month/:day/:title/
+
+# 포스트 페이지네이션 (jekyll-paginate)
+paginate: 8
+paginate_path: "/page:num/"
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+# 제외 파일
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - .git
+  - page-them-minimal

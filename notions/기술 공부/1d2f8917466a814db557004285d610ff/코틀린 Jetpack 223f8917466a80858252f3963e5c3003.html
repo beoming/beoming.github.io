@@ -1,0 +1,860 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>코틀린 Jetpack</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="223f8917-466a-8085-8252-f3963e5c3003" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🤖</span></div><h1 class="page-title" dir="auto">코틀린 Jetpack</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="223f8917-466a-817e-9176-e0a257f25126"><div style="font-size:1.5em"><span class="icon">❗</span></div><div style="width:100%"> </div></figure></div><div style="display:contents" dir="auto"><div id="223f8917-466a-8162-9784-c705c019373e" class="column-list"><div style="display:contents" dir="auto"><div id="223f8917-466a-81e3-875e-cc64de9b2785" style="width:18.75%" class="column"><div style="display:contents" dir="ltr"><nav id="223f8917-466a-8181-bb01-e2a61c8acbdf" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#223f8917-466a-815b-8acb-c71eaa2d559f">기본 개념 </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#223f8917-466a-81dc-98f2-cf2e746df9f2">Binding</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#226f8917-466a-80f0-b7c6-fc10896d491e">ViewBinding vs findViewById</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#226f8917-466a-8001-91ab-d16bcc23eced">DataBinding vs ViewBinding</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#226f8917-466a-80cc-97a6-f4eec1810554">ViewModel</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#229f8917-466a-80a0-be5c-ea88b32867dc">Life Cycle</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#229f8917-466a-80f1-8dd2-c7c12417d99f"><mark class="highlight-pink">onCreate</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#229f8917-466a-80a4-8f1f-d8b0e58c527e"><mark class="highlight-pink">onStart</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#229f8917-466a-801f-ab1a-e1335b2f22b3"><mark class="highlight-pink">onResume</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#229f8917-466a-804e-9daa-d3607ff5c551"><mark class="highlight-pink">onPause</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#229f8917-466a-8050-815c-f21de56b80f6"><mark class="highlight-pink">onStop</mark> :</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#229f8917-466a-807d-9525-edbe8c51340d"><mark class="highlight-pink">onRestart</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#229f8917-466a-80a1-b382-c7878c1a18c6"><mark class="highlight-pink">onDestroy</mark> : </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#22af8917-466a-8027-b88e-f92fa3d50da0">코드 분석</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#229f8917-466a-8010-a013-d86a27e83530">한줄씩 분석하기</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#229f8917-466a-8077-9bcd-df87c73bba8f">MVVM 패턴</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#22af8917-466a-8068-bc80-f8fb82a05b14">LiveData + DataBinding + ViewModel</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#22af8917-466a-80f6-8612-c77042ae8e0d">Map &amp; Switch Map</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#22af8917-466a-8073-be32-c3e87b6060a8">실제 동작 흐름 예시</a></div></nav></div><div style="display:contents" dir="auto"><p id="223f8917-466a-8124-88d7-cefcd3783af0" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="223f8917-466a-816d-9f11-c1816f9ccac4" style="width:81.25%" class="column"><div style="display:contents" dir="auto"><h1 id="223f8917-466a-815b-8acb-c71eaa2d559f" class="">기본 개념 </h1></div><div style="display:contents" dir="auto"><p id="223f8917-466a-8170-aefa-dfcb843542e8" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="223f8917-466a-81dc-98f2-cf2e746df9f2" class="">Binding</h2></div><div style="display:contents" dir="auto"><p id="224f8917-466a-80f6-a1d0-d5ef1636c946" class="">
+</p></div><div style="display:contents" dir="auto"><p id="224f8917-466a-80cc-bc6b-da1650e2735a" class=""><strong>뷰 바인딩</strong> : 레이아웃 xml 파일에 선언한 뷰 객체를 코드(Acitivity)에서 쉽게 이용하는 방법이다. gradle 스크립트에 binding을 이용가능하도록 설정하면 xml 파일에 등록된 뷰 객체를 포함하는 클래스가 자동으로 만들어진다.</p></div><div style="display:contents" dir="auto"><p id="224f8917-466a-80f0-894b-cc49580f2321" class="">acitivity_main.xml → ActivityMainBinding 이라는 이름의 클래스가 만들어짐.</p></div><div style="display:contents" dir="auto"><p id="224f8917-466a-8025-a57d-c0fec008b0f8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="224f8917-466a-80a0-9465-c60b192efaee" class="">
+</p></div><div style="display:contents" dir="auto"><p id="224f8917-466a-80fb-87f1-ca94da92b719" class=""><strong>커스텀 getter</strong> : val을 사용하여 변수를 선언하고 변수명 뒤에 get()을 선언하여 메소드를 작성하는 것과 비슷하게 작성한다. 반환값 타입은 메소드와 마찬가지로 등호(=)를 사용하여 한줄로 작성하거나 return 을 사용할 경우에는 변수명 뒤에 타입을 명시해줘야 한다.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="224f8917-466a-8089-ae2d-f73362ec8a15" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">class Rectangle(var width: Int, var height: Int) {
+	val area get() = width * height 
+	
+class Rectangle(var width: Int, var height: Int) {
+	val area: Int 
+		get() {
+			return width * height
+		}</code></pre></div><div style="display:contents" dir="auto"><p id="224f8917-466a-8056-8d4a-ccd290b87303" class="">커스텀 getter를 사용하면 넓이를 호출할 때마다 현재 객체의 가로와 세로 길이를 토대로 계산하여 반환하게 된다</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="224f8917-466a-809f-b46e-fa8658bb7cce" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">fun main() {
+	val rectangle = Rectangle(3, 5)
+	println(rectangle.area)      // 변수를 호출하면 get()가 호출된다.
+	rectangle.width = 4
+	println(rectangle.area)
+}</code></pre></div><div style="display:contents" dir="auto"><p id="224f8917-466a-807a-b410-ecfb7048be45" class="">
+</p></div><div style="display:contents" dir="auto"><p id="224f8917-466a-801f-9d7b-e96e16c36f72" class="">TestFragment.kt</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="224f8917-466a-809b-af40-f4bd79a96727" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">class TestFragment : Fragment() {
+
+    private var _binding : FragmentTestBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+
+        _binding = FragmentTestBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+				binding.fragmentText.text= &quot;이거는 framgent Text&quot;
+
+        return view
+    }
+
+
+}</code></pre></div><div style="display:contents" dir="auto"><p id="224f8917-466a-8057-ac16-d6a6d10d1995" class="">
+</p></div><div style="display:contents" dir="auto"><p id="224f8917-466a-8010-8bf3-e4935fd0b31b" class=""><strong>DataBinding</strong></p></div><div style="display:contents" dir="auto"><ul id="224f8917-466a-80b6-bf43-cb5c01a1b8fa" class="bulleted-list"><li style="list-style-type:disc">layout xml 파일을 &lt;layout&gt; 태그로 감싸줘야함.</li></ul></div><div style="display:contents" dir="auto"><ul id="224f8917-466a-80e7-a87d-cb36930142db" class="bulleted-list"><li style="list-style-type:disc">buildFeatures { dataBinding = true }</li></ul></div><div style="display:contents" dir="auto"><ul id="224f8917-466a-80e9-bfb4-f52827ddc022" class="bulleted-list"><li style="list-style-type:disc">lateinit var binding : ActivityMainBinding 한 후, binding = DataBindingUtil.setContentView(this, R.layout.activity_main)</li></ul></div><div style="display:contents" dir="auto"><p id="226f8917-466a-80e8-8d95-f02a0ebac1f3" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="226f8917-466a-80f0-b7c6-fc10896d491e" class="">ViewBinding vs findViewById</h3></div><div style="display:contents" dir="auto"><p id="226f8917-466a-80f0-a570-ff2bd16c3639" class="">뷰 결합에는 findViewById를 사용하는 것에 비해 다음과 같은 장점이 있다.</p></div><div style="display:contents" dir="auto"><ul id="226f8917-466a-80be-b2c4-e3d59a463874" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow">null 안전</mark> : 뷰 결합은 뷰의 직접적인 참조를 생성하므로 유효하지 않은 뷰 ID로 인해 null 포인터 예외가 발생할 위험이 없다. 또한 레이아웃의 일부 구성에만 뷰가 있는 경우 결합 클래스에서 참조를 포함하는 필드가 @Nullable로 표시된다.</li></ul></div><div style="display:contents" dir="auto"><ul id="226f8917-466a-8012-a727-ec005e96d8ad" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow">유형 안전</mark> : 각 바인딩 클래스에 있는 필드의 유형이 XML 파일에서 참조하는 뷰와 일치한다. 즉 클래스 변환 예외가 발생할 위험이 없다.</li></ul></div><div style="display:contents" dir="auto"><ul id="226f8917-466a-80c6-8dda-fccf05b79c60" class="bulleted-list"><li style="list-style-type:disc"><code>findViewById</code>는 런타임에 뷰를 찾기 때문에 해당 ID의 뷰가 없거나 잘못된 타입으로 캐스팅하면 앱 충돌로 이어질 수 있다. ViewBinding과 Data Binding은 생성 시점에 안전한 뷰 참조를 제공한다.</li></ul></div><div style="display:contents" dir="auto"><ul id="226f8917-466a-8079-aff4-d66e79b26a94" class="bulleted-list"><li style="list-style-type:disc">어댑터의 ViewHolder에서 <code>findViewById</code> 대신 ViewBinding이나 Data Binding을 사용하면, 각 아이템 레이아웃에 대한 바인딩 객체를 통해 뷰에 직접 접근할 수 있어 코드가 간결해지고 런타임 오류 위험이 줄어든다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="226f8917-466a-8001-91ab-d16bcc23eced" class="">DataBinding vs ViewBinding</h3></div><div style="display:contents" dir="auto"><ul id="226f8917-466a-802f-a71a-cf2c3097c7a1" class="bulleted-list"><li style="list-style-type:disc">데이터 바인딩은 이름처럼 데이터를 연결해주는 역할을 할 수 있다. 데이터와 함께 결합해서 사용할 수 있으며, DataBinding과 LiveData를 함께 활용할 수 있다.</li></ul></div><div style="display:contents" dir="auto"><ul id="226f8917-466a-8073-a14c-f8b2bb94f4b7" class="bulleted-list"><li style="list-style-type:disc">Data Binding은 XML 레이아웃 내에서 데이터 표현식 (<code>@{}</code>)을 사용하여 변수 값을 표시하거나, 조건에 따라 텍스트를 변경하거나, 클릭 이벤트를 함수에 연결하는 등 간단한 로직을 포함할 수 있다.</li></ul></div><div style="display:contents" dir="auto"><ul id="226f8917-466a-808f-b0ea-f5319f91970f" class="bulleted-list"><li style="list-style-type:disc">ViewBinding은 주로 <code>findViewById</code>를 대체하여 뷰 접근을 안전하게 만드는 데 초점을 맞춥니다. 반면, Data Binding은 뷰 접근 외에도 데이터를 UI 요소에 바로 연결하여 동적으로 업데이트하는 기능을 제공해요.</li></ul></div><div style="display:contents" dir="auto"><p id="226f8917-466a-80b2-a30a-c216e0be9118" class="">구글이 Android 뷰 접근에 Kotlin Extensions 사용을 권장하지 않는 주된 이유는 강의에서 언급했듯이, Kotlin Extensions 방식이 특히 복잡한 프로젝트나 여러 화면에서 성능 저하와 널 객체 참조 같은 문제를 유발할 수 있기 때문입니다. 따라서 ViewBinding이나 Data Binding 사용이 권장됩니다.</p></div><div style="display:contents" dir="auto"><hr id="226f8917-466a-804d-b423-cb5fe5162e38"/></div><div style="display:contents" dir="auto"><p id="226f8917-466a-8008-a7da-c8a83cdea60c" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="226f8917-466a-80cc-97a6-f4eec1810554" class="">ViewModel</h2></div><div style="display:contents" dir="auto"><ol type="1" id="226f8917-466a-80c3-8e13-c75fdcfee0b1" class="numbered-list" start="1"><li>안드로이드 생명 주기를 관리하기 쉽다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="226f8917-466a-8038-b562-ecf2b5e33746" class="numbered-list" start="2"><li>onSaveInstanceState()를 사용해서 데이터를 관리할 수 있지만 적절치 않다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="226f8917-466a-8077-b20b-e82e041ea9c0" class="numbered-list" start="3"><li>상태(Life Cycle)가 변경될 때마다 데이터를 관리해줘야 하는데 이런 관리가 편하다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="226f8917-466a-8078-b364-f238d405b879" class="numbered-list" start="4"><li>UI 컨트롤러(Activity, Fragment)에서 모든 것을 다 하려고 하면 복잡해진다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="226f8917-466a-806a-aca5-f760ab6634b0" class="numbered-list" start="5"><li>ViewModel을 사용하면 테스트나 관리가 용이하다.</li></ol></div><div style="display:contents" dir="auto"><p id="226f8917-466a-8010-923c-e4f265e7a600" class="">
+</p></div><div style="display:contents" dir="auto"><p id="226f8917-466a-8001-a2ce-d703e658fa7f" class="">뷰모델은 화면 회전 시 데이터 유실을 막고 UI 컨트롤러와 분리하여 생명주기에 안전하게 데이터를 관리한다.</p></div><div style="display:contents" dir="auto"><p id="226f8917-466a-8057-a002-d6ff61de0edf" class="">뷰모델은 연관된 액티비티나 프래그먼트가 설정 변경으로 파괴/재생성될 때에도 스스로는 파괴되지 않고 데이터를 유지한다.</p></div><div style="display:contents" dir="auto"><p id="226f8917-466a-80ce-a032-d6ac24cd2f28" class="">공유 뷰모델은 액티비티와 프래그먼트 사이에서 데이터를 주고받거나 상태를 일관되게 유지하는 데 유용하며 생명주기 문제도 해결한다. (by activityViewModels())</p></div><div style="display:contents" dir="auto"><p id="226f8917-466a-805f-b5c1-fa818bcf883e" class="">뷰모델 팩토리는 뷰모델을 생성할 때 생성자에 필요한 매개변수(예: 레포지토리)를 전달할 수 있게 해주는 표준적인 방법이다.</p></div><div style="display:contents" dir="auto"><p id="226f8917-466a-805d-8826-fb37ef8ccac4" class="">뷰모델은 UI 컨트롤러에서 데이터 관리 로직을 분리하여 코드를 깔끔하게 만들고 단위 테스트를 더 쉽게 할 수 있도록 도와준다.</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8011-a1f3-dd6130b38337" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="229f8917-466a-80a0-be5c-ea88b32867dc" class="">Life Cycle</h2></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-80f1-8dd2-c7c12417d99f" class=""><mark class="highlight-pink">onCreate</mark> : </h3></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8024-902d-f836f90405ce" class="">프로젝트를 새로 생성하면 MainActivity 클래스 안에 onCreate가 자동으로 생성된다. Activity가 시작될 때 호출되는 메서드로써 생명 주기 동안 딱 한번 실행되는 메서드이다. </p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8046-a942-c08707683678" class="">액티비티 최초 실행 시에만 수행 해야된 작업들을 여기에 작성하면 된다. ex) 화면 레이아웃 정의, 뷰 생성</p></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-80a4-8f1f-d8b0e58c527e" class=""><mark class="highlight-pink">onStart</mark> : </h3></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8024-99c5-ed29d498015f" class="">Activity가 보이기 전에 호출되는 메서드. </p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80ff-b7ee-f1471a02ed5c" class="">화면에 진입할 때마다 실행되어야 하는 코드를 이곳에 작성해야한다.</p></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-801f-ab1a-e1335b2f22b3" class=""><mark class="highlight-pink">onResume</mark> : </h3></div><div style="display:contents" dir="auto"><p id="229f8917-466a-805f-9d1d-d0f8bd154c99" class="">Activity의 일부가 보일 때 호출되며 다른 Activity가 Activity를 덮어버리거나 앱 사용중 전화, 문자 등으로 잠시 앱을 떠나는 등 액티비티가 일시 정지되었다가 돌아오는 경우 onResume 메서드가 호출된다.</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80e1-a3a9-c508f1c360b8" class="">Activity가 재개되었을 때 실행해야 하는 코드가 있다면 이곳에 작성하면 된다.</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8011-9531-e30bd7206459" class=""><strong>다만, 일부가 보일때부터 전체가 보일 때까지의 시간만큼만 수행되기 때문에 가벼운 작업만 수행해야 한다.</strong></p></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-804e-9daa-d3607ff5c551" class=""><mark class="highlight-pink">onPause</mark> : </h3></div><div style="display:contents" dir="auto"><p id="229f8917-466a-803a-bcf6-ed7cbefc1f2a" class="">방해되는 이벤트가 발생하고 Activity의 일부는 보이지만 다른 Activity가 foreground로 나올 때 이 메소드가 호출된다. </p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-8093-9ca1-f4ee55597d2b" class="">onPause는 아주 잠깐 실행되는 메소드이므로 메소드가 완료되기 전에 작업이 끝나지 않을 수 있기 때문에 데이터를 저장하거나, 네트워크를 호출하는 등 무거운 작업을 하면 안된다고 경고하고 있다.</p></div><div style="display:contents" dir="auto"><p id="229f8917-466a-802f-8917-c7d49e64ddb2" class="">그렇기 때문에 무거운 작업을 수행할때는 바로 다음 설명할 onStop에서 수행해야한다.</p></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-8050-815c-f21de56b80f6" class=""><mark class="highlight-pink">onStop</mark> :</h3></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80c5-a99c-df3a64bf4680" class="">Activity가 사용자에게 더 이상 보이지 않을때 이 메서드가 호출되며 앞서 말한것 처럼 무거운 작업은 이곳에서 처리해야 한다.</p></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-807d-9525-edbe8c51340d" class=""><mark class="highlight-pink">onRestart</mark> : </h3></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80f1-86c6-f0869646ff66" class="">사용중인 앱에서 홈으로 나갔다가 다시 돌아오거나 다른 Activity로 갔다가 뒤로 가기 버튼을 통해서 돌아오는 경우 이 메소드가 호출된다.</p></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-80a1-b382-c7878c1a18c6" class=""><mark class="highlight-pink">onDestroy</mark> : </h3></div><div style="display:contents" dir="auto"><p id="229f8917-466a-80b5-bef3-d434f8a432df" class="">활동이 종료되는 경우나 구셩변경(ex:기기 회천)으로 인해 시스템이 일시적으로 활동을 소멸시키는 경우에 호출되는 메소드이다.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80a7-9c66-eeba5b3ac5de" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-8027-b88e-f92fa3d50da0" class="">코드 분석</h2></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-807e-94f0-d7d17ee0add6" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">// LiveData Transformations
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding : ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        viewModel.liveCount.observe(this, Observer {
+
+            binding.resultArea1.text = (it + it).toString()
+            binding.resultArea2.text = (it * it).toString()
+        })
+
+        binding.btnArea.setOnClickListener {
+            val count = binding.inputArea.text.toString().toInt()
+            viewModel.setLiveDataValue(count)
+        }
+
+
+    }
+}</code></pre></div><div style="display:contents" dir="auto"><h3 id="229f8917-466a-8010-a013-d86a27e83530" class="">한줄씩 분석하기</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-80b8-b0a4-c966224edc7e" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">class MainActivity : AppCompatActivity() {}</code></pre></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8053-a371-d82334bcd7b1" class="">AppCompatActivity() : 기본 액티비티의 부모 클래스</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-804b-bcd8-f7476ab34be7" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-80e9-9f6f-debcad24fc11" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all"> private lateinit var binding : ActivityMainBinding
+ private lateinit var viewModel: MainViewModel</code></pre></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80ca-b7d1-d6a3b2e3b0fe" class="">ViewBinding 또는 DataBinding을 통해 xml과 연결된 binding 객체를 선언</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8094-9393-c9377a2093ba" class="">ViewModel 객체 선언</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80cb-aa7f-f59a1b409186" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-80d7-bc2c-cdad74bb7c2d" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">binding = DataBindingUtil.setContentView(this, R.layout.activity_main)</code></pre></div><div style="display:contents" dir="auto"><p id="22af8917-466a-807f-953d-f0c9baf5b875" class="">DataBinding 사용 선언부.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8005-9175-d9803a9291e7" class="">기존의 setContentView() 대신 DataBindingUtil을 사용해 바인딩 객체를 초기화</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-804e-908d-fd59bf4613f6" class="">이를 통해 xml의 뷰를 코드에서 직접 참조 가능(예. binding.resultArea1)</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80a9-a518-c4b915e91528" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-8049-a51a-efa90cf652c2" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">viewModel = ViewModelProvider(this).get(MainViewModel::class.java)</code></pre></div><div style="display:contents" dir="auto"><p id="22af8917-466a-804f-b705-ed1de877b3d1" class="">ViewModel을 생성 및 복원</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80ed-adba-c4956b9d2ff4" class="">this는 현재 Activity의 생명주기를 기준으로 LiveData를 자동 관리함</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8095-9bf9-de5383b5ee92" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-8045-8432-d8bf6ebc369d" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">viewMdoel.liveCount.observe(this, Observer{...</code></pre></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8051-979e-db0783f9531b" class="">ViewModel 안에 있는 LiveData&lt;Int&gt;를 관찰함. observe</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8091-9f6c-e5b91604ad5e" class="">값이 바뀔 때마다 아래 블록이 실행됨.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80ca-8eb5-e5d6cf7b50a7" class="">this는 LifecycleOwner (Activity 객체)</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8053-9c6e-e1f8551b8787" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-80cb-acf2-cfa60ba26150" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">binding.resultArea1.text = (it + it).toString()
+binding.resultArea2.text = (it * it).toString()</code></pre></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8092-864b-d2961b40b65a" class="">it은 liveCount의 현재값.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80c9-9261-ce04d8f2715d" class="">it + it → 덧셈 결과를 resultArea1에 표시함.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8002-b33d-e2afe7b9e1bf" class="">it * it → 곱셈 결과를 resultArea2에 표시함.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80fd-b513-fd55cc2fc039" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-80b5-8fbf-c0c3981874e0" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">				viewModel.liveCount.observe(this, Observer {
+
+            binding.resultArea1.text = (it + it).toString()
+            binding.resultArea2.text = (it * it).toString()
+        })
+
+        binding.btnArea.setOnClickListener {
+            val count = binding.inputArea.text.toString().toInt()
+            viewModel.setLiveDataValue(count)
+        }</code></pre></div><div style="display:contents" dir="auto"><p id="22af8917-466a-808c-87cd-c2d0f942e81a" class="">사용자가 숫자를 입력하고 버튼을 클릭 → ViewModel의 LiveData(liveCount)의 값이 변함 → LiveData가 변경되면 관찰자(Observer)가 반응 → observe 블록이 실행됨.</p></div><div style="display:contents" dir="auto"><h2 id="229f8917-466a-8077-9bcd-df87c73bba8f" class="">MVVM 패턴</h2></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8068-bc80-f8fb82a05b14" class="">LiveData + DataBinding + ViewModel</h3></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80a1-8389-f26aafc50dff" class="">MVVM 패턴은 Mode, View, ViewModel 세 가지 구성 요소를 가지는 디자인 패턴이다. 각 구성 요소는 특정한 역할을 담당하고 서로 독립적으로 동작할 수 있도록 설계되어있다.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80ad-9070-da5c652e27a6" class="">뷰와 비즈니스 로직을 명확히 분리하기 위해 DataBinding과 LiveData를 사용한다. 이로 인해 뷰와 모델 간의 의존성은 없고, 뷰와 뷰모델 간의 의존성도 낮아서 모듈화, 재사용성, 유지보수성, 가독성이 향상된다. LiveData는 수명 주기를 인식하는 데이터 홀더 클래스로 데이터 변경 시 활성 상태의 관찰자에게만 알림을 보내 메모리 누수를 방지하고 데이터 일관성을 유지할 수 있다.<br/></p></div><div style="display:contents" dir="ltr"><figure id="22af8917-466a-80a5-8922-d2739b7304a8" class="image"><a href="%EC%BD%94%ED%8B%80%EB%A6%B0%20Jetpack/image.png"><img style="width:1152px" src="%EC%BD%94%ED%8B%80%EB%A6%B0%20Jetpack/image.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8030-bcb1-c68e7cee25b8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8076-8a3f-dc68570daeb0" class=""><strong>View 뷰</strong> : 사용자 인터페이스를 담당. 사용자의 입력을 뷰 모델(ViewModel)에게 전달하고, 데이터 바인딩을 통해 뷰 모델(ViewModel) 데이터가 화면에 자동으로 반영된다.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8035-9e14-f14a668c917d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8021-8641-fe8242592699" class=""><strong>Model 모델</strong> : 데이터를 관리. 데이터 관련 비즈니스 로직을 처리한다.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80c9-9603-d963b92c6539" class="">
+</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8069-a88a-ed2d41f3862f" class=""><strong>ViewModel 뷰 모델</strong> : 뷰와 모델을 연결하는 중간 관리자 역할. 사용자 입력을 처리하고 모델과 간접적인 상호 작용을 한다. 뷰와 데이터 바인딩을 통해 데이터가 변경될 때 뷰에게 알려준다. </p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8017-9140-c8af54bfec93" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-80f6-8612-c77042ae8e0d" class="">Map &amp; Switch Map</h2></div><div style="display:contents" dir="auto"><p id="22af8917-466a-802f-b912-c16d4ea81e49" class="">
+</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80ba-a265-fe9434869d7c" class="">사용자가 값을 입력했을 경우, 해당 값은 ViewModel의 LiveData에 값이 저장됨. 이 값을 기반으로,</p></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80e6-99d0-ec418e8c9026" class="bulleted-list"><li style="list-style-type:disc">단순 연산 결과 처리 → mapLiveData</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8016-b4d1-d935e91952ab" class="bulleted-list"><li style="list-style-type:disc">복잡한 처리 결과 → switchMapLiveData</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-80df-bdae-fb4e81a7bfd3" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">class MainViewModel : ViewModel() {
+
+    // Transformations -&gt; map / switchMap
+
+    // map -&gt; 값을 return
+
+    private var _mutableCount = MutableLiveData(0)
+    val liveCount : LiveData&lt;Int&gt;
+        get() = _mutableCount
+
+    val mapLiveData = Transformations.map(liveCount) {
+        it+it
+    }
+
+    val switchMapLiveData = Transformations.switchMap(liveCount) {
+        changeValue(it)
+    }
+
+    fun setLiveDataValue(count : Int) {
+        _mutableCount.value = count
+    }
+
+    fun changeValue(count : Int) : MutableLiveData&lt;Int&gt; {
+        val testLiveData = MutableLiveData(count*count)
+        return testLiveData
+    }
+
+
+}</code></pre></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-80e2-a1b5-d74b733556a9" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">private var _mutableCount = MutableLiveData(0)
+val liveCount: LiveData&lt;Int&gt;
+    get() = _mutableCount</code></pre></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8025-b7d5-cf67ff6a36e5" class="">이 코드에서 <code>MutableLiveData</code>는 변경 가능한 내부 변수임.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80c1-aff0-c9af163beaaf" class=""><code>LiveData</code>는 외부에 노출되는 읽기 전용 데이터</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8004-8a7f-d1310cedda25" class="">외부(Activity)에서는 직접 값을 바꿀 수 없고, <code>setLiveDataValue()</code>로만 바꿀 수 있음. → 캡슐화</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80a0-8d06-ed8ed37e7722" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-8006-b70e-e2c6fb9a658f" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">val mapLiveData = Transformations.map(liveCount) {
+    it + it
+}</code></pre></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80d8-972f-fb2fe0e73137" class="">map()은 원본 LiveData의 값을 변형해서 새로운 LiveData를 만듦.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8088-bcc6-d5a669b2a612" class="">liveCount = 3이면 mapLiveData 는 6이됨. 이 값은 Activity에서 Observe 가능</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8037-af35-c06db4c2ffed" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-8054-a802-d594a7b5dd54" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">val switchMapLiveData = Transformations.switchMap(liveCount) {
+    changeValue(it)
+}
+
+fun changeValue(count: Int): MutableLiveData&lt;Int&gt; {
+    val testLiveData = MutableLiveData(count * count)
+    return testLiveData
+}</code></pre></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8057-bb06-d5df887f536e" class="">switchMap()은 LiveData 값을 기반으로 다른 LiveData를 만들어서 연결해줌.</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8065-9834-de49fb0c13ab" class="">changeValue(3) → MutableLiveData(9) → switchMapLiveData가 9가됨.</p></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8073-be32-c3e87b6060a8" class="">실제 동작 흐름 예시</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-806b-b5ef-f1f0beeba1d3" class="code code-wrap"><code class="language-Kotlin" style="white-space:pre-wrap;word-break:break-all">입력값 = 4
+↓
+setLiveDataValue(4)
+↓
+liveCount.value = 4
+↓
+mapLiveData → 4 + 4 = 8
+switchMapLiveData → 4 * 4 = 16
+↓
+UI에 결과 반영:
+	- resultArea1 → 8
+	- resultArea2 → 16</code></pre></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8087-9032-cab61ab0c04d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-805a-8981-d411c6896d6e" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80bf-8cd6-ed5a65d3429a" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

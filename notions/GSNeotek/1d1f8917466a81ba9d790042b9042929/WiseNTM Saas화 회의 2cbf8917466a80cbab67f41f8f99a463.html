@@ -1,0 +1,714 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>WiseNTM Saas화 회의</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2cbf8917-466a-80cb-ab67-f41f8f99a463" class="page sans"><header><h1 class="page-title" dir="auto">WiseNTM Saas화 회의</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="2cbf8917-466a-804e-b14b-e244f0c1080a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-8081-987e-e5c452d079d1" class=""><strong>&#x27;SaaS화 및 클라우드 전환을 통한 솔루션 고도화&#x27; </strong>라는 핵심 목표를 달성하기 위해 필요한 기술적 의사결정 사항들을 구조적으로 정리하였습니다.</p></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-8061-b84a-f43848765392"/></div><div style="display:contents" dir="auto"><h1 id="2cbf8917-466a-80ec-a2ef-cf4a0a65569c" class="">WiseNTM 고도화 Kick-off 기술 회의 아젠다</h1></div><div style="display:contents" dir="auto"><h2 id="2cbf8917-466a-80f1-b60a-f8bcbdf20ec2" class="">1. 회의 개요</h2></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-809b-aded-e8b686cb6afc" class="bulleted-list"><li style="list-style-type:disc"><strong>목적:</strong> WiseNTM의 SaaS화 및 MSA 전환을 위한 아키텍처, 인프라, 개발 방향성 확정</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-803f-b92c-d3c11bfc1673" class="bulleted-list"><li style="list-style-type:disc"><strong>참석자:</strong> PM,  인프라 담당, 백엔드 개발, 프론트엔드 개발</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-809b-8bd1-ce23c5ba5175" class="bulleted-list"><li style="list-style-type:disc"><strong>기본 방향:</strong> 기존 온프레미스/커스터마이징 중심에서 <strong>클라우드 네이티브/표준화</strong>로 전환 </li></ul></div><div style="display:contents" dir="auto"><h2 id="2cbf8917-466a-8013-8a47-c906fdda2f74" class="">2. 세부 아젠다 (Agenda Table)</h2></div><div style="display:contents" dir="ltr"><table id="2cbf8917-466a-80fa-823d-da7698fe70c8" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-80d8-a5d5-e9ab1d4a5255"><td id="~\{{" class="">파트</td><td id="GuXX" class=""><strong>주제</strong></td><td id="DZiz" class="" style="width:371px"><strong>주요 논의 내용</strong></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-8099-8d7d-f118a53778f7"><td id="~\{{" class=""><strong>Session 1</strong></td><td id="GuXX" class=""><strong>인프라 아키텍처</strong></td><td id="DZiz" class="" style="width:371px">- 클라우드(AWS vs GCP) 선정 및 컨테이너 오케스트레이션<br/>- 서버 간 통신 및 보안 전략<br/>- CI/CD 및 이중화(HA)/DR 구성</td></tr></div><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-80f0-9dc5-d39b73d707ca"><td id="~\{{" class=""><strong>Session 2</strong></td><td id="GuXX" class=""><strong>백엔드 코어 기술</strong></td><td id="DZiz" class="" style="width:371px">- 메시징 프로토콜 변경 (MQTT $\to$ Kafka/Redis)<br/>- MSA 서비스 분리 기준 (DDD 기반)<br/>- 레거시 문제점 및 통합 방안</td></tr></div><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-8006-9a29-e598df064e1d"><td id="~\{{" class=""><strong>Session 3</strong></td><td id="GuXX" class=""><strong>기능 및 R&amp;R</strong></td><td id="DZiz" class="" style="width:371px">- 애플리케이션 기능 명세 확정 (UI 설계 기반)<br/>- 개발 표준화 및 문서화 전략<br/>- 팀원 R&amp;R (기능/통신/데이터)</td></tr></div><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-8099-a69d-d3ce76958db8"><td id="~\{{" class="">Session 4</td><td id="GuXX" class="">개발 환경 전략</td><td id="DZiz" class="" style="width:371px">- 3단계 환경 분리(Local → Dev → Prod) 정의<br/>- 개발계 데이터 구성(Mock Data vs 운영 데이터 마스킹)<br/>- 비용 절감을 위한 개발계 운영 정책</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-80cb-bc96-d85d4eba2ac9"/></div><div style="display:contents" dir="auto"><h1 id="2cbf8917-466a-80a1-9de7-f996bbc733d1" class="">WiseNTM 고도화 상세 기획안</h1></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-80fb-aa32-d371b3fd6e44" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2cbf8917-466a-80fa-9294-c0f9d5fcf3ab" class="">1. 인프라 (Infrastructure)</h2></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-8086-b58c-ca4fdabbb935" class="">1-1. 서버 및 컨테이너 통신 (Networking)</h3></div><div style="display:contents" dir="auto"><blockquote id="2cbf8917-466a-80f1-aa17-e9b67ac1e7c1" class="">Goal: MSA 환경에서 서비스 간의 안전하고 효율적인 통신 구조 설계</blockquote></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8036-ad99-d6553507ced7" class="bulleted-list"><li style="list-style-type:disc"><strong>서비스 디스커버리(Service Discovery):</strong> 동적으로 생성/삭제되는 컨테이너의 IP 관리 방안 (예: K8s Service, AWS Cloud Map)</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80bb-8699-e9a31a81c32f" class="bulleted-list"><li style="list-style-type:disc"><strong>통신 프로토콜:</strong><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8041-9e0d-fe17fcd07f91" class="bulleted-list"><li style="list-style-type:circle"><strong>Internal:</strong> gRPC (고성능, 서비스 간 통신) vs REST API (범용성)</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8015-975b-e078ff664688" class="bulleted-list"><li style="list-style-type:circle"><strong>External:</strong> REST API, WebSocket (실시간 통신), Pub/Sub</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80df-8965-fce55b6e561f" class="bulleted-list"><li style="list-style-type:disc"><strong>API Gateway 도입:</strong> 인증/인가, 라우팅, Rate Limiting의 중앙 관리 여부 (Kong, AWS API Gateway 등)</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-80ce-9ed2-c080062de2ee" class="">1-2. 오케스트레이션 (Orchestration)</h3></div><div style="display:contents" dir="auto"><blockquote id="2cbf8917-466a-80a0-95cc-f3f759f2d544" class=""><strong>Goal:</strong> 컨테이너 관리 및 배포 자동화 </blockquote></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8020-b751-e0e75e4fab2e" class="bulleted-list"><li style="list-style-type:disc"><strong>플랫폼 선정:</strong><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80f3-b4ba-ee4677d36e50" class="bulleted-list"><li style="list-style-type:circle"><strong>AWS ECS:</strong> 러닝 커브가 낮고 AWS 친화적 (문서 내 언급) </li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8027-9df7-caf21ca79d88" class="bulleted-list"><li style="list-style-type:circle"><strong>K8s (EKS/GKE):</strong> 표준화된 오케스트레이션, 운영 복잡도는 높으나 확장성 우수</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8018-828c-fd1fc64fe254" class="bulleted-list"><li style="list-style-type:disc"><strong>전략:</strong> &quot;컨테이너가 서버 1개&quot;라는 개념을 넘어 Pod 단위의 스케일링 전략 수립 </li></ul></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-808c-b14b-ffe03295c89d" class="">1-3. 보안 (Security)</h3></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80e1-857e-d4febe52a854" class="bulleted-list"><li style="list-style-type:disc"><strong>네트워크 보안:</strong><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80ae-8830-d520053fae32" class="bulleted-list"><li style="list-style-type:circle">VPC 설계 (Public/Private Subnet 분리)</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-804c-884d-f0f65b506986" class="bulleted-list"><li style="list-style-type:circle">DB 및 내부 서버의 외부 접근 차단 (Bastion Host 또는 VPN 활용)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80ab-874e-e6b1336c4a8b" class="bulleted-list"><li style="list-style-type:disc"><strong>애플리케이션 보안:</strong><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8005-8b03-cb76be2770aa" class="bulleted-list"><li style="list-style-type:circle">개인정보 마스킹 처리 - 개인정보 확립 필요 (ex. 전화번호+이름+생년월일)</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80af-8ae8-e8f707fd8b86" class="bulleted-list"><li style="list-style-type:circle">JWT를 통한 세션 관리 및 인증 강화(보안성 심의 통과)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-80cc-af6a-cd97c20df098" class="">1-4. CI/CD (지속적 통합/배포)</h3></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-806c-8c3d-fab397a94399" class="bulleted-list"><li style="list-style-type:disc"><strong>파이프라인 구축:</strong> Git Push to Build (Docker Image) to Test to Deploy 자동화</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-806a-89d4-ea5e401a50a3" class="bulleted-list"><li style="list-style-type:disc"><strong>도구 선정:</strong> Jenkins, GitHub Actions, GitLab CI, ArgoCD (GitOps 방식)</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8062-a199-e1d87f3101da" class="bulleted-list"><li style="list-style-type:disc"><strong>환경 분리:</strong> Dev / Staging / Production 환경 구성 및 배포 전략</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-80b6-a1d5-e508d95836ee" class="">1-5. 이중화(HA) 및 DR(재해 복구)</h3></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80f8-a25b-f9392a897b06" class="bulleted-list"><li style="list-style-type:disc"><strong>고가용성 (HA):</strong> Multi-AZ(가용 영역) 구성을 통한 서버/DB 이중화<div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80d6-b7f3-d041bfd213ce" class="bulleted-list"><li style="list-style-type:circle">ALB 자체가 AWS에 의해 자동으로 이중화되어 관리됩니다. 들어오는 트래픽을 가동 중인 여러 AZ의 서버로 분산시킵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80b6-ab6f-ffc1e296e4de" class="bulleted-list"><li style="list-style-type:circle">최소 2개 이상의 AZ에 컨테이너를 분산 배치합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80e8-983e-f086cc5812bf" class="bulleted-list"><li style="list-style-type:circle">Auto Scailing Group 을 설정하여, 특정 서버가 죽으면 자동으로 새 서버를 띄우고 컨테이너를 다시 실행합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8072-91bb-f70184fd298f" class="bulleted-list"><li style="list-style-type:disc"><strong>DR 전략:</strong> 데이터 백업 주기 및 리전 간 복제(Cross-Region Replication) 필요성 논의</li></ul></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-80f4-80f1-e43697ebd386"/></div><div style="display:contents" dir="auto"><h2 id="2cbf8917-466a-8024-b84d-f8da482f02a9" class="">2. 개발 및 아키텍처 (Development)</h2></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-8010-93ca-ff6831266ce1" class="">2-1. 메시징 시스템 전환 (MQTT → Kafka/Redis)</h3></div><div style="display:contents" dir="auto"><blockquote id="2cbf8917-466a-8079-8a20-d4a7867b005f" class=""><strong>Goal:</strong> 추적 및 관리가 용이한 구조로 변경 </blockquote></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8010-ba69-c27d8fa83b71" class="bulleted-list"><li style="list-style-type:disc"><strong>기술 검토:</strong><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8071-b8c9-c0bf776c8bcc" class="bulleted-list"><li style="list-style-type:circle"><strong>Kafka:</strong> 대용량 데이터 처리, 메시지 영속성(저장), 재생(Replay) 가능 to <strong>로그, 이력 추적용</strong> </li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8034-8062-c29281191e73" class="bulleted-list"><li style="list-style-type:circle"><strong>Redis (Pub/Sub):</strong> 빠른 속도, 인메모리, 상태 관리(Presence) to <strong>실시간 알림, 소켓 상태 핸들링</strong> </li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80fc-a863-c31c254aa4fe" class="bulleted-list"><li style="list-style-type:disc"><strong>논의 사항:</strong> 현재 MQTT의 브로커 기능을 Kafka와 Redis로 어떻게 역할 분담할 것인가? (예: 채팅/알림은 Redis, 로그/통계는 Kafka)</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-80ea-a467-fea0c261e3c0" class="">2-2. MSA 구조 도입 기준</h3></div><div style="display:contents" dir="auto"><blockquote id="2cbf8917-466a-801c-9ec1-c746abd2eb7e" class=""><strong>Goal:</strong> 기능별 분리를 통한 유지보수성 향상 (단, 과도한 분리 지양) </blockquote></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80ae-9d38-fcb6808a055b" class="bulleted-list"><li style="list-style-type:disc"><strong>서비스 분리(안) 검토:</strong> <div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-801e-aaae-c435d19261bb" class="numbered-list" start="1"><li><strong>단말기 API Server:</strong> 단말기 관련 비즈니스 로직</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-80f3-a7cf-dad641d60b44" class="numbered-list" start="2"><li> <strong>클라이언트 API Server:</strong> 사용자단 인증, 화면 관련 비즈니스 로직</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-80fc-8acd-c0d783563fbb" class="numbered-list" start="3"><li> <strong>Socket Server:</strong> 실시간 통신 (웹소켓), 상태 전달</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-8077-93e9-dfd4246368b8" class="numbered-list" start="4"><li> <strong>Batch Server:</strong> 통계 집계, 데이터 후처리, SMS/알림 발송</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80e4-af0b-cc4ff7ecca5e" class="bulleted-list"><li style="list-style-type:disc"><strong>데이터 분리:</strong> 서비스별 DB(Schema) 분리 여부 및 트랜잭션 관리(Saga 패턴 등) 필요성</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-80b0-be5a-f8497861724d" class="">2-3. 애플리케이션 기능 정의 (UI/UX 기반)</h3></div><div style="display:contents" dir="auto"><blockquote id="2cbf8917-466a-80c1-af6b-f73dc084880b" class="">화면 설계서 기반 기능 확정</blockquote></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80c1-a0e1-cb62dd01bbc0" class="bulleted-list"><li style="list-style-type:disc"><strong>My Phone:</strong> 통화/메시지 이력 조회, 녹취 청취, 상세 정보, 메모</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80b4-885c-fc02624aea03" class="bulleted-list"><li style="list-style-type:disc"><strong>모바일 Box:</strong> 파일(이미지/PDF) 업로드, 조회, 다운로드, 삭제</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8062-a5cf-f37d35e7fcd7" class="bulleted-list"><li style="list-style-type:disc"><strong>지식창고:</strong> 사내 지식 검색, 카테고리 관리</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8048-9c53-c8f8e992c312" class="bulleted-list"><li style="list-style-type:disc"><strong>분석관리:</strong> 통화 통계(대시보드), 시각화 통계, 데이터 분석</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8036-9819-eb71d59b29cc" class="bulleted-list"><li style="list-style-type:disc"><strong>설정:</strong> 제외번호 관리, 업무시간/휴일 설정, 사용자/부서/단말기 관리, 메뉴 권한 관리</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-802d-95d1-f45c13153318" class="bulleted-list"><li style="list-style-type:disc"><strong>고도화 신규 기능:</strong> 명함 발송, MDM 연계, 개인정보 마스킹, 메시지 추적 기능 </li></ul></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-80f6-a539-da4d0baced45" class="">2-4. 현 WiseNTM 문제점 및 개선</h3></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-807e-ae0b-df3b736af959" class="bulleted-list"><li style="list-style-type:disc"><strong>통합 이슈:</strong> 고객사별 커스터마이징으로 파편화된 소스코드 통합 방안 (Core 모듈과 Custom 모듈 분리 전략) </li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8074-9f4e-e2bb19e5bfe3" class="bulleted-list"><li style="list-style-type:disc"><strong>유지보수:</strong> 기능 개선 시 사이드 이펙트 최소화를 위한 테스트 코드 작성 의무화 </li></ul></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-8089-ba9f-ef60d2b1091b" class="">2-5. 문서화 및 개발 공통화</h3></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80c5-8ac4-efe8e5c074c8" class="bulleted-list"><li style="list-style-type:disc"><strong>API 문서:</strong> Swagger (OpenAPI Spec) 자동화 적용</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80a8-ab6c-de6128191185" class="bulleted-list"><li style="list-style-type:disc"><strong>코드 컨벤션:</strong> 언어별(Java/Node.js 등) 린트(Lint) 규칙 및 네이밍 표준 확정</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8099-90af-d0e3e8916644" class="bulleted-list"><li style="list-style-type:disc"><strong>에러 핸들링:</strong> 표준 에러 코드 및 응답 포맷 정의</li></ul></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-808d-81c6-ee2679adf07e"/></div><div style="display:contents" dir="auto"><h2 id="2cbf8917-466a-80ed-81cc-d7c9f27debb5" class="">3. R&amp;R 정의 (백엔드 중심)</h2></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-80af-94a5-fb3597ca776d" class="">성공적인 MSA 전환을 위해 개발자의 역할을 기능 단위가 아닌 <strong>기술 도메인 단위</strong>로 전문화하는 것을 제안합니다.</p></div><div style="display:contents" dir="ltr"><table id="2cbf8917-466a-80b5-b11a-c4e725f433f3" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-8065-bcc8-eb07e86cfe1b"><td id="KE&lt;b" class=""><strong>역할 (Role)</strong></td><td id=";nxv" class=""><strong>주요 책임 (Responsibilities)</strong></td><td id="l~ig" class=""><strong>필요 역량</strong></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-80b3-bb2e-ff925856d3e7"><td id="KE&lt;b" class=""><strong>API/Business Backend</strong></td><td id=";nxv" class="">- 사용자/설정/조회 등 일반 비즈니스 로직 개발<br/>- REST API 설계 및 구현<br/>- DB 스키마 설계 (RDB)</td><td id="l~ig" class="">Spring Boot/NestJS,<br/>JPA/TypeORM,<br/>REST API Design</td></tr></div><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-804e-8780-e721dd97c79d"><td id="KE&lt;b" class=""><strong>Interface/Comms Backend</strong></td><td id=";nxv" class="">- 소켓 서버 및 실시간 통신 처리 18<br/><br/>- Redis Pub/Sub 상태 관리 19<br/><br/>- 외부 시스템(통신사, 레거시) 연동 어댑터 개발</td><td id="l~ig" class="">WebSocket, Netty,<br/>Redis, Async IO</td></tr></div><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-8049-90b5-d2da61d4798a"><td id="KE&lt;b" class=""><strong>Data/Event Backend</strong></td><td id=";nxv" class="">- Kafka 메시지 브로커 연동 및 컨슈머 개발 20<br/><br/>- 배치 작업(통계, 로그, 이력) 처리 21<br/><br/>- 대용량 데이터 처리 및 쿼리 튜닝</td><td id="l~ig" class="">Kafka, Batch Framework,<br/>QueryDSL, NoSQL</td></tr></div><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-80ec-ab42-f688b98de98d"><td id="KE&lt;b" class=""><strong>DevOps/Infra (공통)</strong></td><td id=";nxv" class="">- CI/CD 파이프라인 운영<br/>- Docker/K8s 환경 설정 및 모니터링</td><td id="l~ig" class="">AWS/GCP, Docker,<br/>K8s, Shell Script</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-80fb-b04a-defc1e38b08a"/></div><div style="display:contents" dir="auto"><h2 id="2cbf8917-466a-804f-9489-c387c1c9a73f" class="">4. 개발계 구축 및 활용 전략</h2></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-80b0-91c0-d448956412e6" class="">MSA 구조는 서비스 간 통신이 복잡하기 때문에, 로컬 개발 환경과 실제 운영 환경의 차이를 줄이는 전략이 필수적입니다.</p></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-805a-90a8-c958fde03bf7"/></div><div style="display:contents" dir="auto"><h2 id="2cbf8917-466a-8018-8324-eb07b6e8b421" class="">1. 환경 분리 전략 (3-Tier Environment)</h2></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-808e-84e3-f0a84538d5fd" class="">SaaS 안정성을 위해 <strong>Local(개인) - Dev(통합 개발) - Prod(운영)</strong>의 3단계 구성을 제안합니다. 필요시 Staging(검증) 단계를 추가할 수 있습니다.</p></div><div style="display:contents" dir="ltr"><table id="2cbf8917-466a-8086-8ac9-c5c8ef492649" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-8071-9f95-d33f27009ae0"><td id="dQWj" class=""><strong>환경</strong></td><td id="n;iM" class=""><strong>용도 (Purpose)</strong></td><td id="I|Rk" class=""><strong>구성 방식 (Infrastructure)</strong></td><td id="N:]G" class=""><strong>배포 주체</strong></td></tr></div><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-800c-b8e4-ef32348068b9"><td id="dQWj" class=""><strong>Local</strong></td><td id="n;iM" class="">개인별 기능 개발 및 단위 테스트</td><td id="I|Rk" class=""><strong>Docker Compose</strong> 활용 (로컬 PC에 Redis, Kafka, DB 컨테이너 띄움)</td><td id="N:]G" class="">개발자 개인</td></tr></div><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-800f-9547-ec6d82592b71"><td id="dQWj" class=""><strong>Dev (개발계)</strong></td><td id="n;iM" class=""><strong>MSA 서비스 간 통합 테스트</strong>, API 연동 확인, 클라이언트(FE) 개발용 서버</td><td id="I|Rk" class=""><strong>AWS ECS (스펙 낮춤)</strong>, RDS (Single AZ), ElastiCache (t3.micro 등 저사양)</td><td id="N:]G" class="">CI/CD (Develop 브랜치 푸시 시 자동 배포)</td></tr></div><div style="display:contents" dir="ltr"><tr id="2cbf8917-466a-8030-8987-e4fd898f8499"><td id="dQWj" class=""><strong>Prod (운영계)</strong></td><td id="n;iM" class="">실제 고객 서비스 제공</td><td id="I|Rk" class=""><strong>AWS ECS (Auto Scaling 적용)</strong>, RDS (Multi-AZ), 고성능 인스턴스</td><td id="N:]G" class="">관리자 승인 후 배포 (Master/Main 브랜치)</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><blockquote id="2cbf8917-466a-807c-8f95-c67576f9216f" class="">전략 포인트:<div style="display:contents" dir="auto"><ul id="2cbf8917-466a-808d-a2b0-e8738bbb07e6" class="bulleted-list"><li style="list-style-type:disc"><strong>Local 환경 표준화:</strong> <code>docker-compose.yml</code> 파일을 프로젝트 루트에 포함시켜, 신규 입사자도 명령어 한 번(<code>docker-compose up</code>)으로 로컬에 WiseNTM 구동 환경(Redis, Kafka, DB 포함)을 완벽하게 세팅할 수 있게 합니다.</li></ul></div></blockquote></div><div style="display:contents" dir="auto"><h2 id="2cbf8917-466a-8025-b5e1-f7f92a351a75" class="">2. 개발계(Dev) 데이터 활용 전략</h2></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-8054-8d1e-d83f84012f9f" class="">SaaS 환경에서 가장 민감한 <strong>&#x27;고객 데이터 보호&#x27;</strong>와 <strong>&#x27;테스트 편의성&#x27;</strong> 사이의 균형을 맞춰야 합니다.</p></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8061-afc7-c08f2fe44dca" class="bulleted-list"><li style="list-style-type:disc"><strong>원칙:</strong> 개발계 DB에는 <strong>실제 고객의 개인정보(전화번호, 녹취파일, 주민번호 등)를 절대 적재하지 않습니다.</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80b1-b388-c5bdfb79a827" class="bulleted-list"><li style="list-style-type:disc"><strong>데이터 생성 방안:</strong><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-8010-89b2-ef0cce13cc31" class="numbered-list" start="1"><li><strong>Mock Data Seeding:</strong> 개발 초기에 미리 정의된 가짜 데이터(Dummy Data)를 DB 초기화 시점에 자동으로 넣는 스크립트 실행 (User 100명, 통화 이력 100건 등).</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-8046-a4e5-f3ad5726c9a9" class="numbered-list" start="2"><li><strong>데이터 마스킹(Masking):</strong> 운영계에서 발생한 버그를 잡기 위해 데이터가 꼭 필요할 경우, 별도의 ETL 툴을 통해 <strong>개인정보를 변환(홍길동 to 000, 전화번호 뒷자리 마스킹)</strong> 후 개발계로 이관합니다.</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80c1-a935-f707ff225e4c" class="bulleted-list"><li style="list-style-type:disc"><strong>파일 스토리지:</strong> 개발계는 S3의 <code>dev-bucket</code>을 별도로 사용하며, 일정 기간(예: 30일)이 지나면 자동 삭제되도록 수명주기(Lifecycle) 정책을 겁니다.</li></ul></div><div style="display:contents" dir="auto"><h2 id="2cbf8917-466a-80d8-a2cf-d572b53a4ccb" class="">3. Git 브랜치 전략 (Git Flow for MSA)</h2></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-8086-b5ed-d645d75f2392" class="">개발계 활용을 위한 소스 코드 관리 전략입니다.</p></div><div style="display:contents" dir="ltr"><figure id="2cbf8917-466a-8025-a5b8-de339237ad03" class="image"><a href="WiseNTM%20Saas%ED%99%94%20%ED%9A%8C%EC%9D%98/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-12-16_12.04.16.png"><img style="width:709.984375px" src="WiseNTM%20Saas%ED%99%94%20%ED%9A%8C%EC%9D%98/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-12-16_12.04.16.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-8091-ae29-c74f8d859527" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-80d3-8ac9-d9c327f943f6" class="">브랜치 종류는 다음과 같습니다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-804d-924e-c9a8a99618b5" class="numbered-list" start="1"><li><code>master</code>: 제품 출시 버전을 관리하는 메인 브랜치</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-80a1-abf2-fb446b5d0c1c" class="numbered-list" start="2"><li><code>develop</code>: 다음 출시 버전을 위해 개발하는 브랜치</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-800b-9b50-e1a01c767a88" class="numbered-list" start="3"><li><code>feature</code>: 새로운 기능을 개발하는 브랜치</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-8000-bfbc-c91b722a99f3" class="numbered-list" start="4"><li><code>release</code>: 다음 출시 버전을 준비하는 브랜치</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-80a9-a8f7-f79fc056ea55" class="numbered-list" start="5"><li><code>hotfix</code>: 출시된 제품의 버그를 고치기 위한 브랜치</li></ol></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-807e-a9a2-cf68c6300d38" class="">이러한 Git Flow 를 사용할 때, 어떻게 개발을 진행하는지 그 흐름에 대해서 살펴보도록 하겠습니다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-8084-a659-f8e9ac0e9514" class="numbered-list" start="1"><li>신규 기능 개발을 위해 개발자는 <code>develop</code> 브랜치를 기준으로 한 <code>feature</code> 브랜치를 따서 작업을 진행합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-80d2-be6a-e6dd4d374214" class="numbered-list" start="2"><li>작업이 완료된 <code>feature</code> 브랜치는 <code>develop</code> 브랜치로 병합 (Merge) 됩니다. (일반적으로 프로젝트 진행 시에는 Pull Request 를 통해 작업 내용을 Review 받은 후 해당 PR 을 Merge 하는 방식으로 진행합니다.)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-8046-b927-e503588d097d" class="numbered-list" start="3"><li>다음 출시 버전을 위해 개발 중인 <code>develop</code> 브랜치에서 <code>release</code> 브랜치를 따서 배포를 위한 준비를 합니다. (이 때 발견되는 버그들은 <code>release</code> 브랜치에서 바로 반영합니다.)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-804d-9f5d-e654ebe4f430" class="numbered-list" start="4"><li>충분한 테스트 후에, 일정한 주기로 (일반적으로는 배포하고자 하는 버전 단위) <code>master</code> 브랜치로 Merge 하여 제품을 출시합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-80d2-bece-d8d50a4c1e3f" class="numbered-list" start="5"><li>상용 배포 이후, <code>release</code> 브랜치에서 미처 발견되지 못한 새로운 버그들은 <code>hotfix</code> 브랜치에 바로 반영합니다.</li></ol></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-80fa-9859-db9ee749bfc5"/></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-8081-8d92-f513c4ec2f1f" class="">개발계 시나리오</h3></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-802d-ba6e-cb9cc7761152" class="bulleted-list"><li style="list-style-type:disc"><strong>Feature:</strong> 개발자가 <code>feature/login</code> 브랜치에서 작업 to Local 테스트 완료.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8048-9bd4-f2de909fea0d" class="bulleted-list"><li style="list-style-type:disc"><strong>Develop (PR):</strong> 작업분을 <code>develop</code> 브랜치로 Pull Request → Merge.<br/>• <strong>Action:</strong> Github Actions가 감지하고 <strong>Dev(개발계)</strong> ECS에 자동 배포.<br/>• <strong>QA:</strong> 기획자/테스터가 Dev 서버 접속하여 기능 확인.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80a3-bd16-f35a6c9a9afa" class="bulleted-list"><li style="list-style-type:disc"><strong>Main/Master:</strong> 출시 준비 완료 시 <code>develop</code>을 <code>main</code>으로 Merge.<br/>• <strong>Action:</strong> <strong>Prod(운영계)</strong> 배포 (승인 절차 포함).</li></ul></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-8018-b5a4-fb94edd7b7b8" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-8033-883d-f858df707b84"/></div><div style="display:contents" dir="auto"><h2 id="2cbf8917-466a-803b-a8e5-fbfa5b372696" class="">[예상 질문 사항]</h2></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-80c3-bbb5-d69b845a9274" class="">1. 도커(Container) 기반이 왜 좋은가요?</h3></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-80dc-9531-d79d7d7fc887" class="">도커는 애플리케이션을 실행하는 데 필요한 모든 것(코드, 런타임, 시스템 도구, 라이브러리 등)을 하나의 패키지로 묶어버리는 기술입니다. WiseNTM 고도화 관점에서 4가지 핵심 이점이 있습니다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-80c8-9fca-e1c5190085f9" class="numbered-list" start="1"><li><strong>환경 일관성 (&quot;내 컴퓨터에선 되는데 서버에선 안 돼요&quot; 해결)</strong><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8093-80e6-c0fdd3113125" class="bulleted-list"><li style="list-style-type:disc">기존에는 OS 버전이나 설치된 라이브러리 버전에 따라 에러가 잦았습니다. 도커는 <strong>어디서 실행하든 동일한 환경을 보장</strong>하므로, 유지보수가 간편해집니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-80eb-87b1-f84876bf355e" class="numbered-list" start="2"><li><strong>가볍고 빠른 배포 (Efficiency)</strong><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-807f-9f00-ebd012663af5" class="bulleted-list"><li style="list-style-type:disc">가상머신(VM)처럼 OS 전체를 설치하는 게 아니라, 호스트 OS의 커널을 공유하기 때문에 훨씬 가볍습니다. 이는 <strong>SaaS 환경에서 비용 절감</strong>으로 직결됩니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-80b7-8cb9-d6abc17fd1fc" class="numbered-list" start="3"><li><strong>MSA(Microservices Architecture) 최적화</strong><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80b7-9a87-ed28aa4c6d60" class="bulleted-list"><li style="list-style-type:disc">WiseNTM 계획에 있는 API 서버, 소켓 서버, 배치 서버를 각각 독립된 컨테이너로 쪼개기 좋습니다. 특정 기능(예: 배치 서버)에 부하가 걸려도 다른 서버(API 서버)는 죽지 않습니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-8031-b6d6-cb0371b1c9c8" class="numbered-list" start="4"><li><strong>확장성 (Auto-Scaling)</strong><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8096-b462-da046859e016" class="bulleted-list"><li style="list-style-type:disc">사용자가 몰릴 때 VM은 부팅에 몇 분이 걸리지만, 컨테이너는 <strong>몇 초 만에 실행</strong>됩니다. 트래픽에 따라 서버를 늘리고 줄이는 오토스케일링에 최적화되어 있습니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-8085-a348-cbf4ecc5cb58"/></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-80bb-a09d-dcb29b00e64a" class="">2. 다른 서버에 있는 컨테이너끼리는 어떻게 통신하나요?</h3></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-8041-b507-f33a30bc6d2b" class="">&quot;서버 A의 API 컨테이너&quot;가 &quot;서버 B의 Redis 컨테이너&quot;와 통신해야 하는 상황을 가정해 보겠습니다. MSA 구조에서는 이 통신 설계가 핵심입니다</p></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-80b6-b4f8-cb0533b16ea0" class="">가장 많이 사용되는 3가지 방식이 있습니다.</p></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-8002-a38e-d4d11dfda361" class="">방법 1: 호스트 IP와 포트 포워딩 (가장 원시적인 방법)</h3></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80f9-8313-ed55c2086576" class="bulleted-list"><li style="list-style-type:disc"><strong>방식:</strong> 서버 B가 자신의 <code>8080</code> 포트를 컨테이너의 <code>80</code> 포트와 연결(매핑)해 둡니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8042-a5eb-de7096201e99" class="bulleted-list"><li style="list-style-type:disc"><strong>통신:</strong> 서버 A의 컨테이너는 <strong>&quot;서버 B의 공인 IP : 8080&quot;</strong>으로 요청을 보냅니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8065-9955-fe9c77f8f7cb" class="bulleted-list"><li style="list-style-type:disc"><strong>단점:</strong> 서버 IP가 바뀌거나, 포트가 충돌하면 일일이 수정해야 해서 관리가 매우 힘듭니다. 클라우드 환경에서는 비추천합니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-8020-85f4-c8656fb6a683" class="">방법 2: 오버레이 네트워크 (Overlay Network)</h3></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-808d-8bbb-d684a02f2b9e" class="bulleted-list"><li style="list-style-type:disc"><strong>방식:</strong> 도커 스웜(Swarm)이나 쿠버네티스(K8s) 같은 도구가 <strong>여러 서버를 덮는 거대한 가상 네트워크(Overlay)</strong>를 만듭니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-801d-a1db-e87a3482bc2c" class="bulleted-list"><li style="list-style-type:disc"><strong>통신:</strong> 물리적으로는 다른 서버에 있어도, 컨테이너끼리는 <strong>마치 같은 공유기를 쓰는 옆자리 PC처럼</strong> 사설 IP로 통신할 수 있습니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-80ae-a816-ca57fed40f93" class="">방법 3: 서비스 디스커버리 (Service Discovery) - <strong>추천 (AWS ECS/K8s 환경)</strong></h3></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80f0-9f4c-d22d389e0619" class="bulleted-list"><li style="list-style-type:disc"><strong>방식:</strong> WiseNTM 계획에 언급된 <strong>AWS ECS</strong>나 <strong>GCP</strong> 환경에서는 <strong>&quot;이름&quot;</strong>으로 통신합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-801e-ace9-d570987f3122" class="bulleted-list"><li style="list-style-type:disc"><strong>통신:</strong><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-8012-a5c4-fa6e38f98322" class="numbered-list" start="1"><li>서버 B의 컨테이너가 켜질 때 &quot;나 <code>Redis-Service</code>야, 내 IP는 <code>10.0.1.5</code>야&quot;라고 <strong>등록소(Service Registry)</strong>에 신고합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-80c0-aeea-e6db74ef4069" class="numbered-list" start="2"><li>서버 A의 컨테이너는 &quot; <code>Redis-Service</code>랑 통신하고 싶어&quot;라고 요청하면, 시스템이 알아서 현재 IP로 연결해 줍니다.</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80c3-b788-d59c27cc9ceb" class="bulleted-list"><li style="list-style-type:disc"><strong>장점:</strong> 컨테이너가 죽었다가 다시 살아나서 IP가 바뀌어도, <strong>이름은 그대로</strong>이기 때문에 개발자는 IP를 신경 쓸 필요가 없습니다.</li></ul></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-8051-81e9-d5a3cf2532dd"/></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-8055-9ca2-f7bf06034fe3" class="">3. 프로토콜 변경 관련 (MQTT to Kafka/Redis)</h3></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-8060-a008-f7f84e26b1c0" class=""><strong>Q1. 잘 쓰고 있던 MQTT를 굳이 Kafka와 Redis 조합으로 바꾸려는 이유가 무엇입니까? 오버 엔지니어링 아닌가요?</strong></p></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80cb-ab28-c7738fc708f6" class="bulleted-list"><li style="list-style-type:disc"><strong>답변:</strong> 현재 MQTT 구조에서는 메시지 전송 후 추적이나 이력 관리가 어렵다는 단점이 있습니다.<div style="display:contents" dir="auto"><ul id="2cbf8917-466a-806c-be9c-f95f52bbbffc" class="bulleted-list"><li style="list-style-type:circle"><strong>Kafka</strong>를 도입하면 메시지를 디스크에 저장하므로 유실 방지와 이력 추적(Trace)이 가능해져 안정성이 높아집니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-806e-92a7-d7dade852b8a" class="bulleted-list"><li style="list-style-type:circle"><strong>Redis</strong>의 Pub/Sub은 현재 접속 중인 사용자 상태(Presence)를 실시간으로 핸들링하는 데 MQTT보다 훨씬 빠르고 효율적입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8083-84f8-d6662497890c" class="bulleted-list"><li style="list-style-type:circle">즉, 단순 전송은 Redis가, 중요 데이터의 보관 및 파이프라인은 Kafka가 맡아 시스템의 신뢰성을 높이기 위함입니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-8091-9889-c428ca34627a"/></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-80fb-bade-f90c8049bbdd" class="">4. MSA 분리 기준 관련</h3></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-8054-88ce-ee0e15d4a0ea" class=""><strong>Q2. MSA로 가면 관리가 복잡해질 텐데, 서비스를 얼마나 잘게 쪼갤 계획인가요?</strong></p></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80e4-bf8c-d51cfb397bb0" class="bulleted-list"><li style="list-style-type:disc"><strong>답변:</strong> 너무 잘게 쪼개면 관리가 어려워지므로, 초기에는 <strong>&#x27;기능의 성격&#x27;</strong>에 따라 크게 4가지 그룹으로만 나눌 계획입니다<div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-806e-ad44-c442b39f5ed2" class="numbered-list" start="1"><li><strong>API 서버:</strong> 비즈니스 로직 및 사용자 요청 처리 </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-809b-92ae-deae630d11b8" class="numbered-list" start="2"><li><strong>상태 관리(Status) 서버:</strong> 사용자 접속 상태 및 세션 관리 </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-8043-a25f-f2292216c8c7" class="numbered-list" start="3"><li><strong>소켓(Socket) 서버:</strong> 실시간 알림 및 메시지 전송 </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2cbf8917-466a-8007-b26f-f2daac609f15" class="numbered-list" start="4"><li>배치(Batch) 서버: 통계 집계 및 대량 작업 처리 <div style="display:contents" dir="auto"><p id="2cbf8917-466a-800f-af03-df18e467fc32" class="">이후 트래픽이 집중되는 곳만 부분적으로 분리하는 전략을 취해야 합니다.’</p></div></li></ol></div></li></ul></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-8022-aa1c-f61648dc3df2"/></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-8027-be85-e8d49dd4f560" class="">5. 클라우드 및 컨테이너 전략</h3></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-80be-a72a-de8938be39fc" class=""><strong>Q3. AWS와 GCP 중 어디를 고려 중이며, 서버리스(Cloud Run) 대신 컨테이너(ECS/EC2)를 선택한 이유는 무엇입니까?</strong></p></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80f6-b97f-d487853ac55f" class="bulleted-list"><li style="list-style-type:disc"><strong>답변:</strong> 현재 계획상 <strong>AWS EC2 기반의 ECS(Elastic Container Service)</strong> 구성을 우선 고려하고 있습니다<div style="display:contents" dir="auto"><ul id="2cbf8917-466a-803b-b47b-c8e0fe090484" class="bulleted-list"><li style="list-style-type:circle">GCP의 Cloud Run 같은 서버리스 방식은 초기 설정은 쉽지만, WiseNTM처럼 소켓 연결(Stateful)을 오래 유지해야 하는 서비스에서는 비용 예측이 어렵고 연결 끊김 이슈가 발생할 수 있어 부적합하다고 판단했습니다</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80bd-ab8a-db0f8a6883eb" class="bulleted-list"><li style="list-style-type:circle">대신 ECS를 사용하여 도커 컨테이너를 관리하면 기존 서버 환경과 유사하면서도 오토스케일링의 이점을 가져갈 수 있습니다</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-80af-8f8f-efb35af5d2a7"/></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-8006-81e6-c0f0859a7c8a" class="">6. 커스터마이징 대응 (SaaS화)</h3></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-80e6-b097-fb8e3c2f8676" class=""><strong>Q4. 고객사마다 요구사항(Customizing)이 다 다른데, 통합된 SaaS 형태로 가면 개별 요구사항은 어떻게 반영하나요?</strong></p></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80b8-b96d-d71c4c999ec6" class="bulleted-list"><li style="list-style-type:disc"><strong>답변:</strong> 이번 고도화의 핵심 목표 중 하나가 <strong>&#x27;다양하게 커스터마이징 된 솔루션의 통합&#x27;</strong>입니다<div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80f0-95f2-e7c697189db6" class="bulleted-list"><li style="list-style-type:circle">기존처럼 소스 코드를 분기하는(Fork) 방식이 아니라, <strong>&#x27;설정(Configuration) 기반&#x27;</strong>으로 대응할 예정입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80fe-a866-dde6f8e43a46" class="bulleted-list"><li style="list-style-type:circle">화면 설계서의 &#x27;설정&#x27; 메뉴에 있는 <strong>메뉴 관리, 부서 관리, 화면 권한</strong> 기능을 강화하여, 코드를 수정하지 않고도 고객사가 원하는 기능의 ON/OFF가 가능하도록 설계하는 것을 제안합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-800d-ba65-c48903e34f9b"/></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-80f1-ae73-cd265edd05de" class="">7. 모니터링 및 장애 대응</h3></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-80d2-8d95-ccfd559c8b22" class=""><strong>Q6. 서비스가 여러 개로 쪼개지면(MSA), 장애가 났을 때 원인을 찾기 힘들지 않을까요?</strong></p></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-803d-9688-eb0b9525eaef" class="bulleted-list"><li style="list-style-type:disc"><strong>답변:</strong> 맞습니다. 그래서 <strong>&#x27;행위 이력 로그 기능&#x27;</strong>과 <strong>&#x27;메시지 추적 기능(브로커)&#x27;</strong>이 필수적입니다<div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80fa-b0fa-e608c60e282b" class="bulleted-list"><li style="list-style-type:circle">모든 요청에 고유 ID(Trace ID)를 부여하여, API 서버에서 시작된 요청이 소켓 서버를 거쳐 DB까지 가는 경로를 한눈에 볼 수 있는 분산 추적(Distributed Tracing) 시스템을 도입할 예정입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8041-9d24-fe4d5b64e341" class="bulleted-list"><li style="list-style-type:circle">또한, 1차적으로 &#x27;사용자 모니터링 기능&#x27;을 통해 관리자가 실시간 접속 현황을 파악할 수 있도록 설계되어 있습니다</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-80b3-8d88-e63e2d6575cc"/></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-806e-8519-cf362e663fe5" class="">8. 보안 (개인정보 보호)</h3></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-800a-b7a0-fe1d4578679e" class=""><strong>Q7. SaaS는 여러 고객사가 같은 시스템을 쓰는데, 데이터가 섞이거나 유출될 위험은 없나요?</strong></p></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80ec-9abc-e7ce66b6089d" class="bulleted-list"><li style="list-style-type:disc"><strong>답변:</strong> 논리적인 데이터 분리(Multi-tenancy)를 철저히 적용할 것입니다.<div style="display:contents" dir="auto"><ul id="2cbf8917-466a-80ad-8b3c-c9bb0821e8c7" class="bulleted-list"><li style="list-style-type:circle">DB 레벨에서 <code>Company_ID</code> 컬럼으로 엄격하게 데이터를 격리하거나, 필요시 고객사별로 DB 스키마(Schema)를 분리하는 전략을 사용합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-807c-bd90-e9ed84aa5a6f" class="bulleted-list"><li style="list-style-type:circle">추가로 화면 설계에 포함된 <strong>&#x27;개인정보 마스킹&#x27;</strong> 기능과 <strong>&#x27;전화기록/문자내역 삭제&#x27;</strong> 기능을 통해, 민감 정보의 생명주기를 시스템적으로 관리하여 보안 우려를 해소하겠습니다</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="2cbf8917-466a-80b4-a08f-dfe22c0d1eae"/></div><div style="display:contents" dir="auto"><h3 id="2cbf8917-466a-802c-9b87-f32bb8391de7" class="">9. 대용량 파일 처리 (녹취/이미지)</h3></div><div style="display:contents" dir="auto"><p id="2cbf8917-466a-8053-9339-d521c85a6870" class=""><strong>Q8. 모바일 Box 기능이나 녹취 파일은 용량이 클 텐데, 이를 처리 서버가 직접 감당하면 부하가 심하지 않을까요?</strong></p></div><div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8091-8901-e450dd60bf52" class="bulleted-list"><li style="list-style-type:disc"><strong>답변:</strong> 맞습니다. 그래서 파일 업로드/다운로드는 API 서버를 거치지 않고, <strong>클라우드 스토리지(예: AWS S3)와 클라이언트가 직접 통신(Pre-signed URL)</strong>하도록 설계하여 서버 부하를 줄일 것입니다.<div style="display:contents" dir="auto"><ul id="2cbf8917-466a-8051-8660-fe789060e3c3" class="bulleted-list"><li style="list-style-type:circle">화면 설계서의 &#x27;모바일 Box&#x27;와 &#x27;녹취 청취&#x27; 기능은 메타데이터(파일 정보)만 DB에서 가져오고, 실제 파일 스트리밍은 스토리지 서버가 전담하는 구조로 개발됩니다 [WiseNTM_화면설계본.pptx] 참고</li></ul></div></li></ul></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-803f-9d1a-f75dfd7ed02c" class="link-to-page"><a href="WiseNTM%20Saas%ED%99%94%20%ED%9A%8C%EC%9D%98/MQTT%20%C2%B7%20EMQX%20%C2%B7%20NLB%20%C2%B7%20ALB%20302f8917466a803f9d1af75dfd7ed02c.html">MQTT · EMQX · NLB · ALB </a></figure></div><div style="display:contents" dir="ltr"><figure id="310f8917-466a-8065-8d33-eb70c69c49d8" class="link-to-page"><a href="WiseNTM%20Saas%ED%99%94%20%ED%9A%8C%EC%9D%98/WiseNTM%20EMQX%20Cluster%20(HA)%20310f8917466a80658d33eb70c69c49d8.html">WiseNTM EMQX Cluster (HA) </a></figure></div><div style="display:contents" dir="ltr"><figure id="31ff8917-466a-80bc-a973-f5da7091ea89" class="link-to-page"><a href="WiseNTM%20Saas%ED%99%94%20%ED%9A%8C%EC%9D%98/WiseN%20TM%20%EC%BF%A0%ED%8C%A1%2031ff8917466a80bca973f5da7091ea89.html">WiseN TM 쿠팡</a></figure></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

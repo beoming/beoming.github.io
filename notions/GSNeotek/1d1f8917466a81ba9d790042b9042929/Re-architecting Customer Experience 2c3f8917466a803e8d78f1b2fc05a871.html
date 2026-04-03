@@ -1,0 +1,724 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Re-architecting Customer Experience</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2c3f8917-466a-803e-8d78-f1b2fc05a871" class="page sans"><header><h1 class="page-title" dir="auto">Re-architecting Customer Experience</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80cc-97cf-e09ddeeb5aca" class="">Amazon Connect 기반 Agentic AI CX 운영 모델의 실제 구현과 전략적 시사점</h2></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-801b-847f-dfabbabf6e36" class=""><strong>분석 대상 세션</strong></p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8070-8b01-d18ac125e1f7" class="bulleted-list"><li style="list-style-type:disc">MAM211 | <em>Turning Complexity into Effortless CX with Amazon Connect</em></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8047-9055-c408989d17be" class="bulleted-list"><li style="list-style-type:disc">BIZ217 | <em>Global Tourism Brand transforms customer service with Amazon Connect</em></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8050-9ac0-fdf057546f74" class="bulleted-list"><li style="list-style-type:disc">BIZ221 | <em>Agentic AI advancements in customer experience with Amazon Connect</em></li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8034-bd4d-e91144c9eef3"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-800c-acae-c957840ef29c" class="">1. 보고서 목적과 접근 방식</h2></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80c2-a29e-ed7594623f56" class="">본 보고서는 AWS re:Invent 2025에서 발표된 <strong>Amazon Connect 관련 3개 핵심 세션</strong>을 기반으로,</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8078-90f5-c625679672f1" class="">Amazon Connect가 <strong>단순 CCaaS를 넘어 ‘Agentic AI 기반 CX 운영 플랫폼’으로 진화하는 구조와 그 실증 사례</strong>를 분석한다.</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-802c-8fd1-cce16e125e74" class="">특히 다음 질문에 답하는 것을 목적으로 한다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8041-a38f-e4c110189194" class="numbered-list" start="1"><li>왜 AWS는 CX 영역을 Agentic AI의 핵심 산업으로 보는가</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8054-ad6b-ee408a8a50be" class="numbered-list" start="2"><li>Amazon Connect는 기존 CCaaS 대비 어떤 구조적 차별성을 갖는가</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8071-a8db-f576cf388929" class="numbered-list" start="3"><li>Agentic AI는 실제로 어디까지 사람을 대체하고, 어디서 사람을 강화하는가</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80b2-a6fd-c0795bbf371b" class="numbered-list" start="4"><li>대기업 사례에서 검증된 운영 성과는 무엇인가</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-809a-8bfd-d6bca4c0fb1c" class="numbered-list" start="5"><li>기업은 어떤 순서와 방식으로 Agentic CX로 전환해야 하는가</li></ol></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8018-a7a4-dafea221532f"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80ca-8c50-da7c1fd08a40" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-8077-a01b-cf6523a0d814" class="">2. CX 복잡성의 본질: 기술 문제가 아닌 “운영 구조 문제”</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-807e-a6e5-f00c542a8e0d" class="">2.1 기존 CX 환경의 공통적 한계</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80d1-a7d8-c58dbbbb7e7a" class="">세션 전반에서 공통적으로 등장하는 문제는 다음과 같다.</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-802e-a785-fc5321672ace" class="bulleted-list"><li style="list-style-type:disc">CX 시스템 난립<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8023-887b-cfa0d8fe06f8" class="bulleted-list"><li style="list-style-type:circle">평균 20~80개 이상의 운영 시스템</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-808c-b97f-f04e1b309daa" class="bulleted-list"><li style="list-style-type:circle">채널별, 지역별, 조직별 기술 파편화</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8097-934f-e0f9b7523ad5" class="bulleted-list"><li style="list-style-type:disc">데이터 단절<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-802e-985a-e574d9110e9f" class="bulleted-list"><li style="list-style-type:circle">고객 이력·의도·여정이 시스템 간 분리</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8085-b089-cbac42c9aefe" class="bulleted-list"><li style="list-style-type:circle">실시간 판단 불가</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-802a-89b5-e4ad68dcf062" class="bulleted-list"><li style="list-style-type:disc">인간 중심 비효율<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80c6-8472-f9eca26f4825" class="bulleted-list"><li style="list-style-type:circle">상담원이 정보를 “찾는 데” 시간을 소비</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-808c-a74e-fdcc19ce8502" class="bulleted-list"><li style="list-style-type:circle">평균 처리 시간(AHT)의 상당 부분이 비부가 가치 영역</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8049-adb0-f33f7ed6e17d" class="">TUI, Centrica, 금융·보험·공공 고객 사례 모두</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-806a-9628-d050a9f4b50d" class=""><strong>“상담 실패의 원인은 상담원이 아니라 시스템 구조”</strong>라는 결론에 도달했음을 명확히 보여준다.</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8052-8377-cd8d6c8fa837"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-801a-b106-eb42552c1354" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80af-bd01-e0d402f84100" class="">3. Amazon Connect의 포지셔닝 변화</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8077-81bb-ed61eed5c150" class="">CCaaS → Composable, Agentic CX Platform</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80bf-a7e2-eed9f5fe924f" class="">3.1 Connect는 더 이상 ‘컨택센터 솔루션’이 아니다</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8017-8d09-f3fb6555bcff" class="">Amazon Connect는 전통적인 CCaaS 정의에서 벗어나 다음 특성을 갖는 플랫폼으로 재정의되고 있다.</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8017-84a0-da11026652a1" class="bulleted-list"><li style="list-style-type:disc">단일 애플리케이션이 아님</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8052-bcc8-fcd2e359e2a9" class="bulleted-list"><li style="list-style-type:disc"><strong>CX Orchestration Engine </strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8069-af6e-e1bae867d5e3" class="bulleted-list"><li style="list-style-type:disc"><strong>Human + AI Agent를 동일한 행위 주체로 취급</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8043-8bae-ffbd9e947968" class="bulleted-list"><li style="list-style-type:disc">채널·AI·데이터·운영을 하나의 엔진으로 통합</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8077-ba1e-d1669227d9e9" class="">이는 AWS가 세션 내내 강조한 핵심 메시지다.</p></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-8082-bbb9-fbbed71482c8" class="">“Amazon Connect는 AI가 붙은 CCaaS가 아니라<div style="display:contents" dir="auto"><p id="2c3f8917-466a-8049-95cc-eaa81a7a9da1" class="">AI가 중심이 되는 CX 운영 엔진이다.”</p></div></blockquote></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-802c-ac03-d70b633985e8"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-807b-8649-df9e87c91b86" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-8062-bf06-c920029d8c66" class="">4. Agentic AI의 실제 정의: IVR의 진화가 아닌, 운영 주체의 전환</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80c9-a65a-c2541787ba3f" class="">4.1 세션에서 정의된 Agentic AI</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80a5-bddf-e10f0062a9f9" class="">세 가지 세션에서 공통적으로 정의된 Agentic AI의 조건은 다음과 같다.</p></div><div style="display:contents" dir="ltr"><table id="2c3f8917-466a-803f-a273-e8c19f1b2bac" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-809e-a6a1-c6eba6e9b71b"><th id="WIxN" class="simple-table-header-color simple-table-header">항목</th><th id="HxQ|" class="simple-table-header-color simple-table-header">기존 봇 / IVR</th><th id="n`lD" class="simple-table-header-color simple-table-header">Agentic AI</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8073-81d8-c4dfb7b14213"><td id="WIxN" class="">역할</td><td id="HxQ|" class="">요청 응답</td><td id="n`lD" class="">목표 기반 행위</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80dd-a863-d49e3fffb380"><td id="WIxN" class="">상태</td><td id="HxQ|" class="">Stateless</td><td id="n`lD" class="">Stateful (Memory)</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80a4-8325-c3b3f9d84df1"><td id="WIxN" class="">판단</td><td id="HxQ|" class="">규칙 기반</td><td id="n`lD" class="">Context + Reasoning</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80b7-a21a-f7075083b0fb"><td id="WIxN" class="">실행</td><td id="HxQ|" class="">선형 플로우</td><td id="n`lD" class="">Tool 호출 + Action</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8041-a1a7-de0e3cac66ac"><td id="WIxN" class="">책임</td><td id="HxQ|" class="">없음</td><td id="n`lD" class="">Evaluation 대상</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80a6-9e9b-de8e9e8c24ef" class="">즉, Agentic AI는</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80bd-a920-c6e850453605" class=""><strong>“대화를 하는 AI가 아니라, 일을 처리하는 AI”</strong>다.</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80f2-89c4-d15ae7c7f970"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80bd-a129-d1821b8f5b84" class="">4.2 Amazon Connect의 Agentic 구현 방식이 중요한 이유</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-805e-ad53-d7e1219f23c3" class="">AWS는 Agentic AI를 다음 세 가지 원칙으로 제한 없이 열어두되, 위험 없이 운영 가능하게 설계했다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8007-8269-cd6c5598d89b" class="numbered-list" start="1"><li><strong>Continuum 접근</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-804d-9d01-def50533bec1" class="bulleted-list"><li style="list-style-type:disc">100% Human</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8086-bed4-da284c9a8158" class="bulleted-list"><li style="list-style-type:disc">Human + AI Assistance</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80bc-aec7-dba1224e313a" class="bulleted-list"><li style="list-style-type:disc">Partial Agentic</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b6-87e8-c1da5675bfc1" class="bulleted-list"><li style="list-style-type:disc">100% Agentic<div style="display:contents" dir="auto"><p id="2c3f8917-466a-80c4-a956-c11fc6d1b153" class="">→ 고객/업무별로 자유롭게 선택</p></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-808d-b7e8-f8898530821b" class="numbered-list" start="2"><li><strong>Action before Automation</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80ca-9cc4-c44e24140ddf" class="bulleted-list"><li style="list-style-type:disc">이해만 하는 AI가 아님</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80ef-aef7-fb7eb0e35232" class="bulleted-list"><li style="list-style-type:disc">실제 업무(Action)를 수행하는 AI </li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80d0-837b-f05e6c5c9f32" class="numbered-list" start="3"><li><strong>Evaluation-First 운영</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b9-87de-f87f19b20d7f" class="bulleted-list"><li style="list-style-type:disc">AI도 사람과 동일하게 평가</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e6-bbd2-c779a3af19f9" class="bulleted-list"><li style="list-style-type:disc">성능·정책·품질 기준 통과 필수</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8025-932e-ee5d807246b5"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8038-90be-e10df37f15b3" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80ba-b7d3-e0a79cd53342" class="">5. 핵심 기술 구성 요소 분석</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80f4-aab0-f546eae8f4b4" class="">5.1 AI Native Contact Flow</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-808b-9d30-dd74375ef965" class="bulleted-list"><li style="list-style-type:disc">음성/채팅 시작 시점부터 AI 개입</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a9-a75e-fa7cae32381e" class="bulleted-list"><li style="list-style-type:disc">고객 인증, 의도 파악, 우선순위 판단 자동화</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8075-af88-fe4c6aadfdde" class="bulleted-list"><li style="list-style-type:disc">채널 전환(Voice → Chat → Push) 시 맥락 유지</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8012-a659-d67e9765bacf" class="">“고객이 다시 설명하지 않아도 되는 CX” 구현</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80c8-a93d-cd57c31e588d"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80c3-9110-fb8589379ce2" class="">5.2 Low-code Agentic AI Builder</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80f6-8465-f4133041d3c6" class="">Agentic AI는 더 이상 연구 과제가 아니라 <strong>현업 구성 가능 자산</strong>으로 제공된다.</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8035-bec2-cea871f9cf00" class="bulleted-list"><li style="list-style-type:disc">Capability 기반 설계<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8062-8b0e-c54b9bfdd39d" class="bulleted-list"><li style="list-style-type:circle">검색</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80de-a941-e96f979b9213" class="bulleted-list"><li style="list-style-type:circle">추천</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8090-93e5-e9d2b609ff3f" class="bulleted-list"><li style="list-style-type:circle">예약</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8092-81a0-fbed4689e6eb" class="bulleted-list"><li style="list-style-type:circle">결제</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-804c-8430-dd8758b479f4" class="bulleted-list"><li style="list-style-type:circle">정책 확인</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-808c-aa20-cc9cdf58226c" class="bulleted-list"><li style="list-style-type:disc">MCP(Model Context Protocol) 기반 외부 시스템 연계</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80fd-a461-f9adbbcfe5c8" class="bulleted-list"><li style="list-style-type:disc">보안 프로파일로 접근 범위 명시</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8074-9eae-cd01bda68cba" class="">“AI를 개발하는 조직”이 아니라</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8019-bf43-f333451b369e" class="">“AI를 설계·통제하는 조직”으로 전환</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80b1-b581-ca153362c221"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-803c-a38d-db6ff6377e79" class="">5.3 Unified Data &amp; Observability</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8056-a29f-ce09142d3a80" class="">Amazon Connect의 차별성은 <strong>운영 데이터 통합</strong>에 있다.</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80c1-9b2b-ff1a1d59c2dd" class="bulleted-list"><li style="list-style-type:disc">Human Agent</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8055-ae6f-eeaba80a6034" class="bulleted-list"><li style="list-style-type:disc">AI Agent</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a4-ad60-c36f9bff8e7f" class="bulleted-list"><li style="list-style-type:disc">Bot</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8015-ba01-d7c698ad58f1" class="bulleted-list"><li style="list-style-type:disc">Channel</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b0-b76f-d76693d8a4fe" class="bulleted-list"><li style="list-style-type:disc">Journey</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80fa-9502-e25f70d82acb" class="bulleted-list"><li style="list-style-type:disc">Action History</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8040-8b9f-c5d9fc65adb5" class="">모두 동일한 기준으로 로그·지표·평가 가능</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80fc-845c-d7f88c3300b6" class="">기존 AHT 중심 KPI에서</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80c2-9985-e3c910f2f161" class=""><strong>문제 해결률, 성공 행동률, 재접촉률 기반 평가 체계</strong>로 이동</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-808b-b76d-de9c53f125b8"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8050-b35d-d72752876891" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80d0-aa58-e0197a802570" class="">6. 실증 사례 분석</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8018-b751-e4bc25ab2470" class="">6.1 NTT 사례 (MAM211)</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8094-8861-f553196d194f" class="bulleted-list"><li style="list-style-type:disc">Agentic AI를 IVR 대체로 활용</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8086-98a4-d17583593bb9" class="bulleted-list"><li style="list-style-type:disc">대규모 음성 중심 CX 재정립</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-805c-9610-ebc1b9a59474" class="bulleted-list"><li style="list-style-type:disc">실시간 음성 분석 + 정책 위반 즉시 차단</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8041-8ffc-d872318a017e" class="bulleted-list"><li style="list-style-type:disc">Human Agent 역할: 처리 → 감독·품질·공감</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-801b-aceb-f265bf90b4b4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80d8-b8b9-d4842ba175f3" class=""><strong>“음성은 가장 높은 ROI를 내는 디지털 채널”이라는 재해석</strong></p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8042-8686-f50d4151a8c4"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80b6-b888-d7a6ca05eec8" class="">6.2 TUI 사례 (BIZ217)</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-803c-bbb4-d15db2323040" class="bulleted-list"><li style="list-style-type:disc">85개 이상 시스템 → Amazon Connect 중심 단일화</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b8-aea2-c0186a326965" class="bulleted-list"><li style="list-style-type:disc">10,000+ 에이전트 / 12개 국가 / 8개 언어 통합</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80da-84c2-d722a592f370" class=""><strong>성과</strong></p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8074-91f4-e1d7da3d981e" class="bulleted-list"><li style="list-style-type:disc">고객 접촉 30% 감소</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80ec-b763-c30f712a4d4a" class="bulleted-list"><li style="list-style-type:disc">AHT 25% 단축</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a3-9003-e7f7d89a235b" class="bulleted-list"><li style="list-style-type:disc">CSAT 25% 상승</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80c1-b0a5-fa63a7b63eec" class="bulleted-list"><li style="list-style-type:disc">매출 전환 25% 증가</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8042-960f-d4ee6ceb1091" class="bulleted-list"><li style="list-style-type:disc">고객당 비용 10% 절감</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80ca-bf98-dc1cdcc5d391" class=""><strong>비용 절감과 고객 경험 개선의 동시 달성</strong></p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-800f-a9fd-ef8a0efe85d9"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80a3-804a-c5728c7b44d6" class="">6.3 Centrica 사례 (BIZ221)</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-808a-b787-cf93976f144e" class="bulleted-list"><li style="list-style-type:disc">완전한 CC 시스템 단일화</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80d4-8c86-eff201314880" class="bulleted-list"><li style="list-style-type:disc">Auto Wrap, Agent Assist, Vulnerability Detection 활용</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-802a-8a43-e348d88e83d7" class=""><strong>성과</strong></p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8063-8f7a-d3de5fb5f783" class="bulleted-list"><li style="list-style-type:disc">NPS 최대 89% 개선</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80de-a215-d1d244adaf36" class="bulleted-list"><li style="list-style-type:disc">평균 처리 시간 140s → 87s</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8082-a424-ef5edd865433" class="bulleted-list"><li style="list-style-type:disc">민감 고객 대응 자동화</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-802a-9362-fbac122c7e9f" class=""><strong>AI는 비용 절감 도구가 아니라 리스크 관리 도구</strong></p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-809e-a2b8-d6bb4b764190"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80a4-b9a4-f5bf4b938f2b" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-8050-8a62-d17697a51e46" class="">7. 전략적 시사점</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-802c-b6cc-d445beb38d34" class="">7.1 CX의 미래는 “Effortless”가 아니라 “Invisible”</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8085-81e7-eb21408221e5" class="">AWS가 말하는 Effortless CX의 본질은</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80ad-a868-c97e7fa35a70" class="">고객이 느끼기에 <strong>노력이 존재하지 않는 경험</strong>이다.</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8014-b7f2-d856eef4c60b" class="bulleted-list"><li style="list-style-type:disc">기다리지 않는다</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8067-9544-eb40d973292d" class="bulleted-list"><li style="list-style-type:disc">반복 설명하지 않는다</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80ba-9195-f9541f094575" class="bulleted-list"><li style="list-style-type:disc">문제를 제기하기 전에 해결된다</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80b2-9604-cacaf32efcb9" class="">이는 기술 문제가 아니라 <strong>운영 철학의 변화</strong>다.</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80ea-a160-dd72a810ef53"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-809a-b748-dd5bad871878" class="">7.2 Agentic AI의 현실적 도입 순서</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8089-9ed6-c0e7ad8aecca" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80f0-9046-ce24d36892bd" class="">AWS와 고객 사례가 공통적으로 제시하는 순서:</p></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80bf-8eac-d59a8dc3c7f0" class="numbered-list" start="1"><li><strong>Agent Assist</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8045-b1ca-d23f2c6f32f2" class="numbered-list" start="2"><li><strong>Supervisor AI</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-800a-88a8-ecdfcc25e2b3" class="numbered-list" start="3"><li><strong>Partial Self-service Agent</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80e7-8f44-e6ce79f7f687" class="numbered-list" start="4"><li><strong>Critical-free 영역 자율 Agent</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-801a-86de-cd4b5121ca9d" class="numbered-list" start="5"><li><strong>End-to-End Agentic CX</strong></li></ol></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8070-8edd-f245ec8b6d60"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8098-861c-f2030b45120a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8010-861f-e61de1bc2444" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-805d-9ea7-f99a2a35df70" class="">8. Agentic CX 전환 로드맵</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8027-a8e6-e6e4653fe7d4" class="">― Amazon Connect 기반 단계적 실행 전략 ―</h3></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8086-b1b9-db7d077c4a39"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-8018-838b-ce443855e7b1" class="">8.1. 로드맵 수립 배경</h2></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-807e-8d5a-ef4b100a38c1" class="">Agentic AI는 <strong>“도입 여부의 문제”가 아니라 “도입 방식의 문제”</strong>다.</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80b7-9395-da0c095cac4a" class="">AWS re:Invent 2025의 모든 Connect 관련 세션은 다음 사실을 반복적으로 증명한다.</p></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-80a6-9b05-d8d4e9796e83" class="">Agentic AI를 한 번에 전면 적용한 기업은 없다.<div style="display:contents" dir="auto"><p id="2c3f8917-466a-800e-8e96-d84f6b97f8b4" class="">성공 기업은 모두 <strong>단계적·선별적 확장 전략</strong>을 사용한다.</p></div></blockquote></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8044-992f-cf5280110c63" class="">따라서 본 로드맵은 <strong>AICC 조직이 리스크를 통제하면서도 실질 성과를 내기 위한 단계적 전환 경로</strong>를 제시한다.</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-800e-a0fe-f3f63d0c24db"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80c4-9eba-dc3f349f5bf6" class="">8.2. Agentic CX 전환의 5단계 구조 개요</h2></div><div style="display:contents" dir="ltr"><table id="2c3f8917-466a-805c-ab1f-caafc8f6569a" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8036-a785-f6c4dd012e76"><th id="x|Sy" class="simple-table-header-color simple-table-header">단계</th><th id="cVuE" class="simple-table-header-color simple-table-header">핵심 키워드</th><th id="NLoU" class="simple-table-header-color simple-table-header">AI 역할</th><th id="p{F}" class="simple-table-header-color simple-table-header">사람 역할</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80a3-aa43-f26a5543ad5c"><td id="x|Sy" class="">Phase 0</td><td id="cVuE" class="">기반 정비</td><td id="NLoU" class="">없음</td><td id="p{F}" class="">전면 수행</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8059-acc9-d51220983849"><td id="x|Sy" class="">Phase 1</td><td id="cVuE" class="">Agent Assist</td><td id="NLoU" class="">조언자</td><td id="p{F}" class="">실행자</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8089-9580-e8c51dde75dc"><td id="x|Sy" class="">Phase 2</td><td id="cVuE" class="">Supervisor AI</td><td id="NLoU" class="">판단 보조</td><td id="p{F}" class="">감독</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-808f-9273-cf57e7643a91"><td id="x|Sy" class="">Phase 3</td><td id="cVuE" class="">Partial Agentic</td><td id="NLoU" class="">부분 실행</td><td id="p{F}" class="">승인</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8040-bc5a-f0b897e08d37"><td id="x|Sy" class="">Phase 4</td><td id="cVuE" class="">Frontier Agent</td><td id="NLoU" class="">자율 실행</td><td id="p{F}" class="">거버넌스</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-802d-9fd5-dd79bf689ac5"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-8040-b4e3-e0af4be03867" class="">8.3. Phase 0 — AICC 기반 정비 단계</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8043-9b3f-f7aa316165f6" class="">(AI 도입 전 필수 단계)</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8003-add8-f6a16bfb248b" class="">3.1 목적</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8073-9b98-f216ce0dc265" class="bulleted-list"><li style="list-style-type:disc">AI 도입을 가로막는 <strong>CX 구조적 복잡성 제거</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b9-a296-c6277b3cb6c3" class="bulleted-list"><li style="list-style-type:disc">“AI가 일을 못 하는 이유”를 기술이 아닌 운영에서 제거</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-800f-ac0f-ea285a3d42ca"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80fe-a535-ca619e5b1cf6" class="">3.2 핵심 과제</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8033-9011-cc8fc606758c" class="">① CX 기술 단일화</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8066-a0d0-f4eb12f61498" class="bulleted-list"><li style="list-style-type:disc">Amazon Connect를 CX Control Plane으로 지정</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80eb-aba7-e5d699c19733" class="bulleted-list"><li style="list-style-type:disc">채널별 솔루션 흡수 또는 통합</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8030-a1fc-d070ae0b1f60" class="">[성공 기준]</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80fc-a80b-f5153f04ab23" class="bulleted-list"><li style="list-style-type:disc">상담원이 사용하는 화면 수 ↓</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8064-8f9f-c4f2d5900d2f" class="bulleted-list"><li style="list-style-type:disc">CX 경로가 Connect 중심으로 수렴</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-802d-99fc-c83d89a0fee7"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80ef-8328-c0c8bf6c9671" class="">② 데이터 정비 (Garbage In → Garbage Out 차단)</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80bd-ae02-f0fc45674594" class="bulleted-list"><li style="list-style-type:disc">고객 정보</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80d2-a20b-ff5eb027886f" class="bulleted-list"><li style="list-style-type:disc">상담 이력</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8095-b34c-dcccf168ff0c" class="bulleted-list"><li style="list-style-type:disc">정책 문서</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8087-9c2d-e5838fe75934" class="bulleted-list"><li style="list-style-type:disc">프로세스 정의</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8080-ab18-f01b07e85a46" class="">“정확하지 않은 데이터로 AI를 평가하지 않기 위한 단계”</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8082-a688-f56a80025565"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-802a-ad87-d8bb3d98d856" class="">③ KPI 전환 준비</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80f3-b89b-fadc62478caf" class="bulleted-list"><li style="list-style-type:disc">AHT 중심 KPI → 문제 해결 중심 KPI<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-807e-858f-c588c0a769ef" class="bulleted-list"><li style="list-style-type:circle">First Contact Resolution</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8019-99fe-db2cba2b9c45" class="bulleted-list"><li style="list-style-type:circle">Re-contact Rate</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a7-b74a-ccc149fa2912" class="bulleted-list"><li style="list-style-type:circle">Policy Violation</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80ef-a449-d6848fb912ff" class="bulleted-list"><li style="list-style-type:circle">AI Recommendation Acceptance</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8004-8f50-f94545ce82c7"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-8068-a7fb-fdaba9304bda" class="">8.4. Phase 1 — Agent Assist 중심 전환</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-802a-90d9-c6300d1e7092" class="">(가장 빠른 ROI 구간)</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8044-b8c7-f7f625c3219f" class="">4.1 목표</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8091-9289-d6a047c2ec26" class="bulleted-list"><li style="list-style-type:disc">AI를 <strong>고객이 아닌 상담원에게 먼저 적용</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8007-9844-d530e576963f" class="bulleted-list"><li style="list-style-type:disc">비용 절감 + 품질 개선을 동시에 달성</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80b0-ae34-e19607131dc3"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8011-a734-da333426a3f5" class="">4.2 적용 영역</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-805e-a6b7-ec036aa58e8c" class="">실시간 Agent Assist</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8050-972e-c7f541cc0a7b" class="bulleted-list"><li style="list-style-type:disc">고객 발화 요약</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-800f-851a-e83b9469b6d6" class="bulleted-list"><li style="list-style-type:disc">다음 액션 추천</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8094-9669-e9c99e058e16" class="bulleted-list"><li style="list-style-type:disc">정책 위반 실시간 경고</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-807f-952a-df64b3e19074" class="bulleted-list"><li style="list-style-type:disc">자동 Wrap-up</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80d5-b3cb-c055cdcd3956" class="">이 단계에서 AI는 <strong>절대 “결정권자”가 아님</strong></p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8007-b196-e9f5ea2a8001"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-802a-8255-de6ff2d47d40" class="">4.3 조직 변화</h3></div><div style="display:contents" dir="ltr"><table id="2c3f8917-466a-80cb-907e-ef04e05ec2e5" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8032-a79d-d2648aba0566"><th id="e[yL" class="simple-table-header-color simple-table-header">항목</th><th id="~TT]" class="simple-table-header-color simple-table-header">변화</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80b3-aa0a-cd0daab0f0ed"><td id="e[yL" class="">상담원</td><td id="~TT]" class="">정보 탐색자 → 문제 해결자</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8079-8626-d9e3d3fb2a2f"><td id="e[yL" class="">관리자</td><td id="~TT]" class="">사후 리뷰 → 실시간 대응</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-803d-b9fe-dc765dd9c5ad"><td id="e[yL" class="">QA</td><td id="~TT]" class="">샘플 검사 → 전수 평가</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80b0-a47e-cd69e1e985d6"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80ed-9551-c1ea73671ac2" class="">성공 지표</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8008-926a-ebd94dd424de" class="bulleted-list"><li style="list-style-type:disc">AHT 15~30% 단축</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e6-a290-e2b33443011f" class="bulleted-list"><li style="list-style-type:disc">QA 비용 감소</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b6-adf8-d9223a3335c3" class="bulleted-list"><li style="list-style-type:disc">상담원 이탈률 감소</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80f3-ad2d-f9dc13cc6ea8"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-805b-8e20-fb85ee305bee" class="">8.5. Phase 2 — Supervisor AI 도입</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8025-afa2-f93a67b35267" class="">(운영 자동화 시작점)</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80ba-a120-c47ea572ea4d" class="">5.1 목표</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80bc-a597-fa29f3546ddc" class="bulleted-list"><li style="list-style-type:disc"><strong>“사람이 관리하는 컨택센터”에서<br/>“AI가 운영을 보조하는 컨택센터”로 전환</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80d3-b072-e43d15a0aa32"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80f3-95b0-dd76007eae0c" class="">5.2 적용 영역</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8046-a0ab-d22be806c652" class="">실시간 운영 판단</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b4-8436-cffc2b4f3c2d" class="bulleted-list"><li style="list-style-type:disc">SLA 임계치 예측</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b9-ad50-f4fa90aef386" class="bulleted-list"><li style="list-style-type:disc">큐/라우팅 자동 조정 제안</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8015-a443-fbab7da09b9a" class="bulleted-list"><li style="list-style-type:disc">고위험 고객 자동 플래그</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-809e-b5cf-dd3c04e4db58" class="bulleted-list"><li style="list-style-type:disc">이탈 가능성 조기 감지</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80bb-a1eb-d7aebd2a0f63"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80d2-aa26-db02537a3a6b" class="">5.3 조직 변화</h3></div><div style="display:contents" dir="ltr"><table id="2c3f8917-466a-80d2-9420-f7a528977c4a" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-803c-81b6-e5d44895acbb"><th id="QUFF" class="simple-table-header-color simple-table-header">역할</th><th id="t;=n" class="simple-table-header-color simple-table-header">변화</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8076-8f54-fbd5099bf4f8"><td id="QUFF" class="">Supervisor</td><td id="t;=n" class="">수동 관리 → 전략적 의사결정</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8023-9aa3-ee330d1c8c4c"><td id="QUFF" class="">관리자</td><td id="t;=n" class="">KPI 대응 → 원인 제거</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8007-bc2f-fbd197c41588"><td id="QUFF" class="">AI</td><td id="t;=n" class="">운영 분석가</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-800b-ac4d-dd663671921b"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80f1-8b20-d1082cf8ce4e" class="">성공 지표</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b0-8d78-d91eba64b564" class="bulleted-list"><li style="list-style-type:disc">SLA 위반 사전 차단</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-804a-a4d2-f38b1a8c0cb8" class="bulleted-list"><li style="list-style-type:disc">관리자 1인당 관리 가능 인원 증가</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8017-9347-f886c6fbff4c" class="bulleted-list"><li style="list-style-type:disc">운영 리스크 감소</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80a4-9585-f2a5c6fd0ba5"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80b4-bac6-df213b3bf6e4" class="">8.6. Phase 3 — Partial Agentic CX</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80a2-a2d7-e7a1a2e595cb" class="">(AI의 실행 권한 제한적 부여)</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80bf-9fbe-cd400ae362b4" class="">6.1 목표</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8060-97eb-cd2f2d2ee2f6" class="bulleted-list"><li style="list-style-type:disc">반복·저위험 업무부터 AI에게 <strong>“행동 권한” 부여</strong></li></ul></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-806e-b2ea-ca5bf83320b3" class="">핵심 원칙:<div style="display:contents" dir="auto"><p id="2c3f8917-466a-8042-86da-e54d1ab177c8" class=""><strong>“실행은 허용하되, 책임은 사람에게”</strong></p></div></blockquote></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-806c-a46b-c7530515d35f"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80de-a9e8-cc7b65acc166" class="">6.2 적용 영역</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-802e-8953-e3c5b22ff61a" class="">AI 단독 처리 업무</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-803e-a3e0-e8afde372e10" class="bulleted-list"><li style="list-style-type:disc">조회</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8003-8ede-fffc090bd6cc" class="bulleted-list"><li style="list-style-type:disc">예약 변경</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80d7-8643-d241863f75d8" class="bulleted-list"><li style="list-style-type:disc">일정 안내</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8015-a816-d457f415cc13" class="bulleted-list"><li style="list-style-type:disc">인증 후 정보 제공</li></ul></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8037-8bb9-db5a0c2e911b" class="">AI + Human 승인</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8003-ad64-c192ee58a210" class="bulleted-list"><li style="list-style-type:disc">환불</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8086-ae5b-ebd9df1d9bae" class="bulleted-list"><li style="list-style-type:disc">상품 변경</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8001-a02b-fbd49eaa9579" class="bulleted-list"><li style="list-style-type:disc">약관 예외 적용</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80f3-aac0-ce1c8b5dcddf"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80ee-a50d-d7bccdbc1316" class="">6.3 아키텍처 특징</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8035-8fcc-dec47029d391" class="bulleted-list"><li style="list-style-type:disc">Policy Guardrail 필수</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-804b-85e6-cb613cebaf76" class="bulleted-list"><li style="list-style-type:disc">Action Log 전면 기록</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8068-9dba-e1e35b82e18f" class="bulleted-list"><li style="list-style-type:disc">Evaluation 자동 적용</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8062-a410-d7b852d70fc4"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-808d-b586-cd0ed4e844ca" class="">성공 지표</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-801a-81e7-ef9c962c265e" class="bulleted-list"><li style="list-style-type:disc">Self-service 해결률 증가</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8056-b13e-dd8cb63f37e0" class="bulleted-list"><li style="list-style-type:disc">Human Escalation 감소</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8029-a1b8-f657174ed9e5" class="bulleted-list"><li style="list-style-type:disc">고객 재접촉률 감소</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-807e-9be1-da9223ddd616"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-8037-bd7e-e48a03a24163" class="">8.7. Phase 4 — Frontier Agent 도입</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8081-a42a-de2f9417d0a5" class="">(Agentic CX 완성 단계)</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-800d-bb42-d42825b8f303" class="">7.1 목표</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80d7-a896-e1763b14306c" class="bulleted-list"><li style="list-style-type:disc">AI가 <strong>“상담원이 아닌 업무 주체”로 작동</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-808c-8438-eddc9c9541f2" class="bulleted-list"><li style="list-style-type:disc">사람은 통제·감사·설계 역할로 전환</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8029-ab06-cef0e90e40bf"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8099-a28f-f865a65746a8" class="">7.2 Frontier Agent의 역할</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8083-98f6-c9c7a5311a88" class="bulleted-list"><li style="list-style-type:disc">목표 기반 행동</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-802b-97ee-cd3bfb914723" class="bulleted-list"><li style="list-style-type:disc">채널 간 자율 이동</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80cf-8d2b-cae2d4b7c61e" class="bulleted-list"><li style="list-style-type:disc">고객 여정 선제 개입</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-804b-b52b-c5305b2a99a5" class="bulleted-list"><li style="list-style-type:disc">정책·윤리 기준 자동 준수</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8010-89c4-c54e5ab05138"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-807b-af4b-e7784ff6760b" class="">7.3 Human 역할 재정의</h3></div><div style="display:contents" dir="ltr"><table id="2c3f8917-466a-80f8-94d9-dd6d4c550d42" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80ec-a36b-f577906daf2c"><th id="RIED" class="simple-table-header-color simple-table-header">역할</th><th id="=EO@" class="simple-table-header-color simple-table-header">변화</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-800a-800b-fa70b82b9330"><td id="RIED" class="">상담원</td><td id="=EO@" class="">처리자 → 고난도 전문가</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8020-9e59-f8e3df25a5ac"><td id="RIED" class="">관리자</td><td id="=EO@" class="">운영자 → AI 거버넌스</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8004-9587-dd992cd8b192"><td id="RIED" class="">QA</td><td id="=EO@" class="">검사자 → 기준 설계자</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-801d-a61f-ee6565e21985"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-804f-bfc6-eca0a8535064" class="">성공 지표</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8062-a620-e963ed84216d" class="bulleted-list"><li style="list-style-type:disc">상담 인력 증대 없이 트래픽 처리</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8040-8cab-def202d80d93" class="bulleted-list"><li style="list-style-type:disc">AI 실패율 &lt; 기준 이하</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8004-95ab-d00d0562540f" class="bulleted-list"><li style="list-style-type:disc">감사·컴플라이언스 통과율 유지</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80ab-9c3f-f1c344da8a60"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80bc-b6e1-de18d9cb8bc5" class=""></h2></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-8012-b2c3-fde5da014f78" class="">9. 전략적 결론</h2></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8086-b5aa-c7128c5434a8" class="">AICC의 미래 경쟁력은</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8030-84cd-f64bc1bf86ba" class="">“얼마나 많은 AI를 쓰느냐”가 아니라</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8033-9bef-e89e40cfcad2" class="">“AI에게 언제, 얼마나 책임을 맡기느냐”에 달려 있다.</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8047-b3fb-e2dc22a4c755" class="">Amazon Connect는</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80e3-b1e8-ed22e8d3c5ed" class="">이 전환을 <strong>현실적으로 실행할 수 있는 유일한 CX 플랫폼 중 하나</strong>다.</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80b3-869e-cd73723f3232"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-804c-9990-c7ead9a731af" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80f9-8c5c-e5a62cea194e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80a8-9537-c121cf4a20b2" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-8032-913d-c0b8e9ed66db" class="">10. 결론</h2></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-80b7-8010-f013c11c7d67" class="">Amazon Connect는 CX 산업에서<div style="display:contents" dir="auto"><p id="2c3f8917-466a-80bd-8ea5-f86da22d032e" class="">“AI를 붙일 것인가?”의 문제를 이미 넘어섰다.</p></div></blockquote></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8092-ae02-fc8e8d4261c8" class="">이제의 질문은:</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b9-b896-d49701235d62" class="bulleted-list"><li style="list-style-type:disc"><strong>누가 AI에게 어떤 권한을 줄 것인가</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8021-b0ff-f2c95432fdd4" class="bulleted-list"><li style="list-style-type:disc"><strong>어디까지 AI에게 책임을 맡길 것인가</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-803c-8520-e0a394ebf6ab" class="bulleted-list"><li style="list-style-type:disc"><strong>사람은 무엇에 집중해야 하는가</strong></li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80e1-a2f9-fb6ef47bf30c" class="">Re:Invent 2025의 메시지는 명확하다.</p></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-8010-8ad0-eea9e7f86f01" class="">CX의 경쟁력은 더 많은 사람을 두는 것이 아니라,<br/>사람과 AI를 어떻게 협업시키느냐에 달려 있다.</blockquote></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-805a-9362-d857a4ef254e"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8059-96f6-e5c901ad8dad" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

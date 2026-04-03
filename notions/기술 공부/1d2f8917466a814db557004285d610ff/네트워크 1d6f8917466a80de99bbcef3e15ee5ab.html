@@ -1,0 +1,714 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>네트워크</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d6f8917-466a-80de-99bb-cef3e15ee5ab" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🌐</span></div><h1 class="page-title" dir="auto">네트워크</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1d7f8917-466a-8056-86bd-fdf55d6a93f3" class=""><a href="https://gh402.tistory.com/45">https://gh402.tistory.com/45</a></p></div><div style="display:contents" dir="auto"><h2 id="1d7f8917-466a-8001-b855-d2d0afb90d18" class="">📘 Technical Breakdown: Core Configuration Concepts</h2></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8062-8d8e-d9f217e3b8f1" class="">✅ 1. SIP Profile 설정 (Codec: G.711 / G.729)</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80d1-9d76-fe55d310fef1" class="">📘 SIP란?</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8083-be5f-e9dd5a42875a" class="bulleted-list"><li style="list-style-type:disc"><em>SIP (Session Initiation Protocol)</em>는 인터넷 기반 통신에서 <strong>음성/영상 세션을 설정, 유지, 종료</strong>하는 데 사용되는 <strong>애플리케이션 계층 신호 프로토콜</strong>입니다. SIP는 통화의 &quot;전화 벨을 울리게 하고, 통화를 연결하며, 끊는&quot; 역할을 합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-800d-9505-e3387b78289f" class="bulleted-list"><li style="list-style-type:disc">실시간 미디어(RTP)는 SIP로 설정된 세션을 통해 별도로 전송됩니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-803a-ad2c-fcad3d33e38d" class="bulleted-list"><li style="list-style-type:disc">메시지 예: <code>INVITE</code>, <code>ACK</code>, <code>BYE</code>, <code>180 RINGING</code>, <code>200 OK</code></li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8020-b85b-c73398350e90" class="">📘 Codec이란?</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8080-9456-ff3e1ce41fd2" class="bulleted-list"><li style="list-style-type:disc"><em>Codec (Coder-Decoder)</em>는 음성 데이터를 디지털 신호로 변환하고 압축하거나 해제하는 기술입니다.</li></ul></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-8042-a03a-feb1058127d7" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-801e-98b2-f1f4b8a587c5"><td id="Hoj=" class="">Codec</td><td id="@IkR" class="">Bitrate</td><td id="Gr{@" class="" style="width:329px">특징</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80ae-97c2-f2c134424d2f"><td id="Hoj=" class="">G.711</td><td id="@IkR" class="">64kbps</td><td id="Gr{@" class="" style="width:329px">무압축 PCM, 고음질, 대역폭 많이 사용</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80c2-83c3-f69f8cec01fb"><td id="Hoj=" class="">G.729</td><td id="@IkR" class="">8kbps</td><td id="Gr{@" class="" style="width:329px">압축된 음성, 저대역폭 환경에 적합, 낮은 품질</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80ac-9aa5-fb0b69cc6271" class="">실무 설정 예시:</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1d7f8917-466a-8038-b32a-c779230f25a9" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Preferred Codec: G.711
+Fallback Codec: G.729
+DTMF Method: RFC 2833</code></pre></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-808a-ad36-c5c53d957402"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80cd-993b-fa602d98cbc8" class="">✅ 2. DTMF 방식 확인 (RFC 2833 / SIP INFO)</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80df-be2c-fb88665e0a74" class="">📘 DTMF란?</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80ed-bb67-e165fc7c0020" class="bulleted-list"><li style="list-style-type:disc">*DTMF (Dual-Tone Multi-Frequency)**는 고객이 전화기에서 누르는 키패드 입력(예: &#x27;1&#x27;, &#x27;2&#x27;)을 시스템에 전달하는 방식입니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8072-81d4-ebc0f6821782" class="">📘 주요 방식 비교:</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-808e-b472-c8ae4f8308ff" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-805b-a5ec-d88828d02fad"><td id="yW{T" class="">방식</td><td id="ULDf" class="">전송 방식</td><td id="pUYx" class="">특징</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-801c-b98c-fc6a60e1aaf3"><td id="yW{T" class="">RFC 2833</td><td id="ULDf" class="">RTP 패킷 내 DTMF 신호 포함</td><td id="pUYx" class="">✅ 대부분 SIP 시스템에서 표준, 실시간 처리에 적합</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80dd-a82c-f7a66a4beecd"><td id="yW{T" class="">SIP INFO</td><td id="ULDf" class="">SIP 메시지 내 텍스트 형태 전송</td><td id="pUYx" class="">🔶 구식 방식, 지연 문제 발생 가능</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8000-80d8-c7804fd90900" class="">실무 팁:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8070-ac3a-f2dcfe1b11e6" class="bulleted-list"><li style="list-style-type:disc">Genesys Cloud는 <strong>RFC 2833</strong>을 기본적으로 지원합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80b8-ab5f-f5861ca85c72" class="bulleted-list"><li style="list-style-type:disc">Gateway나 PBX 장비가 SIP INFO만 지원할 경우, 일치하지 않으면 메뉴 입력이 인식되지 않을 수 있음</li></ul></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-8028-8eb5-c1528f556637"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80e3-941c-fe6204741124" class="">✅ 3. NAT Traversal 여부 확인</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8063-80a1-d72699d784c0" class="">📘 NAT란?</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-804c-8b2f-cfa51b617790" class="bulleted-list"><li style="list-style-type:disc">*NAT (Network Address Translation)**는 내부 사설 IP 주소를 외부 공인 IP로 변환하는 네트워크 기능입니다. 문제는 SIP나 RTP처럼 연결 지향적이지 않은 프로토콜에서 NAT를 통과할 때 문제가 발생할 수 있다는 것입니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8052-b75d-dcdbba00dbaa" class="">📘 Traversal 기술:</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-800a-8a2a-f84799a058c7" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80dc-9737-e71f2bf4afbe"><td id="?Tjf" class="">기술</td><td id="TE\F" class="">목적</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80d5-af86-dd2bc4db6144"><td id="?Tjf" class="">STUN</td><td id="TE\F" class="">NAT 환경에서 자신의 공인 IP를 알 수 있게 함</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8009-9460-f151b56765d2"><td id="?Tjf" class="">TURN</td><td id="TE\F" class="">NAT를 통과하지 못할 경우 중계 서버로 우회</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80f1-85eb-dc6195a78d56"><td id="?Tjf" class="">ICE</td><td id="TE\F" class="">STUN/TURN 조합, WebRTC 및 SIP 통신에 최적화</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8010-98ef-c2e69cbc8812" class="">실무 팁:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-807d-b3df-d73cf15fba71" class="bulleted-list"><li style="list-style-type:disc">Gateway ↔ Edge 사이에 NAT가 있으면 <strong>SIP ALG 기능 비활성화 권장</strong> (장비에서 SIP 패킷이 손상될 수 있음)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-801c-a72a-dfc5615bb12a" class="bulleted-list"><li style="list-style-type:disc">Edge 및 WebRTC 연결 시 <strong>STUN 서버와의 통신 허용</strong> 필요</li></ul></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80db-b984-c1cfda10fade"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-809c-8dc7-fab53a4f09dc" class="">✅ 4. TLS 인증서 적용</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80db-84df-e1d9b902a2aa" class="">📘 TLS란?</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-801a-9d71-cf325da33c37" class="bulleted-list"><li style="list-style-type:disc">*TLS (Transport Layer Security)**는 SIP, HTTPS 등의 통신에서 데이터를 암호화하여 보안을 제공하는 프로토콜입니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-800e-897b-d56fe283ab52" class="">📘 SIP TLS 구성:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8006-9763-fb166c5546ac" class="bulleted-list"><li style="list-style-type:disc">SIP 신호 (INVITE 등)를 암호화하여 도청/변조 방지</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80c7-8974-f9acf0ada2b8" class="bulleted-list"><li style="list-style-type:disc">Gateway ↔ Edge 또는 Edge ↔ Genesys Cloud 간 <strong>SIP over TLS</strong> 필요할 수 있음</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8053-ab4d-c0064e536fe5" class="">실무 팁:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-807d-b010-caa1d0cc94b3" class="bulleted-list"><li style="list-style-type:disc">인증서는 공인 CA에서 발급받는 것이 가장 호환성이 좋음</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80dc-ad6d-ccb8222ee4f3" class="bulleted-list"><li style="list-style-type:disc">인증서 만료 시 SIP REGISTER 실패나 TLS 연결 오류 발생</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-801d-9b1c-e2a4840d9ef9" class="bulleted-list"><li style="list-style-type:disc">Edge와 Gateway 양쪽에 동일하게 적용되어야 정상 동작</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8057-94b9-d17df1b6169e" class="">✅ 5. Genesys Cloud에 Edge 등록 완료</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8026-a872-c88952bfb035" class="">📘 Genesys Edge란?</h3></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-8073-b6d6-c5c11c5866a1" class=""><strong>Genesys Edge</strong>는 SIP 및 RTP 트래픽을 Genesys Cloud와 연결해주는 온프레미스 장비 또는 소프트웨어입니다. Edge는 로컬망에 설치되어 PSTN 또는 SIP Gateway에서 온 음성 세션을 클라우드로 전달합니다.</p></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-802e-8265-d75e72ad8ad5" class="">📘 등록 절차:</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1d7f8917-466a-80ec-ac44-e6c7906b3df8" class="numbered-list" start="1"><li>Genesys Admin &gt; Telephony &gt; Edges에서 새 Edge 생성</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d7f8917-466a-80df-8a9b-c273fa622f70" class="numbered-list" start="2"><li>Activation Key 생성 후 Edge 장비에 입력</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d7f8917-466a-806d-9089-e04f024de46e" class="numbered-list" start="3"><li>설치 스크립트를 통해 자동 구성</li></ol></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80ee-9747-f332c234fe0d" class="">실무 팁:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-801e-abb9-e777cf417408" class="bulleted-list"><li style="list-style-type:disc">Edge 장비는 반드시 인터넷이 가능한 환경에 위치해야 함</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8040-a58a-d57d0072b8a5" class="bulleted-list"><li style="list-style-type:disc">DHCP보다 <strong>고정 IP(Static IP)</strong> 설정 권장</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80c2-a4b2-f570bfa6a0a6" class="bulleted-list"><li style="list-style-type:disc">등록 후에는 &quot;Connected&quot; 상태를 반드시 확인할 것</li></ul></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80ce-ac20-c55148ce30b8"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80b5-8c45-e7de107dce24" class="">✅ 6. 공인 IP 또는 NAT 매핑 확인</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80c5-a38d-e54e87aaa8f8" class="">📘 개념 설명:</h3></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-801c-8b9e-fad12c782eaf" class=""><strong>공인 IP</strong>는 인터넷 상에서 고유하게 식별 가능한 주소이며, **NAT(Network Address Translation)**은 사설망 내부 장비를 외부와 통신 가능하게 만드는 기술입니다.</p></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8014-bce6-cdd9de6e0644" class="">📘 실무 적용:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80f9-8a3b-ee1fb775f87b" class="bulleted-list"><li style="list-style-type:disc">Edge 장비가 사설망에 있을 경우 NAT 라우터에서 <strong>포트 포워딩</strong> 필요</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8024-a6e5-c5b97704a3ed" class="bulleted-list"><li style="list-style-type:disc">SIP 트래픽 및 RTP 포트 범위 (UDP 16384~32768) 허용해야 함</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80ed-97d9-c74e9305f5de" class="">도구:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8050-bd2e-c438630080ae" class="bulleted-list"><li style="list-style-type:disc"><code>tcpdump</code>, <code>sngrep</code> → SIP 메시지 흐름 확인</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80a0-9f41-ccd187df436b" class="bulleted-list"><li style="list-style-type:disc">NAT 문제 발생 시 SIP INVITE 응답이 내부 IP로 설정돼 세션 실패 가능</li></ul></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80cf-988b-d8ef95c8bf47"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-809a-8abb-e7a9f71ec696" class="">✅ 7. TLS 연결 상태 테스트</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8012-a1e4-dbc904e24bce" class="">📘 개념 설명:</h3></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-80d2-9290-e0dbd7c5a2f0" class="">Edge ↔ Genesys Cloud 간 통신은 <strong>TLS (TCP 443)</strong> 을 통해 암호화됩니다. 연결 실패 시 Edge는 클라우드와 세션을 맺지 못함.</p></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80ba-bc13-ee8feb144e94" class="">📘 확인 방법:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-805a-8fe2-d0cf0a7ac6f1" class="bulleted-list"><li style="list-style-type:disc">리눅스 명령어: <code>openssl s_client -connect voice.genesyscloud.com:443</code></li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8002-881a-e65e57ba01d9" class="bulleted-list"><li style="list-style-type:disc">Edge 로그 확인: <code>/var/log/edge/edge.log</code><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80cf-802e-c21b4f0c68bb" class="bulleted-list"><li style="list-style-type:circle">&quot;TLS connection established&quot; 메시지 확인</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80cb-bef4-ca6f4e5a5d46" class="">실무 팁:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-805d-bc50-c43977e1d5f1" class="bulleted-list"><li style="list-style-type:disc">방화벽에서 TCP 443 포트 열려 있어야 함</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-804c-af1e-c7d3557c6958" class="bulleted-list"><li style="list-style-type:disc">인증서 에러가 있으면 로그에 <code>ssl_error</code>로 표시됨</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-808e-92a6-f50285b8f87c" class="bulleted-list"><li style="list-style-type:disc">시스템 시간이 맞지 않으면 TLS handshake 실패 가능 (NTP 동기화 필수)</li></ul></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-8067-99c0-c036ee7f806d"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80be-ba7a-c3e3acddd766" class="">✅ 8. 로그 수집 위치 확인 (/var/log/edge*)</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80d3-b214-f50f0446d3d7" class="">📘 개념 설명:</h3></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-808d-a647-de46207e4e20" class="">Edge의 모든 동작 상태는 로컬 로그 파일에 기록됩니다. 트러블슈팅 및 감사 추적에 필수 자료입니다.</p></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8043-9e23-fc5f758bda63" class="">주요 로그 파일:</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-80d9-9788-c529e3cd4508" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-808f-bbc2-cb2ca8b2eb0e"><td id="[E[}" class="">파일명</td><td id="rHr:" class="">내용</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8094-b3f5-f44236be54fa"><td id="[E[}" class="">edge.log</td><td id="rHr:" class="">주요 이벤트 및 시스템 상태 로그</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80c2-b0f6-d9f9a1d1c856"><td id="[E[}" class="">sipstack.log</td><td id="rHr:" class="">SIP 메시지 송수신 내역</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8010-88fb-d99bc51ba298"><td id="[E[}" class="">mediapath.log</td><td id="rHr:" class="">RTP 미디어 경로 상태</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8096-8718-d3ad1de281b8"><td id="[E[}" class="">event.log</td><td id="rHr:" class="">각종 이벤트 트리거 기록</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8095-8419-dda97010548f" class="">실무 팁:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80f6-b291-c30143c36e39" class="bulleted-list"><li style="list-style-type:disc">로그 분석 시 <code>grep “ERROR”</code> 또는 <code>tail -f</code> 명령어 활용</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80a3-9aa6-cdae483be09f" class="bulleted-list"><li style="list-style-type:disc">로그 보존 정책 설정(30일, 순환 삭제 등) 확인 필요</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80c9-b5d6-e84a151caeea" class="bulleted-list"><li style="list-style-type:disc">용량 초과로 인해 로그 손실되지 않도록 모니터링 설정 권장</li></ul></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-80b6-a5bd-d185d0145b9c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-806e-a973-cbc31e47a933" class="">✅ 9. 브라우저 버전 호환성 (Chrome / Edge 최신)</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80ba-af04-d39caa94e40f" class="">📘 개념 설명:</h3></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-8003-a905-f90d161ae0a7" class="">WebRTC 기반 상담은 브라우저에서 직접 음성 통화를 처리하므로 최신 브라우저 호환성이 매우 중요합니다.</p></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8087-96fc-c4664eae8f1b" class="">실무 적용:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80ff-97a0-edbd4c1374f4" class="bulleted-list"><li style="list-style-type:disc"><strong>지원 브라우저</strong>: Google Chrome, Microsoft Edge (Chromium 기반)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8050-a591-e72fddd90c14" class="bulleted-list"><li style="list-style-type:disc"><strong>지원되지 않는 브라우저</strong>: IE, Safari 일부 구버전 등</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8081-96c8-d67200bb432c" class="">실무 팁:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8040-aa8a-c32192383ba7" class="bulleted-list"><li style="list-style-type:disc">브라우저 자동 업데이트 유지 권장</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-800f-8b46-f7d759ba20a4" class="bulleted-list"><li style="list-style-type:disc">컨택센터 정책 상 브라우저 버전 고정 시 예외 처리 필요</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8021-9940-d5d30669d4b4" class="bulleted-list"><li style="list-style-type:disc">브라우저 보안 설정이 WebRTC 사용을 차단하지 않도록 확인</li></ul></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80f7-a0d2-faab1ce1aaf5"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8091-9c6a-cad633f8c66d" class="">✅ 10. 미디어 권한 (마이크 접근 허용)</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-807c-a865-fda248a68ae2" class="">📘 개념 설명:</h3></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-8006-a6fa-ff7f4b68da9c" class="">WebRTC 기반 상담을 위해 브라우저에서 마이크 접근 권한을 허용해야 합니다. 미허용 시 상담사는 고객과 음성 통신을 할 수 없습니다.</p></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8018-9a54-fc1a7a385615" class="">실무 적용:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8033-ba6c-ddc7b4d18fce" class="bulleted-list"><li style="list-style-type:disc">브라우저 주소창 좌측 자물쇠 아이콘 클릭 → ‘마이크 허용’ 선택</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80e1-9d77-caf0ee36e01a" class="bulleted-list"><li style="list-style-type:disc">Windows: 설정 &gt; 개인 정보 보호 &gt; 마이크 사용 허용 확인</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80ee-ac4a-ebedd034a4a2" class="">실무 팁:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80de-a3ed-f509b85b69a3" class="bulleted-list"><li style="list-style-type:disc">다중 마이크 환경에서는 기본 장치 설정 확인 필수</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80a9-ae7a-fb24fb133935" class="bulleted-list"><li style="list-style-type:disc">상담 전 자체 테스트 절차(마이크 음성 반응 확인) 권장</li></ul></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-802c-9870-c9bff172b39e"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80c2-ac21-d65961493751" class="">✅ 11. NAT 환경에서 STUN / TURN 지원 여부 확인</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80d1-82f4-d8e12ba56132" class="">📘 개념 설명:</h3></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-8051-ab0a-ce96a5805804" class="">WebRTC는 NAT 환경에서 미디어가 직접 연결되지 않는 경우 <strong>STUN</strong>, <strong>TURN</strong> 서버를 통해 음성 경로를 확보합니다.</p></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-805b-b833-fd95234c2bef" class="">실무 적용:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8054-a987-f337ccc6b8f6" class="bulleted-list"><li style="list-style-type:disc">STUN은 공인 IP 확인용, TURN은 중계 서버로 음성 릴레이 역할</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-801f-a901-c0c041b198df" class="bulleted-list"><li style="list-style-type:disc">방화벽에서 관련 포트 허용: STUN(UDP 3478), TURN(UDP 3478, TCP 443, 5349 등)</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8021-adac-ebd31b4e94f2" class="">실무 팁:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8019-aa8c-c756c91ec2f0" class="bulleted-list"><li style="list-style-type:disc">https://test.webrtc.org 를 통해 사전 환경 테스트 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80bc-9623-ff62f7e1c949" class="bulleted-list"><li style="list-style-type:disc">사내망 내 Proxy나 DPI 장비가 WebRTC 흐름을 차단하는지 확인</li></ul></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80f3-ae6f-dd9c7d87cc31"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8080-93d6-cc0bc1ae9671" class="">✅ 12. 상담사 연결 품질 모니터링 가능 여부 (QoS Metrics)</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-808b-af28-c94893569e4b" class="">📘 개념 설명:</h3></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-8050-a32c-e4308c87d456" class="">WebRTC 상담 품질은 연결 지연, 손실률, 지터, MOS 등으로 측정됩니다. 이는 실시간/사후 분석에 중요합니다.</p></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-801f-b122-e9301591d947" class="">실무 적용:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8085-a038-f9e95748e5a5" class="bulleted-list"><li style="list-style-type:disc">Genesys Cloud &gt; Performance &gt; Interactions &gt; Media Details 탭 확인</li></ul></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-809b-bdf7-eebd289cbce4" class="">주요 지표:</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-8068-8c83-e16689a7f179" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80c4-919f-c6276ce0b227"><td id="|Tth" class="">지표</td><td id="EBqZ" class="">설명</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80b8-9155-c72df3fcb6bf"><td id="|Tth" class="">Jitter</td><td id="EBqZ" class="">음성 패킷 간 시간 차이, 높을수록 품질 저하</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8003-953a-d89d7a6de86f"><td id="|Tth" class="">Packet Loss</td><td id="EBqZ" class="">패킷 손실률, 1% 이상이면 품질 저하 발생</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80be-9471-d52438a67497"><td id="|Tth" class="">MOS</td><td id="EBqZ" class="">Mean Opinion Score, 5점 만점 기준 4 이상이 양호</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-809c-8e58-cc056bf7d61c" class="">실무 팁:</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-803a-a5f4-dc8579f26e0c" class="bulleted-list"><li style="list-style-type:disc">주기적 품질 리포트 수집 → 스케줄링된 네트워크 테스트 수행</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8029-a50c-fa0cef4e65ab" class="bulleted-list"><li style="list-style-type:disc">상담사 네트워크 품질 이슈 발생 시 즉시 QoS 기반 분석 시행</li></ul></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-8016-92b6-dda651828cdd" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8000-b1ef-ea2d48876b91" class="">✅ 13. 장애 대응 전략 (Incident Response Strategy)</h3></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8028-b6df-c151ff539582" class="">📘 개념 설명:</h3></div><div style="display:contents" dir="auto"><p id="1d7f8917-466a-806f-87ac-f63dec98780c" class="">Genesys Cloud 기반 컨택센터에서는 다양한 장애 유형(네트워크, SIP, Edge, API, WebRTC 등)에 대한 <strong>사전 대응 체계</strong>가 필요합니다. 장애는 단순 통화 불가부터 API 실패, 상담사 연결 품질 저하까지 다양하게 나타날 수 있습니다.</p></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80b5-866c-e11f2fb73ab5"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-80f7-a56b-e725b3900384" class="">🧱 장애 유형별 분류 및 대응</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-80d3-a633-e8d9905aed5d" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8004-91aa-ec9a066e4ce9"><td id="I@?{" class="">장애 유형</td><td id="J:yB" class="">주요 증상</td><td id="ss_a" class="">원인 예시</td><td id="Z_l|" class="">대응 방안</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80a5-84c7-dac3539e1d6a"><td id="I@?{" class="">SIP 등록 실패</td><td id="J:yB" class="">Gateway 또는 Edge에서 SIP REGISTER 실패</td><td id="ss_a" class="">인증서 만료, NAT 설정 오류, SIP ALG 활성화</td><td id="Z_l|" class="">인증서 갱신, 포트 포워딩/NAT 재설정, SIP 로그 분석 (<code>sipstack.log</code>)</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-805d-80b6-ffdba14a2547"><td id="I@?{" class="">WebRTC 연결 실패</td><td id="J:yB" class="">브라우저에서 통화 시작 불가</td><td id="ss_a" class="">마이크 미허용, 방화벽 차단, STUN/TURN 오류</td><td id="Z_l|" class="">브라우저 권한 확인, 포트 허용, <code>test.webrtc.org</code>로 사전 점검</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8012-a117-f6856b900015"><td id="I@?{" class="">통화 중 음질 저하</td><td id="J:yB" class="">목소리 끊김, 딜레이, 에코</td><td id="ss_a" class="">Jitter, Packet Loss, 네트워크 지연</td><td id="Z_l|" class="">QoS 설정 확인, 상담사 네트워크 품질 진단, ISP 확인 요청</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8078-b903-ec6eb2e1e601"><td id="I@?{" class="">API 호출 실패</td><td id="J:yB" class="">Data Action 결과 없음</td><td id="ss_a" class="">외부 시스템 장애, 인증 실패, 응답 시간 초과</td><td id="Z_l|" class="">외부 API 모니터링, 재시도 정책 구성, Alert 설정</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80d8-8b17-ca70a1dbba5d"><td id="I@?{" class="">Edge 연결 끊김</td><td id="J:yB" class="">Genesys Cloud Admin에서 Edge 연결 끊김 표시</td><td id="ss_a" class="">인터넷 중단, DNS 오류, Edge 프로세스 다운</td><td id="Z_l|" class="">Edge 재시작, <code>/var/log/edge.log</code> 확인, 네트워크 상태 점검</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80fa-b159-dd49edee1763"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-806e-a434-d27ea29a1588" class="">🔁 실시간 대응 플로우 (Recommended)</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1d7f8917-466a-80fc-9ca2-d72c4a301532" class="numbered-list" start="1"><li><strong>Alert 감지</strong><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80bd-9948-f3db670c287d" class="bulleted-list"><li style="list-style-type:disc">Genesys Cloud 알림 설정 또는 외부 모니터링 도구로 장애 발생 감지</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d7f8917-466a-800e-822a-e90cee494ee5" class="numbered-list" start="2"><li><strong>로그 수집 및 분석</strong><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-802e-82fa-cce14a3327ce" class="bulleted-list"><li style="list-style-type:disc">관련 로그 (SIP, RTP, API, Agent 미디어 등) 수집</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8093-ae1a-fd9f8bfea521" class="bulleted-list"><li style="list-style-type:disc">예: <code>sipstack.log</code>, <code>mediapath.log</code>, <code>cloud-api.log</code></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d7f8917-466a-80c6-a2dd-df2792973a9b" class="numbered-list" start="3"><li><strong>원인 파악</strong><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80bc-a207-f56ce19f8364" class="bulleted-list"><li style="list-style-type:disc">장애 범위: 단일 사용자 / 전체 사용자</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-80fc-a9e7-ef2ed4644cf6" class="bulleted-list"><li style="list-style-type:disc">네트워크 레벨 or 애플리케이션 레벨 여부 확인</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d7f8917-466a-8043-899e-e243b45e41dd" class="numbered-list" start="4"><li><strong>임시 복구 조치</strong><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8077-a1cd-fff0e98b3a4d" class="bulleted-list"><li style="list-style-type:disc">회선 전환, Edge 재등록, Routing 우회, 메시지 안내 등</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1d7f8917-466a-8067-ac6c-db84ed0b27b5" class="numbered-list" start="5"><li><strong>근본 원인 분석 (RCA)</strong><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8059-8b5d-ec28bb0b7e80" class="bulleted-list"><li style="list-style-type:disc">Post-Mortem 문서화 (장애 발생 → 원인 → 조치 → 재발 방지 계획)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-80e8-a989-d0629dc3eb5c"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8024-b9fc-c5f5d2d548e9" class="">🛠️ 실무 활용 도구 예시</h3></div><div style="display:contents" dir="ltr"><table id="1d7f8917-466a-8029-8d2d-f1361e3aa6d5" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-80db-8408-f3472570bbdd"><td id="?iQ~" class="">도구</td><td id="qeWL" class="">용도</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8028-abf4-c958296b07ba"><td id="?iQ~" class=""><code>tcpdump</code>, <code>sngrep</code></td><td id="qeWL" class="">SIP/RTP 트래픽 캡처 및 분석</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8075-a050-e1ae37484fba"><td id="?iQ~" class=""><code>test.webrtc.org</code></td><td id="qeWL" class="">WebRTC 환경 진단</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-801a-9fa7-f32966ddfaf2"><td id="?iQ~" class="">Genesys Interaction Log</td><td id="qeWL" class="">개별 상담 세션 흐름 분석</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-804f-a3b8-c8b9530adb3d"><td id="?iQ~" class=""><code>curl</code>, Postman</td><td id="qeWL" class="">API 응답 상태 점검</td></tr></div><div style="display:contents" dir="ltr"><tr id="1d7f8917-466a-8004-96cb-d5d1a12b5f67"><td id="?iQ~" class="">외부 알림 도구 (Opsgenie, Slack, Email)</td><td id="qeWL" class="">실시간 Alert 전파</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="1d7f8917-466a-8070-a01b-c47590333b29"/></div><div style="display:contents" dir="auto"><h3 id="1d7f8917-466a-8002-b4f2-d73ca7a1b9b7" class="">🔒 재발 방지 전략</h3></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8081-949b-f1dbf1a2a836" class="bulleted-list"><li style="list-style-type:disc">정기 TLS 인증서 갱신 주기 설정</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8002-a704-d8743e65abf8" class="bulleted-list"><li style="list-style-type:disc">Edge/Cloud 연결 감시 → 자동 재시도 스크립트 구성</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8012-a423-df38131cba4b" class="bulleted-list"><li style="list-style-type:disc">장애 시 fallback flow 설계 (예: 안내 메시지, 대체 라우팅)</li></ul></div><div style="display:contents" dir="auto"><ul id="1d7f8917-466a-8094-a78e-e7442368b17d" class="bulleted-list"><li style="list-style-type:disc">상담사 네트워크 품질 기준 정의 및 사전 진단 도구 제공</li></ul></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

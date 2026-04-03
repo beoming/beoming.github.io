@@ -1,0 +1,7 @@
+﻿내용,URL,설명,유형,카테고리
+제목으로 검색,https://api.notion.com/v1/search,"연결로 공유된 모든 상위 또는 하위 페이지와 데이터베이스를 검색합니다.
+복제된 링크된 데이터베이스를 제외하고 query 파라미터가 포함된 제목을 가진 모든 https://developers.notion.com/reference/page 또는 https://developers.notion.com/reference/database를 조회합니다. query 파라미터가 없으면 연결로 공유된 모든 페이지 또는 데이터베이스가 응답에 포함됩니다.",POST,검색
+토큰의 봇 사용자 조회,https://api.notion.com/v1/users/me,인증 헤더에 제공된 API 토큰과 연결된 봇 사용자를 조회합니다. 봇에는 연결을 승인한 사람에 대한 정보가 담긴 owner 필드가 포함되어 있습니다.,GET,사용자
+모든 사용자 나열,https://api.notion.com/v1/users,워크스페이스에서 페이지네이션된 사용자 목록을 조회합니다. 응답에는 page_size보다 적은 수의 결과가 나올 수 있습니다.,GET,사용자
+토큰 생성하기,https://api.notion.com/v1/oauth/token,타사 서비스가 Notion에서 인증하기 위해 사용할 수 있는 액세스 토큰을 생성합니다.,POST,인증
+사용자 조회,https://api.notion.com/v1/users/{user_id},지정된 ID를 사용하여 https://developers.notion.com/reference/user를 검색합니다.,GET,사용자

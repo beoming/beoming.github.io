@@ -1,0 +1,754 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>GSN 맛있네오 - Tech</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2a2f8917-466a-8024-8e19-eda0ffab2ff8" class="page sans"><header><h1 class="page-title" dir="auto">GSN 맛있네오 - Tech</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="2a2f8917-466a-8020-8893-eb13d11eb702" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="2a2f8917-466a-80a1-aafd-c103051b2985"><div class="source"><a href="https://www.notion.soundefined"></a></div></figure></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8028-88b8-f76d867b289f" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2a2f8917-466a-804f-9114-e1f12a1214f3" class="">AWS - GCP 연동 관련</h2></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-802f-acbc-cc52b18f62a0" class="">아래는 <strong>AWS EC2 → GCP Dialogflow CX</strong> 를 안전하게 연동하기 위해 구성한</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-807a-893f-e50ff883021c" class=""><strong>Workload Identity Federation(WIF) 전체 기술 내용</strong></p></div><div style="display:contents" dir="auto"><hr id="2aef8917-466a-80f9-b267-e405f45aee39"/></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-8077-8241-e960e71da886" class="">Workload Identity Federation(WIF) 기술 구성 문서</h3></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-80c3-a7b9-c9ec4e6dc0d2" class="">(AWS EC2 → GCP Dialogflow CX 인증 연동)</h3></div><div style="display:contents" dir="auto"><hr id="2aef8917-466a-807c-ac29-c169627afc1e"/></div><div style="display:contents" dir="auto"><h2 id="2aef8917-466a-80ea-a5dd-c4f5d5daf498" class="">1. 개요 (Overview)</h2></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8043-b778-daae5fab3dfa" class="">기존 방식은 <strong>GCP Service Account 키(JSON 파일)</strong> 을 EC2 서버에 배포하여</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80b3-96a0-fa55ba04f6ec" class="">Dialogflow CX API 호출 시 인증에 사용했다.</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80b5-babd-e4e1f2c68743" class="">그러나 이 방식은 다음과 같은 문제를 가진다:</p></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-805c-9d58-f68797ceb492" class="bulleted-list"><li style="list-style-type:disc">키 파일이 유출되면 <strong>영구 권한 탈취 가능</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-80ee-bf07-c01e5666f30f" class="bulleted-list"><li style="list-style-type:disc">키 만료 정책 적용 시 <strong>수동 재배포 필요</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-804f-9881-f388e97ec35d" class="bulleted-list"><li style="list-style-type:disc">GitHub 등에 노출될 위험</li></ul></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-80f3-a5ab-e0c6813f306d" class="bulleted-list"><li style="list-style-type:disc">키 재발급 후 서버 재배포 필요</li></ul></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80c6-8c19-c24c1c4b14dd" class="">이를 해결하기 위해 GCP가 제공하는 <strong>Workload Identity Federation(WIF)</strong> 을 사용해</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8046-818c-f9c14fbb3a47" class="">AWS EC2 인스턴스가 <strong>키 없이(Google Keyless Authentication)</strong></p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80f9-a438-fb0170ee39d3" class="">GCP 리소스(Dialogflow CX)에 접근하도록 구성했다.</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8068-be8c-c712fe2c2d6e" class="">결과:</p></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-80ee-a218-f11bc736409d" class="bulleted-list"><li style="list-style-type:disc"><strong>서비스 계정 키 파일 필요 없음</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-8064-b106-ded087c69c55" class="bulleted-list"><li style="list-style-type:disc"><strong>자동 토큰 교환(EC2 메타데이터 → AWS STS → GCP Identity Pool → SA Impersonate)</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-8055-923f-cf130030d6c5" class="bulleted-list"><li style="list-style-type:disc"><strong>보안성 10배 강화</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-80c0-9326-d14e6f78a18b" class="bulleted-list"><li style="list-style-type:disc"><strong>키 만료 문제 제거</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="2aef8917-466a-80f2-859a-faa210387819"/></div><div style="display:contents" dir="auto"><h2 id="2aef8917-466a-80db-9608-cfe6b18b3a2f" class="">2. 전체 아키텍처 흐름 (Token Exchange Flow)</h2></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8091-9499-c6afb5eb91f8" class="">아키텍처는 다음 순서로 작동한다:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2aef8917-466a-80c6-9de1-dcf365d639da" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">EC2 Instance
+   ⬇ (IMDSv2)
+AWS Temporary Credentials 발급
+   ⬇ (STS AssumeRole)
+AWS Role: ec2-gcp-wif-role
+   ⬇
+Google Workload Identity Pool (aws-pool)
+   ⬇ (Subject Token)
+Google Workload Identity Provider (aws-provider)
+   ⬇ (Federation)
+GCP Service Account: [YOUR_SA_NAME]
+   ⬇ (Impersonation)
+Access Token 발급 (1시간 유효)
+   ⬇
+Dialogflow CX API 호출 성공
+</code></pre></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8036-97d6-d8c2730eadb2" class=""><strong>핵심</strong>:</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8081-9d5d-ee8ce2355a2e" class="">AWS IAM 역할의 임시 자격 증명을 기반으로</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80cd-af46-e578b72dc34a" class="">GCP 서비스 계정 토큰을 자동으로 발급받는 구조이다.</p></div><div style="display:contents" dir="auto"><hr id="2aef8917-466a-8071-85b2-e1c0801507a3"/></div><div style="display:contents" dir="auto"><h2 id="2aef8917-466a-80a3-9a33-c0c3f0b4835c" class="">3. AWS 측 구성</h2></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-80a6-aec5-f2decf7938ae" class="">3.1 EC2 IAM Role 생성</h3></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80de-84e2-de3a30305426" class=""><strong>ec2-gcp-wif-role</strong></p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8093-b22a-f5ead3f4e2e3" class="">정책:</p></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-80ac-990b-d8afff52f0af" class="bulleted-list"><li style="list-style-type:disc">AWS STS 호출 및 메타데이터 서비스 접근 허용 (기본)</li></ul></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-8037-b5d6-d942a13821c1" class="bulleted-list"><li style="list-style-type:disc">GCP가 요구하는 STS 정보를 제공할 수 있도록 IAM 접근 설정</li></ul></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80bc-a05e-c432eafd543f" class="">Trust policy (요약):</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2aef8917-466a-8030-b00e-ddcc0a5d7287" class="code code-wrap"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;Version&quot;: &quot;2012-10-17&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Principal&quot;: { &quot;Service&quot;: &quot;ec2.amazonaws.com&quot; },
+      &quot;Action&quot;: &quot;sts:AssumeRole&quot;
+    }
+  ]
+}
+</code></pre></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-80bf-b484-d714770dcbe2" class="">3.2 IAM Role을 EC2 인스턴스에 연결</h3></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80a3-9120-d57275630eda" class="">AWS Console → EC2 → Instance Settings → IAM Role</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8012-a60a-ec164f8d897c" class="">→ <strong>ec2-gcp-wif-role</strong> 선택하여 연결.</p></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-80a3-90cc-c86b51d6b8e1" class="">3.3 IMDSv2 활성화 (필수)</h3></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-806d-84ce-fd91ffba038d" class="">GCP WIF는 <strong>IMDSv2</strong> 를 요구한다.</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8021-ba3a-c4f74135a039" class="">EC2 → Instance Metadata →</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8003-8c64-c90344e4fec8" class=""><strong>IMDSv2 = Required</strong></p></div><div style="display:contents" dir="auto"><hr id="2aef8917-466a-8069-adc3-f43efe36c5fa"/></div><div style="display:contents" dir="auto"><h2 id="2aef8917-466a-8052-b6e2-ea5c49177099" class="">4. GCP 측 구성</h2></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-80f2-bfb1-cd5f194682f4" class="">4.1 Workload Identity Pool 생성</h3></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-800d-ae3f-fd516d561463" class="">GCP Console → IAM &amp; Admin → Workload Identity Federation</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80f3-bf3b-c97a873ed75e" class="">Pool 이름: <code>aws-pool</code></p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8074-ab5d-f4313861026a" class="">Provider 수: 1</p></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-803b-9c23-efcd7bf36951" class="">4.2 AWS Provider 생성</h3></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80df-b829-ee7e90589ef1" class="">Provider ID: <code>aws-provider</code></p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8029-8198-f516f4ffdf03" class="">Provider 유형: AWS</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80e2-b51d-c5627dc078fa" class="">AWS 계정 및 역할 정보 입력:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2aef8917-466a-80b9-9a3d-eeb73b60a583" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">AWS_ACCOUNT_ID = 970123029402
+AWS_ROLE = arn:aws:sts::970123029402:assumed-role/ec2-gcp-wif-role
+</code></pre></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80e7-89e4-fe0df0fc9bb9" class="">이 설정으로 GCP는</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-801a-9577-d41ee42d29e9" class="">“이 AWS 역할을 가진 엔티티만 접근 가능”</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8055-946d-da6a32ecf616" class="">이라고 판단한다.</p></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-8087-9a37-e875bd4d2227" class="">4.3 WIF 사용자에게 Service Account 권한 부여</h3></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80e9-a6ae-ca1c42c7be8a" class="">가장 핵심 단계.</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80fa-b268-e86b33421911" class="">Service account:</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8011-946a-c91a4dd88d16" class=""><code>service-account@[YOUR_GCP_PROJECT].iam.gserviceaccount.com</code></p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-807e-a1f9-ecabbd68fb8f" class="">Principal(주체):</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2aef8917-466a-8042-8406-e18b85add67c" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">principalSet://iam.googleapis.com/projects/369083780695/locations/global/workloadIdentityPools/aws-pool/attribute.aws_role/arn:aws:sts::970123029402:assumed-role/ec2-gcp-wif-role
+</code></pre></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80f6-a031-e08066a5c738" class="">부여한 Role:</p></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-8057-bb71-cfb40cd8793c" class="bulleted-list"><li style="list-style-type:disc"><strong>Workload Identity User</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-809c-ac39-cbb6b2ca013a" class="bulleted-list"><li style="list-style-type:disc"><strong>Service Account Token Creator</strong></li></ul></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80b8-83db-ef8047bb6d5f" class="">Token Creator가 없으면</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80d0-8c50-c9fde237a94b" class="">SA에 대한 access token을 만들 수 없기 때문에</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-807f-9800-e2db7690c6b3" class="">403 PERMISSION_DENIED 가 발생한다.</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80e9-ba3e-f81f8fdd1776" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="2aef8917-466a-803a-b447-f2003b56f209"/></div><div style="display:contents" dir="auto"><h2 id="2aef8917-466a-80b9-9fa7-e5155c3ee3f0" class="">5. 애플리케이션 변경 사항 (Spring Boot)</h2></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80a6-b210-e51c3df6cc4a" class="">기존:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2aef8917-466a-8081-9dcb-dcc7f7992c27" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">GOOGLE_APPLICATION_CREDENTIALS=/path/to/json
+</code></pre></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8020-a69e-f44d5fee21cc" class="">→ 제거</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80e4-98c0-ce7005869487" class="">WIF는 파일 인증이 아님.</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-805f-bafd-c83a95b24e6b" class="">자동으로 <strong>Google Application Default Credential(ADC)</strong> 경로에서</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-801d-a1d4-f64ed0faa43e" class="">AWS 기반 WIF를 감지하여 동작함.</p></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-80bb-8bd6-c6be884916fe" class="">적용된 코드:</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2aef8917-466a-8050-993b-e12b0116713a" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">GoogleCredentials cred = GoogleCredentials.getApplicationDefault();
+</code></pre></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-807f-8d82-cddae8604222" class="">결과적으로 Spring Boot는</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80aa-93e1-f82a3238fb1f" class="">더 이상 JSON 파일을 읽지 않고</p></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-8035-adc9-e3f974ee0792" class="">AWS 임시 자격 증명을 기반으로 GCP 토큰을 자동 생성한다.</p></div><div style="display:contents" dir="auto"><hr id="2aef8917-466a-8018-9e01-ecd7d23fa5cf"/></div><div style="display:contents" dir="auto"><h2 id="2aef8917-466a-8098-8c64-e58cb7a08a66" class="">6. Docker / EC2 환경 설정</h2></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-80bd-a5eb-eecb12a3237a" class="">6.1 docker-compose에서 JSON 키 제거 후, WI록</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2aef8917-466a-80ae-b57a-faaa9169d437" class="code code-wrap"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /usr/local/gsncafeteria/keystore/gsn-wif-aws-cred.json
+      SPRING_PROFILES_ACTIVE: default
+volumes:
+      - /usr/local/gsncafeteria/keystore:/usr/local/gsncafeteria/keystore:ro
+      - /usr/local/gsncafeteria/imageFile:/app/imageFile:ro   # 이미지 파일 폴더를 읽기 전용으로 마운트
+</code></pre></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-801c-bad8-d476d3b686b1" class="">6.2 EC2 내부에서 확인</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2aef8917-466a-8000-abfd-f22083681f9b" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">curl -s -X PUT &quot;http://169.254.169.254/latest/api/token&quot; \
+  -H &quot;X-aws-ec2-metadata-token-ttl-seconds: 21600&quot;
+</code></pre></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80de-9dc4-ff75cbda9d6e" class="">그리고 실제로 AWS 임시 자격 증명이 나오는지 확인:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2aef8917-466a-8054-8977-f4dab6843725" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">curl -H &quot;X-aws-ec2-metadata-token: $TOKEN&quot; \
+  http://169.254.169.254/latest/meta-data/iam/security-credentials/ec2-gcp-wif-role
+</code></pre></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-801c-bb82-c637e53431c8" class="">정상 출력됨 → 역할 연결 OK</p></div><div style="display:contents" dir="auto"><hr id="2aef8917-466a-8074-aa9e-d9d79f8a0b5a"/></div><div style="display:contents" dir="auto"><h2 id="2aef8917-466a-801e-91e0-d69b37b10a73" class="">7. 실제 동작 과정 (실시간 인증 흐름)</h2></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-800e-96f7-d603c225788c" class="">7.1 Spring Boot가 Dialogflow CX API 요청 →</h3></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-80a6-aa40-f7e9e3f36f51" class="">7.2 Google Auth Library가 AWS 임시 토큰 요청 →</h3></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80b3-9ce4-cb3a8c5ebba7" class="">AWS STS: AccessKeyId / SecretAccessKey / Token 발급</p></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-80ec-b5f3-e36a56aafae5" class="">7.3 이를 GCP WIF Provider에 제출 →</h3></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-80cf-a97c-ccbaa6192001" class="">7.4 GCP가 Provider 설정을 검증 →</h3></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-8062-913f-f90caefbaf3d" class="bulleted-list"><li style="list-style-type:disc">AWS 계정 ID 일치?</li></ul></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-8058-a292-fa6c3cc12835" class="bulleted-list"><li style="list-style-type:disc">역할 ARN 일치?</li></ul></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-8031-8a7b-c02338a6f5fa" class="bulleted-list"><li style="list-style-type:disc">Signature OK?</li></ul></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-80c7-b330-de8a7e8a59d3" class="">7.5 Service Account Impersonation 수행 →</h3></div><div style="display:contents" dir="auto"><ul id="2aef8917-466a-805d-b973-cf50d8b54608" class="bulleted-list"><li style="list-style-type:disc"><code>Service Account Token Creator</code> 권한 필요</li></ul></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-8082-bc65-e98c410701ac" class="">7.6 1시간짜리 GCP Access Token 발급</h3></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-8056-bb62-c0d0b5d97545" class="">7.7 Dialogflow CX API 호출 → 성공</h3></div><div style="display:contents" dir="auto"><hr id="2aef8917-466a-807d-8990-d18ef2ca111f"/></div><div style="display:contents" dir="auto"><h2 id="2aef8917-466a-801f-82aa-ca6753b988bf" class="">8. 장애 원인 및 해결 요약</h2></div><div style="display:contents" dir="auto"><h3 id="2aef8917-466a-804b-8652-d9527516ea4a" class="">초기 오류들</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2aef8917-466a-8095-b499-d75493dd2d7e" class="numbered-list" start="1"><li><code>Failed computing credential metadata</code><div style="display:contents" dir="auto"><p id="2aef8917-466a-80ed-8eeb-decb7d7efd75" class="">→ IMDSv2 비활성화 문제</p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2aef8917-466a-80cb-8725-fdc4c5c62315" class="numbered-list" start="2"><li><code>401 Unauthorized (AWS metadata)</code><div style="display:contents" dir="auto"><p id="2aef8917-466a-8078-8ebb-d9797c0e4227" class="">→ IMDSv2 Required 설정 없음</p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2aef8917-466a-8042-9624-eaaed0efe467" class="numbered-list" start="3"><li><code>403 iam.serviceAccounts.getAccessToken denied</code><div style="display:contents" dir="auto"><p id="2aef8917-466a-80ce-9f29-c5614fe19d3b" class="">→ <strong>Service Account Token Creator</strong> 권한 누락 (가장 핵심)</p></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2aef8917-466a-80ce-8e32-ecfce09c7fe6" class="numbered-list" start="4"><li>JSON 키가 남아 있었음<div style="display:contents" dir="auto"><p id="2aef8917-466a-80bb-96b7-e3d48987fb99" class="">→ ADC가 WIF 대신 JSON 키를 로딩</p></div></li></ol></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80aa-84b5-fa07204cb5a0" class="">모두 해결함.</p></div><div style="display:contents" dir="auto"><hr id="2aef8917-466a-80ee-b908-fb8e2640d56e"/></div><div style="display:contents" dir="auto"><h1 id="2aef8917-466a-803a-b238-d264b0cbc8e1" class="">최종 정리</h1></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80fc-8f40-eba0ce471f86" class="">지금 구성은 아래 상태 완벽히 충족함:</p></div><div style="display:contents" dir="ltr"><table id="2aef8917-466a-8056-98f2-e30c8367facf" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2aef8917-466a-8010-a4fc-ca0c4c0732a5"><th id="jG`;" class="simple-table-header-color simple-table-header">항목</th><th id="&lt;=zb" class="simple-table-header-color simple-table-header">상태</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2aef8917-466a-80c1-89e5-d3245af25ca3"><td id="jG`;" class="">AWS EC2 IAM Role</td><td id="&lt;=zb" class="">OK</td></tr></div><div style="display:contents" dir="ltr"><tr id="2aef8917-466a-80a4-9422-dba59ea19025"><td id="jG`;" class="">IMDSv2 Required</td><td id="&lt;=zb" class="">OK</td></tr></div><div style="display:contents" dir="ltr"><tr id="2aef8917-466a-803e-8804-e9a6bcd65cfa"><td id="jG`;" class="">AWS Provider 설정</td><td id="&lt;=zb" class="">OK</td></tr></div><div style="display:contents" dir="ltr"><tr id="2aef8917-466a-8030-a128-e7abf301a30f"><td id="jG`;" class="">Workload Identity Pool</td><td id="&lt;=zb" class="">OK</td></tr></div><div style="display:contents" dir="ltr"><tr id="2aef8917-466a-8010-a620-f43b7c0a9faa"><td id="jG`;" class="">SA Token Creator</td><td id="&lt;=zb" class="">✔️ 추가 완료</td></tr></div><div style="display:contents" dir="ltr"><tr id="2aef8917-466a-80a9-8d52-e0eec1d2b89a"><td id="jG`;" class="">ADC 기반 WIF 인증</td><td id="&lt;=zb" class="">정상</td></tr></div><div style="display:contents" dir="ltr"><tr id="2aef8917-466a-80fd-8f96-ec30552bf8de"><td id="jG`;" class="">Dialogflow CX API 호출</td><td id="&lt;=zb" class="">정상 작동</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2aef8917-466a-8075-9107-f46c9fbf927d"/></div><div style="display:contents" dir="auto"><p id="2aef8917-466a-80db-879a-ed1f7370ec31" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

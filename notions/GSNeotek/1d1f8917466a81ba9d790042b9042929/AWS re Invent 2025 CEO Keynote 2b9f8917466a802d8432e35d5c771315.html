@@ -1,0 +1,757 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>AWS re:Invent 2025 CEO Keynote</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2b9f8917-466a-802d-8432-e35d5c771315" class="page sans"><header><h1 class="page-title" dir="auto">AWS re:Invent 2025 CEO Keynote</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8034-9cad-d852174baa6c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2b9f8917-466a-80f8-9d31-dbd2281d13d5" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80ba-9c60-d45e6527fdb4" class="">― Agentic AI 시대, AWS의 기술 진화와 AICC 사업 전략에 대한 시사점 ―</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8089-b3f6-e52bf92b2724" class="">작성 부서: NCC팀</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8098-be5d-fb958cf19c75" class="">작성 관점: 기술·플랫폼·사업 전략 종합</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-803e-ac0f-e82c003f9cf6" class="">분석 대상: AWS CEO Matt Garman Keynote (re:Invent 2025)</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80d0-abc2-cbd08a0d38f1"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80c1-9453-c28489ad322f" class="">1. 보고서 목적 및 배경</h2></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8071-b3cd-de377e1c379b" class="">본 보고서는 <strong>2025 AWS re:Invent Keynote에서 발표된 AWS의 기술 전략, 플랫폼 구조, 신규 서비스 및 장기 비전</strong>을 분석하고, 이를 <strong>AICC(Application Intelligent Contact Center)</strong> 사업 관점에서 해석함으로써 향후 <strong>AICC 기술 로드맵, 서비스 구조, 경쟁 전략 수립에 참고 지표</strong>를 제공하는 것을 목적으로 한다.</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-806f-b779-cbdc8b88507c" class="">이번 키노트는 단순한 신기술 발표가 아니라,</p></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-808a-933c-caaff8af3f5c" class="">“AI를 어떻게 산업과 조직 안에서 운영 가능한 형태로 정착시키는가”<div style="display:contents" dir="auto"><p id="2c3f8917-466a-80ec-971e-f29a12842a54" class="">에 대한 AWS의 <strong>명확한 선언적 메시지</strong>였다.</p></div></blockquote></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80ee-ae22-c0d4694da1b4"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80c7-86c8-f636420146ea" class="">2. AWS 전략 변화의 본질적 해석</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-806a-b428-f477e51afb51" class="">2.1 기존 AWS 포지셔닝 (과거)</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80c2-991b-ca43b257141d" class="bulleted-list"><li style="list-style-type:disc">인프라(IaaS) 중심 클라우드</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8072-b7b2-c6ba0fb9b1d6" class="bulleted-list"><li style="list-style-type:disc">확장 가능한 컴퓨팅 리소스 제공자</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80c3-bf26-f0e4b93c37b8" class="bulleted-list"><li style="list-style-type:disc">AI는 “고객이 사용하는 워크로드 중 하나”</li></ul></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80dc-b5c9-e16c36a9b51b" class="">2.2 현재 AWS 포지셔닝 (2025)</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8061-a4a7-e93e1094e205" class="bulleted-list"><li style="list-style-type:disc"><strong>AI 인프라 + AI 플랫폼 + AI 운영체제</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b0-8b82-c87ae7015927" class="bulleted-list"><li style="list-style-type:disc">AI를 단순한 기능이 아닌 <strong>“조직의 행위 주체(Agent)”</strong>로 상정</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-800f-89f7-fc9535002f85" class="bulleted-list"><li style="list-style-type:disc">핵심 키워드:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8028-8745-f2c2fb35871a" class="bulleted-list"><li style="list-style-type:circle"><em>Agentic</em></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8003-b2d4-fc4b79330233" class="bulleted-list"><li style="list-style-type:circle"><em>System-level Control</em></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-807d-86b1-f91959ffd5de" class="bulleted-list"><li style="list-style-type:circle"><em>Enterprise-grade Trust</em></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-8031-83f2-d5377fbb1b63" class="">즉, AWS는 이제 “AI를 실행하는 클라우드”가 아니라,<div style="display:contents" dir="auto"><p id="2c3f8917-466a-80f3-b23c-e54b55f6be69" class="">“AI가 일하도록 설계된 세계의 운영체제”를 지향한다.</p></div></blockquote></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8062-9bcd-cda3d75a8a9d"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-805f-a842-dad3e6b26213" class="">3. AI 인프라 전략: 규모·전력·운영 효율의 재정의</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80a7-a434-fb2f0a29f7d6" class="">3.1 Trainium 중심의 수직 통합 전략</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8096-90e9-d0b488a175ab" class="">주요 내용</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8061-a0ef-ee0722274bd7" class="bulleted-list"><li style="list-style-type:disc">Trainium2 → Trainium3 GA → Trainium4 개발 발표</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-803d-9c68-d6da41176825" class="bulleted-list"><li style="list-style-type:disc">전 세대 대비:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8058-a974-c64bccfe6c70" class="bulleted-list"><li style="list-style-type:circle">연산 성능(Compute) 증가</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8056-9d7a-f4ba005e2788" class="bulleted-list"><li style="list-style-type:circle">메모리 대역폭 대폭 확장</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80f7-9878-fae647b14c65" class="bulleted-list"><li style="list-style-type:circle"><strong>전력 대비 토큰 처리량(토큰/MW) 5배 이상 개선</strong></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80e1-8a20-ce4ea33490d8" class="">AWS는 단순히 “더 빠른 칩”이 아니라,</p></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-80a9-8b2d-c268317287ef" class=""><strong>“AI 연산 단가를 구조적으로 낮출 수 있는 전용 아키텍처”</strong>를 만들고 있음</blockquote></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8012-a2d5-c9779167783a" class="">3.2 Data Center = Computer 패러다임</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-801b-aadd-ca7fb280b492" class="bulleted-list"><li style="list-style-type:disc">UltraServer 단위의 Scale-up</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8015-b067-d86e64b8a097" class="bulleted-list"><li style="list-style-type:disc">EFA 기반 수십만 칩 Scale-out</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80fa-9fe5-ffbe084b8f17" class="bulleted-list"><li style="list-style-type:disc">단일 인스턴스에 수백 PFLOPS</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8087-8c8f-d38e6965a292" class="">이는 곧:</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8011-bd54-e238cdb274ba" class="bulleted-list"><li style="list-style-type:disc">대규모 실시간 추론</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-802d-9d85-d0e52da1cdab" class="bulleted-list"><li style="list-style-type:disc">수백만 Agent 동시 실행</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8044-95f0-dd561a852384" class="bulleted-list"><li style="list-style-type:disc">24x7 AI 서비스</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80dd-a2e9-cf9a5f970775" class="">를 <strong>운영 관점에서 지속 가능</strong>하게 만든다는 의미</p></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-800b-a3a1-c36dd5ca3f7e" class="">AICC 관점 시사점</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b2-996b-f6044984bfbd" class="bulleted-list"><li style="list-style-type:disc">실시간 STT, 대화 요약, 정책 검증, Agent 행동 통제까지<div style="display:contents" dir="auto"><p id="2c3f8917-466a-801d-9e9c-f604a76230ba" class=""><strong>하나의 상시 추론 파이프라인으로 구성 가능</strong></p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-809d-842e-fc8132d93a90" class="bulleted-list"><li style="list-style-type:disc">“GPU 부담 때문에 못 한다”는 제약이 전략적으로 사라짐</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e0-bc95-fc9cb8276934" class="bulleted-list"><li style="list-style-type:disc"><strong>대규모 컨택센터 Agent 자동화의 경제성 확보</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80c4-9294-c5a786e5e012"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80c0-8022-d83ebcf25a79" class="">4. 모델 전략: 멀티모델 &amp; 목적 분업 구조의 공식화</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-807a-9704-ee1ea072c474" class="">4.1 Bedrock의 역할 변화</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80eb-966e-d761c690a1bc" class="">Bedrock은 더 이상 “모델 마켓플레이스”가 아니라,</p></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-8072-8893-cdb561c88aeb" class="">Enterprise AI Control Plane 으로 진화함.</blockquote></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-809a-bd0a-ea8c8a710954" class="bulleted-list"><li style="list-style-type:disc">모델 선택</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-800d-9097-cf849a5b6980" class="bulleted-list"><li style="list-style-type:disc">모델 조합</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80ef-8ecf-c4722413ad37" class="bulleted-list"><li style="list-style-type:disc">트래픽 분기</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8021-8904-c13cd8f440bc" class="bulleted-list"><li style="list-style-type:disc">보안 격리</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8065-8ff4-ddf4ef6e4224" class="bulleted-list"><li style="list-style-type:disc">정책 적용</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80e9-b19e-cb776dfa2a4e" class="">을 모두 중앙에서 통제</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-801b-a902-f6bf9a0e8963"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8086-97c8-c1ed5ae72efd" class="">4.2 Amazon Nova 2 패밀리의 전략적 의미</h3></div><div style="display:contents" dir="ltr"><table id="2c3f8917-466a-8077-9085-f49cd5f94fda" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80af-8482-e988cd514628"><th id="eSFV" class="simple-table-header-color simple-table-header">모델</th><th id="L?Mx" class="simple-table-header-color simple-table-header">핵심 포지션</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8051-b75b-df1937ef0c80"><td id="eSFV" class="">Nova 2 Lite</td><td id="L?Mx" class="">대량 트래픽 처리, 비용 최적화</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80db-81c6-f11233c96cd4"><td id="eSFV" class="">Nova 2 Pro</td><td id="L?Mx" class="">복합 추론, Agent reasoning</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8069-b783-cd3c76fe55de"><td id="eSFV" class="">Nova 2 Sonic</td><td id="L?Mx" class="">실시간 음성 Agent</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8016-a264-db5f08698a49"><td id="eSFV" class="">Nova 2 Omni</td><td id="L?Mx" class="">멀티모달 통합 인지</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8053-b34f-c94a4ecfebe1" class="">AWS는 명확히 전제함:</p></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-807f-93d1-e2109bb62108" class="">“현실의 업무는 단일 모델로 해결되지 않는다.”</blockquote></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8034-ac90-ee17f5f77083" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-808d-baa6-d13c6eeacafa" class="">AICC 적용 시나리오 예시</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e4-8f72-cf895f1dbb2d" class="bulleted-list"><li style="list-style-type:disc">실시간 통화:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-802b-9207-ea8ed217cfa4" class="bulleted-list"><li style="list-style-type:circle">STT → Nova Sonic</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80ac-bac2-d0c0dad7b54d" class="bulleted-list"><li style="list-style-type:disc">상담 처리 중:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-802e-ae40-dae38e0f0f63" class="bulleted-list"><li style="list-style-type:circle">고객 의도 판단 → Nova Lite</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e9-81cf-f71c44b5da64" class="bulleted-list"><li style="list-style-type:disc">정책/업무 판단:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80db-814d-fd743bfa3b48" class="bulleted-list"><li style="list-style-type:circle">승인/보류/전달 → Nova Pro</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8096-9889-e5a3d858f3a8" class="bulleted-list"><li style="list-style-type:disc">상담 요약 + CRM 기록:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b9-a69b-c7371b464a72" class="bulleted-list"><li style="list-style-type:circle">Omni 활용 가능</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8023-af1f-f906d2860ffd" class="">👉 기존 “LLM 1개로 다 처리” 구조 붕괴</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-802f-847c-e07562008e81"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-809a-8454-c40025ea632f" class="">5. Nova Forge: 기업 전용 LLM의 패러다임 전환</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8069-b5d6-d4dd349bd1d7" class="">5.1 기존 기업 AI 통합 방식의 한계</h3></div><div style="display:contents" dir="ltr"><table id="2c3f8917-466a-80d0-9ad4-e2377c673093" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80c8-a8ba-fd7830e842cf"><th id=";UYw" class="simple-table-header-color simple-table-header">방식</th><th id="im|D" class="simple-table-header-color simple-table-header">한계</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80d1-a98b-ecde3a909107"><td id=";UYw" class="">RAG</td><td id="im|D" class="">실시간 컨텍스트 얕음</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8013-8433-e27c081dc3f3"><td id=";UYw" class="">Fine-tuning</td><td id="im|D" class="">도메인 심층 이해 불가</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-804c-8b2e-f4240a611ed8"><td id=";UYw" class="">Post-training</td><td id="im|D" class="">지식 망각 문제</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8081-91d8-d71884659c5b" class="">5.2 Nova Forge의 핵심 가치</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e6-88fe-c41050b8c814" class="bulleted-list"><li style="list-style-type:disc">Pre-training 단계에서<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8077-83e9-e9ac4da812f0" class="bulleted-list"><li style="list-style-type:circle">Amazon curated corpus</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8044-8631-ee15fbf783f8" class="bulleted-list"><li style="list-style-type:circle">고객 proprietary data<div style="display:contents" dir="auto"><p id="2c3f8917-466a-80e6-8b90-c2c26215238e" class=""><strong>동시에 병합</strong></p></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8060-b31c-dea2fc17a5d6" class="bulleted-list"><li style="list-style-type:disc">단계별 학습 제어</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80bb-8378-ff7e10cb90ac" class="bulleted-list"><li style="list-style-type:disc">결과물은 고객 독점 모델 (<em>Novella</em>)</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80c2-a3ba-e253f2528d3d" class="">이는 곧:</p></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-8030-a962-e68400dd02a7" class="">“모델이 우리 회사의 업무 DNA를 이해한다”</blockquote></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8066-b6ea-c8288820f305" class="">는 의미</p></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-801a-b3d0-d6327e0eaf3e" class="">AICC 관점 (매우 중요)</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8087-89ec-c182a238047b" class="bulleted-list"><li style="list-style-type:disc">상담 로그</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8034-92f0-cdca9113b1a9" class="bulleted-list"><li style="list-style-type:disc">QA 판단 기준</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-809c-af27-dc7f1b3467d6" class="bulleted-list"><li style="list-style-type:disc">클레임 처리 패턴</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-805f-89a0-f227dae6b397" class="bulleted-list"><li style="list-style-type:disc">운영 정책</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-804c-bc2e-d8d72cb82e8a" class="">을 <strong>프롬프트가 아니라 모델 구조 자체에 내재화</strong> 가능</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8072-8690-fce4c105b20b" class="">→ <strong>사람 상담원의 숙련도를 AI로 재현</strong></p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80cd-b535-cb66680d81d3"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-8040-b2e1-f87503eb4567" class="">6. AgentCore: 엔터프라이즈 Agent 운영체제</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-802b-82a4-c41d56c459f9" class="">6.1 AgentCore 구성의 핵심 철학</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80ec-9a86-f92ecb046c62" class="">AgentCore는 단순 SDK가 아니라,</p></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-801b-8613-d1dc029a1f2e" class="">“Agent를 신뢰할 수 있게 만드는 최소 요건의 집합”</blockquote></div><div style="display:contents" dir="ltr"><table id="2c3f8917-466a-80fd-8576-ec3addc01718" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80fc-adce-d43cf6345927"><th id="jQ&lt;v" class="simple-table-header-color simple-table-header">구성요소</th><th id="ASTv" class="simple-table-header-color simple-table-header">역할</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80a7-9e7d-cd20b50f9249"><td id="jQ&lt;v" class="">Runtime</td><td id="ASTv" class="">세션 격리</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8047-9572-e4e1fc12b525"><td id="jQ&lt;v" class="">Memory</td><td id="ASTv" class="">지속적 맥락</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80f4-b670-de3daef48c26"><td id="jQ&lt;v" class="">Identity</td><td id="ASTv" class="">권한 통제</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80d8-937b-e7b4994a1b32"><td id="jQ&lt;v" class="">Gateway</td><td id="ASTv" class="">API/Tool 연결</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-8051-9db4-c82a7db36259"><td id="jQ&lt;v" class="">Observability</td><td id="ASTv" class="">행동 추적</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-80a7-a152-f563c1b6d99c"><td id="jQ&lt;v" class="">Policy</td><td id="ASTv" class="">행위 제한</td></tr></div><div style="display:contents" dir="ltr"><tr id="2c3f8917-466a-807d-b133-f340a9dfd7e8"><td id="jQ&lt;v" class="">Evaluations</td><td id="ASTv" class="">품질 검증</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-804a-a924-c85246d929e8"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8078-badf-c9bd5bbb51f4" class="">6.2 Policy &amp; Evaluations의 실질적 의미</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8080-81d4-e08b09e7008c" class="">Policy</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8093-b4bc-d46e07b01206" class="bulleted-list"><li style="list-style-type:disc">Agent의 <strong>“무엇을 할 수 없는가”</strong>를 명시</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8043-8433-ce26f644fadc" class="bulleted-list"><li style="list-style-type:disc">실행 이전 차단 (사후 로그 아님)</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8019-9e33-dce518aeec57" class="bulleted-list"><li style="list-style-type:disc">금융·공공 규제 충족의 핵심 기술</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8091-a2e6-d77c9587f421" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8051-a732-ff6176835c5c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-801d-81e6-ca70261fdcaa" class="">Evaluations</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e2-80a6-d7763c4f922e" class="bulleted-list"><li style="list-style-type:disc">Agent 판단 품질을 상시 점수화</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8063-8d4b-d170b505e998" class="bulleted-list"><li style="list-style-type:disc">모델 변경 시 자동 Regression Evaluation</li></ul></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8042-85ae-f8a7e074db77" class="">AICC 시사점</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80cf-8f37-cf13795b7b7e" class="bulleted-list"><li style="list-style-type:disc">AI 상담이 “보조 도구”가 아니라<div style="display:contents" dir="auto"><p id="2c3f8917-466a-8077-9de3-df0b2cbc4c0a" class=""><strong>주 업무 처리 주체</strong>로 승격 가능</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80c0-a3a3-df759d8c7df5" class="bulleted-list"><li style="list-style-type:disc">내부 통제·감사·규제 이슈 해결</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8062-bc69-cad7c86b9d97"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-809c-b1db-e5a73d471928" class="">7. Frontier Agents: 인간 중심 조직 구조의 변화</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8078-ba58-cd120122bbfa" class="">7.1 Frontier Agent의 정의</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8020-9f8e-df26ff3187bf" class="">AWS 정의:</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b5-aab7-fd6842602c61" class="bulleted-list"><li style="list-style-type:disc">Autonomous</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8080-97ba-d5474487a910" class="bulleted-list"><li style="list-style-type:disc">Massively Scalable</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-806b-a009-d6031f5194ce" class="bulleted-list"><li style="list-style-type:disc">Long-running</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-806f-8a3d-f4440080ee6e" class="">즉,</p></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-809d-bb81-f5f962bf0cfa" class="">“지시받고 끝나는 AI가 아니라,<div style="display:contents" dir="auto"><p id="2c3f8917-466a-80e8-bb46-c6806e51458a" class="">목표를 맡기고 결과를 검증하는 AI”</p></div></blockquote></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8006-880b-c14c0aa6bf06"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8053-8edd-cc8e77794062" class="">7.2 Connect와 Frontier Agent의 결합 가능성</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80a3-9612-ffe7bb0ef126" class="">현재 기준으로 보면:</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80dc-898f-e2a8c760cebc" class="bulleted-list"><li style="list-style-type:disc">Connect: 채널/플로우/음성 처리</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80cf-90e9-ce03011d77b8" class="bulleted-list"><li style="list-style-type:disc">Bedrock: 추론</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8074-b6ac-f20cd3584cdd" class="bulleted-list"><li style="list-style-type:disc">AgentCore: 통제</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8066-b3ac-cf0ff37a991e" class="">→ <strong>완전 자율 상담 Agent 기술적 조건 충족</strong></p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8020-9fee-c4d3734e1ddd" class="">남은 것은:</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8073-9739-e5df7004c512" class="bulleted-list"><li style="list-style-type:disc">제도</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80ac-aa1e-de0730590ae9" class="bulleted-list"><li style="list-style-type:disc">책임 모델</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b0-91cd-f0db2812dd1c" class="bulleted-list"><li style="list-style-type:disc">조직 설계</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-804e-ac61-df9d2f023ce6"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-808a-859b-d9d8508d0916" class="">8. Amazon Connect: AICC 진화의 중심축</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-800c-ace4-c860280b12d0" class="">8.1 단순 CCaaS를 넘은 변화</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a7-90bb-e53d925e74a4" class="bulleted-list"><li style="list-style-type:disc">연 ARR 10억 달러 돌파</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8044-aff2-d329a3e39fb1" class="bulleted-list"><li style="list-style-type:disc">AI-native CCaaS 플랫폼</li></ul></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-805d-84d9-e9ac047fed14" class="">Connect는 이제:</p></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-8086-bd3c-e98d946000ad" class="">“상담 엔진이 아니라 CX Agent 플랫폼”</blockquote></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-801b-ac87-fd6c2281cfc1" class="">8.2 향후 방향성</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-803a-887e-c77c42f15d3f" class="bulleted-list"><li style="list-style-type:disc">Human Agent → Supervisor</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b2-88f9-fd351534e3ba" class="bulleted-list"><li style="list-style-type:disc">AI Agent → 1차 처리자</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80fc-aac3-c649c74f8985" class="bulleted-list"><li style="list-style-type:disc">QA → 실시간 자동화</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80ab-b9de-cbcaca94bc6f"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80d8-a827-c01ca1dbb512" class="">8.3 AICC 전용 기술 아키텍처</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-808f-ad97-dd8772c57b55" class="">(Amazon Connect × Amazon Bedrock AgentCore 기반)</h3></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80e5-84a0-fe3525f53c61"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80c4-ac91-de1d30b13131" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80e5-b614-d9e3318f8250" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80f8-9ece-c5f51db3272e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80a6-81e0-fb309dee176a" class="">8.3.1. 아키텍처 목적</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80f7-afab-f6d7fce2b103" class="">본 아키텍처는 <strong>AWS re:Invent 2025</strong>에서 발표된 방향성(에이전트 시대, AgentCore, Nova 2, AI Factory 등)을 반영하여, AICC(기업 컨택센터)를 위한 <strong>차세대 “Agentic Contact Center” 표준 구조</strong>를 정의하는 것을 목표로 한다.</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-800c-a8d5-e75e0a11673e" class="">특히 다음을 핵심 목표로 삼는다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-804d-a5d8-f28a6b66a2a4" class="numbered-list" start="1"><li><strong>옴니채널 상담 경험 고도화</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-804e-925b-eaad8715599b" class="bulleted-list"><li style="list-style-type:disc">음성(대표번호, 콜센터), 채팅(웹/앱), 메시징(카카오톡, SMS) 채널을 Connect로 통합.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8046-ac34-ffba7a8aaa51" class="bulleted-list"><li style="list-style-type:disc">고객 앞단에는 <strong>AI 에이전트(셀프 서비스)</strong>, 상담사 뒤에는 <strong>AI Agent Assist</strong>를 배치.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8077-96ec-ee13844269e8" class="numbered-list" start="2"><li><strong>AgentCore 기반 에이전트 운영 플랫폼</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80de-aa1e-c8d69b4d8ad6" class="bulleted-list"><li style="list-style-type:disc">Amazon Bedrock AgentCore를 <strong>AICC의 중앙 오케스트레이터</strong>로 사용.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b9-99f7-f33b60d33883" class="bulleted-list"><li style="list-style-type:disc">RAG, Tool Calling, Policy, Evaluations 등을 통해 <strong>안전하고 통제 가능한 AI 에이전트</strong> 제공.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80f1-a93a-c60704280fa9" class="numbered-list" start="3"><li><strong>AICC 도메인 지식 기반의 전용 LLM 활용</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80fb-be82-d95fd84a0c49" class="bulleted-list"><li style="list-style-type:disc">Amazon Nova, Open-weights(Mistral, Gemma 등), 서드파티 모델(필요 시)을 선택적으로 활용.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80fb-ad4a-fe0892751dd5" class="bulleted-list"><li style="list-style-type:disc">장기적으로는 Nova Forge(Novella) 기반의 <strong>금융/통신/제조 등 도메인 특화 사내 모델</strong>로 확장.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8028-ab03-c17c1294c766" class="numbered-list" start="4"><li><strong>보안·컴플라이언스·운영 자동화 내재화</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-809d-94f3-c3281e5d3bfd" class="bulleted-list"><li style="list-style-type:disc">AWS Security Agent, DevOps Agent, AgentCore Policy/Observability/Evaluations를 활용해<div style="display:contents" dir="auto"><p id="2c3f8917-466a-8069-9b60-daa185f28df1" class="">“<strong>보안/운영까지 포함한 완전한 AICC 플랫폼</strong>” 구현.</p></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-805a-a4c5-ffe4afc779ea"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8039-bf41-cfb96dd118af" class="">8.3.2. 전체 High-level 아키텍처</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2c3f8917-466a-8095-a8ca-f566bdccce62" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[고객 채널]
+  ├─ PSTN / SIP (전화)
+  ├─ Web Chat / In-App Chat
+  └─ Messaging (SMS, 카카오톡 등)
+        │
+        ▼
+[Amazon Connect]
+  ├─ Contact Flows (IVR, Routing)
+  ├─ Queues / Routing Profiles
+  ├─ Contact Lens (STT, 감정/키워드 분석)
+  └─ Chat / Task Routing
+        │  (Lambda / API 호출)
+        ▼
+[AICC Agent Layer - Bedrock AgentCore]
+  ├─ Customer Service Agent (셀프 서비스 / FAQ / 업무처리)
+  ├─ Agent Assist Agent (상담사 지원)
+  ├─ Supervisor/QA Agent (품질/모니터링)
+  ├─ Backoffice Automation Agent (정산/리포트 자동화)
+  ├─ AgentCore Identity &amp; Policy (도구/데이터 접근 통제)
+  └─ AgentCore Evaluations &amp; Observability
+        │
+        ▼
+[AI / Data / Tooling Layer]
+  ├─ Amazon Bedrock (Nova 2 Lite, Pro, Sonic, Omni 등)
+  ├─ Open-weights Models (Mistral, Gemma, Nemotron 등)
+  ├─ RAG 데이터 소스
+  │    ├─ S3 + S3 Tables + S3 Vectors
+  │    ├─ OpenSearch (벡터 인덱스)
+  │    └─ RDS/Redshift/DocumentDB 등 업무 DB
+  ├─ 사내 업무 시스템 API (CRM, 청구/Billing, ERP, 티켓/ITSM, WFO/WFM)
+  └─ 보안/로깅 (CloudWatch, CloudTrail, GuardDuty, Security Hub, Security Agent, DevOps Agent)
+</code></pre></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8098-a4b9-c629c9e86f62"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8073-a7a2-db31f46c964e" class="">8.3.3. 주요 구성 요소</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8082-9a76-ca689fa3db6d" class="">3.1 채널 &amp; 콜 처리 계층 – Amazon Connect</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80a5-924f-c19c8e7b07e7" class="numbered-list" start="1"><li><strong>채널 인입</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8078-99e4-e3313b49afef" class="bulleted-list"><li style="list-style-type:disc">PSTN, SIP Trunk → Amazon Connect 인바운드 라우팅.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80cb-b5c9-f8a9848d054d" class="bulleted-list"><li style="list-style-type:disc">Web/App Chat → Connect Chat.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80c4-b838-c5bf6b010684" class="bulleted-list"><li style="list-style-type:disc">필요 시 Visual IVR / Web-based BOT도 Connect Task/Chat로 통합.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80ed-85f4-fcac26c36858" class="numbered-list" start="2"><li><strong>Contact Flow 설계</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8025-a02b-d7d003b08a8f" class="bulleted-list"><li style="list-style-type:disc">초입부에서 <strong>“AI 셀프 서비스”와 “사람 상담” 선택 분기</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e3-8987-dbb841b02b89" class="bulleted-list"><li style="list-style-type:disc">고객 인증(휴대폰번호, 계좌/고객번호), 기본 IVR 메뉴, 큐/스킬 기반 라우팅.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-805c-ab51-d442ed845a93" class="bulleted-list"><li style="list-style-type:disc">“AI 에이전트 호출”이 필요한 지점에서 Contact Flow에서 <strong>Lambda 블록</strong>을 통해 AgentCore 호출.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80fb-b264-d382408d3b34" class="numbered-list" start="3"><li><strong>Contact Lens</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8011-8b96-d03b888bb5ff" class="bulleted-list"><li style="list-style-type:disc">실시간 STT, 감정 분석, 키워드 추출, 규제 문구 준수 여부 탐지.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-806f-b05b-cf6397084883" class="bulleted-list"><li style="list-style-type:disc">이후 Agent Assist Agent가 사용할 <strong>요약/키워드/감정 정보</strong>를 메타데이터로 공급.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80bf-8554-faf22b1c0e33" class="numbered-list" start="4"><li><strong>기본 데이터 저장</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8021-95d3-e63da5ee5d63" class="bulleted-list"><li style="list-style-type:disc">콜/채팅 이력: Connect Contact Trace Record(CTR) + S3.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80da-b7dc-dbec51913164" class="bulleted-list"><li style="list-style-type:disc">음성 녹취: S3.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a0-9ed9-f5988f1d803c" class="bulleted-list"><li style="list-style-type:disc">Contact Lens 결과: S3 + Athena/Redshift로 분석.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-805c-a310-e176cc6b13d2"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80ad-9269-daff1b1a767e" class="">3.2 AICC Agent Layer – Bedrock AgentCore</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-807b-90b5-e5f2d9a480da" class="">3.2.1 AgentCore Runtime &amp; Gateway</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-807a-95d6-ebf76af8d1a4" class="bulleted-list"><li style="list-style-type:disc"><strong>Runtime</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8073-9dde-e707a4b859b9" class="bulleted-list"><li style="list-style-type:circle">각 에이전트 세션을 <strong>격리된 서버리스 런타임</strong>에서 실행.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8039-8d33-ddfe9f5d2bd1" class="bulleted-list"><li style="list-style-type:circle">Connect에서 들어온 요청(콜/채팅 컨텍스트, 고객 정보, 발화 내용 등)을 기반으로 AgentCore 내부 에이전트가 플로우를 구성.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-804f-80a9-e03c51819bad" class="bulleted-list"><li style="list-style-type:disc"><strong>Gateway</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-809e-8054-d5a9a2963a20" class="bulleted-list"><li style="list-style-type:circle">Connect → Lambda → API Gateway/Private ALB → <strong>AgentCore Gateway(Private VPC)</strong> 구조.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8032-8119-d910127623ac" class="bulleted-list"><li style="list-style-type:circle">Gateway 레벨에서 <strong>Tool/데이터 소스 Discovery</strong>, 네트워크 경계(프라이빗 서브넷/보안 그룹) 관리.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8098-9add-d7e25b38637b" class="">3.2.2 에이전트 종류</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80dd-8ff8-fba3820c312d" class="numbered-list" start="1"><li><strong>Customer Service Agent (고객 셀프 서비스 에이전트)</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80c3-8691-d15c8a0a11f0" class="bulleted-list"><li style="list-style-type:disc">역할: 고객의 의도를 파악하고, FAQ 응답, 단순 업무 처리(요금 조회, 주소 변경, 비밀번호 재설정, 배송 현황 조회 등) 수행.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-808b-8f5a-f7e88ade5536" class="bulleted-list"><li style="list-style-type:disc">입력:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b6-a6c2-e2632e42d001" class="bulleted-list"><li style="list-style-type:circle">ASR 텍스트(Connect/Contact Lens)</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e0-9ca0-c184c524b71d" class="bulleted-list"><li style="list-style-type:circle">채널 정보(음성/채팅), 고객 식별자, 이전 대화 기록.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80de-a527-fbceff0b5006" class="bulleted-list"><li style="list-style-type:disc">도구:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b9-8b2c-e662a62e323d" class="bulleted-list"><li style="list-style-type:circle">RAG: AICC FAQ, 약관, 상품 설명서, 업무 매뉴얼(→ S3 Vectors + OpenSearch).</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b8-88be-f2fab98125d4" class="bulleted-list"><li style="list-style-type:circle">사내 API: CRM, 청구, 주문 관리, 배송 시스템, 티켓 시스템.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a0-98ee-f116e4d5ebce" class="bulleted-list"><li style="list-style-type:disc">출력:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80fd-a1a8-e9d932b4d6b5" class="bulleted-list"><li style="list-style-type:circle">Connect IVR/Chat 응답 텍스트, TTS용 메시지, 후속 작업(티켓 생성, 알림 발송 등).</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8081-9c4e-f3647d34d380" class="numbered-list" start="2"><li><strong>Agent Assist Agent (상담사 지원 에이전트)</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80f7-8e92-c032ef4c0406" class="bulleted-list"><li style="list-style-type:disc">역할: 실시간 콜 중 상담사 화면에 <strong>요약, 다음에 물어볼 질문, 추천 답변, Cross-sell/Up-sell 제안</strong> 제공.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-804d-b91e-d156bfd5c300" class="bulleted-list"><li style="list-style-type:disc">입력:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8062-89d5-d57f89b4e817" class="bulleted-list"><li style="list-style-type:circle">실시간 STT/Contact Lens 이벤트 스트림.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e0-9196-e89dc9924c7e" class="bulleted-list"><li style="list-style-type:circle">고객 프로필/과거 상담 이력/상품 보유 현황.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-807a-a006-e744fd4751dd" class="bulleted-list"><li style="list-style-type:disc">기능:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8067-8cfd-fb11e0ca61b9" class="bulleted-list"><li style="list-style-type:circle">실시간 콜 요약 / 콜 종료 후 최종 요약.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8032-bfb6-c33c48a6bd30" class="bulleted-list"><li style="list-style-type:circle">“다음으로 안내해야 할 절차” 가이드.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8043-84d1-ec7aca9cccb3" class="bulleted-list"><li style="list-style-type:circle">내부 지식 문서 기반의 답변 초안 생성.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8020-b9b1-cf3d8b006a3e" class="bulleted-list"><li style="list-style-type:disc">출력:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8091-8b49-cd0348570e5a" class="bulleted-list"><li style="list-style-type:circle">상담사 Desktop(CTI/WebUI) 위젯에 표시할 텍스트, 버튼(Script, 추천 문구 등).</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80f9-9765-fcc756700223" class="numbered-list" start="3"><li><strong>Supervisor / QA Agent (품질/감독 에이전트)</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8073-a5ab-c8d3ec861fcb" class="bulleted-list"><li style="list-style-type:disc">역할: 녹취/Transcript/Contact Lens 결과를 기반으로 <strong>QA 스코어링, 교육이 필요한 상담사 탐지, 스크립트 미준수 케이스 자동 추출</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80cf-8211-e04f16397deb" class="bulleted-list"><li style="list-style-type:disc">입력:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80fe-9144-e74dc5f4abe0" class="bulleted-list"><li style="list-style-type:circle">하루/한 주 단위 콜 Transcripts + Contact Lens 텍스트.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80df-b96e-ce4570cbc004" class="bulleted-list"><li style="list-style-type:disc">기능:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-809a-a9c7-d70907c4ae26" class="bulleted-list"><li style="list-style-type:circle">AgentCore Evaluations + Nova 2 모델 활용해 샘플링 또는 전수 품질 평가.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-806d-9761-d630f9e29ed8" class="bulleted-list"><li style="list-style-type:circle">“고객 이탈 리스크 높음”, “규제 문구 누락” 등의 태깅.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80fd-96ed-ec79e339d941" class="bulleted-list"><li style="list-style-type:disc">출력:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8037-a4b2-eb021ecfd1d1" class="bulleted-list"><li style="list-style-type:circle">QA 리포트, 교육 대상 상담사 리스트, 콜별 코멘트.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80a7-9ce4-e9ed0bf668e9" class="numbered-list" start="4"><li><strong>Backoffice Automation Agent (내부 업무 자동화 에이전트)</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-801d-913b-f6c2e4df9a8d" class="bulleted-list"><li style="list-style-type:disc">역할: 일 단위/주 단위 보고서 작성, 정산, 캠페인 목록 정리 등 반복 업무를 자동 수행.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b8-8beb-ccc2014a43be" class="bulleted-list"><li style="list-style-type:disc">사용 예:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a1-bdbe-fa78f6bab43d" class="bulleted-list"><li style="list-style-type:circle">Connect CTR + 청구 DB를 기반으로 “일간 콜 트래픽/판매 conversion 리포트” 자동 작성.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8059-b8c2-d79bd43468e5" class="bulleted-list"><li style="list-style-type:circle">IVR 이탈 구간 분석 후 개선 제안 문서 생성.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8094-934d-db5661afe829"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80d4-839a-ce7d198fccdb" class="">3.3 AgentCore 거버넌스 – Policy &amp; Evaluations</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-804f-8675-d73d6faf7c26" class="numbered-list" start="1"><li><strong>AgentCore Policy</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8053-9bb5-ee764a6d92ff" class="bulleted-list"><li style="list-style-type:disc">Cedar 기반 정책 언어를 사용하여, <strong>에이전트가 어떤 도구를 어떤 상황에서 사용할 수 있는지</strong>를 “정책”으로 강제.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e9-8917-df60930d01bf" class="bulleted-list"><li style="list-style-type:disc">예시 정책:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8027-b8d0-c5ee2df15c11" class="bulleted-list"><li style="list-style-type:circle">“환불 금액이 100,000원 초과일 경우, 에이전트는 자동 환불 API를 호출할 수 없다. Supervisor 승인 플로우로 전환.”</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-805a-a41c-cddc6eea8a1e" class="bulleted-list"><li style="list-style-type:circle">“계좌번호, 주민번호 등의 민감 정보는 RAG 컨텍스트로 사용하되, LLM 응답에 노출해서는 안 됨.”</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80df-849b-d2c03d9817fd" class="bulleted-list"><li style="list-style-type:disc">정책은 AgentCore Gateway에서 <strong>에이전트 코드와 완전히 분리된 계층에서 평가</strong>되므로,<div style="display:contents" dir="auto"><p id="2c3f8917-466a-809e-8388-ea0d93df8c1a" class="">프롬프트 우회/코드 버그와 관계 없이 <strong>“정책 위반 액션”은 절대 실행되지 않도록</strong> 보장.</p></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80e4-89c1-ccce1b663193" class="numbered-list" start="2"><li><strong>AgentCore Evaluations</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b0-835f-c664a5fe949d" class="bulleted-list"><li style="list-style-type:disc">에이전트의 실제 응답에 대해 <strong>Helpfulness/Correctness/Harmfulness/On-brand 여부</strong>를 지속적으로 자동 평가.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-808d-a547-df979e8924d1" class="bulleted-list"><li style="list-style-type:disc">사전 정의된 13개 평가 + AICC 전용 커스텀 평가(예: “민원 유발 가능 표현 사용 여부”, “금융규제 문구 누락 여부”) 구성.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8043-bdc7-e1dc7a374d5e" class="bulleted-list"><li style="list-style-type:disc">운영 방식:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8074-9001-f9f0e2cde410" class="bulleted-list"><li style="list-style-type:circle">신규 모델 버전/프롬프트 변경 시, 샘플 대화셋에 대해 오프라인 평가 실행.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80bc-bc42-dbd45bbb45da" class="bulleted-list"><li style="list-style-type:circle">실서비스 트래픽에 대해서는 샘플링 기반 온라인 평가 실행 → CloudWatch 대시보드로 모니터링.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-805b-a2af-ccfdb7337aea" class="bulleted-list"><li style="list-style-type:disc">목표:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80aa-a42c-e343a6d34fa8" class="bulleted-list"><li style="list-style-type:circle"><strong>에이전트 품질 저하를 조기 탐지</strong>하고, 즉시 모델 롤백 또는 프롬프트/정책 조정 가능.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80c0-9017-dc991c10c2bb"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-805b-b705-c9e926ff3326" class="">8.3.4. AI / 데이터 / Tool 계층</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8064-b2aa-e4c1dea822f5" class="">4.1 모델 레이어 – Amazon Bedrock + Nova</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8018-9000-c9c52a5875fc" class="numbered-list" start="1"><li><strong>기본 모델 전략</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-803c-a478-f6ed23b2fdfd" class="bulleted-list"><li style="list-style-type:disc"><strong>Nova 2 Lite</strong>: 고빈도, 비용 민감한 업무(FAQ, 스크립트 제안, 요약 등)의 “워크호스 모델”.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80ec-b8f2-f1840fa4969b" class="bulleted-list"><li style="list-style-type:disc"><strong>Nova 2 Pro</strong>: Reasoning이 중요한 복잡 업무(민원 성격 판단, 케이스 라우팅, Cross-sell 추천).</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8002-a92e-e1722e28149f" class="bulleted-list"><li style="list-style-type:disc"><strong>Nova 2 Sonic</strong>: 실시간 음성 기반 Agent Assist/대화형 봇용.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8072-a6dd-c2f63250c164" class="bulleted-list"><li style="list-style-type:disc"><strong>Nova 2 Omni</strong>:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e3-96d5-c3d264d542f1" class="bulleted-list"><li style="list-style-type:circle">음성 + 화면(IVR 메뉴, Visual IVR, 상담사 화면)을 모두 입력 받아, “한 세션 전체를 이해”해야 하는 고급 에이전트용.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8010-a35b-c2b49f315c02" class="numbered-list" start="2"><li><strong>서드파티 및 오픈웨이트 모델</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80d2-935f-c9082716d7d7" class="bulleted-list"><li style="list-style-type:disc">Mistral Large, Ministral 3, Gemma, Nemotron 등을 상황에 맞게 선택:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8031-8fa5-c1a882e838fd" class="bulleted-list"><li style="list-style-type:circle">예: 특정 언어/도메인에 강점이 있는 모델을 RAG 질문 응답에 활용.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a1-b512-c8162df530c7" class="bulleted-list"><li style="list-style-type:disc">모델 라우팅 전략:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8006-9c84-fc98b1f57f76" class="bulleted-list"><li style="list-style-type:circle">AgentCore에서 Task 특성(속도/정확도/비용)을 기준으로 <strong>모델 선택 또는 다중 모델 앙상블</strong>.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8058-9469-fa4f48a98c03" class="numbered-list" start="3"><li><strong>향후: Nova Forge 기반 사내 전용 모델(Novella)</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8077-a180-debcc42d373e" class="bulleted-list"><li style="list-style-type:disc">Connect/CRM/FAQ/업무 매뉴얼/QA 평가 데이터 등 AICC 도메인 데이터를<div style="display:contents" dir="auto"><p id="2c3f8917-466a-80a2-a7a7-f51501fddec3" class=""><strong>Nova 2 Lite/Pro의 “Open Training 모델 체크포인트” 단계에 주입</strong>해 전용 Novella 생성.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-802d-bec7-ce388e5b8d5a" class="bulleted-list"><li style="list-style-type:disc">결과:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-800f-81ab-d2984bedaa7d" class="bulleted-list"><li style="list-style-type:circle">“우리 회사/우리 고객/우리 업무 프로세스에 최적화된 LLM” 확보.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e1-b85d-c43afeb8c2f7" class="bulleted-list"><li style="list-style-type:circle">개인정보/규제 데이터는 VPC 내에서 처리, Bedrock의 데이터 격리/보안 모델 활용.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80ca-a5e6-ff47c92c5878"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80f9-ac0d-e225c591f5f6" class="">4.2 데이터 &amp; RAG 구조</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8018-bb96-ce2aee0786c3" class="numbered-list" start="1"><li><strong>Knowledge Data Lake</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80c5-98f0-e54426f2680e" class="bulleted-list"><li style="list-style-type:disc">S3 + S3 Tables + S3 Vectors 기반으로 <strong>컨택센터 지식/문서의 중앙 저장소</strong> 구성.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80cd-ab95-e76c1f30b470" class="bulleted-list"><li style="list-style-type:disc">예:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8037-81ec-ee308600ec83" class="bulleted-list"><li style="list-style-type:circle">업무 매뉴얼, FAQ, 공지사항, 상품 설명서, 약관 PDF, 내부 Wiki Export.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80d6-a487-db455c84ab32" class="bulleted-list"><li style="list-style-type:disc">ETL:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8061-aa4a-e4842611c44b" class="bulleted-list"><li style="list-style-type:circle">Glue/Spark/EMR로 문서 파싱 → chunking → 임베딩 생성 → S3 Vectors &amp; OpenSearch 인덱스.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-800a-8adb-c8345f7af5f8" class="numbered-list" start="2"><li><strong>대화/업무 데이터</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8050-81eb-f7e00949758c" class="bulleted-list"><li style="list-style-type:disc">Connect CTR/Contact Lens 결과: S3, Athena/Redshift.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-806d-84a8-e86a9e8035b0" class="bulleted-list"><li style="list-style-type:disc">CRM/CTI: RDS/DocumentDB/외부 SaaS API.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80c4-8474-daa5fe461b83" class="bulleted-list"><li style="list-style-type:disc">QA 결과/에이전트 평가: RDS/Redshift.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8084-99e7-cef0a8a62f2f" class="bulleted-list"><li style="list-style-type:disc">이 데이터는 <strong>RAG 컨텍스트 + Nova Forge 학습 데이터 + BI/리포트</strong>로 재활용.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-808e-9eb2-ce5919ce0d86" class="numbered-list" start="3"><li><strong>벡터 검색 계층</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8056-b207-e8a8a9c81ff3" class="bulleted-list"><li style="list-style-type:disc">S3 Vectors + OpenSearch GPU 가속 인덱스 사용:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a3-8bcf-d73f361e3fff" class="bulleted-list"><li style="list-style-type:circle">대규모 문서/콜 로그에 대한 <strong>고속 유사도 검색 + 메타데이터 필터링</strong> 제공.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80b6-b237-cc3f1b8b580e" class="bulleted-list"><li style="list-style-type:circle">예: “최근 30일, 상품 A 관련 민원 콜 중, ‘해지 위협’ 키워드가 포함된 사례만 검색해 요약.”</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8040-b0a7-cfe908c617b3"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-809d-88c0-ff1c73317401" class="">4.3 Tooling &amp; 업무 시스템 연동</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8006-86b0-e00d964eda67" class="bulleted-list"><li style="list-style-type:disc"><strong>사내 CRM/청구/Billing/주문/배송/ERP/WFM/WFO/티켓 시스템</strong>을<div style="display:contents" dir="auto"><p id="2c3f8917-466a-8098-939a-ccf48de34143" class="">AgentCore Tool로 등록 (Lambda, API Gateway, MCP 서버 형식 등).</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8004-b978-e3bce2836d48" class="bulleted-list"><li style="list-style-type:disc">AgentCore Policy를 통해:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8013-b440-d5d81162a95d" class="bulleted-list"><li style="list-style-type:circle"><strong>“조회 전용”과 “쓰기 가능” 작업</strong>을 명확히 구분.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a4-adbe-cd7caad859e6" class="bulleted-list"><li style="list-style-type:circle">금액/권한/직무/시간대에 따른 <strong>업무권한 한도</strong>를 정책으로 제어.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80aa-9935-d1eab3d17bf3"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80f6-b2f3-d1d0bae77502" class="">8.3.5. 보안·운영 아키텍처</h3></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80da-9c77-ff1aacc918c4" class="">5.1 보안</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80d7-99fa-d156f5ca64f2" class="numbered-list" start="1"><li><strong>기본 보안 프레임워크</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8061-aa72-dd01ca65e456" class="bulleted-list"><li style="list-style-type:disc">IAM, VPC, 보안 그룹, Private Subnet, PrivateLink, KMS, Secrets Manager.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8018-99d5-e775d130b401" class="bulleted-list"><li style="list-style-type:disc">Connect ↔ AgentCore ↔ Bedrock ↔ 사내 시스템 간 모든 트래픽은 TLS + 프라이빗 경로.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8077-80d2-dd31b997ed7f" class="numbered-list" start="2"><li><strong>AWS Security Agent 연계</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a6-b6ed-e9ecf4c40a3c" class="bulleted-list"><li style="list-style-type:disc">AICC 전체 코드베이스(Connect 연동 Lambda, AgentCore 관련 마이크로서비스, API, 인프라 코드(CDK/Terraform))에 대해:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-805e-a5a6-df4f59ea9b43" class="bulleted-list"><li style="list-style-type:circle">보안 취약점 자동 스캔.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8088-a954-dcc4ba94944c" class="bulleted-list"><li style="list-style-type:circle">카드 정보/개인정보 처리 경로에 대한 설계/코드 리뷰 자동화.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8040-a6c3-e433f6c72624" class="bulleted-list"><li style="list-style-type:disc">결과:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-802f-9a49-c013f18c9798" class="bulleted-list"><li style="list-style-type:circle">보안 리뷰 주기를 연 단위 → 주/일 단위로 단축, 릴리즈 속도와 보안성을 동시에 확보.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80ba-b4ea-fd8a56ebc5b3" class="numbered-list" start="3"><li><strong>데이터 보호</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8056-a870-e6b665dbdead" class="bulleted-list"><li style="list-style-type:disc">PII/민감정보:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80c8-8b50-d88ad4224376" class="bulleted-list"><li style="list-style-type:circle">Contact Lens의 Redaction 기능 활용.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e2-8b4e-e2465e7c8fce" class="bulleted-list"><li style="list-style-type:circle">AgentCore Policy에서 “LLM 응답에 포함 금지” 룰 정의.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80d9-80fb-d216f9519abb" class="bulleted-list"><li style="list-style-type:disc">데이터 마스킹/토큰화:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80bb-aaa5-f39fa7346478" class="bulleted-list"><li style="list-style-type:circle">RDS/Redshift/Glue Transformation에서 계정/카드번호 마스킹 처리 후 RAG/분석용으로 사용.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8057-948c-d6e93b57b113" class="">5.2 운영 &amp; 관제</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8068-bd5f-c0f0be77d989" class="numbered-list" start="1"><li><strong>AWS DevOps Agent</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80e0-b556-dbfc1386ba76" class="bulleted-list"><li style="list-style-type:disc">Connect/AgentCore/Bedrock 호출/백엔드 마이크로서비스에 대한:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80fa-9248-fdefad91cf02" class="bulleted-list"><li style="list-style-type:circle">장애 탐지 → 원인 분석 → 수정 제안 코드(PR)까지 자동화.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-805f-8cdc-e1322a4c4cca" class="bulleted-list"><li style="list-style-type:disc">인시던트 대응:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-806c-83f8-fd5505a2d8fe" class="bulleted-list"><li style="list-style-type:circle">CloudWatch/3rd-party Observability(Dynatrace, Datadog 등) 이벤트를 수집.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8041-b232-dd05a27fae4e" class="bulleted-list"><li style="list-style-type:circle">잘못된 IAM 정책, 잘못된 배포/릴리즈, 설정 오류 등을 찾아 CDK 코드/파이프라인 수정안 제시.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80d0-a0ce-cf67e2048f46" class="numbered-list" start="2"><li><strong>AgentCore Observability</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8067-8491-cf8954739280" class="bulleted-list"><li style="list-style-type:disc">에이전트별:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8067-877c-d6608bf4b7a8" class="bulleted-list"><li style="list-style-type:circle">평균 응답시간, Tool 호출 수, 모델 토큰 사용량, 실패율, 정책 위반 건수 등 대시보드 제공.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8095-b24f-c6fca234006c" class="bulleted-list"><li style="list-style-type:disc">AICC 운영팀은:<div style="display:contents" dir="auto"><ul id="2c3f8917-466a-800f-85b5-d6c488fe9fbd" class="bulleted-list"><li style="list-style-type:circle">비즈니스 KPI(해결률, AHT, FCR, NPS)와 에이전트 품질 지표(Helpfulness, On-brand 등)를 연계 분석.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80bf-a821-de9417126018"/></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80ec-889e-ed429e8873ec" class="">8.3.6. 단계적 도입 로드맵 (요약)</h3></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80f7-94dd-efbd678af6da" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-8069-8011-e205936cca9a" class="numbered-list" start="1"><li><strong>Phase 1 – AI Agent Assist 도입 (상담사 뒤에 먼저)</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-804d-8ccb-e19797cab4aa" class="bulleted-list"><li style="list-style-type:disc">Connect + Contact Lens + Bedrock(Nova 2 Lite/Pro) + AgentCore 기반 <strong>Agent Assist Agent</strong> 구축.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-808a-9b04-cb3924ea9278" class="bulleted-list"><li style="list-style-type:disc">상담사 화면에 “요약/추천 멘트/지식 검색결과” 제공 → 리스크 적고, 효과 빠르게 체감.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80f9-9735-c3fb0f8f30a9" class="numbered-list" start="2"><li><strong>Phase 2 – 고객 셀프 서비스 에이전트 확대</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80f4-bb5b-ceef1ae97913" class="bulleted-list"><li style="list-style-type:disc">주요 단순 문의(운영시간, 주소, 요금 조회, 배송 상태 등)를 Customer Service Agent로 이관.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80d6-ae4b-de02e3708a05" class="bulleted-list"><li style="list-style-type:disc">콜 Deflection, 평균 대기시간 감소, 야간/주말 24×7 대응.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80f8-b295-de0100d232b5" class="numbered-list" start="3"><li><strong>Phase 3 – QA/슈퍼바이저/Backoffice 에이전트</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8093-9656-e5b65771fa27" class="bulleted-list"><li style="list-style-type:disc">QA Agent로 품질 평가/코칭 자동화.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-808d-be65-f84537e46199" class="bulleted-list"><li style="list-style-type:disc">Backoffice Automation Agent로 일/주 단위 리포트, 캠페인 리스트, 정산 보조 업무 자동화.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80b6-b3d7-e1cbbec07410" class="numbered-list" start="4"><li><strong>Phase 4 – Nova Forge 기반 AICC 전용 Novella + Frontier Agents 연계</strong><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80f9-864d-dc4884ecec40" class="bulleted-list"><li style="list-style-type:disc">AICC 도메인 데이터로 학습된 전용 모델(Novella)을 도입.</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-807d-aa83-ca6ba9cc4391" class="bulleted-list"><li style="list-style-type:disc">Kiro Autonomous Agent, Security Agent, DevOps Agent를 AICC 개발/운영 파이프라인에 결합,<div style="display:contents" dir="auto"><p id="2c3f8917-466a-80c9-b319-d4ec14452871" class="">“<strong>AICC 플랫폼 자체를 Frontier Agents가 개발·보안·운영하는 구조</strong>”로 진화.</p></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8047-a606-f7916702353a"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80a3-8896-de72e4b3f288" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80f0-a51d-e2a7957841f2" class="">9. 종합 전략 판단</h2></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-8023-8d92-e4322514930d" class="">AWS는 명확히 다음을 노리고 있다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80c4-b3a8-e47e28fa5110" class="numbered-list" start="1"><li><strong>AI는 기능이 아니라 행위자다</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80fd-88ff-c6bc1c5370c3" class="numbered-list" start="2"><li>행위자는 통제 가능해야 한다</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c3f8917-466a-80a1-ad12-c821b36c2588" class="numbered-list" start="3"><li>통제가 가능할 때 산업 적용이 된다</li></ol></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80ca-a2ee-c47dafb522b2" class="">AICC는 이 흐름에서 <strong>가장 빨리 완전자율화가 가능한 산업 영역</strong> 중 하나다.</p></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-802b-9e71-fcb3ac82a509"/></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80e0-bc17-e110c2d7694b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80af-94fd-cbc95ca7c443" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80d0-a3e3-cff755bd6c08" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-80c5-91b2-ca12ed1b1644" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-807f-b8cd-e5531e9dc0ba" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-805b-9533-c40235506738" class="">10. AICC 부서 전략적 제언</h2></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80c2-94a2-c7ceb48035ac" class="">단기 (1년)</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8031-9f31-f5bc2b4d423c" class="bulleted-list"><li style="list-style-type:disc">Connect + AgentCore 기반 PoC 확대</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8094-ae7f-f2290f0a692f" class="bulleted-list"><li style="list-style-type:disc">QA 자동 Evaluation 도입</li></ul></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-80a2-aefb-ebaccb5e95af" class="">중기 (2~3년)</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-8085-8b64-c1143c2fc972" class="bulleted-list"><li style="list-style-type:disc">Nova Forge 기반 전용 상담 LLM</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80ab-9afe-e623e1a33d02" class="bulleted-list"><li style="list-style-type:disc">금융·공공 대응 Agent Policy 표준화</li></ul></div><div style="display:contents" dir="auto"><h3 id="2c3f8917-466a-8078-a6ce-f75711669076" class="">장기 (3~5년)</h3></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-807e-82e6-c19bc960faaa" class="bulleted-list"><li style="list-style-type:disc">Frontier Contact Agent 상용 설계</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80a9-9557-d71166160f36" class="bulleted-list"><li style="list-style-type:disc">Human-in-the-loop → Human-over-the-loop 구조 전환</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-8098-ba73-d250e4103bca"/></div><div style="display:contents" dir="auto"><h2 id="2c3f8917-466a-80cd-b815-e5e5422b164f" class="">최종 결론</h2></div><div style="display:contents" dir="auto"><blockquote id="2c3f8917-466a-80e3-9c36-cebf472ad9ee" class="">AWS re:Invent 2025는 “AI 기술 행사”가 아니라<br/>“AI 조직 운영 방식의 전환점”이었다.</blockquote></div><div style="display:contents" dir="auto"><p id="2c3f8917-466a-806d-ac6f-cf1bb98f91f1" class="">AICC는</p></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80bd-ad1d-dd2fe368c067" class="bulleted-list"><li style="list-style-type:disc">더 이상 사람을 보조하는 AI가 아니라</li></ul></div><div style="display:contents" dir="auto"><ul id="2c3f8917-466a-80ff-be6f-f13aa2a89ef9" class="bulleted-list"><li style="list-style-type:disc"><strong>사람의 일을 대신 수행하는 Agent를 설계해야 하는 단계</strong>에 진입했다.</li></ul></div><div style="display:contents" dir="auto"><hr id="2c3f8917-466a-80fd-a96f-e12d1b429b0c"/></div><div style="display:contents" dir="auto"><p id="2b9f8917-466a-80bd-babe-dcf8895cf3b7" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

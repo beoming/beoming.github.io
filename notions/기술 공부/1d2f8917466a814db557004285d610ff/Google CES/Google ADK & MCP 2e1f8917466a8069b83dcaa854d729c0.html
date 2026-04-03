@@ -1,0 +1,990 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Google ADK &amp; MCP</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2e1f8917-466a-8069-b83d-caa854d729c0" class="page sans"><header><h1 class="page-title" dir="auto">Google ADK &amp; MCP</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="2e1f8917-466a-812a-881a-df4e2f61ecd0" class="">Travel Concierge Agent Garden 기술 문서</h1></div><div style="display:contents" dir="auto"><h2 id="2e1f8917-466a-81c8-bdd9-ced4509396ef" class="">목차</h2></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-81bf-96db-f3a452cf3b3a" class="numbered-list" start="1"><li><a href="about:blank#1-google-adk-agent-development-kit-%EA%B0%9C%EC%9A%94">Google ADK (Agent Development Kit) 개요</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-816a-b2bd-ebeef024e504" class="numbered-list" start="2"><li><a href="about:blank#2-%EB%A9%80%ED%8B%B0-%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98">멀티 에이전트 아키텍처</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-81a4-8310-e4adcaa6d2d1" class="numbered-list" start="3"><li><a href="about:blank#3-mcp-model-context-protocol">MCP (Model Context Protocol)</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-8151-ad7f-c61e8a5fbd04" class="numbered-list" start="4"><li><a href="about:blank#4-tool-%EC%8B%9C%EC%8A%A4%ED%85%9C">Tool 시스템</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-8177-a50b-fd8dccc872cb" class="numbered-list" start="5"><li><a href="about:blank#5-agent-engine-%EB%B0%B0%ED%8F%AC">Agent Engine 배포</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-8169-9bc4-dda9f89b6f48" class="numbered-list" start="6"><li><a href="about:blank#6-%EB%B0%B1%EC%97%94%EB%93%9C-api-%EC%97%B0%EB%8F%99">백엔드 API 연동</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-8144-976a-def934f4c520" class="numbered-list" start="7"><li><a href="about:blank#7-%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EA%B4%80%EB%A6%AC">환경 변수 관리</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-8186-b443-d11e2cf2c387" class="numbered-list" start="8"><li><a href="about:blank#8-%EC%84%B8%EC%85%98-%EB%B0%8F-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B4%80%EB%A6%AC">세션 및 메모리 관리</a></li></ol></div><div style="display:contents" dir="auto"><hr id="2e1f8917-466a-8115-8e91-f59f75a07ed2"/></div><div style="display:contents" dir="auto"><h2 id="2e1f8917-466a-8107-a35e-dad02f86e19b" class="">1. Google ADK (Agent Development Kit) 개요</h2></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8110-8393-f29d55f73825" class="">1.1 ADK란?</h3></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-81fd-811e-f5c6733214f4" class=""><strong>Agent Development Kit (ADK)</strong>는 Google이 제공하는 AI 에이전트 개발 프레임워크로, 복잡한 멀티 에이전트 시스템을 구축할 수 있게 해주는 Python 라이브러리입니다.</p></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81b5-a8ac-ec2e626c0579" class="">1.2 핵심 특징</h3></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81d0-939f-e4f4050594a8" class="">1.2.1 멀티 에이전트 지원</h3></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-81de-8ca9-fbbede36ea72" class="bulleted-list"><li style="list-style-type:disc"><strong>계층적 에이전트 구조</strong>: Root Agent와 Sub-Agent로 구성</li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-814b-9348-fdfec3081da3" class="bulleted-list"><li style="list-style-type:disc"><strong>에이전트 간 전환 (Agent Transfer)</strong>: <code>transfer_to_agent()</code> 메서드를 통해 동적으로 에이전트 전환</li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-81dc-a203-cad8caf0a5bc" class="bulleted-list"><li style="list-style-type:disc"><strong>병렬 처리</strong>: 여러 에이전트가 동시에 작업 수행 가능</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8141-ae86-c1d8b4df952f" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">from google.adk.agents import Agent
+
+root_agent = Agent(
+    model=&quot;gemini-2.0-flash-001&quot;,
+    name=&quot;root_agent&quot;,
+    sub_agents=[
+        inspiration_agent,
+        planning_agent,
+        booking_agent,
+        # ...
+    ]
+)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-810f-b494-e5472f596962" class="">1.2.2 Tool 통합</h3></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-814c-879a-cb3c0e940240" class="bulleted-list"><li style="list-style-type:disc"><strong>FunctionTool</strong>: Python 함수를 직접 Tool로 사용</li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-8155-8e46-ea13e3ab6528" class="bulleted-list"><li style="list-style-type:disc"><strong>AgentTool</strong>: 다른 Agent를 Tool로 사용 (Agent를 Tool처럼 호출)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-8118-8d50-c4874e485961" class="bulleted-list"><li style="list-style-type:disc"><strong>MCP Tool</strong>: Model Context Protocol을 통한 외부 서비스 연동</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-81ab-8782-f14c22ee4193" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">from google.adk.tools.agent_tool import AgentTool
+
+planning_agent = Agent(
+    tools=[
+        flight_search_tool,  # FunctionTool
+        AgentTool(agent=flight_seat_selection_agent),  # AgentTool
+        hotel_search_tool,  # FunctionTool
+    ]
+)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81fa-b707-c392f7a4da75" class="">1.2.3 세션 관리</h3></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-81ac-a668-f1e69fc5d133" class="bulleted-list"><li style="list-style-type:disc"><strong>Session State</strong>: 대화 컨텍스트와 상태 정보 저장</li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-8104-80ef-d937d74c7e38" class="bulleted-list"><li style="list-style-type:disc"><strong>Memory Tool</strong>: <code>memorize</code>를 통한 정보 영구 저장</li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-81b0-84c5-f8f4ce2512f9" class="bulleted-list"><li style="list-style-type:disc"><strong>Session Callbacks</strong>: <code>before_agent_callback</code>, <code>after_agent_callback</code> 등</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-81ea-995d-c5b84c6db167" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">from travel_concierge.tools.memory import _load_precreated_itinerary
+
+root_agent = Agent(
+    before_agent_callback=_load_precreated_itinerary,  # 에이전트 실행 전 콜백
+)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8199-b6c3-d23141fc6c46" class="">1.2.4 구조화된 출력 (Structured Output)</h3></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-8194-813e-f814ae60fb9d" class="bulleted-list"><li style="list-style-type:disc"><strong>Pydantic Schema</strong>: 타입 안전한 출력 스키마 정의</li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-81ef-a58c-f208089381fe" class="bulleted-list"><li style="list-style-type:disc"><strong>JSON Response Config</strong>: JSON 형식으로 강제 출력</li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-81b6-918f-ee6f7b408051" class="bulleted-list"><li style="list-style-type:disc"><strong>Output Key</strong>: 특정 키로 응답 저장</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-81dd-b3f8-f5ef8eeac766" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">itinerary_agent = Agent(
+    output_schema=types.Itinerary,  # Pydantic 모델
+    output_key=&quot;itinerary&quot;,  # 세션 상태에 저장될 키
+    generate_content_config=types.json_response_config,  # JSON 강제
+)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8151-90b4-ea978964cbbf" class="">1.3 ADK의 장점</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-8126-a5b4-f25ac7645e04" class="numbered-list" start="1"><li><strong>선언적 프로그래밍</strong>: Agent, Tool, Sub-Agent를 선언적으로 정의</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-81c6-bb60-c8caddb7b0cb" class="numbered-list" start="2"><li><strong>타입 안전성</strong>: Pydantic을 통한 스키마 검증</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-8166-956d-e127b937ba55" class="numbered-list" start="3"><li><strong>확장성</strong>: 새로운 Tool과 Agent를 쉽게 추가</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-81d3-9853-fbdd2b4342fe" class="numbered-list" start="4"><li><strong>프로덕션 준비</strong>: Vertex AI Agent Engine으로 직접 배포 가능</li></ol></div><div style="display:contents" dir="auto"><hr id="2e1f8917-466a-8153-aff7-cde8816c99e7"/></div><div style="display:contents" dir="auto"><h2 id="2e1f8917-466a-81c4-9cc3-fe6716ff7753" class="">2. 멀티 에이전트 아키텍처</h2></div><div style="display:contents" dir="ltr"><figure id="2e1f8917-466a-8068-b9ef-dbd13581c6a8" class="image"><a href="Google%20ADK%20&amp;%20MCP/image.png"><img style="width:710px" src="Google%20ADK%20&amp;%20MCP/image.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81d2-9a3c-f84d1c2ccffa" class="">2.1 Travel Concierge 에이전트 구조</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8120-9cf2-c333f7f86185" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">root_agent (루트 에이전트)
+├── inspiration_agent (여행지 영감 제공)
+├── planning_agent (여행 계획 수립)
+│   ├── flight_search_tool (항공편 검색 - FunctionTool)
+│   ├── hotel_search_tool (호텔 검색 - FunctionTool)
+│   ├── flight_seat_selection_agent (좌석 선택 - AgentTool)
+│   ├── hotel_room_selection_agent (객실 선택 - AgentTool)
+│   └── itinerary_agent (일정 생성 - AgentTool)
+├── booking_agent (예약 처리)
+├── pre_trip_agent (출발 전 준비)
+├── in_trip_agent (여행 중 지원)
+└── post_trip_agent (여행 후 피드백)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8148-9933-ce992297f3d0" class="">2.2 에이전트 전환 메커니즘</h3></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8141-ab11-d0f5576f2aae" class="">2.2.1 Transfer to Agent</h3></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-8129-8593-e9671236c493" class="">에이전트는 프롬프트 지시에 따라 다른 에이전트로 제어권을 넘길 수 있습니다:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-810d-b339-e845f0583a49" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># root_agent의 프롬프트 예시
+ROOT_AGENT_INSTR = &quot;&quot;&quot;
+- If the user asks about general knowledge, vacation inspiration or things to do,
+  transfer to the agent `inspiration_agent`
+- If the user asks about finding flight deals, making seat selection, or lodging,
+  transfer to the agent `planning_agent`
+- If the user is ready to make the flight booking or process payments,
+  transfer to the agent `booking_agent`
+&quot;&quot;&quot;</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8136-bbf1-c5378b242658" class="">2.2.2 Agent 제약 조건</h3></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-8149-b50a-fa31e3475a22" class="bulleted-list"><li style="list-style-type:disc"><code>disallow_transfer_to_parent=True</code>: 부모 에이전트로 전환 금지</li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-8184-940c-fe00e4ed859a" class="bulleted-list"><li style="list-style-type:disc"><code>disallow_transfer_to_peers=True</code>: 동급 에이전트로 전환 금지</li></ul></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-81c8-87a6-ee4c5bd8502b" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">itinerary_agent = Agent(
+    disallow_transfer_to_parent=True,
+    disallow_transfer_to_peers=True,
+    # 오직 root_agent에서만 호출 가능
+)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81e5-8dd0-d8c12cc944ee" class="">2.3 Planning Agent의 복합 구조</h3></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-811f-a0ab-fdffb06f43b9" class="">Planning Agent는 FunctionTool과 AgentTool을 혼합 사용합니다:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-81b3-9fdf-d92723e52e01" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">planning_agent = Agent(
+    model=&quot;gemini-2.5-flash&quot;,
+    tools=[
+        # FunctionTool: 백엔드 API 직접 호출
+        flight_search_tool,
+        hotel_search_tool,
+
+        # AgentTool: 다른 Agent를 Tool로 사용
+        AgentTool(agent=flight_seat_selection_agent),
+        AgentTool(agent=hotel_room_selection_agent),
+        AgentTool(agent=itinerary_agent),
+
+        # Memory Tool
+        memorize,
+    ]
+)</code></pre></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-81af-a61c-f46690173879" class=""><strong>설계 이유</strong>:<br/>- <strong>FunctionTool</strong>: 빠른 API 호출이 필요한 경우 (항공편/호텔 검색)<br/>- <strong>AgentTool</strong>: 복잡한 의사결정이 필요한 경우 (좌석 선택, 일정 생성)</p></div><div style="display:contents" dir="auto"><hr id="2e1f8917-466a-81e3-9b51-d94158b195b7"/></div><div style="display:contents" dir="auto"><h2 id="2e1f8917-466a-812e-97d6-e607feac0cc1" class="">3. MCP (Model Context Protocol)</h2></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-813d-9063-d06145cd6e63" class="">3.1 MCP란?</h3></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-8162-a75f-dd7430127946" class=""><strong>Model Context Protocol (MCP)</strong>은 AI 에이전트가 외부 데이터 소스와 도구에 접근할 수 있도록 하는 표준 프로토콜입니다. ADK는 MCP를 지원하여 다양한 외부 서비스와 통합할 수 있습니다.</p></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8131-b0b9-fe1d73562c91" class="">3.2 MCP의 특징</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-81fd-bb96-c626fc08822e" class="numbered-list" start="1"><li><strong>표준화된 인터페이스</strong>: 다양한 서비스와 일관된 방식으로 통신</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-8140-acbc-f3ec2ef00a78" class="numbered-list" start="2"><li><strong>비동기 지원</strong>: stdio 기반 비동기 통신</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-81b0-a3e1-e5e877cfc225" class="numbered-list" start="3"><li><strong>도구 자동 발견</strong>: MCP 서버가 제공하는 도구를 자동으로 감지</li></ol></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8146-a306-e6f4e39adff2" class="">3.3 Travel Concierge에서의 MCP 사용</h3></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8160-8130-dbbca27e7e9e" class="">3.3.1 Airbnb MCP 예시</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-812d-b9c0-e0802e24f27f" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># tests/mcp_abnb.py에서 MCP 도구를 planning_agent에 추가
+from google.adk.tools.mcp import MCPTool
+
+# Airbnb MCP 서버 연결
+mcp_tools = get_mcp_tools()  # Airbnb search, listing 도구
+
+# planning_agent에 MCP 도구 추가
+planning_agent.tools.extend(mcp_tools)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81d1-aea3-ce0c7c776d98" class="">3.3.2 MCP 도구 사용 흐름</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-815c-9324-da42dd4b0eaa" class="numbered-list" start="1"><li><strong>MCP 서버 시작</strong>: Node.js 기반 MCP 서버 실행</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-813e-850f-f634ecd60b20" class="numbered-list" start="2"><li><strong>도구 발견</strong>: ADK가 MCP 서버에서 제공하는 도구 자동 감지</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-81cf-b5eb-dc89ecb257b6" class="numbered-list" start="3"><li><strong>도구 호출</strong>: Agent가 MCP 도구를 일반 Tool처럼 호출</li></ol></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-819e-b382-eb1992b9b991" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[user]: &quot;Find me an airbnb in San Diego, April 9th to April 13th&quot;
+
+[planning_agent]: airbnb_search({
+    &quot;checkin&quot;: &quot;2025-04-09&quot;,
+    &quot;location&quot;: &quot;San Diego&quot;,
+    &quot;checkout&quot;: &quot;2025-04-13&quot;
+})
+
+[planning_agent]: airbnb_search responds -&gt; {
+    &quot;searchUrl&quot;: &quot;https://www.airbnb.com/s/San%20Diego/...&quot;,
+    &quot;searchResults&quot;: [...]
+}</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81d2-816e-f8fa771920a8" class="">3.4 MCP vs FunctionTool</h3></div><div style="display:contents" dir="ltr"><table id="2e1f8917-466a-818c-8b47-cba4c4bce51e" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2e1f8917-466a-8166-a274-e475dc6db3b1"><th id="nF^[" class="simple-table-header-color simple-table-header">특징</th><th id="@T&lt;~" class="simple-table-header-color simple-table-header" style="width:167.46875px">MCP</th><th id="~qVS" class="simple-table-header-color simple-table-header" style="width:176.65625px">FunctionTool</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2e1f8917-466a-81b2-a7e6-c245f3d41821"><td id="nF^[" class=""><strong>통신 방식</strong></td><td id="@T&lt;~" class="" style="width:167.46875px">stdio 프로토콜</td><td id="~qVS" class="" style="width:176.65625px">Python 함수 호출</td></tr></div><div style="display:contents" dir="ltr"><tr id="2e1f8917-466a-8158-ad3b-c68c14a52ca0"><td id="nF^[" class=""><strong>언어 독립성</strong></td><td id="@T&lt;~" class="" style="width:167.46875px">Node.js, Python 등</td><td id="~qVS" class="" style="width:176.65625px">Python만</td></tr></div><div style="display:contents" dir="ltr"><tr id="2e1f8917-466a-81a4-975c-cfad8ee3ecb6"><td id="nF^[" class=""><strong>설정 복잡도</strong></td><td id="@T&lt;~" class="" style="width:167.46875px">높음 (서버 필요)</td><td id="~qVS" class="" style="width:176.65625px">낮음 (함수만)</td></tr></div><div style="display:contents" dir="ltr"><tr id="2e1f8917-466a-8197-b062-ee7d94d95ed2"><td id="nF^[" class=""><strong>사용 사례</strong></td><td id="@T&lt;~" class="" style="width:167.46875px">외부 서비스 통합</td><td id="~qVS" class="" style="width:176.65625px">내부 로직, API 호출</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2e1f8917-466a-8108-89e1-fc756a3e0f51"/></div><div style="display:contents" dir="auto"><h2 id="2e1f8917-466a-8143-96b6-d4451ace05ab" class="">4. Tool 시스템</h2></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81da-9382-ed886df4f846" class="">4.1 Tool 유형</h3></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81ad-8629-fff9ccadff36" class="">4.1.1 FunctionTool</h3></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-8170-bd0e-f858750a92f8" class="">Python 함수를 직접 Tool로 사용:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-81c3-ac81-c21d9b02ca5f" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def flight_search_tool(
+    origin: str,
+    destination: str,
+    departure_date: str,
+    return_date: Optional[str] = None,
+    tool_context: ToolContext = None,
+) -&gt; dict:
+    &quot;&quot;&quot;백엔드 항공편 검색 API를 호출하는 tool.&quot;&quot;&quot;
+    flight_api_url = get_flight_api_url()
+    url = f&quot;{flight_api_url}/search&quot;
+    response = requests.post(url, json=payload, timeout=10)
+    return flights_selection.model_dump()</code></pre></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-816f-aaf6-f9773d6e596f" class=""><strong>특징</strong>:<br/>- Pydantic 모델로 파라미터 타입 검증<br/>- <code>ToolContext</code>를 통해 세션 정보 접근<br/>- 반환값은 Pydantic 모델로 변환</p></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81c6-b7c2-f671770efbb5" class="">4.1.2 AgentTool</h3></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-8152-a40d-fe147415ba09" class="">다른 Agent를 Tool로 사용:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8152-8401-c4fc54bedc1d" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">AgentTool(agent=flight_seat_selection_agent)</code></pre></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-8192-a3f1-f5b2250cd75b" class=""><strong>특징</strong>:<br/>- Agent의 출력이 Tool의 반환값이 됨<br/>- Agent의 <code>output_schema</code>가 Tool의 반환 스키마<br/>- Agent의 <code>output_key</code>로 세션 상태에 저장</p></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8136-8fd0-cb4f09fba795" class="">4.1.3 Memory Tool</h3></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-81ae-b418-d964ac99cf21" class="">세션 상태에 정보 저장:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8125-9cc4-d8d034dd1d29" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def memorize(key: str, value: str, tool_context: ToolContext):
+    &quot;&quot;&quot;세션 상태에 정보 저장&quot;&quot;&quot;
+    tool_context.session_state[key] = value
+    return {&quot;status&quot;: f&#x27;Stored &quot;{key}&quot;: &quot;{value}&quot;&#x27;}</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81df-b47f-c4b2a2ff9370" class="">4.2 Tool 호출 흐름</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8154-b0b6-ec9b5e03b7fa" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">User Query
+    ↓
+Agent (LLM)
+    ↓
+Tool Selection (Function Calling)
+    ↓
+Tool Execution
+    ├── FunctionTool → Python 함수 실행
+    ├── AgentTool → Sub-Agent 실행
+    └── MCP Tool → MCP 서버 통신
+    ↓
+Tool Response
+    ↓
+Agent (LLM) → 최종 응답 생성</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8156-abe3-ed1ff44a675a" class="">4.3 백엔드 API 연동 Tool</h3></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81c7-8c82-c7fa5677b131" class="">4.3.1 환경 변수 기반 URL 관리</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8127-897c-fd3dfa10fa73" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def get_flight_api_url():
+    &quot;&quot;&quot;런타임에 환경 변수에서 API URL 읽기&quot;&quot;&quot;
+    return os.getenv(
+        &quot;FLIGHT_SEARCH_API_URL&quot;,
+        &quot;https://flight-search-api-545259847156.us-central1.run.app&quot;
+    )
+
+def flight_search_tool(...):
+    # 함수 호출 시점에 환경 변수 읽기
+    flight_api_url = get_flight_api_url()
+    url = f&quot;{flight_api_url}/search&quot;
+    # ...</code></pre></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-81a0-b111-e1895863536a" class=""><strong>중요</strong>: 모듈 로드 시점이 아닌 <strong>런타임에 환경 변수를 읽어야</strong> Agent Engine에서 환경 변수가 제대로 적용됩니다.</p></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81bb-89d6-fc0dfc978a15" class="">4.3.2 에러 처리</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-813d-aef0-ff781323faa6" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">try:
+    response = requests.post(url, json=payload, timeout=10)
+    response.raise_for_status()
+    return flights_selection.model_dump()
+except requests.exceptions.RequestException as e:
+    return {
+        &quot;error&quot;: f&quot;항공편 검색 API 호출 실패:{str(e)}&quot;,
+        &quot;flights&quot;: []
+    }</code></pre></div><div style="display:contents" dir="auto"><hr id="2e1f8917-466a-8172-a5ba-dfc4c169d7c9"/></div><div style="display:contents" dir="auto"><h2 id="2e1f8917-466a-81bf-a5eb-fe47b96f73b4" class="">5. Agent Engine 배포</h2></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81e9-8e98-eccb1ccc1036" class="">5.1 Agent Engine이란?</h3></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-8139-bb82-f67a9ee5a08e" class=""><strong>Vertex AI Agent Engine</strong>은 ADK로 개발한 에이전트를 프로덕션 환경에 배포할 수 있는 관리형 서비스입니다.</p></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8158-907c-d214ff75e47a" class="">5.2 배포 프로세스</h3></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81b8-8e2a-d59422bb0dda" class="">5.2.1 AdkApp 생성</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-81f7-88f1-c8dccb696f71" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">from vertexai.preview.reasoning_engines import AdkApp
+
+app = AdkApp(
+    agent=root_agent,
+    enable_tracing=True,  # OpenTelemetry 추적 활성화
+    env_vars={  # 환경 변수 전달
+        &quot;FLIGHT_SEARCH_API_URL&quot;: &quot;https://...&quot;,
+        &quot;HOTEL_SEARCH_API_URL&quot;: &quot;https://...&quot;,
+        &quot;GOOGLE_PLACES_API_KEY&quot;: &quot;...&quot;,
+    }
+)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8157-a012-c592dc314f3e" class="">5.2.2 Agent Engine 생성</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8189-ae31-e2fad3b007fc" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">from vertexai import agent_engines
+
+remote_agent = agent_engines.create(
+    app,
+    display_name=&quot;Travel-Concierge-ADK&quot;,
+    requirements=[
+        &quot;google-adk (&gt;=1.16.0)&quot;,
+        &quot;google-cloud-aiplatform[agent_engines] (&gt;=1.93.1)&quot;,
+        &quot;google-genai (&gt;=1.16.1)&quot;,
+        &quot;requests (&gt;=2.32.3,&lt;3.0.0)&quot;,
+        # ...
+    ],
+    extra_packages=[
+        &quot;./travel_concierge&quot;,  # 로컬 패키지 포함
+    ],
+)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81a2-9a2e-ef71f026fb74" class="">5.2.3 배포 단계</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-812a-be33-dcd838ea0f38" class="numbered-list" start="1"><li><strong>의존성 분석</strong>: <code>requirements</code>에 명시된 패키지 설치</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-81e0-b660-fe6fb0c879cb" class="numbered-list" start="2"><li><strong>패키지 패키징</strong>: <code>extra_packages</code>의 로컬 코드를 tar.gz로 압축</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-81f2-bc15-e33f35b1ef4f" class="numbered-list" start="3"><li><strong>GCS 업로드</strong>: Agent 코드와 의존성을 GCS 버킷에 업로드</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-813e-8112-e8f1743c047a" class="numbered-list" start="4"><li><strong>컨테이너 빌드</strong>: Agent Engine 런타임 컨테이너 생성</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-8128-94a3-f0824c2091d4" class="numbered-list" start="5"><li><strong>서비스 배포</strong>: Vertex AI에 서비스로 배포</li></ol></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8175-b8b2-cd903296c9d8" class="">5.3 배포 스크립트 구조</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-81b1-a8bd-e68798a23047" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def create(env_vars: dict[str, str]) -&gt; None:
+    &quot;&quot;&quot;Agent Engine 생성&quot;&quot;&quot;
+    # 1. AdkApp 생성 (환경 변수 포함)
+    app = AdkApp(agent=root_agent, env_vars=env_vars)
+
+    # 2. Agent Engine 생성
+    remote_agent = agent_engines.create(
+        app,
+        requirements=[...],
+        extra_packages=[&quot;./travel_concierge&quot;],
+    )
+
+    # 3. Resource ID 반환
+    print(f&quot;Created:{remote_agent.resource_name}&quot;)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8102-b12e-feb29a741761" class="">5.4 환경 변수 전달 메커니즘</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-815d-8fc9-fb983b166cad" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># deploy.py에서 환경 변수 수집
+env_vars = {}
+env_vars[&quot;FLIGHT_SEARCH_API_URL&quot;] = os.getenv(&quot;FLIGHT_SEARCH_API_URL&quot;)
+env_vars[&quot;HOTEL_SEARCH_API_URL&quot;] = os.getenv(&quot;HOTEL_SEARCH_API_URL&quot;)
+
+# AdkApp에 전달
+app = AdkApp(agent=root_agent, env_vars=env_vars)</code></pre></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-8119-9047-d543e9067c0f" class=""><strong>중요</strong>: Agent Engine 내부에서는 <code>os.getenv()</code>로 환경 변수를 읽을 수 있지만, <strong>모듈 로드 시점이 아닌 런타임에 읽어야</strong> 합니다.</p></div><div style="display:contents" dir="auto"><hr id="2e1f8917-466a-817a-b837-f2cf6fefbc61"/></div><div style="display:contents" dir="auto"><h2 id="2e1f8917-466a-81b7-bd94-c7290f992af0" class="">6. 백엔드 API 연동</h2></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81da-b72d-e36e93d8406d" class="">6.1 아키텍처</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8148-96b2-e006dc3d82b0" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Agent Engine (Vertex AI)
+    ↓ HTTP Request
+Cloud Run Services
+    ├── flight-search-api (항공편 검색)
+    └── hotel-search-api (호텔 검색)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8125-b1f6-c5853ad68eba" class="">6.2 Cloud Run 서비스</h3></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8103-aaf1-f9f79f1b1d6b" class="">6.2.1 FastAPI 기반 서버</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8146-877d-dd7aab3cc914" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># flight_search_api/main.py
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.post(&quot;/search&quot;, response_model=FlightSearchResponse)
+async def search_flights(request: FlightSearchRequest):
+    # 항공편 검색 로직
+    return FlightSearchResponse(flights=flights)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81c1-ad48-c94a0e6e7154" class="">6.2.2 배포</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-816a-90c4-d0a9a3f72f32" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all"># Docker 이미지 빌드 및 배포
+gcloud builds submit --tag ${IMAGE_NAME}
+gcloud run deploy flight-search-api \
+  --image ${IMAGE_NAME} \
+  --allow-unauthenticated \
+  --region us-central1</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8100-9653-d6be97b6df2d" class="">6.3 Agent에서 API 호출</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-81f2-817b-dfe4921b49be" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def flight_search_tool(...):
+    # 환경 변수에서 URL 읽기
+    flight_api_url = get_flight_api_url()
+    url = f&quot;{flight_api_url}/search&quot;
+
+    # HTTP POST 요청
+    response = requests.post(url, json=payload, timeout=10)
+
+    # 응답 파싱 및 변환
+    api_response = response.json()
+    flights_selection = types.FlightsSelection(flights=api_response[&quot;flights&quot;])
+
+    return flights_selection.model_dump()</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81e0-b42a-fe362e65316c" class="">6.4 데이터 변환</h3></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8150-afab-f8072abd5136" class="">6.4.1 API 응답 → Pydantic 모델</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8154-a003-f4f42d651012" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># API 응답 형식
+{
+    &quot;flights&quot;: [
+        {
+            &quot;flight_number&quot;: &quot;AA1234&quot;,
+            &quot;departure&quot;: {...},
+            &quot;arrival&quot;: {...},
+            &quot;price_in_usd&quot;: 450
+        }
+    ]
+}
+
+# Pydantic 모델로 변환
+flights_selection = types.FlightsSelection(flights=api_response[&quot;flights&quot;])
+return flights_selection.model_dump()</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81cf-aee3-e694f5924dec" class="">6.4.2 타입 안전성</h3></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-8128-8b6f-ecb53e64636b" class="">Pydantic 모델을 사용하여 타입 검증:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8172-89e7-d274764b40cf" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">class FlightsSelection(BaseModel):
+    flights: list[Flight]
+
+class Flight(BaseModel):
+    flight_number: str
+    departure: AirportEvent
+    arrival: AirportEvent
+    price_in_usd: int</code></pre></div><div style="display:contents" dir="auto"><hr id="2e1f8917-466a-8136-9b28-f97a509b8504"/></div><div style="display:contents" dir="auto"><h2 id="2e1f8917-466a-8110-8368-f52d38b4121e" class="">7. 환경 변수 관리</h2></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-811c-868e-d69a32869a5a" class="">7.1 환경 변수 계층</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-81dd-b390-da9896d8d70e" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">1. .env 파일 (로컬 개발)
+   ↓
+2. deploy.py에서 읽기
+   ↓
+3. env_vars 딕셔너리
+   ↓
+4. AdkApp(env_vars=...)
+   ↓
+5. Agent Engine 런타임 환경
+   ↓
+6. os.getenv()로 읽기</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-811f-bec4-c5e697767f76" class="">7.2 환경 변수 설정</h3></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-810b-9623-e56161727eca" class="">7.2.1 .env 파일</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8115-ba3a-fb5fa0f764cb" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all"># .env
+GOOGLE_CLOUD_PROJECT=your-gcp-project
+GOOGLE_CLOUD_LOCATION=us-central1
+GOOGLE_PLACES_API_KEY=AIzaSy...
+FLIGHT_SEARCH_API_URL=https://flight-search-api-...run.app
+HOTEL_SEARCH_API_URL=https://hotel-search-api-...run.app</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81bb-ae87-e13716f9d52e" class="">7.2.2 deploy.py에서 수집</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8170-9746-fc3e8434bde1" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">load_dotenv()  # .env 파일 로드
+
+env_vars = {}
+env_vars[&quot;FLIGHT_SEARCH_API_URL&quot;] = os.getenv(&quot;FLIGHT_SEARCH_API_URL&quot;)
+env_vars[&quot;HOTEL_SEARCH_API_URL&quot;] = os.getenv(&quot;HOTEL_SEARCH_API_URL&quot;)
+
+app = AdkApp(agent=root_agent, env_vars=env_vars)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8122-900d-e721dc46c510" class="">7.3 런타임 환경 변수 읽기</h3></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-8124-b676-f4fd4cd78707" class=""><strong>문제</strong>: 모듈 로드 시점에 환경 변수를 읽으면 Agent Engine에서 적용되지 않음</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8149-8d7b-fe609a6dcf82" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># ❌ 잘못된 방법
+FLIGHT_SEARCH_API_URL = os.getenv(&quot;FLIGHT_SEARCH_API_URL&quot;, &quot;localhost:8001&quot;)
+# 모듈 로드 시점에 읽음 → Agent Engine에서 기본값 사용
+
+# ✅ 올바른 방법
+def get_flight_api_url():
+    return os.getenv(&quot;FLIGHT_SEARCH_API_URL&quot;, &quot;default-url&quot;)
+# 런타임에 읽음 → Agent Engine 환경 변수 사용</code></pre></div><div style="display:contents" dir="auto"><hr id="2e1f8917-466a-81af-830c-f26bf25d1c00"/></div><div style="display:contents" dir="auto"><h2 id="2e1f8917-466a-81ff-8210-e819a3b69ded" class="">8. 세션 및 메모리 관리</h2></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-812d-b89e-e613eff8c63a" class="">8.1 Session State</h3></div><div style="display:contents" dir="auto"><p id="2e1f8917-466a-81d2-b67c-d5c1a3ed6be5" class="">ADK는 세션별로 상태를 관리합니다:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8138-a435-f4ddfa10ff3c" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># 세션 상태에 저장
+tool_context.session_state[&quot;origin&quot;] = &quot;San Diego&quot;
+tool_context.session_state[&quot;destination&quot;] = &quot;Seattle&quot;
+tool_context.session_state[&quot;itinerary&quot;] = {...}</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81d2-9de3-c7aa7762f143" class="">8.2 Memory Tool</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-813a-b81d-ce6e1d846430" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def memorize(key: str, value: str, tool_context: ToolContext):
+    &quot;&quot;&quot;세션 상태에 정보 저장&quot;&quot;&quot;
+    tool_context.session_state[key] = value
+    return {&quot;status&quot;: f&#x27;Stored &quot;{key}&quot;: &quot;{value}&quot;&#x27;}</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-819c-8d0f-ebca2698b438" class="">8.3 Itinerary 저장</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-81fe-8504-c9c93ea7eae7" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># itinerary_agent의 출력이 자동으로 세션 상태에 저장됨
+itinerary_agent = Agent(
+    output_key=&quot;itinerary&quot;,  # session_state[&quot;itinerary&quot;]에 저장
+    output_schema=types.Itinerary,
+)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-818a-9056-ca3ec67cf37d" class="">8.4 초기 상태 로드</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8104-8f6d-dca4149c1665" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def _load_precreated_itinerary(tool_context: ToolContext):
+    &quot;&quot;&quot;에이전트 실행 전 초기 상태 로드&quot;&quot;&quot;
+    scenario_path = os.getenv(&quot;TRAVEL_CONCIERGE_SCENARIO&quot;)
+    if scenario_path:
+        with open(scenario_path) as f:
+            initial_state = json.load(f)
+            tool_context.session_state.update(initial_state)
+
+root_agent = Agent(
+    before_agent_callback=_load_precreated_itinerary,
+)</code></pre></div><div style="display:contents" dir="auto"><hr id="2e1f8917-466a-8107-b968-c869148440ee"/></div><div style="display:contents" dir="auto"><h2 id="2e1f8917-466a-8177-ba0b-e914b34bee2c" class="">9. 주요 기술적 결정 사항</h2></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81ae-a628-fda206a139f2" class="">9.1 FunctionTool vs AgentTool 선택 기준</h3></div><div style="display:contents" dir="ltr"><table id="2e1f8917-466a-8148-b58f-fcfdea6cfb58" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2e1f8917-466a-81df-99ac-fddb239428e4"><th id=";Ma\" class="simple-table-header-color simple-table-header">상황</th><th id="TX~I" class="simple-table-header-color simple-table-header">선택</th><th id="Jlvn" class="simple-table-header-color simple-table-header">이유</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2e1f8917-466a-81ba-96f4-fae09ea6343d"><td id=";Ma\" class="">단순 API 호출</td><td id="TX~I" class="">FunctionTool</td><td id="Jlvn" class="">빠르고 직접적</td></tr></div><div style="display:contents" dir="ltr"><tr id="2e1f8917-466a-81e0-89c7-dc6489b8f717"><td id=";Ma\" class="">복잡한 의사결정</td><td id="TX~I" class="">AgentTool</td><td id="Jlvn" class="">LLM 기반 추론 필요</td></tr></div><div style="display:contents" dir="ltr"><tr id="2e1f8917-466a-81ca-9e83-c53cc5f66670"><td id=";Ma\" class="">구조화된 출력 필요</td><td id="TX~I" class="">AgentTool</td><td id="Jlvn" class="">output_schema 활용</td></tr></div><div style="display:contents" dir="ltr"><tr id="2e1f8917-466a-8139-b821-dde2b112d852"><td id=";Ma\" class="">실시간 데이터</td><td id="TX~I" class="">FunctionTool</td><td id="Jlvn" class="">낮은 지연시간</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-81cc-977a-cdb3228398d5" class="">9.2 환경 변수 관리 전략</h3></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-8116-87bb-c4236ea15f3b" class="numbered-list" start="1"><li><strong>로컬 개발</strong>: <code>.env</code> 파일 사용</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-818d-bbe6-ee1772dfc3b3" class="numbered-list" start="2"><li><strong>배포</strong>: <code>deploy.py</code>에서 환경 변수 수집 → <code>AdkApp</code>에 전달</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2e1f8917-466a-819a-86dd-d1e39c89f9f1" class="numbered-list" start="3"><li><strong>런타임</strong>: 함수 내부에서 <code>os.getenv()</code> 호출</li></ol></div><div style="display:contents" dir="auto"><h3 id="2e1f8917-466a-8118-9143-ec973643ad8f" class="">9.3 에러 처리</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e1f8917-466a-8197-888c-c2b73c9e9f91" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">try:
+    response = requests.post(url, json=payload, timeout=10)
+    response.raise_for_status()
+    return result
+except requests.exceptions.RequestException as e:
+    # 에러를 구조화된 형식으로 반환
+    return {
+        &quot;error&quot;: f&quot;API 호출 실패:{str(e)}&quot;,
+        &quot;data&quot;: []
+    }</code></pre></div><div style="display:contents" dir="auto"><hr id="2e1f8917-466a-813f-b42a-c6ff995edc58"/></div><div style="display:contents" dir="auto"><h2 id="2e1f8917-466a-812c-b59a-cb827351afd8" class="">참고 자료</h2></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-816a-bbc5-fd37a98c2964" class="bulleted-list"><li style="list-style-type:disc"><a href="https://google.github.io/adk-docs/">Google ADK 문서</a></li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-8189-ba91-e5295588377a" class="bulleted-list"><li style="list-style-type:disc"><a href="https://cloud.google.com/vertex-ai/docs/reasoning-engines">Vertex AI Agent Engine</a></li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-8141-83e8-cc295c37ed92" class="bulleted-list"><li style="list-style-type:disc"><a href="https://modelcontextprotocol.io/">MCP 공식 문서</a></li></ul></div><div style="display:contents" dir="auto"><ul id="2e1f8917-466a-81de-976f-d43b96033910" class="bulleted-list"><li style="list-style-type:disc"><a href="https://docs.pydantic.dev/">Pydantic 문서</a></li></ul></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

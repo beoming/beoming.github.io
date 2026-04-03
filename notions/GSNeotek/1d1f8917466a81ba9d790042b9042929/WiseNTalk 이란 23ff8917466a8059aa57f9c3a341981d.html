@@ -1,0 +1,710 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>WiseNTalk 이란?</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="23ff8917-466a-8059-aa57-f9c3a341981d" class="page sans"><header><h1 class="page-title" dir="auto">WiseNTalk 이란?</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="23ff8917-466a-80c6-92b9-c01c49459eb8" class="">이 애플리케이션은 React를 기반으로 구축된 웹 소프트폰(Soft Phone) 솔루션으로 보입니다. 주요 기능은 상담원 상태 관리, 음성/채팅/태스크를 통한 고객 상담, Zendesk 연동, 그리고 Amazon Connect와의 연동을 통한 통신 기능입니다.</p></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-8077-98ae-c24fd901172c" class="">전체적인 코드베이스는 모듈화가 잘 되어 있으며, Redux를 사용하여 애플리케이션의 상태를 효율적으로 관리하고 있습니다.</p></div><div style="display:contents" dir="auto"><h3 id="23ff8917-466a-8098-acde-d17ac4299179" class="">애플리케이션 구조 및 로직 분석</h3></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-80e8-a26e-d7a17b9e0c67" class="">이 애플리케이션은 다음과 같은 주요 모듈과 계층으로 구성됩니다:</p></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-8090-9081-f7b46f0e734a" class="numbered-list" start="1"><li><strong>진입점 (Entry Point)</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8067-bf5d-e02a9b535a42" class="bulleted-list"><li style="list-style-type:disc"><code>src/index.js</code>: React 애플리케이션의 메인 진입점으로, <code>ReactDOM.render</code>를 사용하여 <code>App</code> 컴포넌트를 렌더링합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80a4-a3f9-e70afdc7b619" class="bulleted-list"><li style="list-style-type:disc"><code>src/App.js</code>: 애플리케이션의 최상위 컴포넌트로, 전체 레이아웃을 구성하고 <code>Main</code> 컴포넌트를 포함합니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-80f9-b6a3-fe98fd235e60" class="numbered-list" start="2"><li><strong>주요 레이아웃 및 뷰 (Layouts &amp; Views)</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-808e-9971-ff3568585a75" class="bulleted-list"><li style="list-style-type:disc"><code>src/views/Main.js</code>: <code>Header</code>, <code>Content</code>, <code>Footer</code>, <code>AlertMsg</code> 컴포넌트를 포함하여 애플리케이션의 기본적인 페이지 레이아웃을 정의합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80af-992c-dee9e3c2f037" class="bulleted-list"><li style="list-style-type:disc"><code>src/views/layout/Header.js</code>: 애플리케이션의 상단 바를 담당하며, 상담원 상태 표시, 알림 (alertCall, alertTask, alertChat), 언어 변경(<code>i18n</code> 사용), 그리고 채널 탭(<code>Voice</code>, <code>Chat</code>, <code>Task</code>, <code>Setting</code>) 간의 전환 기능을 제공합니다.<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80cc-b7ed-e757073a2959" class="bulleted-list"><li style="list-style-type:circle"><code>toggle()</code>: 드롭다운 메뉴를 토글합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ad-9ea7-db86b9af0b67" class="bulleted-list"><li style="list-style-type:circle"><code>selectAgentState()</code>: 상담원 상태를 변경합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80bd-9fd4-f0b1762e993f" class="bulleted-list"><li style="list-style-type:circle"><code>updateChannelTab()</code>: 현재 활성화된 채널 탭을 업데이트합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80c4-968e-eaba0b77d2a0" class="bulleted-list"><li style="list-style-type:disc"><code>src/views/layout/Content.js</code>: 메인 콘텐츠 영역을 정의하며, 선택된 채널 탭(<code>Voice</code>, <code>Chat</code>, <code>Task</code>, <code>Setting</code>)에 따라 다른 컴포넌트를 동적으로 렌더링합니다. Amazon Connect(CCP), Zendesk, AWS, Outbound 등 외부 서비스와의 연동 로직을 포함합니다.<div style="display:contents" dir="auto"><ul id="23ff8917-466a-8062-b892-ce8a464022dd" class="bulleted-list"><li style="list-style-type:circle"><code>ccpRef</code>, <code>zendeskRef</code>, <code>voiceRef</code>, <code>awsRef</code>, <code>taskRef</code>, <code>chatRef</code>, <code>settingRef</code>, <code>outboundRef</code>: 하위 컴포넌트의 인스턴스를 참조하기 위한 <code>React.createRef</code>입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-808b-a31a-c732586cbe64" class="bulleted-list"><li style="list-style-type:circle"><code>voiceFunc()</code>, <code>zendeskFunc()</code>, <code>awsFunc()</code>, <code>taskFunc()</code>, <code>chatFunc()</code>, <code>settingFunc()</code>: 각 기능별 컴포넌트의 메서드를 호출하는 헬퍼 함수입니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8095-8b7b-ccf26886296f" class="bulleted-list"><li style="list-style-type:disc"><code>src/views/layout/Footer.js</code>: (제공된 코드에서는 비어있지만) 일반적으로 애플리케이션의 하단 영역을 담당합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ec-a5a1-e8308f841563" class="bulleted-list"><li style="list-style-type:disc"><code>src/views/layout/AlertMsg.js</code>: 팝업 알림 메시지를 표시합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8096-adbb-dd3517ee600c" class="bulleted-list"><li style="list-style-type:disc"><code>src/views/layout/Loading.js</code>: 로딩 스피너를 표시하여 데이터 로딩 중임을 나타냅니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8097-9b75-c9e1f426b364" class="bulleted-list"><li style="list-style-type:disc"><code>src/views/layout/Login.js</code>: 사용자 로그인 처리를 담당합니다. <code>update_login_status</code> 액션을 통해 로그인 상태를 업데이트합니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-80f2-adf6-eb9f25f69299" class="numbered-list" start="3"><li><strong>핵심 기능 모듈 (Core Functionality Modules)</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80dd-adf7-da98abefb830" class="bulleted-list"><li style="list-style-type:disc"><code>src/libs/CCP.js</code>: Amazon Connect Streams API와 Task.js, Chat.js 라이브러리를 사용하여 Amazon Connect CCP(Contact Control Panel)와의 상호작용을 처리합니다. 이는 애플리케이션의 가장 중요한 부분으로, 전화 걸기, 받기, 통화 제어, 상담원 상태 관리, 퀵 커넥트, 태스크 관리, 채팅 세션 관리 등 모든 통신 관련 로직을 포함합니다.<div style="display:contents" dir="auto"><ul id="23ff8917-466a-8000-a9c2-f7a64b408b0e" class="bulleted-list"><li style="list-style-type:circle"><code>initConnect()</code>: Amazon Connect CCP를 초기화하고, 다양한 Amazon Connect 이벤트 (예: <code>contact.onConnecting</code>, <code>contact.onConnected</code>, <code>agent.onStateChange</code>)를 구독합니다. Zendesk 사용 여부에 따라 설정값을 동적으로 로드합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8048-b475-d601dd823298" class="bulleted-list"><li style="list-style-type:circle"><code>handleContactConnecting()</code>, <code>handleContactConnected()</code>, <code>handleContactEnded()</code>, <code>handleContactMissed()</code>: 각각 통화 연결 중, 연결됨, 종료됨, 부재중 이벤트에 대한 핸들러입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80f6-8afe-c0d91ab5be59" class="bulleted-list"><li style="list-style-type:circle"><code>handleAgentStateChange()</code>, <code>handleAgentRoutable()</code>: 상담원 상태 변경 이벤트를 처리하고, 상담원 상태 목록을 업데이트합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e7-9dbe-ffe7f18f3b27" class="bulleted-list"><li style="list-style-type:circle"><code>makeCallConnect()</code>, <code>makeCallCisco()</code>: Amazon Connect 또는 Cisco를 통해 전화를 겁니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-809d-a3f7-c0f2dbeb9004" class="bulleted-list"><li style="list-style-type:circle"><code>acceptCall()</code>, <code>dropCall()</code>: 인입 호출을 수락하거나 현재 통화를 종료합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-805d-a612-ca3976c32d06" class="bulleted-list"><li style="list-style-type:circle"><code>holdCall()</code>, <code>retrieveCall()</code>: 통화를 보류하거나 보류된 통화를 재개합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80a4-b4ca-f66ae9632e3a" class="bulleted-list"><li style="list-style-type:circle"><code>muteCall()</code>, <code>unmuteCall()</code>: 통화를 음소거하거나 음소거를 해제합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80a3-b30b-f7a065745ea3" class="bulleted-list"><li style="list-style-type:circle"><code>conferenceCall()</code>, <code>addThirdParty()</code>: 다자간 통화를 시작하거나 기존 통화에 다른 참가자를 추가합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8005-b2c6-ea1c9e087d60" class="bulleted-list"><li style="list-style-type:circle"><code>getQuickList()</code>: 퀵 커넥트 목록을 조회합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ee-8cd4-e1a70065d364" class="bulleted-list"><li style="list-style-type:circle"><code>getTaskTemplate()</code>: 태스크 템플릿을 가져옵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8031-81d5-d84c5cd34129" class="bulleted-list"><li style="list-style-type:circle"><code>insertCallData()</code>, <code>updateCallData()</code>: 통화 데이터를 백엔드 API를 통해 저장/업데이트합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80df-8b59-d878d5051c5c" class="bulleted-list"><li style="list-style-type:circle"><code>getMRP()</code>, <code>getOriginNumber()</code>: 전화번호 관련 정보를 가져옵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8060-8ac3-d0fc555c9e05" class="bulleted-list"><li style="list-style-type:circle"><code>createTicketByCall()</code>, <code>updateTicketWithMent()</code>, <code>updateTicketWithCustomFields()</code>: Zendesk 티켓을 생성하고 업데이트하는 함수 (Zendesk 연동 시).</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8058-b2f1-eb8eae9eddb1" class="bulleted-list"><li style="list-style-type:circle"><code>insertLog()</code>: 서버에 로그를 기록합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80f7-9b23-ce4f8a93a633" class="bulleted-list"><li style="list-style-type:circle"><code>alertMsg()</code>: 사용자에게 알림 메시지를 표시합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8086-b2f3-fca5b1f55cae" class="bulleted-list"><li style="list-style-type:circle"><code>getFormattedDate()</code>, <code>msToTime()</code>: 시간 관련 유틸리티 함수를 사용합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e2-931d-cbbd6bf349c0" class="bulleted-list"><li style="list-style-type:disc"><code>src/libs/Zendesk.js</code>: Zendesk Support와의 연동을 담당합니다. Zendesk App Framework (ZAF) Client를 사용하여 Zendesk API를 호출하고, 티켓 생성, 사용자 정보 조회, 통화 기록 업데이트 등의 기능을 수행합니다.<div style="display:contents" dir="auto"><ul id="23ff8917-466a-8032-a3a2-dfe9643e4f86" class="bulleted-list"><li style="list-style-type:circle"><code>init()</code>: ZAF Client를 초기화하고 Zendesk 관련 이벤트를 구독합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8028-8564-f3929c35d7b0" class="bulleted-list"><li style="list-style-type:circle"><code>getConfig()</code>, <code>getCurrentUserInfo()</code>, <code>getUserFields()</code>: Zendesk 설정 및 사용자 정보를 가져옵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8084-8efb-ebeb0db524c6" class="bulleted-list"><li style="list-style-type:circle"><code>createTicket()</code>, <code>updateTicket()</code>, <code>updateTicketWithTags()</code>: Zendesk 티켓을 생성하고 업데이트하며, 태그를 관리합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8004-868d-eafcda27f633" class="bulleted-list"><li style="list-style-type:circle"><code>createUserByPhoneNumber()</code>, <code>updateUserInfo()</code>, <code>popUser()</code>: Zendesk 사용자 정보를 생성, 업데이트, 조회합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e5-a40b-e523c6c3a9f1" class="bulleted-list"><li style="list-style-type:circle"><code>getTranscript()</code>: 채팅 내용을 가져옵니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8008-8ad8-e0c3a1135e09" class="bulleted-list"><li style="list-style-type:disc"><code>src/libs/AWS.js</code>: AWS 서비스와의 상호작용 (구체적인 내용은 CCP.js에서 대부분 처리)을 위한 추상화 계층으로 보입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80f8-8cfa-e05382ec1e3b" class="bulleted-list"><li style="list-style-type:disc"><code>src/libs/Outbound.js</code>: 아웃바운드 통화 관련 로직을 담당하며, MRP(Main Receiving Number) 목록 조회, 통화 데이터 삽입/업데이트 등 백엔드 API(<code>apiUrl</code>, <code>insertPath</code>, <code>updatePath</code>, <code>getMRPPath</code>, <code>getOriginNumberPath</code>)와 통신합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8014-a7fc-cde9d146915e" class="bulleted-list"><li style="list-style-type:disc"><code>src/libs/zafClient.js</code>: Zendesk App Framework (ZAF) Client의 훅(hook)을 제공하는 유틸리티 파일입니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-803d-a3e8-fba65ea35e41" class="numbered-list" start="4"><li><strong>채널 탭 컴포넌트 (Channel Tab Components)</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80d4-b694-f0b7fa77e864" class="bulleted-list"><li style="list-style-type:disc"><code>src/views/layout/tab/Voice.js</code>: 음성 통화 기능을 위한 UI와 로직을 담당합니다.<div style="display:contents" dir="auto"><ul id="23ff8917-466a-805a-b95c-d94967f019b1" class="bulleted-list"><li style="list-style-type:circle"><code>onKeyUp()</code>, <code>onKeyUp_quick()</code>, <code>onKeyUp_digits()</code>: 키보드 입력 이벤트를 처리하여 전화 걸기 또는 숫자 패드 입력을 수행합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ce-a644-e7fe846c3efb" class="bulleted-list"><li style="list-style-type:circle"><code>onClick_makeCall()</code>, <code>onClick_dropCall()</code>: 전화 걸기 및 끊기 기능을 수행합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80d3-988f-e39e40294207" class="bulleted-list"><li style="list-style-type:circle"><code>onClick_hold()</code>, <code>onClick_retrieve()</code>: 통화 보류 및 해제를 관리합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8016-b65f-e45c25d01b35" class="bulleted-list"><li style="list-style-type:circle"><code>onClick_mute()</code>, <code>onClick_unMute()</code>: 음소거 기능을 제어합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8092-b7a2-c9ba7250f737" class="bulleted-list"><li style="list-style-type:circle"><code>onClick_conference()</code>, <code>onClick_addThirdParty()</code>: 다자간 통화 관련 기능을 수행합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-801d-aaba-ff5bf17659e8" class="bulleted-list"><li style="list-style-type:circle"><code>onClick_transferCall()</code>, <code>onclick_cancelTransferCall()</code>, <code>onclick_okTransferCall()</code>: 통화 전환 기능을 담당합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8066-9d23-dc75e25bbfe3" class="bulleted-list"><li style="list-style-type:circle"><code>onClick_quickDial()</code>, <code>onClick_quickDialAll()</code>, <code>onClick_dialpadAll()</code>: 빠른 연결, 전체 빠른 연결, 숫자 패드 기능을 제어합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80a5-9eb6-ef85f1a9d890" class="bulleted-list"><li style="list-style-type:circle"><code>getMRPList()</code>, <code>getQuickList()</code>: MRP 및 빠른 연결 목록을 가져옵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80bb-b767-fc43317f96c0" class="bulleted-list"><li style="list-style-type:circle"><code>onChange_mrp()</code>, <code>onChange_inpt_quick_dial()</code>: 입력 필드의 변경을 처리합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-803f-8346-f62d3656a33e" class="bulleted-list"><li style="list-style-type:circle"><code>makeCallCisco()</code>, <code>makeCallConnect()</code>: Cisco 또는 Connect를 통한 통화 연결 로직입니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8088-87e5-c5e1d340a0d8" class="bulleted-list"><li style="list-style-type:disc"><code>src/views/layout/tab/Chat.js</code>: 채팅 기능을 위한 UI와 로직을 담당합니다.<div style="display:contents" dir="auto"><ul id="23ff8917-466a-808a-871f-fb640609a17d" class="bulleted-list"><li style="list-style-type:circle"><code>onKeyUp_msgText()</code>: 메시지 입력 후 Enter 키 이벤트를 처리합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8039-ad39-e8e30e804b3c" class="bulleted-list"><li style="list-style-type:circle"><code>onclick_accept()</code>, <code>onclick_dropCall()</code>: 채팅 요청 수락 및 종료를 수행합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-801a-a751-e72e5d216de2" class="bulleted-list"><li style="list-style-type:circle"><code>onclick_sendMsg()</code>: 채팅 메시지를 전송합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8090-877d-dd6a035cd54b" class="bulleted-list"><li style="list-style-type:circle"><code>onclick_endChat()</code>, <code>onclick_clearChat()</code>: 채팅 세션을 종료하고 지웁니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80b6-92d5-e55fed2eceb9" class="bulleted-list"><li style="list-style-type:circle"><code>getChatTranscript()</code>: 채팅 기록을 가져옵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8065-a463-c9440a2b4cdb" class="bulleted-list"><li style="list-style-type:circle"><code>scrollToBottom()</code>: 채팅 메시지 스크롤을 최하단으로 이동합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8078-990a-e1a6357d990b" class="bulleted-list"><li style="list-style-type:disc"><code>src/views/layout/tab/Task.js</code>: 태스크 관리 기능을 위한 UI와 로직을 담당합니다.<div style="display:contents" dir="auto"><ul id="23ff8917-466a-8024-a42a-d1e0934a7eb7" class="bulleted-list"><li style="list-style-type:circle"><code>pad()</code>, <code>addDate()</code>: 날짜/시간 관련 유틸리티 함수입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8084-a541-c17c1bca7aed" class="bulleted-list"><li style="list-style-type:circle"><code>onclick_createBtn()</code>, <code>onclick_close_create()</code>: 태스크 생성 UI를 제어합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-805d-bb4e-f062e862cf69" class="bulleted-list"><li style="list-style-type:circle"><code>onclick_dropTask()</code>, <code>onclick_clearTask()</code>: 태스크를 삭제하거나 완료합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e4-ba5c-cad5f6f39d1c" class="bulleted-list"><li style="list-style-type:circle"><code>onClick_updateTask()</code>: 태스크 정보를 업데이트합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8014-8b3c-e6f57b2071d1" class="bulleted-list"><li style="list-style-type:circle"><code>onChange_template()</code>, <code>onChange_taskField()</code>, <code>onChange_taskDate()</code>: 태스크 템플릿 및 필드 변경을 처리합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80a8-8622-fd687f645ba0" class="bulleted-list"><li style="list-style-type:circle"><code>onclick_taskQuickpad()</code>, <code>onclick_close_quickpad()</code>: 태스크 빠른 연결 UI를 제어합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-805f-879c-ea34801dfb7a" class="bulleted-list"><li style="list-style-type:disc"><code>src/views/layout/tab/Setting.js</code>: 설정 기능을 위한 UI와 로직을 담당합니다.<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e4-8564-d2d796e568d8" class="bulleted-list"><li style="list-style-type:circle"><code>onclick_downloadLogs()</code>: 로그 다운로드 기능을 수행합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80b0-86a4-c82298523448" class="bulleted-list"><li style="list-style-type:circle"><code>onclick_refresh()</code>: 미디어 장치 목록을 새로 고칩니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-802e-a649-f450db30ccdf" class="bulleted-list"><li style="list-style-type:circle"><code>onclick_logout()</code>: 로그아웃 기능을 수행합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80f2-b5fc-c2982f086cf3" class="bulleted-list"><li style="list-style-type:circle"><code>onClick_save()</code>: 설정 변경 사항을 저장합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8080-99b0-d16f76b12b41" class="bulleted-list"><li style="list-style-type:circle"><code>onChange_device()</code>, <code>onChange_language()</code>: 장치 및 언어 설정을 변경합니다.</li></ul></div></li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-8015-b557-e1c45e131559" class="numbered-list" start="5"><li><strong>상태 관리 (State Management - Redux)</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-803c-a9bd-da770c08b1a2" class="bulleted-list"><li style="list-style-type:disc"><code>src/reducers/index.js</code>: Redux 리듀서를 정의하는 파일로, 애플리케이션의 상태 변화를 처리합니다. <code>UPDATE_AGENT_STATE</code>, <code>UPDATE_CALL_INFO</code>, <code>UPDATE_TASK_INFO</code>, <code>UPDATE_CHAT_INFO</code> 등 다양한 액션 타입에 따라 상태를 업데이트합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8047-9ce9-c33420d139a0" class="bulleted-list"><li style="list-style-type:disc"><code>src/actions/index.js</code>: Redux 액션 타입과 액션 생성자 함수를 정의합니다. 애플리케이션의 모든 상태 변경은 이 액션들을 통해 이루어집니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-80b8-a6c4-d756b4836576" class="numbered-list" start="6"><li><strong>유틸리티 (Utilities)</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ea-9432-d929ca956585" class="bulleted-list"><li style="list-style-type:disc"><code>src/util/common.js</code>: <code>msToTime()</code>와 같은 범용 헬퍼 함수를 포함합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80d5-9af6-e3175907c4d3" class="bulleted-list"><li style="list-style-type:disc"><code>src/util/audioUtils.js</code>: 오디오 장치 설정 및 소리 재생(<code>playAudio()</code>, <code>stopAudio()</code>, <code>initAudio()</code>, <code>setAudioDevice()</code>) 기능을 제공합니다. <code>ringerHex</code>를 통해 벨소리 데이터를 가져옵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8020-be89-cafa3d70fa08" class="bulleted-list"><li style="list-style-type:disc"><code>src/util/ring.js</code>, <code>src/util/ringerData.js</code>: 벨소리 데이터(<code>ringerHex</code>)를 정의하는 파일로, <code>audioUtils.js</code>에서 사용됩니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8058-94b1-eef66f9ac9ca" class="bulleted-list"><li style="list-style-type:disc"><code>src/libs/ccp.util.js</code>: (내용이 제공되지 않았지만) CCP 관련 추가 유틸리티 함수를 제공할 것으로 예상됩니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8071-9e79-dd7a09871dc4" class="bulleted-list"><li style="list-style-type:disc"><code>src/libs/hooks.js</code>: (내용이 제공되지 않았지만) React Hooks와 관련된 유틸리티 함수를 포함할 것으로 예상됩니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-8066-9b74-e386e3cf7a71" class="numbered-list" start="7"><li><strong>자산 및 스타일 (Assets &amp; Styles)</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8040-a0f2-c38b182afd51" class="bulleted-list"><li style="list-style-type:disc"><code>src/App.css</code>, <code>src/index.css</code>, <code>src/css/base.css</code>, <code>src/css/style.css</code>, <code>src/css/font/font.css</code>, <code>src/css/font/pretendard-subset.css</code>, <code>src/css/font/remixicon.css</code>: 애플리케이션의 전반적인 스타일을 정의합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8047-a675-d058bc1d98f9" class="bulleted-list"><li style="list-style-type:disc"><code>src/images/</code>: 아이콘, 배경 이미지 등 시각적 요소를 포함합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-805d-987f-eb52b0f7b938" class="bulleted-list"><li style="list-style-type:disc"><code>src/fonts/</code>: 커스텀 폰트 파일들을 포함합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ff-9482-d8349a8fa7f2" class="bulleted-list"><li style="list-style-type:disc"><code>src/language/</code>: 다국어 지원을 위한 JSON 파일들 (<code>cn.json</code>, <code>en.json</code>, <code>ja.json</code>, <code>ko.json</code>).</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="23ff8917-466a-804c-9c5e-c0ba0e4797e1" class="">로직 흐름 (Conceptual Flow)</h3></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-806e-a78b-e7cc2e7e7a07" class="numbered-list" start="1"><li><strong>초기화 및 로그인:</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8029-8290-f67fc810b473" class="bulleted-list"><li style="list-style-type:disc">애플리케이션이 시작되면 <code>index.js</code>를 통해 <code>App.js</code>가 렌더링되고, <code>Main.js</code>에서 <code>CCP.js</code>와 <code>Zendesk.js</code>가 초기화됩니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-807f-ad1c-f59f15bd5218" class="bulleted-list"><li style="list-style-type:disc"><code>CCP.js</code>의 <code>initConnect()</code> 함수는 Amazon Connect CCP를 초기화하고, 필요한 설정값 (예: <code>ccpUrl</code>, <code>region</code>, <code>loginPopup</code> 등)을 적용합니다. Zendesk 연동 여부(<code>zendesk_use_f</code>)에 따라 Zendesk 관련 설정도 로드합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80dd-ab9e-caac98daea18" class="bulleted-list"><li style="list-style-type:disc"><code>Login.js</code> 컴포넌트가 로그인 상태를 관리합니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-80a0-8aa9-fb4e2d032d95" class="numbered-list" start="2"><li><strong>상담원 상태 관리:</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8056-b31a-d5de99900247" class="bulleted-list"><li style="list-style-type:disc"><code>CCP.js</code>는 Amazon Connect의 <code>agent.onStateChange</code> 이벤트를 구독하여 상담원의 상태 변화(<code>update_agent_state</code>)를 Redux 스토어에 반영합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-803d-a0d2-f246f0f12d5b" class="bulleted-list"><li style="list-style-type:disc"><code>Header.js</code>는 Redux 스토어의 <code>agentState</code>를 구독하여 상담원의 현재 상태를 UI에 표시하고, 드롭다운을 통해 상담원 상태를 변경할 수 있는 기능을 제공합니다 (<code>selectAgentState()</code>).</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-80c3-8fdc-d5e3ef39f249" class="numbered-list" start="3"><li><strong>통화 처리 (Voice Channel):</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e3-b005-fbaf95010d01" class="bulleted-list"><li style="list-style-type:disc"><code>CCP.js</code>는 <code>contact.onConnecting</code>, <code>contact.onConnected</code>, <code>contact.onEnded</code>, <code>contact.onMissed</code> 등의 이벤트를 구독하여 들어오거나 나가는 통화의 상태를 감지합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-800b-960d-dd288a8c8310" class="bulleted-list"><li style="list-style-type:disc">이벤트 발생 시, <code>CCP.js</code>는 <code>update_call_info</code> 및 <code>update_call_list</code> 액션을 통해 통화 관련 정보를 Redux 스토어에 업데이트합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80a7-9071-e9a54b5c87ef" class="bulleted-list"><li style="list-style-type:disc"><code>Voice.js</code> 컴포넌트는 <code>callInfo</code> 및 <code>callList</code> 상태를 기반으로 UI를 렌더링하고, 사용자는 <code>onClick_makeCall()</code>, <code>onClick_accept()</code>, <code>onClick_dropCall()</code>, <code>onClick_hold()</code>, <code>onClick_retrieve()</code>, <code>onClick_mute()</code>, <code>onClick_unMute()</code>, <code>onClick_conference()</code>, <code>onClick_addThirdParty()</code> 등의 함수를 통해 통화를 제어합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80b0-814c-ff36bcc7c4f0" class="bulleted-list"><li style="list-style-type:disc"><code>Zendesk.js</code>는 통화 시작 및 종료 시 Zendesk 티켓을 생성하거나 업데이트하여 통화 기록을 연동합니다. <code>createTicketByCall()</code> 및 <code>updateTicketWithVoiceComments()</code> 함수가 이 역할을 수행합니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-807c-bbae-eea9f7d0183d" class="numbered-list" start="4"><li><strong>채팅 처리 (Chat Channel):</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80b1-ad44-e5c9368e8132" class="bulleted-list"><li style="list-style-type:disc"><code>CCP.js</code>는 <code>contact.onMessage</code> 등의 이벤트를 구독하여 채팅 메시지를 수신하고 <code>update_chat_info</code>, <code>update_chat_list</code>, <code>add_transcript</code> 액션을 통해 채팅 상태와 내용을 관리합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8070-ba9b-ffa85bef7ea1" class="bulleted-list"><li style="list-style-type:disc"><code>Chat.js</code> 컴포넌트는 채팅 메시지를 표시하고, <code>onKeyUp_msgText()</code> 및 <code>onclick_sendMsg()</code>를 통해 메시지 전송 기능을 제공합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e1-b96e-e78a2e57c126" class="bulleted-list"><li style="list-style-type:disc"><code>Zendesk.js</code>는 채팅 내용을 Zendesk 티켓에 기록하거나(<code>getTranscript()</code>) 앱을 통해 Zendesk로 데이터를 전송합니다 (<code>zendeskFunc(&quot;sendToApp&quot;, ...)</code>).</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-80dd-bc93-d168fff46125" class="numbered-list" start="5"><li><strong>태스크 처리 (Task Channel):</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8073-bf6f-e064e161606f" class="bulleted-list"><li style="list-style-type:disc"><code>CCP.js</code>는 Amazon Connect의 태스크 관련 이벤트를 구독하고 (<code>onTaskExpiring</code>, <code>onTaskExpired</code>, <code>onTransferInitiated</code> 등) <code>update_task_info</code>, <code>update_task_list</code> 액션을 통해 태스크 상태를 Redux 스토어에 반영합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8013-8d9f-f7f56a2f1e0e" class="bulleted-list"><li style="list-style-type:disc"><code>Task.js</code> 컴포넌트는 태스크 목록을 표시하고, <code>onclick_createBtn()</code>, <code>onClick_updateTask()</code>, <code>onclick_dropTask()</code> 등을 통해 태스크를 생성, 업데이트, 삭제합니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="23ff8917-466a-8011-ad11-dedb379aa5cb" class="numbered-list" start="6"><li><strong>설정 관리 (Setting Tab):</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8005-92d9-c7aeecdfca52" class="bulleted-list"><li style="list-style-type:disc"><code>Setting.js</code> 컴포넌트는 사용자가 미디어 장치 (마이크, 스피커, 벨소리) 및 언어 설정을 변경하고 저장할 수 있는 UI를 제공합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-801a-88be-e49ba8e9c256" class="bulleted-list"><li style="list-style-type:disc"><code>onclick_refresh()</code>: <code>CCP.js</code>의 <code>getMediaDevices</code> 함수를 호출하여 현재 시스템의 미디어 장치 목록을 가져옵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80b9-a537-d29f9ac1802c" class="bulleted-list"><li style="list-style-type:disc"><code>onChange_device()</code>: 선택된 장치(<code>speakerId</code>, <code>microphoneId</code>, <code>ringerId</code>)를 <code>localStorage</code>에 저장하고 <code>CCP.js</code>의 <code>setSpeakerDevice</code> 또는 <code>setMicrophoneDevice</code> 함수를 호출하여 실제 장치를 설정합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80a6-b1ec-f76618363e62" class="bulleted-list"><li style="list-style-type:disc"><code>onclick_downloadLogs()</code>: <code>CCP.js</code>의 <code>downloadLogs</code> 함수를 호출하여 Amazon Connect 로그를 다운로드합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8047-aa2d-d0e52277ebf0" class="bulleted-list"><li style="list-style-type:disc"><code>onclick_logout()</code>: <code>CCP.js</code>의 <code>logout</code> 함수를 호출하여 로그아웃합니다.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="23ff8917-466a-80b5-8a84-ddb6ea40969a" class="">도식화 (개념적 다이어그램 설명)</h3></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-80cc-89df-c60f9730adf1" class="">이 애플리케이션의 아키텍처는 다음과 같이 개념적으로 도식화할 수 있습니다:</p></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-8008-adb5-d382e049047c" class=""><mark class="highlight-default_background"><code>+-------------------+      +-------------------+      +-------------------+<br/>|                   |      |                   |      |                   |<br/>|   React Client    | &lt;--&gt; |  Redux Store      | &lt;--&gt; |   Backend APIs    |<br/>|   (UI Components) |      | (Actions/Reducers)|      |  (AWS, Zendesk)   |<br/>|                   |      |                   |      |                   |<br/>+-------------------+      +-------------------+      +-------------------+<br/>        ^                            ^                            ^<br/>        |                            |                            |<br/>        |  (Renders/Interacts)       |    (State Updates)         | (Data/Control)<br/>        |                            |                            |<br/>+---------------------------------------------------------------------------------+<br/>|                                 Core Logic                                    |<br/>| +-------------------+  +-------------------+  +-------------------+  +-------------------+ |<br/>| |      CCP.js       |  |    Zendesk.js     |  |      AWS.js       |  |    Outbound.js    | |<br/>| |(Amazon Connect API)|  |(Zendesk API/ZAF)  |  |(AWS SDK/Services)|  |(Custom Backend API)| |<br/>| +-------------------+  +-------------------+  +-------------------+  +-------------------+ |<br/>|                                                                                             |<br/>|   +---------------------+   +---------------------+   +---------------------+   +-----------+   |<br/>|   | Voice.js (Call UI)  |   | Chat.js (Chat UI)   |   | Task.js (Task UI)   |   | Setting.js|   |<br/>|   +---------------------+   +---------------------+   +---------------------+   +-----------+   |<br/>|                                                                                             |<br/>+---------------------------------------------------------------------------------+<br/>        ^                            ^                            ^<br/>        |                            |                            |<br/>        |  (Event Listeners)         |                            |<br/>        |                            |                            |<br/>        +------------------------------------------------------------------------+<br/>                                  Browser &amp; External Services</code></mark></p></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-8034-b95b-f01385ceb711" class=""><strong>설명:</strong></p></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-805a-a3cb-f2366c215b33" class="bulleted-list"><li style="list-style-type:disc"><strong>React Client (UI Components):</strong> <code>App.js</code>, <code>Main.js</code>, <code>Header.js</code>, <code>Content.js</code>, <code>Footer.js</code>, <code>AlertMsg.js</code>, <code>Loading.js</code> 및 <code>Voice.js</code>, <code>Chat.js</code>, <code>Task.js</code>, <code>Setting.js</code>와 같은 모든 뷰/탭 컴포넌트를 포함합니다. 사용자가 직접 상호작용하는 부분입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8028-b1e0-c665eb435192" class="bulleted-list"><li style="list-style-type:disc"><strong>Redux Store (Actions/Reducers):</strong> 애플리케이션의 중앙 집중식 상태 관리 시스템입니다.<div style="display:contents" dir="auto"><ul id="23ff8917-466a-8014-b794-f5e09ac8e6be" class="bulleted-list"><li style="list-style-type:circle"><strong>Actions (</strong><code><strong>src/actions/index.js</strong></code><strong>):</strong> UI 이벤트나 비동기 작업의 결과로 상태 변경을 요청합니다 (<code>UPDATE_AGENT_STATE</code>, <code>UPDATE_CALL_INFO</code> 등).</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80fc-9501-f496be0d984f" class="bulleted-list"><li style="list-style-type:circle"><strong>Reducers (</strong><code><strong>src/reducers/index.js</strong></code><strong>):</strong> 액션에 따라 상태를 변경하는 순수 함수입니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-806e-8e6e-cab4cbd9c2ab" class="bulleted-list"><li style="list-style-type:disc"><strong>Core Logic:</strong><div style="display:contents" dir="auto"><ul id="23ff8917-466a-802e-a786-f6e245819e6b" class="bulleted-list"><li style="list-style-type:circle"><code><strong>CCP.js</strong></code><strong>:</strong> Amazon Connect와의 모든 상호작용을 담당하는 핵심 모듈입니다. Amazon Connect Streams API를 사용하여 통화, 채팅, 태스크 이벤트를 수신하고 제어 명령을 보냅니다. 또한, <code>google-libphonenumber</code>를 사용하여 전화번호를 처리합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80c7-80bd-fef6dddc7a88" class="bulleted-list"><li style="list-style-type:circle"><code><strong>Zendesk.js</strong></code><strong>:</strong> Zendesk Support와의 연동을 담당합니다. Zendesk App Framework (ZAF)를 통해 Zendesk의 API를 호출하여 티켓, 사용자, 태그 등을 관리하고 애플리케이션과 Zendesk 간의 데이터 동기화를 수행합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80f4-b3a5-d9ac822c72e4" class="bulleted-list"><li style="list-style-type:circle"><code><strong>AWS.js</strong></code><strong>:</strong> AWS 서비스와의 일반적인 상호작용을 위한 추상화 계층입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-806b-bd80-f0e76f1171f6" class="bulleted-list"><li style="list-style-type:circle"><code><strong>Outbound.js</strong></code><strong>:</strong> 아웃바운드 통화와 관련된 특정 비즈니스 로직 및 백엔드 API와의 통신을 처리합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80c9-aac2-ddb12f26cdf5" class="bulleted-list"><li style="list-style-type:disc"><strong>Channel Specific UI Components (</strong><code><strong>Voice.js</strong></code><strong>, </strong><code><strong>Chat.js</strong></code><strong>, </strong><code><strong>Task.js</strong></code><strong>, </strong><code><strong>Setting.js</strong></code><strong>):</strong> 각 채널의 고유한 UI와 사용자 상호작용 로직을 캡슐화합니다. 이들은 <code>CCP.js</code>, <code>Zendesk.js</code> 등으로부터 콜백 함수를 받아 통신 기능을 수행합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8093-8683-d89dc1756acf" class="bulleted-list"><li style="list-style-type:disc"><strong>Utilities (</strong><code><strong>common.js</strong></code><strong>, </strong><code><strong>audioUtils.js</strong></code><strong>, </strong><code><strong>ring.js</strong></code><strong>, </strong><code><strong>ringerData.js</strong></code><strong>, </strong><code><strong>ccp.util.js</strong></code><strong>, </strong><code><strong>hooks.js</strong></code><strong>):</strong> 애플리케이션 전반에서 사용되는 공통 함수, 오디오 처리, 링거 데이터, CCP 관련 유틸리티, React Hooks 등을 제공합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e9-a239-da86573bac0f" class="bulleted-list"><li style="list-style-type:disc"><strong>Backend APIs (AWS, Zendesk):</strong> Amazon Connect 및 Zendesk의 공식 API 외에, <code>Outbound.js</code>에서 사용하는 <code>connect-api.gsclip.com</code>과 같은 커스텀 백엔드 API도 존재합니다. 이들은 MRP 조회, 아웃바운드 매치 데이터 삽입/업데이트 등 특정 비즈니스 요구사항을 처리합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ba-be88-ca1d7183ae1c" class="bulleted-list"><li style="list-style-type:disc"><strong>HTML Files:</strong> 각 뷰의 정적 구조를 정의하며, <code>style.css</code>와 <code>jquery-1.12.4.min.js</code>를 링크합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8064-94cf-e9362b7aeb2e" class="bulleted-list"><li style="list-style-type:disc"><strong>CSS Files:</strong> 애플리케이션의 전반적인 시각적 스타일을 적용합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80df-99b1-c17f61770414" class="bulleted-list"><li style="list-style-type:disc"><strong>Font Files, Image Files:</strong> 폰트와 이미지 자산을 제공합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80a4-aac6-e3c4bd30fd68" class="bulleted-list"><li style="list-style-type:disc"><strong>Language Files:</strong> 다국어 지원을 위한 텍스트 데이터를 제공합니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="23ff8917-466a-80e8-8bd8-e2647a01de4a" class="">주요 함수 및 그 로직 (Function-level Logic)</h3></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-801f-9872-c880c23af72d" class="">주요 컴포넌트와 유틸리티 파일에서 몇 가지 중요한 함수와 그 로직을 살펴보겠습니다:</p></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-8079-9a60-c7b364f5fe84" class=""><code><strong>src/libs/CCP.js</strong></code><strong> (Amazon Connect 연동의 핵심)</strong></p></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80be-b421-c9fe8bf6139c" class="bulleted-list"><li style="list-style-type:disc"><code><strong>initConnect()</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-8013-a8fd-e0c287b2777f" class="bulleted-list"><li style="list-style-type:circle">Zendesk 사용 여부(<code>zendesk_use_f</code>)에 따라 <code>localStorage</code>에서 Zendesk 설정(<code>zdConfig</code>)을 로드하거나, 자체 환경 변수를 사용합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80f4-bc6a-d9f0d23827f3" class="bulleted-list"><li style="list-style-type:circle"><code>window.connect.core.initCCP()</code>를 호출하여 Amazon Connect CCP를 초기화합니다. 이때, CCP URL, 리전, 로그인 팝업 설정(<code>loginPopup</code>, <code>loginPopupAutoClose</code>), 소프트폰 설정(<code>allowFramedSoftphone</code>, <code>disableRingtone</code>) 등을 <code>options</code> 객체로 전달합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ef-aceb-c603bb447dbc" class="bulleted-list"><li style="list-style-type:circle"><code>window.connect.agent.onStateChange()</code>, <code>window.connect.contact.onConnecting()</code>, <code>window.connect.contact.onConnected()</code>, <code>window.connect.contact.onEnded()</code>, <code>window.connect.contact.onMissed()</code> 등 다양한 Amazon Connect 이벤트를 구독합니다. 각 이벤트는 해당 <code>handle</code> 함수를 호출하여 애플리케이션 상태를 업데이트합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8033-8681-df3cb5da0ff9" class="bulleted-list"><li style="list-style-type:disc"><code><strong>handleAgentStateChange(agent)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-8087-93ac-c38596727bfb" class="bulleted-list"><li style="list-style-type:circle">에이전트의 상태가 변경될 때 호출됩니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8054-b760-c2f6f0a16bba" class="bulleted-list"><li style="list-style-type:circle"><code>agent.getState().name</code>을 통해 현재 상태 이름을 확인하고, <code>update_agent_state</code> 액션을 디스패치하여 Redux 스토어의 상담원 상태를 업데이트합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e0-95da-f5a10b2dab00" class="bulleted-list"><li style="list-style-type:circle"><code>agent.getAgentStates()</code>를 호출하여 전체 상담원 상태 목록을 가져오고 <code>update_agent_state_list</code> 액션을 디스패치합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-801d-bd65-d6abcb400df9" class="bulleted-list"><li style="list-style-type:circle">&quot;MissedCallAgent&quot; 상태일 경우, 일정 시간 후 &quot;Available&quot; 상태로 자동 전환하는 로직이 포함되어 있습니다(<code>missedToAvailable</code>, <code>missedSeconds</code> 설정 사용).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-807c-8a48-f5d2d82c1fc3" class="bulleted-list"><li style="list-style-type:disc"><code><strong>handleContactConnecting(contact)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80fc-844c-d83f1ecca3eb" class="bulleted-list"><li style="list-style-type:circle">새로운 컨택트(예: 인바운드 전화)가 연결될 때 호출됩니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8044-bc99-dbb77a216bc7" class="bulleted-list"><li style="list-style-type:circle"><code>contact.getQueue().name</code>을 통해 큐 이름을 가져오고, <code>contact.getContactId()</code>를 통해 컨택트 ID를 가져옵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-800a-945d-eeff951ea306" class="bulleted-list"><li style="list-style-type:circle"><code>contact.getAttributes()</code>를 통해 컨택트 속성(attributes)을 파싱하여 Zendesk 관련 사용자 정의 필드(<code>zdkWnt0</code> ~ <code>zdkWnt10</code>)를 추출합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8086-b999-c41edddfe0c6" class="bulleted-list"><li style="list-style-type:circle">음성 통화(<code>contact.isInbound()</code>)인 경우 <code>playAudio()</code>를 호출하여 벨소리를 재생합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8082-9201-e807ad3bbaec" class="bulleted-list"><li style="list-style-type:circle"><code>update_call_info</code> 액션을 디스패치하여 통화 정보를 Redux 스토어에 업데이트합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80b1-8d25-eb11378eaccd" class="bulleted-list"><li style="list-style-type:circle">Zendesk가 사용되는 경우, <code>createTicketByCall()</code> 함수를 호출하여 Zendesk에 티켓을 생성합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-800a-a0a7-df0207d4f348" class="bulleted-list"><li style="list-style-type:disc"><code><strong>makeCallConnect(callInfo)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80bf-a698-eef380ec4681" class="bulleted-list"><li style="list-style-type:circle"><code>window.connect.agent.createOutboundContact()</code>를 사용하여 아웃바운드 통화를 시작합니다. <code>callInfo.number</code>와 <code>callInfo.quickConnectId</code>를 사용합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8022-a700-fc17e2f94c78" class="bulleted-list"><li style="list-style-type:circle">성공 시 <code>update_call_info</code>와 <code>update_call_list</code>를 업데이트합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8050-ad7a-e062c2614250" class="bulleted-list"><li style="list-style-type:disc"><code><strong>dropCall(channel)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-8030-aa29-fd6cd0bdf897" class="bulleted-list"><li style="list-style-type:circle">현재 활성화된 통화 연결을 종료합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-809c-bd05-c6b7517ef4bd" class="bulleted-list"><li style="list-style-type:circle"><code>window.myCPP.agent.getContacts(window.connect.ContactType.VOICE)[0]</code>를 통해 현재 통화 컨택트를 가져옵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8076-a5b5-da40bc923a94" class="bulleted-list"><li style="list-style-type:circle"><code>contact.getAgentConnection().destroy()</code>를 호출하여 연결을 끊습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-801a-a82c-eb3886eb71c6" class="bulleted-list"><li style="list-style-type:circle"><code>update_call_info</code>와 <code>update_call_list</code>를 초기화합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8035-a4a8-d0db5909c973" class="bulleted-list"><li style="list-style-type:disc"><code><strong>getMRP()</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80d0-95c5-f60c382a6bc8" class="bulleted-list"><li style="list-style-type:circle">백엔드 API(<code>apiUrl</code>, <code>getMRPPath</code>)를 호출하여 MRP(Main Receiving Number) 목록을 가져옵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8041-8a5f-e526a23f603b" class="bulleted-list"><li style="list-style-type:circle">가져온 목록을 <code>update_config</code> 액션을 통해 Redux 스토어에 업데이트합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e7-82ec-f23d20c40bdf" class="bulleted-list"><li style="list-style-type:disc"><code><strong>insertLog()</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-8000-86dc-e8888219ca3a" class="bulleted-list"><li style="list-style-type:circle">서버 로그 플래그(<code>serverLogF</code>)가 <code>true</code>인 경우, <code>axios.post</code>를 사용하여 백엔드 API (<code>apiUrl</code>, <code>insertPath</code>)에 로그를 전송합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-8080-9483-c117cd8aa23d" class=""><code><strong>src/libs/Zendesk.js</strong></code><strong> (Zendesk 연동)</strong></p></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8047-8004-f00daad81d1b" class="bulleted-list"><li style="list-style-type:disc"><code><strong>init()</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80fc-bad1-ec7c800d2375" class="bulleted-list"><li style="list-style-type:circle"><code>window.ZAFClient.init()</code>를 통해 Zendesk App Framework 클라이언트를 초기화합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80c6-8fd7-c983bf5ab1d5" class="bulleted-list"><li style="list-style-type:circle"><code>getConfig()</code>, <code>getCurrentUserInfo()</code>, <code>getUserFields()</code>를 비동기적으로 호출하여 Zendesk 관련 설정을 로드합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8071-b387-e3862367b5fb" class="bulleted-list"><li style="list-style-type:circle"><code>update_login_status</code> 액션을 디스패치하여 Zendesk 로그인 상태를 <code>true</code>로 설정합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-803e-a6ef-c6a44501154b" class="bulleted-list"><li style="list-style-type:circle"><code>g_client.off()</code>를 통해 이전에 등록된 Zendesk 이벤트를 해제하고, 새로운 이벤트 (<code>click_to_call</code>, <code>end_call</code>, <code>voice.dialout</code>, <code>api_notification.kms_result_msg</code>)를 구독합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-807e-8d0d-c7ea1648b4fb" class="bulleted-list"><li style="list-style-type:disc"><code><strong>createTicket(callInfo)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ee-8ab0-d89c42181de0" class="bulleted-list"><li style="list-style-type:circle">Zendesk에 새 티켓을 생성합니다. <code>callInfo</code>에서 고객 정보(<code>customerName</code>, <code>endpoint</code>), 티켓 유형(<code>callType</code>), 제목(<code>ticketTitle</code>), 태그(<code>tag_custom</code>) 등을 추출합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80db-820e-c6b8e90c3c5c" class="bulleted-list"><li style="list-style-type:circle"><code>g_client.request()</code>를 사용하여 Zendesk API에 <code>POST</code> 요청을 보냅니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ee-bf81-f94cdfe5afa3" class="bulleted-list"><li style="list-style-type:circle">성공 시 <code>update_call_info</code>를 업데이트하고, 실패 시 <code>alertMsg()</code>로 알림을 띄웁니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-800d-a43f-f71f52464b82" class="bulleted-list"><li style="list-style-type:disc"><code><strong>updateTicket(ticketId, data, callInfo)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80f6-97e9-ea970bf2051e" class="bulleted-list"><li style="list-style-type:circle">기존 Zendesk 티켓을 업데이트합니다. <code>ticketId</code>와 업데이트할 <code>data</code> (예: 코멘트, 태그)를 받습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e6-bf8c-f324d4540294" class="bulleted-list"><li style="list-style-type:circle"><code>g_client.request()</code>를 사용하여 Zendesk API에 <code>PUT</code> 요청을 보냅니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8016-ac23-f59cc691f5ea" class="bulleted-list"><li style="list-style-type:circle">성공 시 <code>update_call_info</code>를 업데이트하고, 실패 시 에러를 기록합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ce-b385-cdfbc3988f01" class="bulleted-list"><li style="list-style-type:disc"><code><strong>createUserByPhoneNumber(phoneNumber, callInfo)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80a1-8b6a-d412d1731338" class="bulleted-list"><li style="list-style-type:circle">제공된 전화번호로 Zendesk에 새 사용자를 생성합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80a5-8a64-c7b083b840b4" class="bulleted-list"><li style="list-style-type:circle"><code>g_client.request()</code>를 사용하여 Zendesk API에 <code>POST</code> 요청을 보냅니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8020-b791-f99d416109ab" class="bulleted-list"><li style="list-style-type:circle">성공 시 <code>update_created_zdk_user</code> 액션을 디스패치하여 생성된 사용자 정보를 Redux 스토어에 저장합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80fc-a4e3-dc21638a20bb" class="bulleted-list"><li style="list-style-type:disc"><code><strong>getTranscript(chatInfo)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80c2-b730-fc8852d1b9af" class="bulleted-list"><li style="list-style-type:circle">채팅 기록을 가져와 <code>add_transcript</code> 및 <code>update_transcript</code> 액션을 디스패치하여 Redux 스토어에 업데이트합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-809c-9eed-f0dd8d3fb616" class=""><code><strong>src/views/layout/tab/Voice.js</strong></code><strong> (음성 통화 탭)</strong></p></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80fd-8ab9-f60c2ee70d5c" class="bulleted-list"><li style="list-style-type:disc"><code><strong>constructor()</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80f4-ab98-c0c863a41f77" class="bulleted-list"><li style="list-style-type:circle">현재 날짜와 시간을 초기 상태로 설정합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80c0-99c3-ee5ae9c7f2f1" class="bulleted-list"><li style="list-style-type:circle"><code>react-datepicker</code>의 로케일을 한국어(<code>ko</code>)로 등록합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80c2-8282-d47ff5c271b6" class="bulleted-list"><li style="list-style-type:circle">환경 변수와 <code>localStorage</code>에 저장된 Zendesk 설정을 기반으로 <code>countryCode</code>, <code>countryNumber</code>, <code>coldTransferUseF</code>, <code>voiceRefuseUseF</code> 등의 값을 초기화합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80b1-8e97-c6e04eb746f1" class="bulleted-list"><li style="list-style-type:disc"><code><strong>onKeyUp(event, mrpList)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80e5-87e9-fc518b1b73cb" class="bulleted-list"><li style="list-style-type:circle">텍스트 입력 필드에서 <code>Enter</code> 키가 눌렸을 때 <code>onClick_makeCall()</code> 함수를 호출합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80f0-86d0-c25307525203" class="bulleted-list"><li style="list-style-type:disc"><code><strong>onClick_makeCall(e, mrpList)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-8072-aac2-d365d1d9022f" class="bulleted-list"><li style="list-style-type:circle">통화 유형(<code>this.state.selectQuickItem</code>)에 따라 <code>CCP.js</code>의 <code>makeCallConnect()</code> 또는 <code>makeCallCisco()</code>를 호출하여 전화를 겁니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-803c-a20e-c20b6bc6a382" class=""><code><strong>src/views/layout/tab/Chat.js</strong></code><strong> (채팅 탭)</strong></p></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ca-8c34-e3b6a827c421" class="bulleted-list"><li style="list-style-type:disc"><code><strong>onKeyUp_msgText(event)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-805e-988b-c9f0696e0793" class="bulleted-list"><li style="list-style-type:circle">메시지 입력 필드에서 <code>Enter</code> 키가 눌리고 메시지 내용이 비어있지 않을 경우 <code>onclick_sendMsg()</code>를 호출합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80fd-9be8-ed3e76e4b856" class="bulleted-list"><li style="list-style-type:disc"><code><strong>onclick_sendMsg(e)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80d0-80a2-c936c07c91c5" class="bulleted-list"><li style="list-style-type:circle">현재 채팅 세션(<code>agentChatSession</code>)이 활성 상태인지 확인하고, <code>chatMessageSendF</code> 설정이 <code>true</code>인지 확인합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80f1-b71e-c8465bbd73f3" class="bulleted-list"><li style="list-style-type:circle"><code>agentChatSession.sendMessage()</code>를 호출하여 메시지를 전송하고, 성공 시 <code>messagesEndRef</code>를 사용하여 채팅 스크롤을 최하단으로 이동합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8003-b33a-e161affd6536" class="bulleted-list"><li style="list-style-type:disc"><code><strong>scrollToBottom()</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-80f7-80de-d04fe1b08f2f" class="bulleted-list"><li style="list-style-type:circle">새로운 메시지가 추가될 때마다 채팅창을 자동으로 스크롤하기 위해 사용됩니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-8009-82bf-cb8f89164af4" class=""><code><strong>src/views/layout/tab/Task.js</strong></code><strong> (태스크 탭)</strong></p></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80ce-97a6-cff6f840093c" class="bulleted-list"><li style="list-style-type:disc"><code><strong>onclick_createBtn(e)</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-804a-88cf-e23998a78c22" class="bulleted-list"><li style="list-style-type:circle">태스크 생성 패널(<code>createComponentF</code>)을 토글합니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-80c3-993d-cd765eaf3d74" class="bulleted-list"><li style="list-style-type:circle">현재 상담 상태를 확인하여 태스크 생성 패널의 높이(<code>createHeight</code>)를 조절합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="23ff8917-466a-8026-9422-cc7de97f7168" class="bulleted-list"><li style="list-style-type:disc"><code><strong>onClick_updateTask()</strong></code>:<div style="display:contents" dir="auto"><ul id="23ff8917-466a-8082-a839-cf4bb0950c9a" class="bulleted-list"><li style="list-style-type:circle"><code>window.myCPP.agent.updateTask()</code>를 호출하여 태스크를 업데이트합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="23ff8917-466a-80fc-8459-c7fb8103de31" class="">결론</h3></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-80d8-a80b-e194658be460" class="">이 애플리케이션은 React, Redux, Amazon Connect Streams API, Zendesk App Framework를 활용하여 고객 서비스 상담원들이 음성 통화, 채팅, 태스크를 효율적으로 처리할 수 있도록 돕는 웹 기반 소프트폰 솔루션입니다. 모듈화된 구조를 통해 각 기능이 독립적으로 개발 및 유지보수될 수 있으며, 외부 서비스와의 긴밀한 연동을 통해 고객 상호작용 데이터를 중앙에서 관리합니다.</p></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-8037-bb4c-c14ca80a44cc" class="">제공된 HTML 파일들은 개발 및 디자인 과정에서 각 화면의 스냅샷 또는 디자인 가이드 역할을 하는 것으로 보이며, 실제 애플리케이션은 React 컴포넌트들을 통해 동적으로 UI를 구성하고 있습니다.</p></div><div style="display:contents" dir="auto"><p id="23ff8917-466a-80c9-9667-f9fb46eae386" class="">이러한 모듈별 기능과 상호작용을 통해 상담원들은 하나의 통합된 인터페이스에서 다양한 채널의 고객 문의를 효율적으로 관리할 수 있습니다.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,762 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>React</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="248f8917-466a-8090-9282-c2ce271b33db" class="page sans"><header><h1 class="page-title" dir="auto">React</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="248f8917-466a-80e2-a0bc-dab6a94d4ed5" class="">리액트란?</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-803d-bf60-fe2a0deaabbf" class="">: 사용자 인터페이스를 만들기 위한 Javascript 라이브러리 (SPA 라이브러리)</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-80b6-9410-c49d48e06a27" class="">프레임워크 : 개발을 위한 기본 뼈대.</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-806e-908e-dc5edf5e895c" class="">라이브러리 : 개발에 필요한 도구 또는 그 집합</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-80ab-9022-d3e5e0b5f035" class="">
+</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-8086-a670-c809905e1c51" class="">왜 쓰나?</p></div><div style="display:contents" dir="auto"><ol type="1" id="248f8917-466a-80e1-9711-eb09d3d617eb" class="numbered-list" start="1"><li>트렌드이다.<div style="display:contents" dir="auto"><ol type="a" id="248f8917-466a-805e-b4e7-f0fc8899fabc" class="numbered-list" start="1"><li>굉장히 많이 쓰인다.</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="248f8917-466a-801c-bec4-de1be89eb241" class="numbered-list" start="2"><li>수요가 많다.</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="248f8917-466a-80b6-bcc1-c8f9e6cc9e8e" class="numbered-list" start="3"><li>방대한 생태계</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="248f8917-466a-8030-9133-f243c9787798" class="numbered-list" start="2"><li>편하다<div style="display:contents" dir="auto"><ol type="a" id="248f8917-466a-80bb-8748-c04673acaa9b" class="numbered-list" start="1"><li>SPA</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="248f8917-466a-8035-a531-e4fc11ceea0d" class="numbered-list" start="2"><li>화면을 여러 단위로 쪼개고, 재사용하는 식으로 코드 관리가 용이함</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="248f8917-466a-80fb-87cd-d1720ff2a072" class="numbered-list" start="3"><li>유용한 라이브러리들이 많음</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><p id="248f8917-466a-80a4-bd62-d3d9fb404b0c" class="">기존에는 모든 페이지에 진입할 때마다 반복적으로 서버의 페이지에 관련된 리소스를 다운로드 받아야 했다.  이를 방지하기 위해 SPA(Single Page Application) 이 등장함.</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-803a-8070-e5a69d14b166" class="">서버에서 미리 A, B에 관련된 리소스를 모두 받고 브라우저에서 동적으로 화면을 그린다. 즉 Javascript를 통해 현재 페이지의 html을 생성하는 것임. </p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-80a3-b370-f6fdeeb29089" class="">
+</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-803e-b939-f879a501564b" class="">리액트 특징</p></div><div style="display:contents" dir="auto"><ul id="248f8917-466a-8044-9363-eb0823d9aca2" class="bulleted-list"><li style="list-style-type:disc">컴포넌트 기반 설계. 컴포넌트(스스로 상태를 관리하는 캡슐화된 코드 조각)<div style="display:contents" dir="auto"><ul id="248f8917-466a-8092-b882-ca69c8cac477" class="bulleted-list"><li style="list-style-type:circle">의미단위로 컴포넌트 구성</li></ul></div><div style="display:contents" dir="auto"><ul id="248f8917-466a-80e5-be08-f8ab5bbb484c" class="bulleted-list"><li style="list-style-type:circle">재사용성과 유지보수성 증가</li></ul></div><div style="display:contents" dir="auto"><ul id="248f8917-466a-80f0-8f7a-f2bdd8bed418" class="bulleted-list"><li style="list-style-type:circle">부모, 자식 관계를 가짐</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="248f8917-466a-80fd-8932-dc09d5655d13" class="bulleted-list"><li style="list-style-type:disc">가상돔(Virtual DOM)<div style="display:contents" dir="auto"><ul id="248f8917-466a-8022-938b-f2f6cee84a1b" class="bulleted-list"><li style="list-style-type:circle">가상돔을 하나 두고, 변경되어야 할 돔 요소를 미리 가상돔에서 변경해두고, 이것을 돔에서 동기화시키는 방식으로 함.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="248f8917-466a-80de-a6c9-cb62407eeb5f" class="bulleted-list"><li style="list-style-type:disc">CSR(Client Side Rendering) : Javascript를 통해 서버가 아닌 클라이언트 즉 브라우저에서 화면을 렌더링한다.</li></ul></div><div style="display:contents" dir="auto"><ul id="248f8917-466a-800b-aa98-f8efeda57105" class="bulleted-list"><li style="list-style-type:disc">풍부한 생태계<div style="display:contents" dir="auto"><ul id="248f8917-466a-805f-86c1-fe4784024fc7" class="bulleted-list"><li style="list-style-type:circle">단순 화면 개발 뿐만 아니라 React Native와 같은 앱개발을 위한 라이브러리도 존재함</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="248f8917-466a-80dc-8708-e51aa810e38e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-8028-bb2e-d9c0db6fcaaf" class="">JSX란</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-80db-9247-dc082678fd7f" class="">: 자바스크립트를 확장한 문법으로 자바스크립트 XML 이라는 문법임.</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-804a-8020-e7d54ea0918e" class="">JSX = HTML + Javascript</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="248f8917-466a-80e9-8938-f24cf19aa1f1" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;</code></pre></div><div style="display:contents" dir="auto"><p id="248f8917-466a-80a8-b865-f4b3a2d2d82a" class="">JSX는 리액트를 통해 최종적으로 HTML로 화면에 렌더링됨</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-80de-8212-fc247da7e220" class="">
+</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-805f-9781-de21c76cdd25" class="">JSX 특징</p></div><div style="display:contents" dir="auto"><ul id="248f8917-466a-803b-95c4-dba0db5fcd76" class="bulleted-list"><li style="list-style-type:disc">JSX에서 사용되는 태그의 속성 이름이 HTML과 조금 다름<div style="display:contents" dir="auto"><ul id="248f8917-466a-80ee-a57e-cf69b4e904c3" class="bulleted-list"><li style="list-style-type:circle">class → className</li></ul></div><div style="display:contents" dir="auto"><ul id="248f8917-466a-802d-a80a-c5d5a5737375" class="bulleted-list"><li style="list-style-type:circle">for → htmlFor</li></ul></div><div style="display:contents" dir="auto"><ul id="248f8917-466a-808b-8a22-f2db8811a43a" class="bulleted-list"><li style="list-style-type:circle">onclick → onClick</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="248f8917-466a-803c-88d8-edeeb39f4220" class="bulleted-list"><li style="list-style-type:disc">태그를 명시적으로 닫아줘야 함<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="248f8917-466a-800f-b47c-c2bcda057e13" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const element = &lt;h1&gt;Hello, World&lt;/h1&gt;&lt;button&gt;btn&lt;/button&gt; // 이렇게 안됨
+
+const element = &lt;div&gt;&lt;h1&gt;Hello, World&lt;/h1&gt;&lt;button&gt;btn&lt;/button&gt;&lt;/div&gt; // 이건 됨</code></pre></div></li></ul></div><div style="display:contents" dir="auto"><ul id="248f8917-466a-8028-bea4-d7956dfdbaaf" class="bulleted-list"><li style="list-style-type:disc">하나의 태그로 감싸져 있어야 함</li></ul></div><div style="display:contents" dir="auto"><p id="248f8917-466a-809d-905c-c384eb23405c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-8064-84d3-d8aca988aef8" class="">JSX에서 조건문</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-809b-ad22-d5fd45117366" class="">반복문 익명 함수를 넣어서 구현함.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="248f8917-466a-8087-80a9-fb026acc50e0" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">			&lt;li&gt;
+        {arr.map((item, index) =&gt; {
+          return &lt;h4 key={index}&gt;{item}&lt;/h4&gt;
+        })}
+      &lt;/li&gt;</code></pre></div><div style="display:contents" dir="auto"><p id="249f8917-466a-803e-af00-d81d71106a28" class="">
+</p></div><div style="display:contents" dir="auto"><p id="248f8917-466a-80ac-ba96-e05db7cb6f90" class="">컴포넌트</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-8063-aa35-cd4e1c6c8973" class="">import 할때 무조건 대문자로 시작해야한다. import Hello from ‘./Hello.js’ </p></div><div style="display:contents" dir="auto"><ul id="249f8917-466a-801a-bc5e-c65bab915337" class="bulleted-list"><li style="list-style-type:disc">컴포넌트는 본인의 로직과 내부상태(지역변수)를 고유하게 들고 있을 수 있다.</li></ul></div><div style="display:contents" dir="auto"><ul id="249f8917-466a-8091-9a3d-f4cf61bba96d" class="bulleted-list"><li style="list-style-type:disc">컴포넌트 이름은 항상 PascalCase로 지어야 한다. ex) MyComponent, ArticlePage 등등</li></ul></div><div style="display:contents" dir="auto"><ul id="249f8917-466a-806c-b6ff-dd5d6cee152e" class="bulleted-list"><li style="list-style-type:disc">컴포넌트는 의미단위로 쪼개준다. 명확한 범위와 의미를 지닐 수 있도록</li></ul></div><div style="display:contents" dir="auto"><ul id="249f8917-466a-807d-b7d4-e2e69b4ff751" class="bulleted-list"><li style="list-style-type:disc">최상위 컴포넌트 이름은 일반적으로 App이다.</li></ul></div><div style="display:contents" dir="auto"><ul id="249f8917-466a-80a4-9adb-d49dac8785c7" class="bulleted-list"><li style="list-style-type:disc">index.js는 모든 React 코드의 엔트리 포인트라고 할 수 있고, App.js는 모든 컴포넌트의 루트 컴포넌트라고 할 수 있다.</li></ul></div><div style="display:contents" dir="auto"><p id="249f8917-466a-8059-ac7b-c73e5c8fcfa6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-80c1-9d63-d2ac1f516011" class="">Props란?</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-80a3-9faf-f30c2710e665" class="">: 부모 컴포넌트에서 자식 컴포넌트로 내려주는 <strong>데이터</strong></p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-8008-8b08-e8793608398f" class="">상위 컴포넌트에서 하위 컴포넌트로 어떤 값을 전달해줘야 할 때 props를 사용하여 전달한다. </p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-80d4-82ec-f5c60a6e8b32" class="">
+</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249f8917-466a-80ae-904d-cc47d6b05f32" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">function App() {
+	return (
+		&lt;div&gt;
+			&lt;MyComponent value={&#x27;test&#x27;}/&gt;
+		&lt;/div&gt;	
+		);
+	}
+
+function MyComponent(props) {
+	return &lt;div&gt;{props.value}&lt;/div&gt;
+}</code></pre></div><div style="display:contents" dir="auto"><p id="249f8917-466a-80c6-99dc-d6e54051829c" class="">오브젝트 형태로 전달해줄 때의 속성 이름과 동일한 키로 접근하여 사용할 수 있다. value라는 키로 넘겨주니까 MyComponent에서도 value라는 키로 넘겨 받고 있다. </p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-8089-9ea6-fe32233dfb30" class="">
+</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-8011-bf46-f48656d6c324" class="">props 활용 팁.</p></div><div style="display:contents" dir="auto"><ol type="1" id="249f8917-466a-8093-96a3-fc76bf474997" class="numbered-list" start="1"><li>구조 분해 할당 구문을 잘 활용하자.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="249f8917-466a-8040-b9b2-d32999b0a5de" class="numbered-list" start="2"><li>특정 props에 기본 값을 줄 수 있다. (defaultProps)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="249f8917-466a-8033-96c8-fb5965c8ac35" class="numbered-list" start="3"><li>props는 읽기 전용이다.</li></ol></div><div style="display:contents" dir="auto"><p id="249f8917-466a-80f7-bbd2-c56d026245e6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-8081-a8a0-e1925615d7b1" class="">state란?</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-8000-8924-eb34199f2d4b" class="">: 컴포넌트 내부에서 사용되는 변수.</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-807f-9605-f5d1957d956d" class="">state 값이 변하면 컴포넌트가 리렌더링 된다. 렌더링 사이클에서 값이 보존된다.</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-8030-855c-ec3a133a1759" class="">useState() 함수가 반환하는 타입은 배열이고, 배열의 첫번째 값은 State 즉 value가 되는 것이고, 두번째 값은 앞에있는 state를 변화시키는 setter 함수이다.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249f8917-466a-804d-a290-d8f045016eb7" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">import logo from &#x27;../logo.svg&#x27;;
+import Heading from &#x27;./Heading&#x27;;
+import { useState } from &#x27;react&#x27;;
+
+export default function App() {
+  const [value, setValue] = useState(0);  // useState의 인자는 value의 초기값이 들어간다
+  
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;value: {value}&lt;/h1&gt;
+      &lt;button onClick={()=&gt;{
+        setValue(value+1);
+        console.log(&#x27;current value: &#x27;, value);
+      }}&gt;Increase Value&lt;/button&gt;
+      
+      &lt;button onClick={()=&gt;{
+        setValue(0);
+      }}&gt;Reset Value&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre></div><div style="display:contents" dir="auto"><p id="249f8917-466a-800e-9e3d-fd6c01c476c7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-80a3-bb7b-de52d88bf188" class="">클래스형 컴포넌트</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-8053-bbbc-e768c88c0687" class="">== 클래스 문법으로 구현한 컴포넌트.</p></div><div style="display:contents" dir="auto"><ul id="249f8917-466a-8078-9b7b-fdffb281c39e" class="bulleted-list"><li style="list-style-type:disc">useState와 같은 Hooks는 React 버전 16.8 부터 등장</li></ul></div><div style="display:contents" dir="auto"><ul id="249f8917-466a-8012-a911-d4c1b65d9eed" class="bulleted-list"><li style="list-style-type:disc">즉, 그전에는 함수형 컴포넌트에서 state를 사용할 수 없었고, 클래스형 컴포넌트만 state를 가질 수 있었다.</li></ul></div><div style="display:contents" dir="auto"><ul id="249f8917-466a-804d-8d00-c6d9eab14c58" class="bulleted-list"><li style="list-style-type:disc">클래스의 멤버 변수로 state 정의</li></ul></div><div style="display:contents" dir="auto"><ul id="249f8917-466a-8078-8491-fb5ae35e9b39" class="bulleted-list"><li style="list-style-type:disc">render라는 멤버 함수에서 반환한 값 JSX 가 화면에 그려짐</li></ul></div><div style="display:contents" dir="auto"><p id="249f8917-466a-8004-8bcb-fab3c0714598" class="">클래스 컴포넌트는 클래스의 멤버 변수로 state를 정의하면 화면을 그릴 때는 render라는 멤버 함수를 넣어서 해당 함수가 반환되는 값을 화면에 그린다.</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-80fc-9d93-e7714654901b" class="">
+</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-8096-8179-e7a14c8388f7" class="">클래스가 컴포넌트가 되기 위해서는 리액트에 있는 컴포넌트라는 클래스를 상속받아야 한다. </p></div><div style="display:contents" dir="auto"><p id="24cf8917-466a-8043-bb70-e75702759b48" class="">
+</p></div><div style="display:contents" dir="auto"><p id="249f8917-466a-80a7-8426-df7ccb41088a" class="">createRef는 리액트에서 컴포넌트가 마운트될 때, current 프로퍼티에 DOM 요소를 할당하고, 컴포넌트가 언마운트될 때 current 프로퍼티에 다시 null 을 할당한다.</p></div><div style="display:contents" dir="auto"><p id="24cf8917-466a-806c-85bb-c887a2dce8c8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="24cf8917-466a-805f-87ae-c57cdb6fe889" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,736 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>MQTT · EMQX · NLB · ALB </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="302f8917-466a-803f-9d1a-f75dfd7ed02c" class="page sans"><header><h1 class="page-title" dir="auto">MQTT · EMQX · NLB · ALB </h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="302f8917-466a-8024-96fd-d32781a0ce3c" class="">개념 및 적용 방안 정리</h1></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-8088-ace2-d6a4e5f69b75"/></div><div style="display:contents" dir="auto"><h2 id="302f8917-466a-80fd-89c7-cd96083ce114" class=""><strong>MQTT(Message Queuing Telemerty Transport)</strong></h2></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80f4-a6ec-ebf8160b9ac3" class="">메세지 큐잉 텔레메트리 전송 프로토콜로 IoT(Internet of Things)디바이스 간의 높은 지연 시간, 데이터 통과율, 및 전력 사용량에 대한 문제를 해결하기 위해 설계 되었다.</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8025-b93b-fa672c886fc6" class="">이 프로토콜은 Publish/Subscribe 모델을 사용하여, 서버(브로커)와 클라이언트 사이에서 메세지를 전달해준다.</p></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-8058-a85e-ffc92afbdd2c" class="image"><a href="https://blog.kakaocdn.net/dna/cnALqB/btssfFoYti7/AAAAAAAAAAAAAAAAAAAAAGBtjRjvBtHcvSgYeAsv-DNpwlSxlVW-wB99I5xldjUQ/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1772290799&amp;allow_ip=&amp;allow_referer=&amp;signature=by4DgCTn0yNSeu4wxufbOotjmhw%3D"><img style="width:700px" src="https://blog.kakaocdn.net/dna/cnALqB/btssfFoYti7/AAAAAAAAAAAAAAAAAAAAAGBtjRjvBtHcvSgYeAsv-DNpwlSxlVW-wB99I5xldjUQ/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1772290799&amp;allow_ip=&amp;allow_referer=&amp;signature=by4DgCTn0yNSeu4wxufbOotjmhw%3D"/></a></figure></div><div style="display:contents" dir="auto"><p id="302f8917-466a-804c-93fd-f958120640dd" class="">기본적인 매커니즘은 공식문서를 보면 IoT장치가 인터넷을 통해 데이터를 게시하고 구독하는 방법을 정의하는 일련의 규칙을 말한다. 프로토콜은 이벤트 기반이며 게시/구독(Pub/Sub)패턴을 사용하여 장치를 연결.</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8093-a6bb-c4b795a02e43" class=""><em><strong>발신자(게시자)와 수신자(구독자)는 주제(Topic)를 통해 통신하며 서로 분리된다.</strong></em></p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8097-a9cf-d2d1fcefa8cf" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-8002-bfd2-e098be1bdb73" class="">MQTT 통신은 반드시 Broker(중앙 중계자)를 기준으로 이루어진다.</h3></div><div style="display:contents" dir="auto"><p id="302f8917-466a-804e-abc8-e2f7a60d06c9" class="">[기본 구성 요소]</p></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80b2-b4e2-ddd3ff9e15f1" class="bulleted-list"><li style="list-style-type:disc">Publisher(게시자)<div style="display:contents" dir="auto"><p id="302f8917-466a-8036-ab1b-d436391eb393" class="">메세지를 보내는 주체(디바이스, 서버 등)</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80a3-8f20-c564d00a4f28" class="bulleted-list"><li style="list-style-type:disc">Subscriber(구독자)<div style="display:contents" dir="auto"><p id="302f8917-466a-8083-8f78-f1b46513207d" class="">메세지를 받는 주체(서버, 다른 디바이스 등)</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8042-8ef9-d95888c9f253" class="bulleted-list"><li style="list-style-type:disc">Broker<div style="display:contents" dir="auto"><p id="302f8917-466a-8075-8a9f-c2c007092021" class="">메세지를 받아서 적절한 Subscriber에게 전달하는 중개 서버</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-800a-848f-f634055423e5" class="">
+</p></div></li></ul></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-8038-bf50-ffaa013068c4"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-8053-9268-ca105fd6e4a0" class="">Topic 기반 통신</h3></div><div style="display:contents" dir="auto"><p id="302f8917-466a-809b-8e7b-f486bfafb39a" class="">MQTT는 Topic을 기준으로 메시지를 분류한다.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="302f8917-466a-809c-b88d-fba8b156aa06" class="code code-wrap"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">wisentm/device/123/status
+wisentm/device/123/command
+wisentm/device/+/telemetry</code></pre></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-809c-9d83-d9c012de1947" class="bulleted-list"><li style="list-style-type:disc">계층 구조 사용</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8065-8ae4-e2fed98e898d" class="bulleted-list"><li style="list-style-type:disc"><code>+</code>, <code>#</code> 와일드카드 지원</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80f0-a1ae-c599e202427d" class="bulleted-list"><li style="list-style-type:disc">하나의 메시지를 여러 Subscriber가 동시에 수신 가능</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8070-a80e-e251efa0235c" class=""><strong>→ 1:N 통신이 매우 자연스럽다</strong></p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80ba-be75-febe096bdb4e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8094-b775-dca156d748d5" class="">특징으로 가볍고 개방적이며 단순하게 구현되도록 설계되어 이를 특성으로 작은 코드 공간이 필요하거나 네트워크 대역폭이 중요한 M2M(Machine to Machine)및 IoT컨텍스트의 통신과 같은 제한된 환경을 포함하여 다양한 상황에서 사용하기에 이상적이다.</p></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-80dc-81fe-e42b83cbd05f" class="">그럼 MQTT의 Pub/Sub 분리기능이란?</h3></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-8076-b300-c1a523c370df" class="image"><a href="https://blog.kakaocdn.net/dna/nyshP/btssgtuNWdv/AAAAAAAAAAAAAAAAAAAAAI0K9mOydtU-ByjjoOnVTmSDjxiwNDf_Q9rVl0jeQEaA/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1772290799&amp;allow_ip=&amp;allow_referer=&amp;signature=RPSmqSTH%2FB4j8ZNZQc%2BedDvW8QA%3D"><img style="width:700px" src="https://blog.kakaocdn.net/dna/nyshP/btssgtuNWdv/AAAAAAAAAAAAAAAAAAAAAI0K9mOydtU-ByjjoOnVTmSDjxiwNDf_Q9rVl0jeQEaA/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1772290799&amp;allow_ip=&amp;allow_referer=&amp;signature=RPSmqSTH%2FB4j8ZNZQc%2BedDvW8QA%3D"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-80f6-a715-d1461b8c52c0" class="">MQTT Pub/Sub 분리의 의미</h3></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8070-b252-d55d40d32930" class="">기존의 <strong>요청 - 응답 접근 방식</strong>에서 클라이언트가 서버 엔드포인트와 직접 통신함으로써 생기는 병목현상을 Pub/Sub아키텍쳐로 메세지 게시자와 구독자를 나누어 중간에 브로커라는 구성 요소로 이들 간의 연결을 처리하여 더 빠르고 효율적인 통신 프로세스를 구성해준다.</p></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8058-b522-f977db3e59cb" class="bulleted-list"><li style="list-style-type:disc"><strong>공간 분리</strong> : 게시자와 구독자는 서로 알 필요가 없음(예 : IP주소 및 포트 교환이 없음)</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80b0-bbae-c88f739b6643" class="bulleted-list"><li style="list-style-type:disc"><strong>시간 분리</strong> : 게시자와 구독자가 동시에 실행될 필요가 없다.</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80e3-8e1b-fc95315e876c" class="bulleted-list"><li style="list-style-type:disc"><strong>동기화 분리</strong> : 게시 또는 수신 중에 두 구성 요소의 작업을 중단할 필요가 없다.</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8010-961c-cdc4ac7e90bf" class="">이를 통해 MQTT Pub/Sub아키텍쳐로 얻는 중요한 이점은</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80fb-af91-c55e63f50442" class="">향상된 확장성으로 브로커로써 모든 메세지 중앙 허브 역할을 하여 성능 저하 없이 많은 클라이언트를 처리할 수 있으며, 아키텍처의 분리된 특징을 이용하여 향상된 내결함성을 제공한다.</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8030-b56d-e9e5723ae7ea" class="">
+</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8010-bcb5-d3671e8b7815" class="">기존 방식으로는 클라이언트 - 서버 모델에서는 서버가 다운되면 연결된 모든 클라이언트의 연결이 끊어졌지만 Pub/Sub으로 구성되어있으면 <mark class="highlight-yellow"><strong>브로커가 클라이언트와 다시 연결될 때까지 메세지를 저장</strong></mark>하여 메세지가 손실되지 않도록 할 수 있다.</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80f9-abb0-c0c5cc79053a" class="">또한 유연성을 장점으로 낮은 대역폭, 긴 대기 시간 등등의 네트워크의 문제를 상쇄할 수 있는 유연성을 가지고 있다.</p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-80f1-96e3-f3305830bdb6"/></div><div style="display:contents" dir="auto"><h2 id="302f8917-466a-80bd-b9b1-c9478e0a70b5" class="">MQTT 활용 사례 ① : IoT 디바이스 상태 수집</h2></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-8063-87f8-f0ba0ec0db24" class="image"><a href="https://cdn.prod.website-files.com/5ff66329429d880392f6cba2/6708f5b15374117c840d5fcc_6708ee20807b31c351ce6a22_7%2520-%252010.10-min.jpeg"><img src="https://cdn.prod.website-files.com/5ff66329429d880392f6cba2/6708f5b15374117c840d5fcc_6708ee20807b31c351ce6a22_7%2520-%252010.10-min.jpeg"/></a></figure></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80b8-924d-e05798ab4400" class=""><strong>시나리오</strong></p></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-800d-b9a4-fb1a3e0706fd" class="bulleted-list"><li style="list-style-type:disc">수천 대 디바이스가 주기적으로 상태 정보 전송</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80b7-9f95-dad411e36c57" class=""><strong>구성</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="302f8917-466a-80e5-abf7-dd06f2e5cc67" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Device →publish(&quot;device/{id}/status&quot;)
+Server →subscribe(&quot;device/+/status&quot;)</code></pre></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8005-b80c-c753b730a883" class=""><strong>효과</strong></p></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80b2-b153-d4af7974a3c4" class="bulleted-list"><li style="list-style-type:disc">서버에서 주기적 Polling 불필요</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8012-9efe-f2f036b00ce6" class="bulleted-list"><li style="list-style-type:disc">실시간 상태 수집</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8027-b60b-fba2f9a17967" class="bulleted-list"><li style="list-style-type:disc">네트워크 트래픽 최소화</li></ul></div><div style="display:contents" dir="auto"><h2 id="302f8917-466a-802e-b866-c9936790f02f" class="">MQTT 활용 사례 ② : 원격 제어 / 명령 전달</h2></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-8023-b398-ee95d4e2defb" class="image"><a href="https://iotatlas.net/en/implementations/aws/command/command1/architecture.svg"><img src="https://iotatlas.net/en/implementations/aws/command/command1/architecture.svg"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-807e-a4b0-e1c5bf5a2090" class="image"><a href="https://docs.iotechsys.com/edge-xpert23/assets/images/device-services/mqtt/getcomand.png"><img src="https://docs.iotechsys.com/edge-xpert23/assets/images/device-services/mqtt/getcomand.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80c9-856e-eab036496db1" class=""><strong>시나리오</strong></p></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80f6-b4a3-da95313e0540" class="bulleted-list"><li style="list-style-type:disc">중앙 시스템에서 특정 디바이스 제어</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8098-98b9-e8b86cd798ce" class=""><strong>구성</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="302f8917-466a-808e-b7c3-f23d6099c602" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Server →publish(&quot;device/123/command&quot;)
+Device →subscribe(&quot;device/123/command&quot;)</code></pre></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8012-be7a-ea0a618c6105" class=""><strong>효과</strong></p></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8044-a399-f33ea4d92db3" class="bulleted-list"><li style="list-style-type:disc">디바이스 IP를 몰라도 제어 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80c1-9342-d9b6a6e13e2e" class="bulleted-list"><li style="list-style-type:disc">오프라인 후 재접속 시 메시지 수신 가능(QoS/세션 활용)</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8036-8eec-daec7cdd49a9" class="bulleted-list"><li style="list-style-type:disc">대량 디바이스 제어에 적합</li></ul></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-80f5-b0a3-f6a2a7f347e9"/></div><div style="display:contents" dir="auto"><h2 id="302f8917-466a-8026-be31-e085cb2a0add" class=""><strong>EMQ X</strong></h2></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8022-8368-fcb1fa84e914" class="">EMQ X는 고성능, 확장성 있는 MQTT 브로커 플랫폼으로 높은 처리량과 낮은 지연 시간을 제공해준다. 그리고 다양한 IoT프로젝트와 서비스에 적용될 수 있다. EMQ X는 다양한 메세지 브로커에 대한 관리 기능과 함께, 고급 보안 기능, 클러스터링, 여러종류의 IoT프로토콜 지원등을 제공한다.</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8015-9ac7-fc9b62b2ea7d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80e7-a0cf-e799cc77c1c0" class="">먼저 EMQX는 오픈소스이다. MQTT브로커이며 HTTP,QUIC 및 WebSocket을 포함한 다양한 프로토콜을 지원해준다.</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8029-aaf8-fda48618ff4e" class="">그리고 TLS/SSL 및 다양한 인증 매커니즘을 통해 MQTT와의 안전한 양뱡향 통신을 제공하여 IoT장치 및 애플리케이션을 위한 안정적이고 효율적인 통신 인프라를 보장해준다.</p></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-801a-903e-c9fb192d3927" class="image"><a href="https://blog.kakaocdn.net/dna/mN8Bw/btssk3IB0Jg/AAAAAAAAAAAAAAAAAAAAADyDN6MSGNJmwlkSoxmTv7dg2nurNyBzijppUu9Aqrqb/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1772290799&amp;allow_ip=&amp;allow_referer=&amp;signature=SVp6hBOHvmJrNayRN%2FrgyfOpBF4%3D"><img style="width:700px" src="https://blog.kakaocdn.net/dna/mN8Bw/btssk3IB0Jg/AAAAAAAAAAAAAAAAAAAAADyDN6MSGNJmwlkSoxmTv7dg2nurNyBzijppUu9Aqrqb/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&amp;expires=1772290799&amp;allow_ip=&amp;allow_referer=&amp;signature=SVp6hBOHvmJrNayRN%2FrgyfOpBF4%3D"/></a></figure></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80e9-8595-eef113c86a3b" class="">EMQX는 단일 클러스터에서 동시 MQTT연결을 최대 1억개 까지의 확장이 가능하고, 초당 수백만개의 MQTT메세지를 처리, 낮은 대기시간을 제공하여 메세지로의 통신이 즉각적으로 수신된다.</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80de-b534-e8f9933da952" class="">여기까지 대충 정리하자면</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80c1-9bdf-e3fd02b9332d" class="">MQTT는 메세징 프로토콜 EMQ X는 MQTT프로토콜을 구현한 브로커 소프트웨어이다.</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8016-8405-e4c425fd5484" class="">즉, MQTT는 &quot;어떻게&quot; 메세지를 전달할 것인가에 대한 규칙을 정의, EMQ X는 그러한 규칙을 실제로 실행하는 브로커 역할을 가진다.</p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-80ff-9e60-fd5d4350cc09"/></div><div style="display:contents" dir="auto"><h2 id="302f8917-466a-8016-ae3a-d6d244371084" class="">EMQX가 제공하는 주요 기능들</h2></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-803a-a8a0-ef1a26af6da8" class="">① 대규모 연결 처리 (Scalability)</h3></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80c5-9f5c-cf156ccaf491" class="bulleted-list"><li style="list-style-type:disc">수십만 ~ 수백만 MQTT 클라이언트 동시 연결</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8094-b195-fa16f492d31e" class="bulleted-list"><li style="list-style-type:disc">클러스터 구성으로 수평 확장 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-809b-ab5d-e81154c8e3aa" class="bulleted-list"><li style="list-style-type:disc">낮은 지연시간 유지</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8041-9c69-c991c3bdbe50" class=""><mark class="highlight-yellow_background">→ 디바이스 수가 폭증해도 구조 변경 불필요</mark></p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-805f-8d9a-ecbcf68257c0"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-80b6-95d1-e1a9b4a14973" class="">② 다양한 프로토콜 지원</h3></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8000-9119-d0191ead665d" class="bulleted-list"><li style="list-style-type:disc">MQTT 3.1 / 3.1.1 / <strong>MQTT 5.0</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8078-b509-e9725b618f45" class="bulleted-list"><li style="list-style-type:disc">MQTT over WebSocket</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8054-8299-f2e087f9f05f" class="bulleted-list"><li style="list-style-type:disc">QUIC</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80f4-a098-f5f8be08e394" class="bulleted-list"><li style="list-style-type:disc">HTTP 연계</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80ce-ab26-cc115b862ef0" class=""><mark class="highlight-yellow_background">→ 브라우저, 모바일, 서버 모두 연결 가능</mark></p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-80a1-9c11-d5f3c4c2293a"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-80e8-ae75-c4d7aa5ec032" class="">③ 인증(Authentication) 기능</h3></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8074-a0fc-e81e25088e4b" class="bulleted-list"><li style="list-style-type:disc">Username / Password</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-806f-84cf-d88384cbacf1" class="bulleted-list"><li style="list-style-type:disc">JWT</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8067-b64e-c3e764ef9e6f" class="bulleted-list"><li style="list-style-type:disc">TLS Client Certificate (mTLS)</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-803a-a9a7-fbaa3473e864" class="bulleted-list"><li style="list-style-type:disc">외부 인증 서버 연동</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8051-bb68-c45480c00836" class=""><mark class="highlight-yellow_background">→  디바이스 보안의 핵심 축</mark></p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-801f-8a40-db11e8651c1b"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-806e-b9c4-e167a4003165" class="">④ 권한 제어 (ACL)</h3></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-809c-80f0-debaceb303bd" class="bulleted-list"><li style="list-style-type:disc">Topic 단위 접근 제어</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80eb-910c-d6e8be6e09ad" class="bulleted-list"><li style="list-style-type:disc">Publish / Subscribe 권한 분리</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80d6-8538-d9bd91ef5cf5" class="">예:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="302f8917-466a-8031-b86f-e189832703eb" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">device/123 → device/123/*
+device/456 → device/456/*</code></pre></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80a8-9e37-fe1c32b10963" class=""><mark class="highlight-yellow_background">→  디바이스 간 메시지 침범 방지</mark></p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-80e7-b78c-f71848675910"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-8027-a6ce-f9f175c53e18" class="">⑤ Rule Engine @중요@ </h3></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-8087-9355-e5ae2b0351e1" class="image"><a href="https://docs.emqx.com/assets/data-integration-arch.Ks3i3xqY.jpg"><img src="https://docs.emqx.com/assets/data-integration-arch.Ks3i3xqY.jpg"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-80df-a008-c40760707760" class="image"><a href="https://assets.emqx.com/images/8ea87178108fd15755534ac746118d3f.png?x-image-process=image%2Fresize%2Cw_1520%2Fformat%2Cwebp"><img src="https://assets.emqx.com/images/8ea87178108fd15755534ac746118d3f.png?x-image-process=image%2Fresize%2Cw_1520%2Fformat%2Cwebp"/></a></figure></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8001-ac41-c761c9988d4c" class="">MQTT 메시지를 <strong>다른 시스템으로 자동 전달</strong>할 수 있다.</p></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8048-b7f7-d4ae2cdd8fb3" class="bulleted-list"><li style="list-style-type:disc">HTTP API 호출</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80e4-8619-ef5fb3c318cf" class="bulleted-list"><li style="list-style-type:disc">Backend 서버 연동</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8052-a785-e6ee8b91c1b4" class="bulleted-list"><li style="list-style-type:disc">DB 저장</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-808f-9db5-eb91a0807425" class="bulleted-list"><li style="list-style-type:disc">Kafka, Lambda 등 연계</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-801b-8c80-fc2e9a3acc67" class=""><mark class="highlight-yellow_background">→  </mark><mark class="highlight-yellow_background"><strong>“MQTT 통신 ↔ 비즈니스 로직” 연결 고리</strong></mark></p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-808b-b477-d2fd0eb6a537"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-8033-8e0d-e00e87116768" class="">⑥ Webhook / 데이터 통합</h3></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8069-bf12-e1c59d382c5e" class="bulleted-list"><li style="list-style-type:disc">특정 Topic 수신 시 자동 이벤트 트리거</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-805d-8b90-eeb852c4d476" class="bulleted-list"><li style="list-style-type:disc">실시간 이벤트 기반 처리 가능</li></ul></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-805d-b40c-fda8b742962a"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-8040-9b96-d25bc8255755" class="">⑦ 모니터링 &amp; 관리 기능</h3></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8030-93cf-dd90ee4c21f5" class="bulleted-list"><li style="list-style-type:disc">연결 수</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80db-827a-d80694ddbea7" class="bulleted-list"><li style="list-style-type:disc">메시지 처리량</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8062-8b6a-d3dfdcbd7124" class="bulleted-list"><li style="list-style-type:disc">지연 시간</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80e8-bb16-c701e41a4add" class="bulleted-list"><li style="list-style-type:disc">에러/Disconnect 원인</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8019-ac59-e3a1ed34e50a" class="bulleted-list"><li style="list-style-type:disc">Admin UI 제공</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-809b-ba7a-d0f947e203a4" class=""><mark class="highlight-yellow_background">→  운영 가시성 확보</mark></p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-80f3-8a08-da9ec95d6d92"/></div><div style="display:contents" dir="auto"><h2 id="302f8917-466a-8019-b7fc-c559154d69a3" class=""><strong>NLB (Network Load Balancer)</strong></h2></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-8037-b992-ecc5f4611c3e" class="image"><a href="https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2021/11/04/RStudio_Arch_Latest-1024x954.png"><img src="https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2021/11/04/RStudio_Arch_Latest-1024x954.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-8031-bf93-e9e341d757ea" class="image"><a href="https://miro.medium.com/1%2AKi7PQVUG3kJHXjsM763Ryw.png"><img src="https://miro.medium.com/1%2AKi7PQVUG3kJHXjsM763Ryw.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-8087-b2ed-e30f671ff84b" class="image"><a href="https://learnkube.com/a/c8064d5fe89ad7ac42017414019bdbfe.svg"><img src="https://learnkube.com/a/c8064d5fe89ad7ac42017414019bdbfe.svg"/></a></figure></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8070-9d3d-c0da411b9fd9" class="">NLB는 AWS에서 제공하는 <strong>네트워크 계층(L4) 로드 밸런서</strong>로, TCP/UDP 기반 트래픽을 <strong>아주 빠르고 단순하게 분산</strong>하기 위해 설계되었다. ALB처럼 HTTP 요청 내용을 해석하지 않고, <strong>IP 주소와 포트 단위로 네트워크 연결(Connection)을 그대로 전달</strong>한다.</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-804c-a056-c9c77226943a" class="">즉,</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80dd-abdc-f9bd9b6a25ee" class="">NLB는 애플리케이션을 이해하지 않고</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-801b-8052-d8d16f9de691" class=""><strong>“연결 자체를 안정적으로 나눠주는 역할”에 집중한다.</strong></p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-809a-af10-e34acca40b10"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-8094-88b8-c460e7b941da" class="">NLB가 등장한 배경</h3></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80dc-be1d-f3371f9786eb" class="">기존 로드밸런서(L7 중심)는 다음과 같은 한계를 가진다.</p></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8089-a693-c530483b1c73" class="bulleted-list"><li style="list-style-type:disc">HTTP/HTTPS 요청에 최적화</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80c3-8d6d-d900d7ca349c" class="bulleted-list"><li style="list-style-type:disc">요청/응답 단위의 짧은 연결</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80e6-bfa7-c9f6b54e2e8b" class="bulleted-list"><li style="list-style-type:disc">지속 연결(Long-lived connection)에 취약</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8087-8a3a-fbe50a6a4c7a" class="">하지만 IoT, 메시징, 스트리밍 환경에서는 다음 요구가 있다.</p></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-802d-b9c8-c12fe881b03f" class="bulleted-list"><li style="list-style-type:disc">TCP 연결을 오래 유지</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8070-aa2b-c3a8ec97f897" class="bulleted-list"><li style="list-style-type:disc">수십만~수백만 디바이스 동시 접속</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80ee-971b-e01f4598b391" class="bulleted-list"><li style="list-style-type:disc">초저지연(Low latency)</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-803d-b933-d962eb057978" class="bulleted-list"><li style="list-style-type:disc">패킷을 거의 가공하지 않는 전달</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-804c-92b1-c1df1213cf23" class="">→  이런 요구를 충족하기 위해 등장한 것이 <strong>NLB</strong></p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-8022-a455-cdeee9731053"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-80cc-849f-e63760e620df" class="">NLB의 기본 동작 방식</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="302f8917-466a-80fa-8ab6-fa5bf0ba10b3" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[ Device / Client ]
+        │  TCP
+        ▼
+     [  NLB  ]
+        │  (Connection 그대로 전달)
+        ▼
+[ Target (EMQX, TCP Server) ]</code></pre></div><div style="display:contents" dir="auto"><ol type="1" id="302f8917-466a-80f7-a7a5-ffa91adf2e15" class="numbered-list" start="1"><li>디바이스 또는 클라이언트가 NLB의 <strong>고정 IP</strong>로 접속</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="302f8917-466a-8022-8a5d-fedde7b86728" class="numbered-list" start="2"><li>NLB는 TCP 연결을 하나의 단위로 유지</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="302f8917-466a-802d-bb46-e7f80679b6d4" class="numbered-list" start="3"><li>Target Group에 속한 서버로 연결을 분산</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="302f8917-466a-80b1-bd6f-f2ef1c9f5029" class="numbered-list" start="4"><li>이후 통신은 <strong>같은 TCP 세션으로 지속</strong></li></ol></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80c4-978c-eb9cab08f1ce" class="">
+</p></div><div style="display:contents" dir="auto"><blockquote id="302f8917-466a-808e-94a1-eca1ff372fa5" class=""><strong>NLB는 요청(Request)을 분산하지 않고, 연결(Connection)을 분산한다</strong></blockquote></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-80fe-b03f-e09d0167ecd2"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-80ee-bd57-c8109e24bcc2" class="">NLB의 주요 특징</h3></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80d0-a962-dad319872493" class="bulleted-list"><li style="list-style-type:disc">OSI Layer 4 (TCP/UDP)</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8003-acd8-c88d3c275417" class="bulleted-list"><li style="list-style-type:disc">초저지연</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8090-b7ca-f0248c0b22da" class="bulleted-list"><li style="list-style-type:disc">초고성능 (수백만 연결 처리)</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8029-aa10-e836da4a8fc2" class="bulleted-list"><li style="list-style-type:disc">고정 IP 제공</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80c7-945e-e9eab99b0ae2" class="bulleted-list"><li style="list-style-type:disc">Long-lived connection 지원</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8051-b082-c6979f8d93b1" class="bulleted-list"><li style="list-style-type:disc">MQTT, WebSocket에 최적</li></ul></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-80ba-a922-f7248379563e"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-80b8-bfa4-db38e6388c84" class="">NLB가 특히 적합한 경우</h3></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80bc-a022-e593d4a7b596" class="bulleted-list"><li style="list-style-type:disc">MQTT 브로커 (EMQX)</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8050-b04f-d2411a62ae14" class="bulleted-list"><li style="list-style-type:disc">WebSocket 서버</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80c0-8ecc-ff87e7df5c6a" class="bulleted-list"><li style="list-style-type:disc">TCP 기반 커스텀 프로토콜</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80a2-a3e9-c00f2c5c7345" class="bulleted-list"><li style="list-style-type:disc">실시간 메시징 / 스트리밍</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8058-867d-f51987beaa1f" class="bulleted-list"><li style="list-style-type:disc">게임 서버</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80cd-b67f-f19035773c5a" class="">→  <strong>MQTT + EMQX 구조에서는 NLB가 사실상 필수</strong></p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-80ae-b724-eb649ba37f26"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-804e-a5a4-df301e38610c" class="">NLB 한 줄 요약</h3></div><div style="display:contents" dir="auto"><blockquote id="302f8917-466a-8070-a91a-efd7dfead4a9" class=""><strong>NLB는 TCP/UDP 연결 자체를 빠르고 안정적으로 분산시키는네트워크 레벨 로드밸런서이다.                       NLB는 L4 연결(TCP/TLS)을 받고, 그 트래픽을 ALB로 전달한 뒤 ALB가 HTTP 요청으로 해석하고 라우팅한다.</strong></blockquote></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-8092-9f1e-cdf4c4e918d4"/></div><div style="display:contents" dir="auto"><h2 id="302f8917-466a-80cf-b7e2-e4ba85e49dcd" class=""><strong>ALB (Application Load Balancer)</strong></h2></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-8059-a1ba-ead64a8ec9b4" class="image"><a href="https://labresources.whizlabs.com/7beff6c1fdf74cf2387e32e394c0cca7/aws-elb-diagram.png"><img src="https://labresources.whizlabs.com/7beff6c1fdf74cf2387e32e394c0cca7/aws-elb-diagram.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-80e0-921f-e9aa747c8ea0" class="image"><a href="https://d2908q01vomqb2.cloudfront.net/fe2ef495a1152561572949784c16bf23abb28057/2024/01/04/Solution-overview.jpg"><img src="https://d2908q01vomqb2.cloudfront.net/fe2ef495a1152561572949784c16bf23abb28057/2024/01/04/Solution-overview.jpg"/></a></figure></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8077-a76a-e6c857ace094" class="">ALB는 AWS에서 제공하는 <strong>애플리케이션 계층(L7) 로드 밸런서</strong>로, HTTP/HTTPS 요청을 <strong>이해하고 해석하여</strong> 트래픽을 분산한다. NLB와 달리 요청의 내용(URL, Header, Method 등)을 분석하여 <strong>조건 기반 라우팅</strong>을 수행할 수 있다.</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-8068-af70-d8afada724b0" class="">즉,</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80a4-9b1a-c56254eeb879" class="">ALB는 단순한 트래픽 분산기가 아니라</p></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80c2-a269-f6aeb358000f" class=""><strong>애플리케이션 트래픽 제어 장치이다.</strong></p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-808a-85d1-c38b0dec88ce"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-807a-b8cf-ce767128a7fd" class="">ALB의 기본 동작 방식</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="302f8917-466a-80ec-969f-d3a72d21b1a6" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[ User / System ]
+        │  HTTPS
+        ▼
+      [ ALB ]
+   ┌────┼────────┐
+   │    │        │
+ /api  /admin   /health
+   │    │        │
+[API] [Admin] [Health]</code></pre></div><div style="display:contents" dir="auto"><ol type="1" id="302f8917-466a-80dd-9987-f61eab784748" class="numbered-list" start="1"><li>클라이언트가 HTTPS로 ALB에 요청</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="302f8917-466a-8066-9f86-d30db431cde2" class="numbered-list" start="2"><li>ALB가 요청을 해석<div style="display:contents" dir="auto"><ul id="302f8917-466a-8040-ab6b-ee4bc2666902" class="bulleted-list"><li style="list-style-type:disc">URL Path</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80c9-87e4-dd7d9224d9f4" class="bulleted-list"><li style="list-style-type:disc">Host Header</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80fc-991d-fe0f08e5a5e2" class="bulleted-list"><li style="list-style-type:disc">HTTP Method</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="302f8917-466a-8039-884c-d4e08e75d954" class="numbered-list" start="3"><li>사전에 정의된 Rule에 따라 Target Group 선택</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="302f8917-466a-80fa-989d-f3a83cb3b694" class="numbered-list" start="4"><li>백엔드 애플리케이션으로 전달</li></ol></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-807e-852b-cc1ac6183a9b"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-80d5-994f-c2aa2e2aaee2" class="">ALB의 주요 특징</h3></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8006-8560-f0c818752442" class="bulleted-list"><li style="list-style-type:disc">OSI Layer 7 (HTTP/HTTPS)</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8086-819e-ca8f88f5b229" class="bulleted-list"><li style="list-style-type:disc">URL / Header / Host 기반 라우팅</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-800d-9f7f-f33fc875ad42" class="bulleted-list"><li style="list-style-type:disc">TLS 종료(Termination)</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-806b-b772-e3c1c2ff9bec" class="bulleted-list"><li style="list-style-type:disc">인증 연동(OIDC, Cognito 등)</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80a9-a00a-ddb5fb7903d7" class="bulleted-list"><li style="list-style-type:disc">REST API, Web 서비스에 최적</li></ul></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-8055-a539-e86198b11241"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-808b-81f8-ef8ecfae0ebb" class="">ALB가 적합한 경우</h3></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8003-88cd-f230426a251a" class="bulleted-list"><li style="list-style-type:disc">관리자 웹 UI</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-803b-b01b-d71b26a2d018" class="bulleted-list"><li style="list-style-type:disc">REST API 서버</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8092-8b11-f0b9758b7eac" class="bulleted-list"><li style="list-style-type:disc">마이크로서비스 아키텍처</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-807a-9ab8-c81586db366f" class="bulleted-list"><li style="list-style-type:disc">인증이 필요한 서비스</li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8057-8ad4-c477459b441a" class="bulleted-list"><li style="list-style-type:disc">JSON 기반 요청/응답 시스템</li></ul></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80f6-ae47-c9c0e5ed2423" class="">→  <strong>사람 또는 시스템이 호출하는 “API 영역”</strong></p></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-80b4-954f-f7429a1324f3"/></div><div style="display:contents" dir="auto"><h3 id="302f8917-466a-8012-a6bf-c1889a2fc732" class="">ALB 한 줄 요약</h3></div><div style="display:contents" dir="auto"><blockquote id="302f8917-466a-80e3-b719-d5a972096ce5" class=""><strong>ALB는 HTTP 요청을 이해하고 애플리케이션 관점에서 트래픽을 제어하는 로드밸런서이다.</strong></blockquote></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-80a6-9eff-c9e9055bb48d"/></div><div style="display:contents" dir="auto"><h2 id="302f8917-466a-804a-9141-c75ac0170b46" class=""><strong>NLB vs ALB 비교 정리</strong></h2></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-80a7-9e78-c392679740ef" class="image"><a href="https://miro.medium.com/v2/resize%3Afit%3A1200/1%2AYuG-jq-PGFfiHlsI7daA2w.png"><img src="https://miro.medium.com/v2/resize%3Afit%3A1200/1%2AYuG-jq-PGFfiHlsI7daA2w.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="302f8917-466a-8044-9e6f-ef3f1de1189e" class="image"><a href="https://kemptechnologies.com/images/kemptechnologieslibraries/about/picture1.png?sfvrsn=453f0d1f_1"><img src="https://kemptechnologies.com/images/kemptechnologieslibraries/about/picture1.png?sfvrsn=453f0d1f_1"/></a></figure></div><div style="display:contents" dir="ltr"><table id="302f8917-466a-80c7-a0ad-dc6428d4ddc2" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="302f8917-466a-80f3-853a-e94abec7f61f"><th id="|IeF" class="simple-table-header-color simple-table-header">항목</th><th id="z}{X" class="simple-table-header-color simple-table-header">NLB</th><th id="pr:y" class="simple-table-header-color simple-table-header">ALB</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="302f8917-466a-8093-86c0-c7c9ee68f8a2"><td id="|IeF" class="">OSI 계층</td><td id="z}{X" class="">L4</td><td id="pr:y" class="">L7</td></tr></div><div style="display:contents" dir="ltr"><tr id="302f8917-466a-80a8-aa23-f86b17fe0f02"><td id="|IeF" class="">처리 대상</td><td id="z}{X" class="">TCP / UDP</td><td id="pr:y" class="">HTTP / HTTPS</td></tr></div><div style="display:contents" dir="ltr"><tr id="302f8917-466a-8090-9693-d451708cfaa2"><td id="|IeF" class="">요청 해석</td><td id="z}{X" class="">❌</td><td id="pr:y" class="">✅</td></tr></div><div style="display:contents" dir="ltr"><tr id="302f8917-466a-8083-9067-f19677ba2582"><td id="|IeF" class="">지속 연결</td><td id="z}{X" class="">✅</td><td id="pr:y" class="">❌</td></tr></div><div style="display:contents" dir="ltr"><tr id="302f8917-466a-800d-9777-c934fc9c2463"><td id="|IeF" class="">MQTT 적합성</td><td id="z}{X" class="">✅</td><td id="pr:y" class="">❌</td></tr></div><div style="display:contents" dir="ltr"><tr id="302f8917-466a-80f2-b3d0-e46538e4b8df"><td id="|IeF" class="">API / Web</td><td id="z}{X" class="">❌</td><td id="pr:y" class="">✅</td></tr></div><div style="display:contents" dir="ltr"><tr id="302f8917-466a-808a-aaa1-e7343b5889d3"><td id="|IeF" class="">주요 대상</td><td id="z}{X" class="">디바이스, 브로커</td><td id="pr:y" class="">사용자, 서비스</td></tr></div><div style="display:contents" dir="ltr"><tr id="303f8917-466a-804e-af83-f6c1c5a5834b"><td id="|IeF" class="">고정 IP 제공</td><td id="z}{X" class="">✅</td><td id="pr:y" class="">❌</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-8079-a1e8-fe0539cf2921"/></div><div style="display:contents" dir="auto"><h2 id="302f8917-466a-8015-9dd8-fac8071f72c2" class="">정리</h2></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-80a1-be58-d0e04346e0f8" class="bulleted-list"><li style="list-style-type:disc"><strong>MQTT</strong><div style="display:contents" dir="auto"><p id="302f8917-466a-8072-9c28-f1697071266f" class="">→ 메시지를 <em>어떻게</em> 전달할 것인가에 대한 규칙</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8024-b522-c882b6d509de" class="bulleted-list"><li style="list-style-type:disc"><strong>EMQX</strong><div style="display:contents" dir="auto"><p id="302f8917-466a-8046-b2cd-fc93eb2c50a3" class="">→ MQTT 규칙을 <em>실제로 수행하는</em> 메시지 브로커</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8001-b77b-f672718566ed" class="bulleted-list"><li style="list-style-type:disc"><strong>NLB</strong><div style="display:contents" dir="auto"><p id="302f8917-466a-8085-97e3-d7accf97d2a2" class="">→ EMQX 같은 <strong>TCP 기반 서비스의 연결을 안정적으로 분산</strong></p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="302f8917-466a-8026-a387-fc8bb0e4bc9e" class="bulleted-list"><li style="list-style-type:disc"><strong>ALB</strong><div style="display:contents" dir="auto"><p id="302f8917-466a-8007-a8c0-d5e01eae5dfc" class="">→ 관리자/API 같은 <strong>HTTP 서비스 트래픽을 지능적으로 제어</strong></p></div></li></ul></div><div style="display:contents" dir="auto"><hr id="302f8917-466a-8036-b347-f97ad796fa77"/></div><div style="display:contents" dir="auto"><p id="302f8917-466a-80e9-b408-d1d351ad7c0d" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

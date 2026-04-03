@@ -1,0 +1,733 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>[Amazon Connect] 사용자 매뉴얼</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="22af8917-466a-8030-9c8f-d1b5db65677f" class="page sans"><header><h1 class="page-title" dir="auto">[Amazon Connect] 사용자 매뉴얼</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="22af8917-466a-80b0-b830-edaa9c273cc8" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-8000-a25d-f5343018fc70"/></div><div style="display:contents" dir="auto"><h1 id="22af8917-466a-800e-8f4c-dc8e35eb05d6" class=""> <mark class="highlight-red">Amazon Connect </mark><mark class="highlight-default">주요 구성요소 </mark></h1></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80ed-b597-eb59892abe60" class="">Amazon Connect는 AWS에서 제공하는 클라우드 기반 컨택센터 플랫폼으로, 음성/채팅 기반 고객 응대를 자동화하거나 상담사에게 효율적으로 라우팅할 수 있는 다양한 기능을 제공합니다. 아래는 Amazon Connect의 핵심 기능들을 실무적으로 이해하기 위한 상세 설명입니다.</p></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-804c-99e8-ec5e09a46b53"/></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-8033-9040-c119b425257b" class="">1.  Contact Flow: 고객 응대 흐름을 설계하는 중심 기능</h2></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-802f-bb6a-e827a9a889b0" class="">개요</h3></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80bb-a802-e00570018697" class="">Contact Flow는 고객이 전화를 걸었을 때부터 종료할 때까지 어떤 순서로 응대를 진행할지 시나리오를 정의하는 핵심 기능입니다. Amazon Connect의 모든 응대 프로세스는 이 Flow 안에서 설계됩니다.</p></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8055-a069-e65f0ffe8582" class="">특징</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-806c-99fa-e2494786512d" class="bulleted-list"><li style="list-style-type:disc"><strong>비개발자도 사용 가능한 시각적 편집기(UI)</strong> 제공</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80c7-bb44-fdbb4964747f" class="bulleted-list"><li style="list-style-type:disc">“블록 단위”로 구성되며, 각 블록은 조건, 안내, 분기, 전송 등의 역할을 수행</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8017-a92b-fe09930afbdf" class="bulleted-list"><li style="list-style-type:disc">실제 전화 흐름, 시간대 분기, 고객 입력 처리, 상담사 연결, 외부 시스템 연동 등을 포함</li></ul></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-80f8-9064-c367d7d02942" class="">자주 사용하는 주요 블록</h3></div><div style="display:contents" dir="ltr"><table id="22af8917-466a-80b7-b8a1-e2d4c5728b0c" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="22af8917-466a-80c7-8555-f72bf63805bd"><th id="PeDQ" class="simple-table-header-color simple-table-header">블록 명</th><th id="PMNu" class="simple-table-header-color simple-table-header" style="width:524px">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="22af8917-466a-80d8-8292-eac1c544268a"><td id="PeDQ" class="">Start</td><td id="PMNu" class="" style="width:524px">모든 Flow의 시작점</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-80b7-8d98-e3fe9ec81b6d"><td id="PeDQ" class="">Play Prompt</td><td id="PMNu" class="" style="width:524px">고객에게 음성 안내를 재생 (TTS 또는 오디오 파일)</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-80ca-929b-fbeb3fefe5df"><td id="PeDQ" class="">Get Customer Input</td><td id="PMNu" class="" style="width:524px">고객의 숫자 입력을 받아 조건 분기 (IVR 메뉴)</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-803a-8ad0-dc7e7810a447"><td id="PeDQ" class="">Check Hours of Operation</td><td id="PMNu" class="" style="width:524px">현재 시간이 운영 시간인지 판단하여 흐름 분기</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-8080-8852-e276b871c433"><td id="PeDQ" class="">Transfer to Queue</td><td id="PMNu" class="" style="width:524px">특정 큐(Queue)에 연결하여 상담사에게 라우팅</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-80ab-95f2-c9f2c8bf0f43"><td id="PeDQ" class="">Disconnect / Error Handling</td><td id="PMNu" class="" style="width:524px">흐름 종료, 실패 시 대체 경로로 전환</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-80d3-9436-dbdaca213f49"><td id="PeDQ" class="">Set Voice</td><td id="PMNu" class="" style="width:524px">음성 언어 및 목소리 설정</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-804d-8a34-dbd4196fa953"><td id="PeDQ" class="">Invoke AWS Lambda</td><td id="PMNu" class="" style="width:524px">외부 API 또는 백엔드 시스템 연동을 위한 Lambda 함수 호출</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8096-9dd4-f5fec3f24dd8" class="">활용 예시</h3></div><div style="display:contents" dir="auto"><blockquote id="22af8917-466a-80ba-ad75-dde652136992" class="">“안녕하세요, 고객센터입니다. 1번은 주문 문의, 2번은 환불 요청입니다.”<div style="display:contents" dir="auto"><p id="22af8917-466a-809a-9a75-c7dc3f78891f" class="">→ 고객이 1을 누르면 주문 큐, 2를 누르면 환불 큐로 전송</p></div><div style="display:contents" dir="auto"><p id="22af8917-466a-808b-b303-fe47b83d4974" class="">→ 각각에 해당하는 라우팅 프로필을 가진 상담사에게 자동 연결</p></div></blockquote></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-80e0-b4e4-db3f214651bd"/></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-800f-9433-ce6400c0f527" class="">2. 🔊 Play Prompt &amp; Voice Prompt: 음성 안내 구성</h2></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-80f6-8958-d5a44f4e439b" class="">Play Prompt란?</h3></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8096-a3e4-ef69e58196e2" class="">고객에게 음성 안내를 들려주는 블록입니다. 안내 멘트는 다음과 같은 방법으로 설정할 수 있습니다.</p></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-802b-b187-e343496e403e" class="">① TTS (Text to Speech)</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80c4-990f-df2ba4c9dc72" class="bulleted-list"><li style="list-style-type:disc">텍스트를 입력하면 Amazon Polly가 자동으로 음성으로 변환</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8088-aa36-e2f8a5248082" class="bulleted-list"><li style="list-style-type:disc">한국어는 <code>Seoyeon</code> 목소리가 자연스러워 많이 사용</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8004-8b4c-f647ddd59914" class="bulleted-list"><li style="list-style-type:disc">빠른 시나리오 테스트, 반복 편집이 유리</li></ul></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-80a2-9cbe-d4ce82cbbde4" class="">② 오디오 파일</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-806f-9c9e-c656e0778f83" class="bulleted-list"><li style="list-style-type:disc">.wav 파일 형식으로 녹음된 음성을 업로드하여 사용</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8063-a2f5-fa7f88a6cd7b" class="bulleted-list"><li style="list-style-type:disc">고유 브랜드 보이스 또는 감정 전달이 중요한 경우 선호</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80e0-88a4-cb15043c9339" class="bulleted-list"><li style="list-style-type:disc">S3에 업로드한 오디오 파일을 Contact Flow에서 지정 가능</li></ul></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-80b4-bb49-ece76bf99f0a" class="">Play Prompt 활용 예</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80c9-bed7-efc1d8a0aaa9" class="bulleted-list"><li style="list-style-type:disc">&quot;안녕하세요. XX 고객센터입니다. 상담 연결까지 잠시만 기다려 주세요.&quot;</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8083-af51-ce1174dcfac1" class="bulleted-list"><li style="list-style-type:disc">&quot;운영 시간은 평일 오전 9시부터 오후 6시까지입니다.&quot;</li></ul></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-80f2-8379-e8da114d201e"/></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-8050-a9fb-ceded241cd33" class="">3. 🎧 Queues (대기열): 고객을 대기시키고 라우팅하는 중간 단계</h2></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-80e3-94c7-eb1675a2601c" class="">정의</h3></div><div style="display:contents" dir="auto"><p id="22af8917-466a-806f-9dc0-eb14c2207187" class="">큐는 고객이 상담사와 연결되기 전까지 머무는 가상의 공간입니다. Contact Flow에서 Transfer to Queue 블록을 사용해 고객을 큐에 배정할 수 있습니다.</p></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-80bc-a9d7-cfe78a337965" class="">주요 기능</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80e1-889e-eab6692e25a1" class="bulleted-list"><li style="list-style-type:disc"><strong>큐별로 안내 메시지, 대기음 설정</strong> 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8052-afb1-ced160d912ae" class="bulleted-list"><li style="list-style-type:disc"><strong>큐별 통계 확인</strong>: 대기 중 고객 수, 평균 대기 시간 등</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-806d-acca-c15f03458cb6" class="bulleted-list"><li style="list-style-type:disc"><strong>큐별 우선순위 설정</strong>: 더 중요한 큐는 빠르게 연결되도록 구성 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80c0-8c08-c328f1a9597d" class="bulleted-list"><li style="list-style-type:disc">큐는 상담사 연결의 중간 지점이며, Routing Profile과 연계되어 실제 상담사에게 전달됩니다.</li></ul></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8043-be37-f6cfebf955d8" class="">예시</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80f9-9c70-cd2b6bc92064" class="bulleted-list"><li style="list-style-type:disc">일반 문의 큐: 응답 시간은 느릴 수 있으나 많은 상담사 보유</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-805d-a8d0-c864dea116ec" class="bulleted-list"><li style="list-style-type:disc">VIP 큐: 소수의 전문 상담사 배정, 높은 우선순위로 처리</li></ul></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-808f-83ae-d1042e6eb413"/></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-80fc-973b-ea0b287795e1" class="">4. 🧭 Routing Profile (라우팅 프로필): 어떤 상담사가 어떤 큐를 받을지를 정하는 설정</h2></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-805e-814c-ffa7bc3bbcb5" class="">정의</h3></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8009-83ab-d669007d3dc7" class="">Routing Profile은 상담사에게 어떤 큐의 고객을 연결할 것인지 정의하는 역할을 합니다. 상담사(User)에게 이 프로필을 할당함으로써, 자동 라우팅이 가능해집니다.</p></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8047-9b09-ccadf360b81c" class="">구성 요소</h3></div><div style="display:contents" dir="ltr"><table id="22af8917-466a-80a0-8ab0-c29c8fea46bd" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="22af8917-466a-80a2-a705-f1be30b12e66"><th id="wNzv" class="simple-table-header-color simple-table-header">항목</th><th id="bU&gt;f" class="simple-table-header-color simple-table-header">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="22af8917-466a-8003-8a85-daccdc0cfe44"><td id="wNzv" class="">큐 목록</td><td id="bU&gt;f" class="">이 상담사가 받을 수 있는 큐들</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-8023-ad38-f7a789f7f4bd"><td id="wNzv" class="">채널</td><td id="bU&gt;f" class="">음성, 채팅 등 처리 가능한 채널</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-8045-ab61-e2e3f26862fe"><td id="wNzv" class="">동시 처리 수</td><td id="bU&gt;f" class="">상담사가 동시에 처리 가능한 콜 수</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-804d-80a6-deec4fbe7ea3"><td id="wNzv" class="">우선순위</td><td id="bU&gt;f" class="">상담사가 어떤 큐의 콜을 먼저 받을지 결정하는 기준</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8089-a29b-eb70fba051d0" class="">예시</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8004-9b63-c2852fa2bb08" class="bulleted-list"><li style="list-style-type:disc">일반 상담사는 ‘주문 큐’, ‘배송 큐’만 연결됨</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80b8-954d-f088d0e2e2c2" class="bulleted-list"><li style="list-style-type:disc">기술 상담사는 ‘기술지원 큐’만 받도록 설정</li></ul></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-80f7-b276-d21774706a6c"/></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-8092-9ae5-dc879acbbe0d" class="">5. 👥 Users (상담사 / 관리자): 실제 Amazon Connect를 사용하는 사람들</h2></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8090-a35a-c9f06a1665e6" class="">정의</h3></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80eb-bcd9-f1857746ef3a" class="">Amazon Connect 시스템에 로그인하여 실제 전화를 받고 상담하는 인원이 User입니다.</p></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-80e2-8d0a-e6fc77446b5d" class="">사용자 유형</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8021-a68f-df530f126c30" class="bulleted-list"><li style="list-style-type:disc"><strong>Agent (상담사)</strong>: 고객 전화를 수신, 응대</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-807e-a290-faf7a3ca048f" class="bulleted-list"><li style="list-style-type:disc"><strong>Admin (관리자)</strong>: 설정 변경, 사용자 관리, 리포트 확인 가능</li></ul></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-802d-b892-fb63231907f0" class="">사용자 구성 시 설정 필요 사항</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8089-84bf-e793ecefe43d" class="bulleted-list"><li style="list-style-type:disc"><strong>라우팅 프로필</strong>: 어떤 큐를 받을 것인지</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8000-b028-e854a4906beb" class="bulleted-list"><li style="list-style-type:disc"><strong>보안 프로필</strong>: 권한 설정 (예: 상담사, 관리자 등)</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8063-a254-fbcbc3e05328" class="bulleted-list"><li style="list-style-type:disc"><strong>팀 구성</strong>: 관리 목적의 그룹화 (보고서 필터링 등)</li></ul></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8088-bffb-d9c9cc58273f" class="">상담사 인터페이스</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8074-a06d-ed03ade46d9b" class="bulleted-list"><li style="list-style-type:disc">브라우저 기반 <code>Agent UI</code> 사용</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8094-a081-e829960e83f8" class="bulleted-list"><li style="list-style-type:disc">상태 설정 가능 (대기, 통화 중, 자리 비움 등)</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80e5-92ed-ee0ee798d38c" class="bulleted-list"><li style="list-style-type:disc">실시간 콜 수신 및 통화 관리</li></ul></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-80c6-8848-c7749ff8a055"/></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-80e9-9382-f1d42e4d7b0e" class="">6. 🕒 Hours of Operation (운영 시간)</h2></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-80c0-b19a-ee63c88d9b0f" class="">정의</h3></div><div style="display:contents" dir="auto"><p id="22af8917-466a-8007-89c1-d2f61c955083" class="">각 Contact Flow 내에서 운영 시간 조건에 따라 흐름을 제어하는 블록입니다.</p></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8046-88c0-edfabd1c3dd0" class="">주요 기능</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8067-a615-de0987156766" class="bulleted-list"><li style="list-style-type:disc">요일 및 시간 단위로 설정 가능 (예: 평일 09:00~18:00)</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-809b-a79a-fca4996b1bfe" class="bulleted-list"><li style="list-style-type:disc">Contact Flow에서 <code>Check Hours of Operation</code> 블록과 함께 사용</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80d9-a252-d685f78091c5" class="bulleted-list"><li style="list-style-type:disc">운영 시간 외에는 다른 안내멘트 또는 종료로 분기 가능</li></ul></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8067-af5e-d349b2b2091f" class="">활용 예시</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8093-8d3e-f8799c644241" class="bulleted-list"><li style="list-style-type:disc">운영 시간 중: “상담사와 연결 중입니다.”</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8020-bb4c-e9fe55b018a7" class="bulleted-list"><li style="list-style-type:disc">운영 시간 외: “현재 운영시간이 아닙니다. 평일 오전 9시부터 오후 6시까지 운영합니다.”</li></ul></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-807b-bcfa-e49e8e6fc823"/></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-80da-8d5f-dda6f36b5ad7" class="">7. ☎️ Phone Number: 실제 고객이 전화를 거는 번호</h2></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-80c9-83f5-f648ea17369d" class="">정의</h3></div><div style="display:contents" dir="auto"><p id="22af8917-466a-80bd-90ac-e6298ab85c98" class="">고객이 Amazon Connect에 접속하기 위한 입구입니다. 전화번호마다 다른 Contact Flow를 지정할 수 있습니다.</p></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-801e-9312-d46abd41c873" class="">설정 항목</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8054-aeca-cf284286f689" class="bulleted-list"><li style="list-style-type:disc">국가별 DID (직접 연결) 번호 또는 Toll-free 번호 사용 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80e1-939c-d11b52645575" class="bulleted-list"><li style="list-style-type:disc">하나의 번호에 하나의 Contact Flow 연결</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80bd-8826-c9d92f062083" class="bulleted-list"><li style="list-style-type:disc">예: 080-1234-5678 → <code>Welcome Flow</code> 실행</li></ul></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-8036-aa1e-f0b624fdb2e6"/></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-802f-9228-e200edc992c7" class="">8. 📊 모니터링 및 리포트 기능</h2></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8044-b0db-f99a458cbf29" class="">실시간 모니터링</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8049-acde-f7513d944319" class="bulleted-list"><li style="list-style-type:disc">상담사 상태 (대기 중, 통화 중 등)</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8005-952f-e41188569d7f" class="bulleted-list"><li style="list-style-type:disc">큐별 대기 인원</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8085-bdbb-fbc6e955ecf7" class="bulleted-list"><li style="list-style-type:disc">평균 응답 시간, 연결률 확인</li></ul></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-8049-b746-f2349efd1220" class="">리포트</h3></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80e9-b146-ff43a360ce30" class="bulleted-list"><li style="list-style-type:disc">큐별 / 팀별 통화량 분석</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-8052-8cbd-c52a559e7534" class="bulleted-list"><li style="list-style-type:disc">응답률, 이탈률, 상담사 성과 측정</li></ul></div><div style="display:contents" dir="auto"><ul id="22af8917-466a-80ab-bf91-d65c867f4c45" class="bulleted-list"><li style="list-style-type:disc">CSV 다운로드 및 Amazon QuickSight 등과 연계 가능</li></ul></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-80d6-bdcb-cdc84bef0de4"/></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-80c1-82f1-c8204239da5a" class="">9. 🧠 AI 및 통합 기능</h2></div><div style="display:contents" dir="auto"><h3 id="22af8917-466a-80bd-b39d-f426b0800583" class="">AWS 서비스와의 통합</h3></div><div style="display:contents" dir="ltr"><table id="22af8917-466a-8016-adbc-e6b06f7a1c99" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="22af8917-466a-80c4-9a38-c5672f698eca"><th id="tpqF" class="simple-table-header-color simple-table-header">통합 대상</th><th id="]cUs" class="simple-table-header-color simple-table-header">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="22af8917-466a-809b-9224-f24cb4757ebc"><td id="tpqF" class="">Amazon Lex</td><td id="]cUs" class="">음성/텍스트 챗봇 기능 통합 가능 (자연어 처리)</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-8045-a031-e7d5055d2347"><td id="tpqF" class="">AWS Lambda</td><td id="]cUs" class="">외부 시스템 연동 (예: DB 조회, 고객정보 확인)</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-80d1-ba98-fd0830d31657"><td id="tpqF" class="">Amazon S3</td><td id="]cUs" class="">통화 녹음 저장</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-8077-a9c0-decf36e92b5a"><td id="tpqF" class="">Amazon Kinesis</td><td id="]cUs" class="">실시간 스트리밍 로그 분석</td></tr></div><div style="display:contents" dir="ltr"><tr id="22af8917-466a-8018-9ddf-fd61e0c005bd"><td id="tpqF" class="">Amazon Transcribe</td><td id="]cUs" class="">음성 → 텍스트 전환</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-8085-a6fb-d15a1b1761f9"/></div><div style="display:contents" dir="auto"><h2 id="22af8917-466a-80fb-b89f-ffddb174c7d3" class="">✅ 실무 흐름 예시 시나리오</h2></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22af8917-466a-805b-9f44-fcda1bff2187" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">1. 고객이 전화번호 080-1234-5678로 전화
+2. 해당 번호에 연결된 Contact Flow 실행
+3. &quot;운영 시간 확인&quot; → 현재 시간 기준 분기
+   - 운영 시간 외: 운영 종료 안내 후 Disconnect
+   - 운영 시간 내: &quot;안녕하세요 고객센터입니다&quot; Play Prompt
+4. 고객이 &#x27;1&#x27; 입력 → 주문 큐로 전송
+5. 해당 큐를 포함하는 Routing Profile 가진 상담사에게 자동 연결
+6. 상담사가 Agent UI에서 통화 수신
+</code></pre></div><div style="display:contents" dir="auto"><hr id="22af8917-466a-80c3-b2c0-e303b3754b13"/></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8003-8175-e1d070dfa7d2" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="230f8917-466a-80c0-8840-c1d0f6359b46"/></div><div style="display:contents" dir="auto"><h2 id="230f8917-466a-806c-b36d-f5df6a56acee" class="">블록 라이브러리 &gt; 상호 작용(Interactions) 섹션 주요 블록 설명</h2></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8090-b372-ddfa69141dd8" class="">1️⃣ <strong>고객 인증 (Get customer input for Amazon Connect Voice ID)</strong></h3></div><div style="display:contents" dir="auto"><blockquote id="230f8917-466a-80f0-91ba-cd08c4f88aa4" class="">고객의 음성이나 입력을 통해 Amazon Connect Voice ID를 기반으로 신원 인증을 수행합니다.</blockquote></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-80e3-83d7-ff1df6ad788b" class="">🔹 용도:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-8099-bc00-c87e489ffafb" class="bulleted-list"><li style="list-style-type:disc">생체 기반 인증 (예: 음성 패턴)</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-800e-bc0b-c3cd497f4cbe" class="bulleted-list"><li style="list-style-type:disc"><strong>사전 등록된 Voice ID가 필요</strong></li></ul></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-80db-be9b-c4e946b8edd6" class="">🔹 예시:</h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8065-b4f2-d94fb492bf10" class="">고객이 “고객센터입니다”라고 말하면 → Voice ID로 본인 확인</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-80a2-867a-ef9a848dd603" class="">→ 인증 성공 시 <code>$.Attributes.Authenticated = true</code> 저장됨</p></div><div style="display:contents" dir="auto"><blockquote id="230f8917-466a-809b-8066-d21cdbc3660a" class=""> 이 블록은 Amazon Connect Voice ID 서비스를 활성화한 경우에만 사용 가능</blockquote></div><div style="display:contents" dir="auto"><hr id="230f8917-466a-8060-a016-c21ec367b1a6"/></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8050-887c-d94f11516a07" class="">2️⃣ <strong>고객 입력 가져오기 (Get customer input)</strong></h3></div><div style="display:contents" dir="auto"><blockquote id="230f8917-466a-8045-b374-f4cfe986e8b2" class="">고객으로부터 숫자나 음성 입력을 받는 블록입니다.</blockquote></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-80e4-b390-d7e202bebbae" class="">🔹 용도:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-806b-8832-cd2bc4db01b8" class="bulleted-list"><li style="list-style-type:disc">키패드 입력 (DTMF) 또는 음성 인식으로 고객 응답 받기</li></ul></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8054-b1fe-e6995460af47" class="">🔹 예시:</h3></div><div style="display:contents" dir="auto"><blockquote id="230f8917-466a-8089-91ea-ecf08c0ccb1d" class="">“문의하실 항목의 번호를 눌러주세요.<div style="display:contents" dir="auto"><p id="230f8917-466a-8006-947f-ea5cdea89e88" class="">1번: 요금 문의, 2번: 해지 문의”</p></div></blockquote></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-80b7-b971-fc99f5b25e8c" class="bulleted-list"><li style="list-style-type:disc">고객이 <code>2</code>번을 누르면 →<div style="display:contents" dir="auto"><p id="230f8917-466a-8035-9643-c8a538e2b37c" class=""><code>$.CustomerInput = &quot;2&quot;</code>로 저장됨</p></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-807b-8ca1-e5f8970ac09e" class="">🔹 주요 설정:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-8003-9f3d-fe0c777ee82d" class="bulleted-list"><li style="list-style-type:disc">입력 방식 선택: DTMF (터치패드), 음성, 둘 다</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-8083-8da1-f75c01fbe1eb" class="bulleted-list"><li style="list-style-type:disc">입력 값 제한 (예: 1~3 자리)</li></ul></div><div style="display:contents" dir="auto"><hr id="230f8917-466a-805b-a785-cab936b51fa3"/></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8009-84a0-ede698fc0c0f" class="">3️⃣ <strong>고객 입력 저장 (Store customer input)</strong></h3></div><div style="display:contents" dir="auto"><blockquote id="230f8917-466a-8065-ae46-d64ad8918046" class="">입력된 값을 속성으로 저장하는 블록입니다.</blockquote></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-80bb-934e-e3c046d9010b" class="">🔹 용도:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-805c-9422-c447062d3308" class="bulleted-list"><li style="list-style-type:disc"><code>고객 입력 가져오기</code> 블록에서 받은 입력을 명시적으로 contact attribute로 저장</li></ul></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-801d-b39b-df855454efd5" class="">🔹 예시:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-8014-a5b6-de860182bc5f" class="bulleted-list"><li style="list-style-type:disc">고객이 <code>1</code>을 눌렀다면:<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-8060-805d-f55ebd095d01" class="code code-wrap"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">$.CustomerInput = &quot;1&quot;
+</code></pre></div></li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-804e-bac5-f8364750dbdd" class="bulleted-list"><li style="list-style-type:disc">이걸 <code>CallType</code> 이라는 속성으로 저장:<div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-80af-b314-e658d66dddb4" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Set attribute: $.Attributes.CallType = $.CustomerInput
+</code></pre></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-802a-8032-e0b11597320c" class="">🔹 사용 포인트:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-80dd-8daa-c4acc05565b0" class="bulleted-list"><li style="list-style-type:disc">다른 블록(예: 조건 분기, Lambda)에 입력값 전달하려면 반드시 이 블록을 거쳐야 함</li></ul></div><div style="display:contents" dir="auto"><hr id="230f8917-466a-801c-ae01-f50f778e4493"/></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-80c9-97a9-fcff43aa1ba1" class="">4️⃣ <strong>메시지 보내기 (Send message)</strong></h3></div><div style="display:contents" dir="auto"><blockquote id="230f8917-466a-80e4-8020-d0d2b4944704" class=""><strong>채팅(Contact Channel = CHAT)</strong>에서 고객에게 텍스트 메시지를 보내는 블록입니다.</blockquote></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8050-895c-e5eb9cc2d2fe" class="">🔹 용도:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-8067-9fe0-f6d2d9a7688f" class="bulleted-list"><li style="list-style-type:disc">웹 채팅, SMS 등 비음성 채널에서 자동 응답 발송</li></ul></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8009-9d38-e058e0347fd1" class="">🔹 예시:</h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-80db-b6a2-f5887d7cdda0" class="">고객이 채팅을 시작하면</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-809e-8299-eeae9110d902" class="">→ <code>“안녕하세요, 무엇을 도와드릴까요?”</code> 자동 전송</p></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8068-b6c5-d75d9b78774a" class="">⚠️ 주의:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-806d-ad3e-f5dbccccb505" class="bulleted-list"><li style="list-style-type:disc">음성 기반 Contact Flow에서는 이 블록은 작동하지 않음</li></ul></div><div style="display:contents" dir="auto"><hr id="230f8917-466a-80f6-a4c1-f47d66715851"/></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-803a-b7ac-dc4f5b3869b7" class="">5️⃣ <strong>재생 프롬프트 (Play prompt)</strong></h3></div><div style="display:contents" dir="auto"><blockquote id="230f8917-466a-80f9-b10c-df3c94dcb9f8" class="">고객에게 음성 메시지를 재생합니다. Contact Flow에서 가장 자주 사용됨</blockquote></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8015-b883-cf6a261cbbdf" class="">🔹 용도:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-80c3-925a-d7f725f07aed" class="bulleted-list"><li style="list-style-type:disc">안내 멘트, 인증 요청, 선택지 안내 등 모든 음성 출력</li></ul></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-80ff-b10e-c2f119032b29" class="">🔹 예시:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-80f9-afe7-eb2ca15b6eb9" class="bulleted-list"><li style="list-style-type:disc">&quot;상담원을 연결해 드리겠습니다&quot;</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-80e0-aa2d-e5dadd47ccee" class="bulleted-list"><li style="list-style-type:disc">&quot;1번은 요금 문의, 2번은 해지 문의입니다&quot;</li></ul></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8060-980a-d4d2625c2653" class="">🔹 구성 방식:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-8001-959e-f1f55e4467d6" class="bulleted-list"><li style="list-style-type:disc"><code>Text-to-Speech</code> (TTS, 예: Polly)</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-804c-bc9d-c9ba26d55175" class="bulleted-list"><li style="list-style-type:disc">또는 미리 녹음한 오디오 파일 (S3에 저장된 .wav 등)</li></ul></div><div style="display:contents" dir="auto"><hr id="230f8917-466a-8029-ab26-f47efaf5307e"/></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8001-bddd-ead8333f59dd" class="">6️⃣ <strong>지속적인 연락처 연결 생성 (Create persistent contact association)</strong></h3></div><div style="display:contents" dir="auto"><blockquote id="230f8917-466a-8005-acdd-e9f5b9cfde87" class="">고객과의 연결을 지속시키기 위한 **연관(Contact association)**을 설정</blockquote></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8043-92b7-ec09daa49d79" class="">🔹 용도:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-804c-8e26-c7751f69d749" class="bulleted-list"><li style="list-style-type:disc">특정 고객의 세션/히스토리 유지를 위해 사용</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-8096-8c0a-cb21ac544dd5" class="bulleted-list"><li style="list-style-type:disc">*고객 ID(Customer profile)**와 현재 Contact를 연결</li></ul></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-803e-86ce-fcdc2bd6afa0" class="">🔹 예시:</h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8019-a425-d673d23c0069" class="">고객이 로그인 시 ID(예: <code>customer-001</code>)를 설정하면</p></div><div style="display:contents" dir="auto"><p id="230f8917-466a-80ff-a81c-c1a76c5a947e" class="">→ 해당 ID로 향후 대화 내역을 추적 가능</p></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-8067-b20f-f56f79f11905" class="">⚠️ 일반적인 Contact Flow에서는 자주 사용되지 않음</h3></div><div style="display:contents" dir="auto"><p id="230f8917-466a-800f-a775-da93c7f7a69c" class="">→ <strong>Customer Profiles 기능을 함께 활성화한 경우 사용</strong></p></div><div style="display:contents" dir="auto"><hr id="230f8917-466a-80d2-8006-f76bcd840068"/></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-80f5-a53a-c51330764d5f" class="">7️⃣ <strong>태스크 생성 (Create task)</strong></h3></div><div style="display:contents" dir="auto"><blockquote id="230f8917-466a-8026-8416-c57b90b34adf" class="">Contact Flow 중 특정 조건일 때 작업(Task)을 생성하여 후속 조치 처리</blockquote></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-80e2-8576-d4f7939712b2" class="">🔹 용도:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-80cc-9234-fcbd0f737649" class="bulleted-list"><li style="list-style-type:disc">상담사가 나중에 처리해야 할 업무를 생성</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-80cb-bfd2-cff1078b2aad" class="bulleted-list"><li style="list-style-type:disc">예: 전화 통화 중 처리 불가한 요청을 메모하여 Task로 등록</li></ul></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-804a-a4df-c4e16b3c1a0f" class="">🔹 예시:</h3></div><div style="display:contents" dir="auto"><blockquote id="230f8917-466a-80b7-bed5-df10a1c9ac55" class="">고객이 &quot;기술팀에게 전달해주세요&quot; 라고 했을 때 →<div style="display:contents" dir="auto"><p id="230f8917-466a-807a-aef3-c5500328be52" class="">→ Task 생성 → 상담사 인박스에 할당</p></div></blockquote></div><div style="display:contents" dir="auto"><h3 id="230f8917-466a-80bb-b512-cb019f739882" class="">🔹 구성 요소:</h3></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-805c-8d5f-fb99fe2cf321" class="bulleted-list"><li style="list-style-type:disc">Task 이름</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-8044-b7e8-ee0a3f20134d" class="bulleted-list"><li style="list-style-type:disc">할당 대상 (Queue or agent)</li></ul></div><div style="display:contents" dir="auto"><ul id="230f8917-466a-80db-95fe-cba8a94af6ba" class="bulleted-list"><li style="list-style-type:disc">속성 (ex: TaskType, Priority 등)</li></ul></div><div style="display:contents" dir="auto"><hr id="230f8917-466a-8045-8643-e095242726a2"/></div><div style="display:contents" dir="auto"><h2 id="230f8917-466a-8033-a653-e1954320621a" class="">✅ 요약 테이블</h2></div><div style="display:contents" dir="ltr"><table id="230f8917-466a-80e5-9a69-dea738749325" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="230f8917-466a-80e2-9e2b-e4a8b6296ecd"><th id="@LB;" class="simple-table-header-color simple-table-header">블록 이름</th><th id="hzxp" class="simple-table-header-color simple-table-header">주요 기능</th><th id="P?N~" class="simple-table-header-color simple-table-header">사용 예시</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="230f8917-466a-8087-a226-cf75a33b84c1"><td id="@LB;" class="">고객 인증</td><td id="hzxp" class="">음성 기반 인증 (Voice ID)</td><td id="P?N~" class="">등록된 고객 음성으로 본인 확인</td></tr></div><div style="display:contents" dir="ltr"><tr id="230f8917-466a-80bf-874f-c2a72da0f961"><td id="@LB;" class="">고객 입력 가져오기</td><td id="hzxp" class="">고객의 키패드 또는 음성 입력 받기</td><td id="P?N~" class="">메뉴 선택 (1번: 요금, 2번: 해지)</td></tr></div><div style="display:contents" dir="ltr"><tr id="230f8917-466a-8080-b5f4-d41aa5537144"><td id="@LB;" class="">고객 입력 저장</td><td id="hzxp" class="">입력값을 속성으로 저장</td><td id="P?N~" class=""><code>$.Attributes.CallType = $.CustomerInput</code></td></tr></div><div style="display:contents" dir="ltr"><tr id="230f8917-466a-8036-8b92-faf1d12619d8"><td id="@LB;" class="">메시지 보내기</td><td id="hzxp" class="">채팅 고객에게 텍스트 전송</td><td id="P?N~" class="">웹 챗봇 인사말</td></tr></div><div style="display:contents" dir="ltr"><tr id="230f8917-466a-8062-9326-d57a0b1e32ea"><td id="@LB;" class="">재생 프롬프트</td><td id="hzxp" class="">음성 안내 메시지 재생</td><td id="P?N~" class="">&quot;안녕하세요, 상담을 시작하겠습니다&quot;</td></tr></div><div style="display:contents" dir="ltr"><tr id="230f8917-466a-8092-b6f0-ebc28ff6b9f3"><td id="@LB;" class="">지속 연결 생성</td><td id="hzxp" class="">고객 프로필 연결 유지</td><td id="P?N~" class=""><code>customer-001</code> ←→ current contact 연결</td></tr></div><div style="display:contents" dir="ltr"><tr id="230f8917-466a-80ad-b2b4-c3d4e6143cb1"><td id="@LB;" class="">태스크 생성</td><td id="hzxp" class="">상담 후속 업무 생성</td><td id="P?N~" class="">고객 요청 → 나중에 담당자가 처리할 Task 생성</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="230f8917-466a-8045-b9d2-f891450af26b"/></div><div style="display:contents" dir="auto"><h2 id="230f8917-466a-8053-941f-fb8f2f6d106b" class="">🔄 일반적인 활용 흐름 예시</h2></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="230f8917-466a-8090-b475-d6d1c76d14fa" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[재생 프롬프트: “1번 요금, 2번 해지”]
+   ↓
+[고객 입력 가져오기]
+   ↓
+[고객 입력 저장 → 속성: CallType]
+   ↓
+[연락처 속성 확인 → CallType = &quot;2&quot;]
+   ↓
+[재생 프롬프트: “해지 담당자로 연결합니다”]
+</code></pre></div><div style="display:contents" dir="auto"><hr id="230f8917-466a-80bb-a977-f6eb1fe4a06b"/></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8046-b9d4-eee50a01819f" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="22af8917-466a-8038-a6f1-dd5bd0a600eb" class=""></h1></div><div style="display:contents" dir="auto"><p id="230f8917-466a-8099-8058-f37bf6405128" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

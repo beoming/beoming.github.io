@@ -1,0 +1,712 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Agent Assist integration with Salesforce</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="327f8917-466a-8009-855b-e4025e56d814" class="page sans"><header><h1 class="page-title" dir="auto">Agent Assist integration with Salesforce</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="ltr"><figure id="327f8917-466a-8087-a896-c22ba2070be1" class="image"><a href="Agent%20Assist%20integration%20with%20Salesforce/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_13.53.48.png"><img style="width:709.984375px" src="Agent%20Assist%20integration%20with%20Salesforce/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-18_13.53.48.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8002-a550-dbd21eef819e" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-807e-ba0d-c33326321c31" class="">아키텍처 관점에서 구성 요소</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-804d-acab-d16daf6eea2a" class="">구조는 크게 3개 영역으로 나뉩니다.</p></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-8055-b1e8-c94cf79d5d08" class="">1) Google Cloud</h2></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80b3-8c8f-e534df129242" class="">여기에는 백엔드 인프라가 있습니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8048-8233-c74abdb72001" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8092-8c1b-c1b168d76bcd" class="bulleted-list"><li style="list-style-type:disc">UI Connector</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8043-9302-efa9eb8128ed" class="bulleted-list"><li style="list-style-type:disc">Integration Backend</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8028-9224-fdfaef0f8c94" class="bulleted-list"><li style="list-style-type:disc">인증/이벤트 처리</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80e0-8b3a-d7ac9e0d65f3" class="bulleted-list"><li style="list-style-type:disc">Agent Assist 기능과 연결되는 서버 구성</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80e7-8429-fb871db94a53" class="">즉 Agent Assist의 실제 AI 기능과 백엔드 연동은 Google Cloud 쪽에서 담당합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-80e5-9782-d6cc2429bfdd"/></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-8006-8cfc-ff7db0c319c5" class="">2) Salesforce Instance</h2></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8026-9f9e-fd501e8e0781" class="">상담사가 실제로 일하는 환경입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8064-80a4-c033a3d6ddb3" class="">여기에는:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80c1-8495-eb791314a35c" class="bulleted-list"><li style="list-style-type:disc">Agent Assist UI Modules</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8001-8793-dc4c629ea16b" class="bulleted-list"><li style="list-style-type:disc">이를 감싸는 LWC</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80ef-b023-ea3745f4a3f1" class="bulleted-list"><li style="list-style-type:disc">Salesforce Agent Desktop</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8032-a88e-ca819d011ea9" class="">이 있습니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-803e-8e32-fd9749f45e85" class="">즉 Salesforce 안에서는 <strong>LWC가 Agent Assist UI를 호스팅하는 접점</strong> 역할을 합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-808f-8484-f0c115168e06"/></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-80f6-b3ef-c087fd7275df" class="">3) Web Client</h2></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80de-b489-e32f96f93ecc" class="">최종 고객이 사용하는 채팅 클라이언트입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8043-92bf-ebfd04e3be9e" class="">고객은 웹 채팅으로 문의하고,</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-803f-96b3-ff3a2802b8d5" class="">그 메시지가 Salesforce와 연결되며, 상담사는 Salesforce Agent Desktop에서 응대합니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-800a-9f03-f872659a3dff"/></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-80e5-a68d-fddc3413dbae" class="">4. Salesforce와 Agent Assist가 연결되는 방식</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80f0-92fd-d360261e7b4c" class="">핵심 포인트는 이것입니다.</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8000-8ef7-fb1250c92a5e" class="bulleted-list"><li style="list-style-type:disc">Agent Assist UI Modules는 공통 모듈</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8042-9fd0-c9a6f8a59671" class="bulleted-list"><li style="list-style-type:disc">Salesforce에서는 이 모듈을 바로 쓰지 않고</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8097-9487-f34e127d40d5" class="bulleted-list"><li style="list-style-type:disc"><strong>Lightning Web Component가 wrapper 역할</strong>을 함</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80e9-9770-fca0379166f0" class="bulleted-list"><li style="list-style-type:disc">이 wrapper가 Salesforce 환경에 맞게 UI를 붙여줌</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-800e-a694-d93bd200482e" class="">그리고 메시징은:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-809c-b86e-d3b17d0282f5" class="bulleted-list"><li style="list-style-type:disc"><strong>Messaging for In-App and Web</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8097-a502-dee3c14a9cb4" class="bulleted-list"><li style="list-style-type:disc"><strong>Omni-Channel Messaging</strong></li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80c5-9df5-d15d56d1c603" class="">과 연결됩니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-803d-b7bc-cd65863e73f2" class="">즉 Salesforce 채팅 플랫폼과 Agent Assist UI 사이를</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-806b-ad79-eca1090efc5f" class="">LWC + UI Connector가 이어주는 구조입니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-802b-9ecb-c46a171b9277"/></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-80ab-acc4-f9f3e5d487da" class="">5. 실제 동작 예시</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-807f-a9ef-e523968a33fb" class="">영상의 예시는 상담 흐름 안에서 Agent Assist가 어떻게 보이는지를 보여줍니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8049-95d7-effeb5b32740" class="">예를 들면:</p></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-8075-93d2-f8fbcba43ddf" class="">고객이 “hi”라고 말함</h2></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80bc-907f-e64bc3606ac6" class="bulleted-list"><li style="list-style-type:disc">상담사는 <strong>Smart Reply</strong> 추천을 받음</li></ul></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-809a-9692-c7a08e0b08c6" class="">고객이 co-insurance deductible 문의</h2></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-800e-919c-f020e491b5e3" class="bulleted-list"><li style="list-style-type:disc">추가 Smart Reply 추천 제공</li></ul></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-80e5-9fb5-de6d73f5272a" class="">고객이 membership card 재발급 요청</h2></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80fd-b428-fdbc225efd54" class="bulleted-list"><li style="list-style-type:disc"><strong>GKA(Generative Knowledge Assist)</strong> 제안 표시</li></ul></div><div style="display:contents" dir="auto"><h2 id="327f8917-466a-802a-aa5d-d655774ec6ee" class="">상담사가 요약 버튼 클릭</h2></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8053-b2ab-e6d299f49f4c" class="bulleted-list"><li style="list-style-type:disc"><strong>Summarization</strong> 생성</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80b4-b6c9-cc1abdc543c5" class="">또는 채팅 종료 시 자동으로 요약 생성</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-801a-8278-d8fea802a785" class="">요약에는 보통 이런 필드가 포함됩니다.</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8082-a3a0-f12e1017ef3c" class="bulleted-list"><li style="list-style-type:disc">Situation</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80f2-b67a-e149e6371768" class="bulleted-list"><li style="list-style-type:disc">Action</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8021-87be-e99ca1531aa5" class="bulleted-list"><li style="list-style-type:disc">Resolution</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8090-83a6-c61ec739bcfe" class="bulleted-list"><li style="list-style-type:disc">Customer Satisfaction</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-804e-8059-fae4d5fcd3e5" class="">이 필드들은:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80c6-96b4-e4ac119ef5ef" class="bulleted-list"><li style="list-style-type:disc">수정 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80e8-aed7-d3dfd80802bd" class="bulleted-list"><li style="list-style-type:disc">저장 가능</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-800d-80f9-eaccf2d1fa0b" class="bulleted-list"><li style="list-style-type:disc">복사 가능</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80c6-bb56-c5538daed670" class="">또한 <strong>AI Coach</strong>가</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8066-889a-c80beba31eb5" class="bulleted-list"><li style="list-style-type:disc">주소 최신 여부 확인</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-806b-91c9-d54fff032969" class="bulleted-list"><li style="list-style-type:disc">전화번호 최신 여부 확인</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8077-890e-fe12493ec844" class="">같은 추가 코칭 제안을 줄 수 있습니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8073-b20b-ebe4d800e199" class="">즉 단순 답변 추천만이 아니라,</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8019-988b-e61f423d4b60" class=""><strong>답변 추천 + 지식 제안 + 요약 + 코칭</strong></p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8027-aa83-d5fd60649200" class="">까지 Salesforce 화면 안에서 제공됩니다.</p></div><div style="display:contents" dir="auto"><hr id="327f8917-466a-8054-9bcc-fc9c78d1e1d0"/></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-8049-9279-f2d6fb827f4c" class="">6. LWC란 무엇인가</h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8087-8bb1-ea4ec95c18d6" class="">LWC는 <strong>Salesforce의 현대적인 프론트엔드 컴포넌트 프레임워크</strong>입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8047-98f1-ef7a1489ec43" class="">설명대로:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-803d-9732-ffa976344586" class="bulleted-list"><li style="list-style-type:disc">HTML 템플릿</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8060-a624-d022fcff02f2" class="bulleted-list"><li style="list-style-type:disc">CSS 모듈</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8093-83e1-ed831445eb5f" class="bulleted-list"><li style="list-style-type:disc">JavaScript 클래스 기반 컴포넌트</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-80bc-b65e-d010dbf34d7c" class="">구조를 사용합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-807b-bce1-ea40923879fb" class="">React, Angular, Vue 경험이 있으면 익숙하게 느껴질 수 있습니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-801c-ba33-e0cbb66220c9" class="">즉 Salesforce 전용이긴 하지만, 개념적으로는</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-801c-9446-f1dea360b0ea" class=""><strong>현대 JS 컴포넌트 프레임워크와 유사한 방식</strong>입니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8078-981f-e1a606c06cf4" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="327f8917-466a-808b-9287-daf437db4896" class=""><mark class="highlight-yellow">Salesforce 쪽에서 Agent Assist가 붙는 방식</mark></h1></div><div style="display:contents" dir="auto"><p id="327f8917-466a-8056-8fd8-d2299e4cae5b" class="">이 모듈에서는 <strong>정의된 custom LWC component가 Agent Assist UI Modules를 wrapper 형태로 감싼다</strong>고 설명합니다.</p></div><div style="display:contents" dir="auto"><p id="327f8917-466a-801d-897a-fae3c6d959d7" class="">즉:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8077-98bd-e30d872c8d3d" class="bulleted-list"><li style="list-style-type:disc">Agent Assist 기능 자체를 Salesforce 코드로 새로 구현하는 것이 아니라</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8076-adc3-ea9a328f0c2d" class="bulleted-list"><li style="list-style-type:disc">기존 UI Modules를 <strong>LWC wrapper</strong>로 포장해서</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80a0-b60b-d2579fb6129f" class="bulleted-list"><li style="list-style-type:disc">Salesforce Agent Desktop에 꽂는 방식입니다.</li></ul></div><div style="display:contents" dir="auto"><p id="327f8917-466a-806a-90e6-d957838a7629" class="">여기에 붙일 수 있는 대표 기능:</p></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-8039-bd7c-f711fdcf8d61" class="bulleted-list"><li style="list-style-type:disc">Summarization</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-806c-8ef8-ecdfe7a09987" class="bulleted-list"><li style="list-style-type:disc">Smart Reply</li></ul></div><div style="display:contents" dir="auto"><ul id="327f8917-466a-80c8-99c4-cff2809ca2a1" class="bulleted-list"><li style="list-style-type:disc">기타 Agent Assist 기능들</li></ul></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,854 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Genesys Cloud Audiohook 연동 보고서</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1def8917-466a-800a-8815-c7b6d050bb15" class="page sans"><header><h1 class="page-title" dir="auto">Genesys Cloud Audiohook 연동 보고서</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="1def8917-466a-806c-bb2a-f83cca3ce7f2" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="1def8917-466a-8071-8fd5-c8087d2a9cbb" class="">1. 개요</h2></div><div style="display:contents" dir="auto"><p id="1def8917-466a-804a-a70e-f093b1cb5c27" class="">본 보고서는 Genesys Cloud AudioHook과의 성공적인 WebSocket 통신 구현에 관한 기술적 내용을 담고 있습니다. AudioHook은 Genesys Cloud의 음성 데이터를 실시간으로 외부 시스템에 스트리밍하여 음성 인식(STT), 감정 분석 등 다양한 음성 처리 서비스를 구현할 수 있게 해주는 인터페이스입니다.</p></div><div style="display:contents" dir="auto"><p id="1def8917-466a-8098-ba41-f820e88d4db9" class="">LG CNS에서 요청한 EU AICC 베트남 STT 연계 작업에 앞서, Genesys Cloud AudioHook과의 기본적인 통신 방법과 구현 방안을 설명합니다.</p></div><div style="display:contents" dir="auto"><h2 id="1def8917-466a-80f1-994e-e1cbc065453e" class="">2. AudioHook 아키텍처 및 개념</h2></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-8094-909b-d8702fe62b65" class="">2.1 AudioHook 개요</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-80e6-8fa8-d635c7babb04" class="">AudioHook은 Genesys Cloud에서 음성 데이터를 외부 시스템으로 전달하기 위한 WebSocket 기반 프로토콜입니다. 이 기능을 통해 다음과 같은 작업이 가능합니다:</p></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80eb-84db-f534425f5c85" class="bulleted-list"><li style="list-style-type:disc">실시간 콜 센터 통화 오디오 스트리밍</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8038-b420-c4be875ccb17" class="bulleted-list"><li style="list-style-type:disc">외부 음성 인식(STT) 서비스와의 연동</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80c9-8e89-f43c7906c838" class="bulleted-list"><li style="list-style-type:disc">감정 분석, 키워드 감지 등 고급 음성 분석 기능 구현</li></ul></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-803d-b157-fa30f047a282" class="">2.2 통신 구조</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-8026-9b25-d2acf365d950" class="">AudioHook은 다음과 같은 통신 구조를 갖습니다:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80a0-b4ed-ff8a30d24b6b" class="numbered-list" start="1"><li><strong>WebSocket 연결 수립</strong>: Genesys Cloud는 지정된 엔드포인트로 WebSocket 연결을 시도합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80f7-8807-d7a294f01a16" class="numbered-list" start="2"><li><strong>세션 시작</strong>: Genesys Cloud가 <code>open</code> 메시지를 전송하고, 서버는 <code>opened</code> 메시지로 응답합니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-803d-84b9-e74fec134f64" class="numbered-list" start="3"><li><strong>오디오 스트리밍</strong>: 통화 중 발생하는 오디오 데이터가 바이너리 형태로 전송됩니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-8073-b63e-dea980ae13c1" class="numbered-list" start="4"><li><strong>세션 종료</strong>: Genesys Cloud가 <code>close</code> 메시지를 전송하고, 서버는 <code>closed</code> 메시지로 응답합니다.</li></ol></div><div style="display:contents" dir="auto"><p id="1def8917-466a-80c7-82e2-d3aa93df6afc" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-8017-90fa-cf368130de54" class="">2.3 AudioHook 연동 API 종류</h3></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-8088-8f21-c70d68faf097" class="">1. AudioHook 설정 및 관리 API</h3></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-805e-8a5f-c37b2b7a1fd7" class="bulleted-list"><li style="list-style-type:disc"><strong>Integration Configuration API</strong><div style="display:contents" dir="auto"><ul id="1def8917-466a-80f1-8c71-d452081f0ebc" class="bulleted-list"><li style="list-style-type:circle">목적: AudioHook 통합을 생성하고 관리하는 API<div style="display:contents" dir="auto"><ul id="1def8917-466a-8066-b07a-d0b76a4efef4" class="bulleted-list"><li style="list-style-type:square">주요 메서드: POST, GET, PUT, DELETE /api/v2/integrations</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-806e-b6fc-cf056b5d3684" class="bulleted-list"><li style="list-style-type:square">설명: AudioHook 통합을 생성하고 설정하는 데 사용됩니다. 여기서 웹소켓 엔드포인트 URL, 인증 방법, 미디어 설정 등을 구성합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8017-a933-e6d0fdfbede5" class="bulleted-list"><li style="list-style-type:circle"><strong>Credential Management API</strong><div style="display:contents" dir="auto"><ul id="1def8917-466a-80c2-b457-e8709e4d691f" class="bulleted-list"><li style="list-style-type:square">목적: AudioHook 통합에 필요한 인증 정보 관리</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8079-8e2c-c69edb2c9f0e" class="bulleted-list"><li style="list-style-type:square">주요 메서드: POST, GET, PUT /api/v2/integrations/{integrationId}/credentials</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80a3-80ab-ca789461ea6d" class="bulleted-list"><li style="list-style-type:square">설명: OAuth 클라이언트 ID/시크릿, API 키 등의 인증 정보를 관리합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-8050-9831-f85be45fe6ab" class="">2. WebSocket 프로토콜 API</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-805d-959d-e5494356ede2" class="">AudioHook은 WebSocket 프로토콜을 통해 통신하며, 다음과 같은 주요 메시지 유형을 지원합니다:</p></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8036-a656-eaf5aea8f9d3" class="bulleted-list"><li style="list-style-type:circle"><strong>세션 제어 메시지</strong><div style="display:contents" dir="auto"><ul id="1def8917-466a-8011-a928-c5306a63d1fb" class="bulleted-list"><li style="list-style-type:square"><code>open</code>: 클라이언트(Genesys)에서 세션 시작 요청</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8020-b759-f198e022f692" class="bulleted-list"><li style="list-style-type:square"><code>opened</code>: 서버(개발자 구현)에서 세션 시작 응답</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80c4-a6d4-d7d59b5b2b6e" class="bulleted-list"><li style="list-style-type:square"><code>close</code>: 클라이언트에서 세션 종료 요청</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-807e-a582-cc8a4544310c" class="bulleted-list"><li style="list-style-type:square"><code>closed</code>: 서버에서 세션 종료 응답</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8074-9183-e6e01be452d7" class="bulleted-list"><li style="list-style-type:square"><code>ping/pong</code>: 연결 상태 확인용 메시지</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-807e-9317-f0775e90aca5" class="bulleted-list"><li style="list-style-type:square"><code>error</code>: 오류 보고 메시지</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80a5-b043-e544264d4a52" class="bulleted-list"><li style="list-style-type:square"><code>disconnect</code>: 서버에서 세션 강제 종료 요청</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-809b-aab4-e0e597261b59" class="bulleted-list"><li style="list-style-type:circle"><strong>상태 제어 메시지</strong><div style="display:contents" dir="auto"><ul id="1def8917-466a-809c-92f1-c7cd9f07b98d" class="bulleted-list"><li style="list-style-type:square"><code>pause</code>: 오디오 스트리밍 일시 중지 요청</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8057-94f3-f24a7d901b38" class="bulleted-list"><li style="list-style-type:square"><code>paused</code>: 일시 중지 확인 응답</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8053-9edb-ffa8df293dff" class="bulleted-list"><li style="list-style-type:square"><code>resume</code>: 오디오 스트리밍 재개 요청</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80da-93bf-e22c1d22b7fa" class="bulleted-list"><li style="list-style-type:square"><code>resumed</code>: 재개 확인 응답</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8036-a1d5-c74af4bce5d3" class="bulleted-list"><li style="list-style-type:square"><code>update</code>: 세션 매개변수 업데이트 요청</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80dd-b958-e3d1361f8506" class="bulleted-list"><li style="list-style-type:square"><code>updated</code>: 업데이트 확인 응답</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8035-a440-d6bbc061e9cf" class="bulleted-list"><li style="list-style-type:circle"><strong>오디오 데이터 전송</strong><div style="display:contents" dir="auto"><ul id="1def8917-466a-800e-aa65-fc87fcfeadac" class="bulleted-list"><li style="list-style-type:square">바이너리 메시지: PCM 또는 기타 포맷의 오디오 데이터 전송</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80e1-817d-c2832cd4db8d" class="bulleted-list"><li style="list-style-type:square"><code>discarded</code>: 오디오 데이터 손실 알림 메시지</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-8024-88bc-e0f305461fd5" class="">3. 통화 관리 및 제어 API</h3></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80f3-a40b-c1f53fb8741b" class="bulleted-list"><li style="list-style-type:circle"><strong>Conversation API</strong><div style="display:contents" dir="auto"><ul id="1def8917-466a-8006-abd6-eb67b979262c" class="bulleted-list"><li style="list-style-type:square">목적: 통화 세션 정보 조회 및 관리</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80b4-9fb3-fedbd126878d" class="bulleted-list"><li style="list-style-type:square">주요 메서드: GET /api/v2/conversations/{conversationId}</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-809f-8cc5-f0cb5b3a38c7" class="bulleted-list"><li style="list-style-type:square">설명: AudioHook에 연결된 통화의 메타데이터, 참가자 정보, 상태 등을 조회할 수 있습니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-802c-8d3b-d39a5f6fa74b" class="bulleted-list"><li style="list-style-type:circle"><strong>Recording API</strong><div style="display:contents" dir="auto"><ul id="1def8917-466a-80f3-a80c-d67af6ad2eab" class="bulleted-list"><li style="list-style-type:square">목적: 통화 녹음 관리</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80e2-a928-e952071d1858" class="bulleted-list"><li style="list-style-type:square">주요 메서드: GET, PUT /api/v2/conversations/{conversationId}/recordings</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8025-8160-f0a5ae4e323a" class="bulleted-list"><li style="list-style-type:square">설명: 통화 녹음을 관리하고 액세스할 수 있습니다. AudioHook 결과를 녹음과 연계할 때 유용합니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-80fa-b3a2-f0b23a3c94c1" class="">4. 분석 및 피드백 API</h3></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-806d-b003-e478bf78e072" class="bulleted-list"><li style="list-style-type:circle"><strong>Analytics API</strong><div style="display:contents" dir="auto"><ul id="1def8917-466a-809e-9adf-caf567cbbc75" class="bulleted-list"><li style="list-style-type:square">목적: AudioHook으로 생성된 데이터 분석 및 보고</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80eb-bfca-f798c88a52c9" class="bulleted-list"><li style="list-style-type:square">주요 메서드: POST /api/v2/analytics/conversations/details/query</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80e1-acfc-d1fcc8395791" class="bulleted-list"><li style="list-style-type:square">설명: AudioHook을 통해 처리된 통화 데이터를 분석하고 보고서를 생성할 수 있습니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8076-b835-fdb1387519ce" class="bulleted-list"><li style="list-style-type:circle"><strong>Attributes API</strong><div style="display:contents" dir="auto"><ul id="1def8917-466a-8092-880a-c1d335aca13d" class="bulleted-list"><li style="list-style-type:square">목적: 통화에 커스텀 속성 추가</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80be-809f-eceb165bb73f" class="bulleted-list"><li style="list-style-type:square">주요 메서드: PATCH /api/v2/conversations/{conversationId}/attributes</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80ff-bbb3-f989b49e3ed1" class="bulleted-list"><li style="list-style-type:square">설명: STT 결과나 감정 분석 결과 등을 통화 속성으로 추가할 수 있습니다.</li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-80d0-9205-c8fc72331519" class="">5. 연동 구현을 위한 실제 코드 흐름</h3></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-800a-a63f-e0e36195a9f6" class="numbered-list" start="1"><li><strong>서버 설정 및 연결 수립</strong><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1def8917-466a-8018-86ea-c57712101505" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const wss = new WebSocket.Server({ server });
+wss.on(&quot;connection&quot;, (ws, req) =&gt; {
+  // 연결 수립 로직
+});
+</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-800f-b523-e91c487a769b" class="numbered-list" start="2"><li><strong>세션 시작 (open/opened)</strong><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1def8917-466a-8057-b7df-ff3597c58043" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">// &#x27;open&#x27; 메시지 수신 처리
+case &quot;open&quot;: {
+  // 미디어 선택 등 설정
+  const openedMsg = {
+    &quot;version&quot;: &quot;2&quot;,
+    &quot;type&quot;: &quot;opened&quot;,
+    &quot;id&quot;: msg.id,
+    &quot;seq&quot;: serverSeq,
+    &quot;clientseq&quot;: lastClientSeq,
+    &quot;parameters&quot;: { ... }
+  };
+  ws.send(JSON.stringify(openedMsg));
+}
+</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-8071-ac33-c9d97a3809a0" class="numbered-list" start="3"><li><strong>오디오 데이터 처리</strong><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1def8917-466a-8074-8dce-e11664f5fb72" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">if (isBinary) {
+  // 바이너리 오디오 데이터 처리
+  // STT 서비스 호출 또는 버퍼링 로직
+}
+</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-8035-82b6-e47b5df0b785" class="numbered-list" start="4"><li><strong>세션 종료 (close/closed)</strong><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1def8917-466a-8060-8ac8-daf0f111f972" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">case &quot;close&quot;: {
+  const closedMsg = {
+    &quot;version&quot;: &quot;2&quot;,
+    &quot;type&quot;: &quot;closed&quot;,
+    &quot;id&quot;: msg.id,
+    &quot;seq&quot;: serverSeq,
+    &quot;clientseq&quot;: lastClientSeq,
+    &quot;parameters&quot;: {}
+  };
+  ws.send(JSON.stringify(closedMsg));
+}
+</code></pre></div></li></ol></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-80c8-b654-ec39b6dce98b" class="">6. 시퀀스 관리 중요사항</h3></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80bc-8383-e3801652fe10" class="bulleted-list"><li style="list-style-type:disc"><strong>시퀀스 번호 관리</strong>가 매우 중요합니다. 각 메시지에는:<div style="display:contents" dir="auto"><ul id="1def8917-466a-802c-ad1d-c7996cd28158" class="bulleted-list"><li style="list-style-type:circle"><code>seq</code>: 발신자 메시지 번호 (증가하는 값)</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80ae-9d76-e690c922037f" class="bulleted-list"><li style="list-style-type:circle"><code>clientseq</code>: 서버가 마지막으로 받은 클라이언트 메시지 번호</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80f5-91f0-f7eda39fd44b" class="bulleted-list"><li style="list-style-type:circle"><code>serverseq</code>: 클라이언트가 마지막으로 받은 서버 메시지 번호</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-8045-b0d0-c4a1d57cca74" class="bulleted-list"><li style="list-style-type:disc">시퀀스 불일치는 통신 실패의 주요 원인이 되므로 정확히 관리해야 합니다.</li></ul></div><div style="display:contents" dir="auto"><p id="1def8917-466a-8042-877f-c1bd05b56a43" class=""><span style="border-bottom:0.05em solid">Genesys Cloud AudioHook과 성공적으로 연동하려면 위의 API들을 정확히 이해하고 구현해야 합니다. 특히 WebSocket 프로토콜과 시퀀스 번호 관리가 가장 중요한 부분입니다.</span></p></div><div style="display:contents" dir="auto"><h2 id="1def8917-466a-8089-a5dc-cea831a04839" class="">3. WebSocket 서버 구현 및 통신 프로토콜</h2></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-80fb-9df1-f6f19cb6ed73" class="">3.1 기본 서버 구현</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-80de-aef4-d158c745bff2" class="">Node.js와 Express 프레임워크를 사용하여 WebSocket 서버를 구현했습니다:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1def8917-466a-80fa-b8fd-f2be1a0888cf" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const express = require(&quot;express&quot;);
+const http = require(&quot;http&quot;);
+const WebSocket = require(&quot;ws&quot;);
+
+const app = express();
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
+// 서버 구현 코드
+// ...
+
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () =&gt; {
+  console.log(`WebSocket 서버 실행 중: ws://localhost:${PORT}`);
+});
+</code></pre></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-8050-b170-e4075f5414fe" class="">3.2 메시지 유형 및 처리</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-805f-92d8-e4338039a287" class="">AudioHook 프로토콜에서 지원하는 주요 메시지 유형은 다음과 같습니다:</p></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-809b-841d-d06c8f7c934d" class="bulleted-list"><li style="list-style-type:disc"><strong>open/opened</strong>: 세션 시작 및 응답</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80ca-a868-fb90692b6176" class="bulleted-list"><li style="list-style-type:disc"><strong>ping/pong</strong>: 연결 유지 및 네트워크 상태 확인</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80b1-8dc2-fb104a18a25f" class="bulleted-list"><li style="list-style-type:disc"><strong>close/closed</strong>: 세션 종료 및 응답</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80da-a9ef-e0fba0c4cb3d" class="bulleted-list"><li style="list-style-type:disc"><strong>error</strong>: 오류 발생 알림</li></ul></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-8017-8814-f84d3764f236" class="">3.3 시퀀스 번호 관리</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-8074-9210-d6bf9ee59a36" class="">AudioHook 프로토콜에서는 메시지 순서와 동기화를 보장하기 위해 시퀀스 번호 관리가 매우 중요합니다:</p></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80e8-aba4-fea5686c7bbf" class="bulleted-list"><li style="list-style-type:disc"><strong>seq</strong>: 각 메시지의 순차적 번호로, 발신자가 증가시킵니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-809f-9d1f-e32a1f6e0bef" class="bulleted-list"><li style="list-style-type:disc"><strong>clientseq</strong>: 서버가 마지막으로 받은 클라이언트 메시지의 시퀀스 번호입니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="1def8917-466a-80e2-acb7-c157dd9bb83b" class="bulleted-list"><li style="list-style-type:disc"><strong>serverseq</strong>: 클라이언트가 마지막으로 받은 서버 메시지의 시퀀스 번호입니다.</li></ul></div><div style="display:contents" dir="auto"><p id="1def8917-466a-808d-8053-f343f30d89b8" class="">올바른 시퀀스 번호 관리가 이루어지지 않으면 &quot;메시지가 잘못된 형식&quot;이라는 오류나 &quot;잘못된 서버 시퀀스 번호&quot; 오류가 발생합니다.</p></div><div style="display:contents" dir="auto"><h2 id="1def8917-466a-809a-b86e-d48a620df292" class="">4. 구현 과정 및 트러블슈팅</h2></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-80cc-a031-fbcc89d81218" class="">4.1 초기 서버 구현</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-80e5-b3e9-c3ae4e497412" class="">초기 서버 구현에서는 Genesys Cloud가 기대하는 정확한 메시지 형식과 시퀀스 번호 관리 방식을 파악하지 못해 연결 프로브 테스트에 실패했습니다.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1def8917-466a-8049-97c3-ed28895e1b7b" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">� 메시지 수신: error {
+  &quot;version&quot;: &quot;2&quot;,
+  &quot;id&quot;: &quot;...&quot;,
+  &quot;type&quot;: &quot;error&quot;,
+  &quot;seq&quot;: 2,
+  &quot;position&quot;: &quot;PT0S&quot;,
+  &quot;parameters&quot;: {
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;Connection probe error: Message is malformed&quot;
+  },
+  &quot;serverseq&quot;: 0
+}
+</code></pre></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-8080-aa18-eb6729a97c81" class="">4.2 문제 분석 및 해결</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-800a-9664-dd1920b86ced" class="">주요 문제점과 해결 방안:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80c3-b656-e2981dc9129d" class="numbered-list" start="1"><li><strong>잘못된 메시지 구조</strong>: Genesys Cloud가 기대하는 정확한 메시지 형식을 파악하고 구현했습니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-802a-956b-e89c815d646a" class="numbered-list" start="2"><li><strong>시퀀스 번호 관리 오류</strong>: AudioHook 프로토콜 문서를 분석하여 정확한 시퀀스 번호 관리 방식을 구현했습니다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-804f-a6bb-f9bbb6c0de11" class="numbered-list" start="3"><li><strong>필드 누락 또는 과다</strong>: 필수 필드만 포함하도록 메시지 구조를 단순화했습니다.</li></ol></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-80c2-85e8-ecfbf181fd2c" class="">4.3 최종 구현</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-804a-acfc-d26ffcbf9047" class="">성공적인 통신을 위한 핵심 코드 부분:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1def8917-466a-8041-9a1a-e0760d303261" class="code code-wrap"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">ws.on(&quot;message&quot;, (data, isBinary) =&gt; {
+  if (isBinary) {
+    console.log(&quot;오디오 수신:&quot;, data.length, &quot;bytes&quot;);
+    return;
+  }
+
+  try {
+    const msg = JSON.parse(data.toString());
+
+    // 클라이언트 시퀀스 번호 업데이트
+    if (msg.seq !== undefined) {
+      lastClientSeq = msg.seq;
+    }
+
+    switch (msg.type) {
+      case &quot;open&quot;: {
+        // 응답 생성
+        const openedMsg = {
+          &quot;version&quot;: &quot;2&quot;,
+          &quot;type&quot;: &quot;opened&quot;,
+          &quot;id&quot;: msg.id,
+          &quot;seq&quot;: serverSeq,
+          &quot;clientseq&quot;: lastClientSeq,
+          &quot;parameters&quot;: {
+            &quot;startPaused&quot;: false,
+            &quot;media&quot;: [
+              // 미디어 옵션 설정
+            ]
+          }
+        };
+
+        ws.send(JSON.stringify(openedMsg));
+        serverSeq++; // 서버 시퀀스 증가
+        break;
+      }
+
+      // 다른 메시지 타입 처리...
+    }
+  } catch (err) {
+    console.error(&quot;JSON 파싱 실패:&quot;, err.message);
+  }
+});
+</code></pre></div><div style="display:contents" dir="auto"><h2 id="1def8917-466a-808f-a33e-daebe0be2c44" class="">5. 성공적인 연결 로그</h2></div><div style="display:contents" dir="auto"><p id="1def8917-466a-80a6-89d3-fb41a3548c01" class="">다음은 최종적으로 성공한 연결 테스트의 로그입니다:</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1def8917-466a-8075-b7f2-d4226c1997b8" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">� 메시지 수신: open {
+  &quot;version&quot;: &quot;2&quot;,
+  &quot;id&quot;: &quot;cacddc20-96db-48e9-8467-b234d51de549&quot;,
+  &quot;type&quot;: &quot;open&quot;,
+  &quot;seq&quot;: 1,
+  &quot;position&quot;: &quot;PT0S&quot;,
+  &quot;parameters&quot;: {
+    // 파라미터 내용
+  },
+  &quot;serverseq&quot;: 0
+}
+� 성공적 연결 프로브입니다
+� open 수신 → opened 응답
+� 전송할 opened 메시지: {
+  &quot;version&quot;: &quot;2&quot;,
+  &quot;type&quot;: &quot;opened&quot;,
+  &quot;id&quot;: &quot;cacddc20-96db-48e9-8467-b234d51de549&quot;,
+  &quot;seq&quot;: 1,
+  &quot;clientseq&quot;: 1,
+  &quot;parameters&quot;: {
+    &quot;startPaused&quot;: false,
+    &quot;media&quot;: [
+      // 미디어 옵션
+    ]
+  }
+}
+� 메시지 수신: close {
+  // close 메시지 내용
+}
+� close 수신 → closed 응답
+� 전송할 closed 메시지: {
+  &quot;version&quot;: &quot;2&quot;,
+  &quot;type&quot;: &quot;closed&quot;,
+  &quot;id&quot;: &quot;cacddc20-96db-48e9-8467-b234d51de549&quot;,
+  &quot;seq&quot;: 2,
+  &quot;clientseq&quot;: 2,
+  &quot;parameters&quot;: {}
+}
+� 연결 종료됨 (code: 1000, reason: Session Ended)
+</code></pre></div><div style="display:contents" dir="auto"><h2 id="1def8917-466a-80ec-b1c1-eb9754b86359" class="">6. EU AICC STT 연계를 위한 권장 구현 방법</h2></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-80ba-8d1f-d033584c0bde" class="">6.1 기본 아키텍처</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-8037-8c2a-d0c1de086734" class="">EU AICC와 Genesys Cloud를 연계하기 위한 기본 아키텍처는 다음과 같습니다:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-800a-935f-e3b26c7336f0" class="numbered-list" start="1"><li><strong>AudioHook 서버</strong>: Genesys Cloud의 오디오 데이터를 수신하는 WebSocket 서버</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-8080-a57b-c4c54387d8f8" class="numbered-list" start="2"><li><strong>오디오 처리 모듈</strong>: 수신된 오디오를 STT 서비스가 처리할 수 있는 형식으로 변환</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80c8-891e-f457c305ef9e" class="numbered-list" start="3"><li><strong>STT 연동 모듈</strong>: 베트남 STT 서비스와 통신하여 음성을 텍스트로 변환</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80be-8716-ddd410a99c21" class="numbered-list" start="4"><li><strong>결과 처리 모듈</strong>: 변환된 텍스트 데이터를 활용하는 비즈니스 로직</li></ol></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-803a-a165-c62f60c64bb9" class="">6.2 필요한 API 연동</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-80f1-b1e4-c0c6d9d7c547" class="">EU AICC의 베트남 STT 연계를 위해 필요한 API 연동은 다음과 같습니다:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80b1-9297-f9c70e5a26f8" class="numbered-list" start="1"><li><strong>Genesys AudioHook API</strong>: WebSocket을 통한 오디오 스트리밍 수신</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-8087-8837-c530f4319532" class="numbered-list" start="2"><li><strong>베트남 STT API</strong>: 음성 데이터를 텍스트로 변환하는 API</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-802d-ae77-dc6f11dd0f68" class="numbered-list" start="3"><li><strong>결과 저장/활용 API</strong>: STT 결과를 저장하거나 활용하는 API</li></ol></div><div style="display:contents" dir="auto"><h3 id="1def8917-466a-805c-8b87-d18a3be18e6c" class="">6.3 개발 공수 산정을 위한 고려사항</h3></div><div style="display:contents" dir="auto"><p id="1def8917-466a-8059-8941-c8800fea4fd3" class="">EU AICC에서 개발 공수를 산정할 때 고려해야 할 사항:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80e4-a323-fa95892207a0" class="numbered-list" start="1"><li><strong>WebSocket 서버 구축</strong>: AudioHook 프로토콜을 준수하는 서버 개발</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80df-9e5c-f290048871ad" class="numbered-list" start="2"><li><strong>오디오 데이터 처리</strong>: PCM 포맷의 오디오 데이터 처리 로직 개발</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80dd-a35b-f811907a9f4f" class="numbered-list" start="3"><li><strong>STT 서비스 연동</strong>: 베트남 STT 서비스와의 연동 개발</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80be-8d16-ec95e33ee729" class="numbered-list" start="4"><li><strong>결과 처리 및 저장</strong>: 변환된 텍스트 데이터 처리 및 저장 기능 개발</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80ea-9b77-ed99b5e03d38" class="numbered-list" start="5"><li><strong>모니터링 및 로깅</strong>: 시스템 모니터링 및 로그 관리 기능 개발</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-802b-8804-e555b71fc43f" class="numbered-list" start="6"><li><strong>성능 및 확장성</strong>: 동시 호출 처리 능력 및 확장성 고려</li></ol></div><div style="display:contents" dir="auto"><h2 id="1def8917-466a-80de-91bb-d89743dd2ca4" class="">7. 결론 및 제언</h2></div><div style="display:contents" dir="auto"><p id="1def8917-466a-80da-aa93-e3661c2cd641" class="">Genesys Cloud AudioHook과의 성공적인 연동을 위해서는 AudioHook 프로토콜의 정확한 이해와 구현이 필수적입니다. 특히 메시지 형식과 시퀀스 번호 관리가 매우 중요합니다.</p></div><div style="display:contents" dir="auto"><p id="1def8917-466a-80de-9380-e665781c2db4" class="">EU AICC와 베트남 STT 연계를 위해서는 다음 사항을 권장합니다:</p></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-808c-8265-f0c4e58541d6" class="numbered-list" start="1"><li>AudioHook 프로토콜 기반의 안정적인 WebSocket 서버 구현</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80e2-b2d3-e53884960752" class="numbered-list" start="2"><li>오디오 데이터 처리 및 STT 변환을 위한 모듈 개발</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-8069-9104-e6175e10da29" class="numbered-list" start="3"><li>실시간 처리를 위한 성능 최적화</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="1def8917-466a-80da-bc9e-d159ce9be486" class="numbered-list" start="4"><li>장애 상황 대응을 위한 모니터링 체계 구축</li></ol></div><div style="display:contents" dir="auto"><p id="1def8917-466a-803e-8ee7-f50b342006e2" class="">
+</p></div><div style="display:contents" dir="auto"><p id="1def8917-466a-8085-9da3-f845b1c08ebf" class="">본 구현을 기반으로 EU AICC와 베트남 STT 연계를 진행한다면, 실시간 음성 인식 기능을 성공적으로 구현할 수 있을 것입니다.</p></div><div style="display:contents" dir="auto"><p id="202f8917-466a-8025-8852-c3249a55733f" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>무신사 PoC 킥오프 미팅 요약</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="268f8917-466a-8038-ad9f-f13dba6eb09f" class="page sans"><header><h1 class="page-title" dir="auto">무신사 PoC 킥오프 미팅 요약</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><hr id="268f8917-466a-80a2-9caf-e0361fb1f570"/></div><div style="display:contents" dir="auto"><h2 id="268f8917-466a-803f-9a79-d3e6efb0c554" class=""><strong>1. POC 및 프로덕션 도입 전략 정리함.</strong></h2></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-8096-a709-e54d37293e98" class="bulleted-list"><li style="list-style-type:disc"><strong>챗봇 (Text-based Chatbot):</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-8017-957b-f1eaddcbd80e" class="bulleted-list"><li style="list-style-type:circle"><strong>우선순위:</strong> 1순위임. POC 이후 바로 프로덕션 적용을 목표로 함.</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-80a1-8a3e-e6add01bf78f" class="bulleted-list"><li style="list-style-type:circle"><strong>전략:</strong> 챗봇 기능은 가장 먼저 안정화함. 사용자 피드백을 빠르게 반영하여 개선해 나갈 예정임.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-805d-83f1-ef23b9c47453" class="bulleted-list"><li style="list-style-type:disc"><strong>음성봇 (Voice-based Bot):</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-80e3-b589-d6a22ccaeb83" class="bulleted-list"><li style="list-style-type:circle"><strong>우선순위:</strong> 2순위임. 챗봇의 안정화 이후 프로덕션 도입 가능성 봄. 다만 테스트는 이루어져야함.</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-8055-9c7f-ecdb12e55523" class="bulleted-list"><li style="list-style-type:circle"><strong>필요 사항:</strong> 음성 인식(STT), 음성 합성(TTS) 품질, 지연 시간, 외부 IVR/전화 시스템과의 연동 등 <strong>음성 특화 테스트 및 검증이 별도로 필요함.</strong> POC에서 음성봇의 가능성만 확인하고, 실제 도입은 챗봇 안정화 이후 결정함.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-806a-8daf-c768b0427e77" class="bulleted-list"><li style="list-style-type:disc"><strong>Context 도달 과정 (Contextual Understanding):</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-80d6-a0cf-d77a3fc3158c" class="bulleted-list"><li style="list-style-type:circle"><strong>목표:</strong> 고객의 의도(Intent)를 선제적으로 파악하고, 전체 대화 맥락(Context)을 이해하여 응대하는 것이 궁극적인 목표임.</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-806f-9b62-ca776dca476e" class="bulleted-list"><li style="list-style-type:circle"><strong>어떻게 도달하는가?:</strong> Conversational Agent의 플레이북, 인텐트, 엔티티, 세션 파라미터, 그리고 외부 시스템(CRM 등) 연동을 통해 구현함. 특히 LLM 기반의 플레이북은 사용자의 다양한 발화를 이해하고 복잡한 시나리오에서도 맥락을 유지하는 데 강점을 가짐.</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-80ef-b1da-ccfe20be3dcf" class="bulleted-list"><li style="list-style-type:circle"><strong>확률 (정확도):</strong> POC 기간 동안 6개 카테고리에 대한 인텐트 감지 및 맥락 유지의 정확도를 측정하여 현실적인 성공률을 예측해야 함. 목표 정확도를 설정하고 지속적으로 개선함.</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-80c6-8d5c-cd9677f9a6dc" class="bulleted-list"><li style="list-style-type:circle"><strong>비용:</strong> LLM 호출 횟수, 툴 사용 횟수, STT/TTS 사용량, 백엔드 서비스(Webhook) 사용량 등을 기준으로 비용이 발생함. POC에서 실제 사용량 기반의 비용 예측 모델을 수립해야 함. - 추후 논의 </li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="268f8917-466a-80e4-a0af-f5268616d495"/></div><div style="display:contents" dir="auto"><p id="268f8917-466a-8092-b392-eb1e5ed2a867" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="268f8917-466a-80bd-ac62-f65e61efd5c8" class=""><strong>2. 메트릭 및 성공 지표 정의 (Conversational Agent에 국한)함.</strong></h2></div><div style="display:contents" dir="auto"><p id="268f8917-466a-806b-8efa-e926571e86af" class="">기존 상담 시스템과는 별개로 Conversational Agent (챗봇) 자체의 독립적인 성능 평가를 위한 메트릭 정의가 필요함. - GS네오텍이 어떤 성공 지표로 수행할 예정인지 제안하길 원함.</p></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-80a1-9261-c9bf596d59f4" class="bulleted-list"><li style="list-style-type:disc"><strong>Scope:</strong> Conversational Agent (챗봇)에 한정하여 POC를 진행하고 평가함.</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-80ca-8d96-ead9a59016f1" class="bulleted-list"><li style="list-style-type:disc"><strong>Metric 정의:</strong><div style="display:contents" dir="auto"><ol type="1" id="268f8917-466a-80e2-8915-dc18d288efda" class="numbered-list" start="1"><li><strong>6개 카테고리에 대한 문의 해결 비율 정의함.</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-80b7-8e3b-eb9bf5872c16" class="bulleted-list"><li style="list-style-type:disc"><strong>정의:</strong> 챗봇이 특정 6개 핵심 카테고리(예: 주문/결제, 배송/반품, 상품 문의, 멤버십, 이벤트, 기술 지원 등 무신사 특화 카테고리)에 대한 고객 문의를 상담원 개입 없이 <strong>성공적으로 완료한 비율임.</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-806e-b1c8-db49f1b855b2" class="bulleted-list"><li style="list-style-type:disc"><strong>측정 방법:</strong> 각 카테고리별 인텐트 감지 성공률, 관련 툴 호출 성공률, 최종 응답 만족도(추후 고객 피드백) 등을 복합적으로 고려하여 측정함.</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="268f8917-466a-8049-905a-f3238c001e90" class="numbered-list" start="2"><li><strong>고객의 상담원 컨택 없이 해결된 비율 (Self-Service Rate) 정의함.</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-807b-ba4b-d8dd58f806ff" class="bulleted-list"><li style="list-style-type:disc"><strong>정의:</strong> 전체 챗봇 문의 중, 상담원 에스컬레이션 없이 챗봇 단독으로 고객의 문제를 해결한 비율임. 이는 <strong>&quot;해결률&quot;</strong> 또는 <strong>&quot;자동화율&quot;</strong>로 표현됨.</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-802c-8f33-e81c331792ea" class="bulleted-list"><li style="list-style-type:disc"><strong>측정 방법:</strong> 챗봇 대화 세션 종료 시점에 <code>상담원_연결</code> 인텐트가 호출되지 않은 세션의 비율로 측정함. (또는 챗봇이 <code>문제 해결 완료</code> 인텐트를 스스로 호출한 경우)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="268f8917-466a-80f3-9e76-f406ea859102" class="numbered-list" start="3"><li><strong>상담사 에스컬레이션 (Escalation Rate) 정의함.</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-80c1-948f-e121db7caae3" class="bulleted-list"><li style="list-style-type:disc"><strong>정의:</strong> 챗봇이 고객의 문제를 해결하지 못해 상담원에게 연결(에스컬레이션)된 비율임.</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-80ce-b569-ed90b695645c" class="bulleted-list"><li style="list-style-type:disc"><strong>측정 방법:</strong> <code>상담원_연결</code> 인텐트 호출 횟수 / 전체 챗봇 대화 세션 수로 측정함. (낮을수록 좋음)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="268f8917-466a-80ac-847c-e8f41c0ab5b2" class="numbered-list" start="4"><li><strong>CSAT (Customer Satisfaction Score) - 고객 만족도 정의함.</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-808d-86ef-e43937bdb15a" class="bulleted-list"><li style="list-style-type:disc"><strong>정의:</strong> 챗봇과의 대화 경험에 대한 고객의 만족도임.</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-80f2-8055-d33494286a00" class="bulleted-list"><li style="list-style-type:disc"><strong>측정 방법:</strong> 챗봇 대화 종료 시점에 만족도 설문(예: &quot;챗봇과의 대화에 만족하셨나요? 예/아니오&quot;)을 제공하고 응답률을 측정함. (매우 중요함)</li></ul></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="268f8917-466a-8000-9392-cb77a3ad814d" class="numbered-list" start="5"><li><strong>(추가 제안) 정확한 파라미터 추출률 (Parameter Extraction Accuracy) 정의함.</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-8039-ae5f-d836b574f2d7" class="bulleted-list"><li style="list-style-type:disc"><strong>정의:</strong> LLM이 사용자 입력에서 필요한 핵심 정보(예: 상품명, 날짜, 수량 등)를 정확하게 추출하는 비율임.</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-8030-bdb4-c825f58b6f26" class="bulleted-list"><li style="list-style-type:disc"><strong>측정 방법:</strong> 특정 인텐트 처리 시 추출된 파라미터와 실제 의도된 파라미터의 일치율을 수동 또는 자동으로 검증함. (툴 사용 성공률에 직접적인 영향을 미침)</li></ul></div></li></ol></div></li></ul></div><div style="display:contents" dir="auto"><hr id="268f8917-466a-80ec-b1a8-d7912785dff2"/></div><div style="display:contents" dir="auto"><h2 id="268f8917-466a-8039-bbbc-cec5d8c8115c" class=""><strong>3. 비용 문제 정리함. - 추후 논의</strong></h2></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-80e1-a523-c0cba24dd62c" class="bulleted-list"><li style="list-style-type:disc"><strong>측정 비용:</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-8065-a75c-c81cdb03e205" class="bulleted-list"><li style="list-style-type:circle">추후 논의 필요</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-8023-bc93-d1697eda1507" class="bulleted-list"><li style="list-style-type:disc"><strong>어디서 챗봇에 고객이 인입할 것인가 정의함.</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-8040-8ea3-e5648a63f047" class="bulleted-list"><li style="list-style-type:circle"><strong>초기 인입 채널 정의:</strong> 무신사 웹사이트/앱의 고객센터 페이지, 특정 이벤트 페이지 등을 고려.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="268f8917-466a-808e-b16a-f7d426cb03ac" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="268f8917-466a-8063-b18a-db24482f03fe"/></div><div style="display:contents" dir="auto"><h2 id="268f8917-466a-80af-b9d8-c8330a1f1b58" class=""><strong>4. 필요한 소스 요청 및 구성도 정의. - 추후 논의</strong></h2></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-8078-8dd8-ec47a26e839b" class="bulleted-list"><li style="list-style-type:disc"><strong>시행사 측 요청 사항:</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-80f9-a009-cb4983a4c546" class="bulleted-list"><li style="list-style-type:circle"><strong>API 형태:</strong> 고객 정보, 주문/결제, 배송/반품, 상품 정보 등 챗봇이 조회/등록/업데이트해야 하는 <strong>핵심 CRM 및 백엔드 시스템의 API 문서 및 연동 정보</strong>를 요청함. (예: OpenAPI Spec, API Key, 인증 방식)</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-8010-8994-d3430e41ebb6" class="bulleted-list"><li style="list-style-type:circle"><strong>대략적인 구축 구성도 (사용자 인증 관련 포함):</strong> 무신사의 기존 고객 인증 시스템과 챗봇/백엔드 서비스가 어떻게 연동될지(예: SSO 연동, 고객 ID 전달 방식)에 대한 대략적인 아키텍처 구상을 요청함.</li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-806e-8a5a-cc532cba46f5" class="bulleted-list"><li style="list-style-type:circle"><strong>Full Function에 대한 정의:</strong> 챗봇이 최종적으로 수행해야 할 <strong>모든 기능 목록 및 각 기능별 상세 요구사항</strong>을 요청함. (초기 6개 카테고리 외 추가 기능 포함)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-8047-8624-d65e5527e4b3" class="bulleted-list"><li style="list-style-type:disc"><strong>우리 회사/Google 측 역할:</strong><div style="display:contents" dir="auto"><ul id="268f8917-466a-800f-a2fb-f3d1b338e08a" class="bulleted-list"><li style="list-style-type:circle"><strong>Full Function에 대한 정의:</strong> Google Conversational Agent의 제공 가능한 모든 기능을 기반으로, 무신사의 요구사항을 충족시키기 위한 구체적인 기능 구현 방안 및 로드맵을 제안함. (POC 범위 외 향후 확장성 포함)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="268f8917-466a-8084-bda8-fa1c90d3f1a2"/></div><div style="display:contents" dir="auto"><h2 id="268f8917-466a-803d-8577-f8fc2d190009" class=""><strong>5. 궁극적 목표 정의함.</strong></h2></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-8068-95ef-db6e88e36c2a" class="bulleted-list"><li style="list-style-type:disc"><strong>고객 의도 선제적 대응:</strong> 고객이 문의하기 전에(또는 문의 초기에) 그 의도를 예측하고 필요한 정보를 먼저 제공하거나, 적절한 액션을 유도하여 고객 경험을 최적화함.<div style="display:contents" dir="auto"><ul id="268f8917-466a-80e3-ba46-cd74c392a8d6" class="bulleted-list"><li style="list-style-type:circle"><strong>예시:</strong> 로그인 시 최근 주문 정보를 미리 띄워주거나, 특정 페이지에서 고객이 오래 머물 시 &quot;무엇을 찾으시나요?&quot;라고 먼저 말을 거는 등임. 또한 고객에게 “교환 문의를 하시나요?” 등등</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="268f8917-466a-8027-9e24-fa952463e20b" class="bulleted-list"><li style="list-style-type:disc"><strong>챗봇의 전체 Context 이해:</strong>  챗봇이 단발적인 질문-답변이 아닌, 대화 전체의 흐름과 고객의 과거 상호작용 기록(CRM 연동), 현재 상황(웹페이지 등)을 통합적으로 이해하여 맞춤형 대화를 제공함.</li></ul></div><div style="display:contents" dir="auto"><hr id="268f8917-466a-8060-a0d1-d093949b2d55"/></div><div style="display:contents" dir="auto"><p id="268f8917-466a-80a3-86ff-cf2a71e4ef50" class=""><strong>다음 단계:</strong></p></div><div style="display:contents" dir="auto"><ol type="1" id="268f8917-466a-80a2-b1d9-e94175769492" class="numbered-list" start="1"><li><strong>POC 범위 재확정:</strong> 6개 카테고리를 포함한 초기 POC 범위와 목표 수치(예: 셀프 서비스율 70%, CSAT 80% 이상)를 구체화함.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="268f8917-466a-80f6-8d12-dfc96da629ce" class="numbered-list" start="2"><li><strong>무신사 API 정보 취합:</strong> 챗봇이 연동할 CRM/백엔드 API 정보를 상세하게 요청함.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="268f8917-466a-80c8-8d20-ff438420695a" class="numbered-list" start="3"><li><strong>아키텍처 설계:</strong> 무신사 환경에 맞는 연동 아키텍처를 구체화하고, 인증 및 데이터 흐름을 정의함.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="268f8917-466a-8080-ad61-e7821c523b28" class="numbered-list" start="4"><li><strong>비용 모델 수립:</strong> POC 기간 동안 예상되는 비용을 추산하고, 프로덕션 도입 시의 대략적인 비용 모델을 제시함.</li></ol></div><div style="display:contents" dir="auto"><p id="268f8917-466a-8009-bd6b-c1be3e1f8bdc" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

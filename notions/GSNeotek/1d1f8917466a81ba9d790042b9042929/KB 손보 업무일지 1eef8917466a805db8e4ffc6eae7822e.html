@@ -1,0 +1,710 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>KB 손보 업무일지</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1eef8917-466a-805d-b8e4-ffc6eae7822e" class="page sans"><header><div class="page-header-icon undefined"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/></div><h1 class="page-title" dir="auto">KB 손보 업무일지</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><table class="collection-content"><thead><tr><th><span class="icon property-icon"><img src="https://www.notion.so/icons/font_gray.svg" style="width:14px;height:14px;display:block"/></span>Agenda</th><th><span class="icon property-icon"><img src="https://www.notion.so/icons/calendar_gray.svg" style="width:14px;height:14px;display:block"/></span>날짜</th><th><span class="icon property-icon"><img src="https://www.notion.so/icons/list_gray.svg" style="width:14px;height:14px;display:block"/></span>카테고리</th><th><span class="icon property-icon"><img src="https://www.notion.so/icons/friends_gray.svg" style="width:14px;height:14px;display:block"/></span>참석자</th><th><span class="icon property-icon"><img src="https://www.notion.so/icons/archive_gray.svg" style="width:14px;height:14px;display:block"/></span>업무 내역</th><th><span class="icon property-icon"><img src="https://www.notion.so/icons/bookmark_gray.svg" style="width:14px;height:14px;display:block"/></span>요약</th><th><span class="icon property-icon"><img src="https://www.notion.so/icons/description_gray.svg" style="width:14px;height:14px;display:block"/></span>비고</th></tr></thead><tbody><tr id="1eef8917-466a-808f-991b-ea5e65c84181"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EC%B6%9C%EA%B7%BC%20%EC%B2%AB%EB%82%A0%20%EB%B3%B4%EC%95%88%20%EC%A0%90%EA%B2%80%20%EB%B0%8F%20%EB%82%B4%EB%B6%80%20%EA%B0%9C%EB%B0%9C%20%EB%A7%9D%20%EC%84%B8%ED%8C%85%201eef8917466a808f991bea5e65c84181.html"><span class="icon">🖌️</span>출근 첫날 보안 점검 및 내부/개발 망 세팅</a></td><td class="cell-sj`I"><time>@2025년 5월 8일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-purple">계획</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>PC 보안 점검 및 네트워크 설정</strong><br/>    • 업무망 및 개발망 접속을 위한 기본 보안 설정 및 네트워크 환경 구성 완료<br/><br/><strong>필수 소프트웨어 설치 및 개발 환경 세팅</strong><br/>    • 업무에 필요한 툴 및 소프트웨어 설치<br/>    • 개발 및 테스트에 필요한 설정 완료<strong>백엔드 코드 분석</strong><br/>    • 기존 백엔드 코드 구조 파악<br/>    • 주요 비즈니스 로직 흐름 및 연동 방식 이해<br/><br/><strong>DB 연결 및 고객사 보험 데이터 작업</strong><br/>    • 데이터베이스 연결 및 접속 확인<br/>    • 고객사 보험 관련 샘플 데이터 100건 삽입을 위한 SQL 쿼리문 작성 및 실행</td><td class="cell-NZRu">업무망과 개발망 환경에서 보안 설정 및 네트워크 구성을 직접 수행하며 실무 시스템 접속의 기반을 다졌고, 이후 백엔드 코드 분석을 통해 기존 비즈니스 로직과 데이터 흐름을 이해할 수 있었습니다. 또한, 고객사 보험 데이터를 대상으로 SQL 삽입 쿼리를 작성·적용하며 실제 데이터를 다루는 데 있어 정확성과 책임감의 중요성을 체감했습니다. 전반적으로 실무 환경 세팅과 백엔드 업무 흐름 전반을 경험할 수 있었던 유익한 하루였습니다.</td><td class="cell-k=&gt;p"></td></tr><tr id="1eef8917-466a-8043-9fe2-c8bccf757971"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EC%83%98%ED%94%8C%20%ED%8C%8C%EC%9D%BC%20%EC%B6%94%EC%B6%9C%20DB%20%EA%B4%80%EB%A6%AC%20%EB%B0%B1%EC%97%94%EB%93%9C%20%EA%B0%9C%EB%B0%9C%201eef8917466a80439fe2c8bccf757971.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/groups_gray.svg"/>샘플 파일 추출/DB 관리/ 백엔드 개발</a></td><td class="cell-sj`I"><time>@2025년 5월 9일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-orange">개발</span><span class="selected-value select-value-color-purple">계획</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>다양한 확장자별 샘플 파일 확보</strong><br/>    • 미디어, 오디오, 이미지, 문서 등 각 파일 유형별 주요 확장자(jpeg, mp4, mp3, pdf 등)에 대한 샘플 파일 수집 및 정리<br/><br/><strong>DB 작업 – 고객사 보험 데이터 삽입 및 업데이트</strong><br/>    • 총 240건의 고객사 보험 관련 데이터 삽입<br/>    • 기존 데이터 중 일부 항목에 대해 조건부 업데이트 수행<strong>[개발] 인터페이스 호출 및 <br/><br/>결과값 저장 Service 개발</strong><br/>    • 외부 인터페이스 API 호출 로직 구현<br/>    • 응답 결과를 가공 후 DB에 저장하는 서비스 로직 개발<br/><br/><strong>[개발] Controller 테스트 코드 작성</strong><br/>    • Controller 레이어 단위 테스트 코드 작성 및 실행<br/>    • 정상 흐름 및 예외 케이스 검증을 통한 품질 확보</td><td class="cell-NZRu"><br/>파일 샘플 수집부터 DB 데이터 대량 처리, 인터페이스 연동, 테스트 코드 개발까지 비교적 다양한 작업을 수행하며 전체적인 업무 흐름을 체계적으로 경험할 수 있던 하루였습니다.<br/>특히, 외부 인터페이스와 연동한 서비스 개발을 통해 실시간 응답 처리와 데이터 저장 흐름을 직접 구현하면서 API 통신 구조에 대한 이해도를 높일 수 있었습니다.<br/>또한 Controller 단의 테스트 코드를 작성하며 예외 상황에 대한 검증의 중요성과 테스트 기반 개발의 필요성을 다시 한 번 느꼈습니다.<br/>전반적으로 백엔드 전반에 걸친 실무 역량을 강화할 수 있었던 의미 있는 시간이었습니다.<br/><br/></td><td class="cell-k=&gt;p"></td></tr><tr id="1eef8917-466a-804a-ba1e-def4c7c55bc2"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EA%B8%B0%EA%B0%84%EA%B3%84%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%20%ED%98%B8%EC%B6%9C,%20%EC%A0%80%EC%9E%A5,%20%EA%B4%80%EB%A6%AC%201eef8917466a804aba1edef4c7c55bc2.html"><span class="icon">📙</span>기간계 인터페이스 호출, 저장, 관리</a></td><td class="cell-sj`I"><time>@2025년 5월 12일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-orange">개발</span><span class="selected-value select-value-color-pink">분석</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>[개발] </strong><code><strong>SaveCallResultService</strong></code><strong> 코드 리팩토링 및 간소화<br/></strong>• 불필요한 로직(코드) 제거 및 구조 개선<br/>• 핵심 기능 중심으로 코드 간결화<br/><br/><strong>[개발] 테스트용 Controller 구현</strong><br/>• <code>SaveCallResultService</code> 호출 테스트를 위한 REST API Controller 개발<br/>• 실제 <code>tb_interface_history</code> 테이블에 결과 저장되는지 확인<br/><br/><strong>인터페이스 구조 및 비즈니스 로직 분석</strong><br/>• 각 인터페이스의 역할, 전달 파라미터, 응답 구조, 연계 흐름 분석<br/>• 서비스 로직 설계를 위한 핵심 비즈니스 조건 파악<br/><br/><strong>형상 관리 도구(SVN) 학습 및 사용</strong><br/>• SVN 기본 명령어 및 브랜치 전략 학습<br/>• 소스 커밋 및 형상 동기화 실습 진행</td><td class="cell-NZRu"><code>SaveCallResultService</code>를 중심으로 한 개발 작업과 테스트 환경 구축, 그리고 인터페이스 분석까지 다방면의 작업을 수행하며 전체 흐름을 유기적으로 이해하는 데 집중했다.<br/><br/>특히 실제 테이블(<code>tb_interface_history</code>)에 데이터를 저장하는 로직을 구현하며 단순한 코드 작성이 아닌, 비즈니스 요건을 기반으로 한 데이터 처리의 중요성을 체감했다.<br/>또한 인터페이스마다 요청·응답 구조가 달라 이를 정확히 파악하고 적절한 로직으로 변환하는 과정에서 분석 역량이 요구되었고, 실서비스 연계를 고려한 코딩에 대한 감각도 키울 수 있었다.<br/><br/>형상 관리 도구인 SVN은 처음 접했지만, 커밋·업데이트·충돌 처리 등 기본적인 사용법을 익히며 협업 개발 환경에 점점 적응해 가고 있다.<br/>전반적으로 오늘은 실무 중심의 코드 작성과 연동, 관리까지 경험하며 백엔드 개발자로서 필요한 분석력과 구조화 능력을 기를 수 있었던 의미 있는 하루였다.</td><td class="cell-k=&gt;p"></td></tr><tr id="1f2f8917-466a-8015-be6b-dc53d2fd9bc7"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EA%B8%B0%EA%B0%84%EA%B3%84%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%20%ED%98%B8%EC%B6%9C%EC%9D%84%20%EC%9C%84%ED%95%9C%20%EC%84%9C%EB%B9%84%EC%8A%A4%201f2f8917466a8015be6bdc53d2fd9bc7.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>기간계 인터페이스 호출을 위한 서비스</a></td><td class="cell-sj`I"><time>@2025년 5월 13일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-orange">개발</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>[개발] 인바운드 이벤트 수신용 Controller 구현</strong><br/>• 상담사 휴대폰 수신 시 발생하는 인바운드 이벤트를 처리하기 위한 API 컨트롤러 개발<br/>• 효진 대리 측 이벤트 수신 테스트 및 연동 확인<br/><br/><strong>[개발] 기간계 인터페이스(CO00007459) 호출 서비스 구현</strong><br/>• 인바운드 이벤트 수신 후 접수번호, 고객번호, 이름, 전화번호 등의 정보를 기반으로 기간계 인터페이스 호출<br/>• 응답 데이터 가공 및 전달 로직 개발<br/><br/><strong>[개발] 소프트폰(WebSocket) 연동 처리</strong><br/>• 웹소켓 세션 관리 및 사용자 식별 처리 구현<br/>• 소프트폰으로 실시간 알림 메시지 전송 기능 개발<strong>로컬 환경 테스트 완료</strong><br/>• 전체 이벤트 흐름에 대한 end-to-end 로컬 테스트 진행<br/>• 고객 발신 → 이벤트 발생 → 인터페이스 호출 → 소프트폰 알림까지 데이터 정상적으로 transfer 가능 <br/><br/>확인<strong>코드 리뷰 및 최적화</strong><br/>• 팀 내 코드 리뷰를 통해 불필요한 로직 제거 및 구조 개선<br/>• 서비스/컨트롤러 간 책임 분리 및 가독성 향상</td><td class="cell-NZRu">인바운드 콜 흐름을 기준으로 이벤트 수신부터 인터페이스 호출, 웹소켓 전송까지 실시간 흐름을 서버 단에서 책임지는 주요 로직을 개발하였다.<br/>효진 대리로부터 이벤트를 수신받아 이를 기반으로 기간계 인터페이스를 호출하고, 응답 데이터를 소프트폰으로 전송하는 전체 흐름을 구성하면서 실시간 통신 구조에 대한 이해를 깊이 있게 다질 수 있었다.<br/><br/>특히, 웹소켓 세션 관리와 사용자별 연결 처리, 컨트롤러와 서비스 간 로직 분리를 고민하며 구조적으로 탄탄한 코드를 구현하려고 노력했고, 코드 리뷰를 통해 개선 포인트를 명확히 짚어보는 좋은 경험이 되었다.<br/><br/>고객 발신(상담사 법인폰 전화가 옴) → 이벤트 발생 → 서버에서 이벤트를 수신 후 기간계 인터페이스 호출 → 인터페이스에서 필요한 데이터를 추출 → 상담사 소프트폰에 알림(data)으로 띄워줌</td><td class="cell-k=&gt;p">SVN 형상 관리<br/><br/>파랑 : Commit 해야할 것<br/>검정 : Update 해야할 것<br/>초록 : 충돌난 것 ( Update 후 Commit 해야됨)<br/><br/>[mobile server]<br/>InboundCallController<br/>InboundCallService</td></tr><tr id="1f3f8917-466a-8047-b9a3-cd072b5ea215"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/Caffeign%20Cache%20%ED%99%9C%EC%9A%A9%ED%95%9C%20DB%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0%201f3f8917466a8047b9a3cd072b5ea215.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>Caffeign Cache 활용한 DB 데이터 가져오기</a></td><td class="cell-sj`I"><time>@2025년 5월 14일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-orange">개발</span><span class="selected-value select-value-color-pink">분석</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>[개발] Admin Server 캐시 서비스 구현</strong><br/>• <code>tb_consult_type</code> 테이블 기반 캐시 서비스 개발<br/>• <code>SELECT *</code> 대신 명시적 컬럼 조회로 유지보수 용이성 확보<br/>• 접근 제한자는 <code>consult</code>로 설정 (Config에 등록)<br/>• 기존 <code>dept</code> 캐시 조회 로직을 참고하여 구조 통일성 유지<br/>• <code>cacheType = consult</code> 조건을 갖는 캐시 조회용 Controller 개발<strong>[개발] 메세지 <br/><br/>조회 및 기록 기능 구현</strong><br/>• <code>tb_sms_log</code> 테이블 기반 조회 기능 개발<br/>• 조회 조건: 날짜(필수), 사번(필수), 전화번호(선택), 접수번호(선택)<br/>• 메세지 미리보기: 최신 메세지 기준 40자까지만 표시<br/>• 날짜별로 마지막 메세지 수신 전화번호 및 메세지 요약 표기<br/><br/>(파일 포함 시 이미지/첨부파일 여부 표시, PPT 기준 참고)<br/>• 모든 기능은 Admin Server 내에서 구현</td><td class="cell-NZRu">Admin Server 내에서 캐시 서비스와 메세지 조회 기능을 동시에 개발하면서, 성능 최적화와 유지보수성을 모두 고려한 설계의 중요성을 다시 한 번 느꼈다.<br/><br/>특히 캐시 서비스에서는 <code>SELECT *</code> 대신 필요한 컬럼만 명시적으로 조회하도록 설계함으로써 향후 변경 사항에 유연하게 대응할 수 있는 기반을 마련했다.<br/><br/>접근 제한자 설정과 기존 로직을 참고한 개발은 팀 내 코드 일관성을 유지하는 데 큰 도움이 되었다.<br/>또한, 메세지 조회 기능은 실제 사용자 요구사항을 충족시키기 위해 필수 조회 조건을 명확히 정의하고, 가독성과 사용자 편의를 고려한 미리보기 로직 구현에 집중했다.<br/><br/>날짜별 메세지 요약 처리나 파일 구분 로직 등은 단순한 기능 구현을 넘어서 사용자 경험(UX)을 개선하는 요소로 작용할 수 있다는 점에서 의미 있었다.</td><td class="cell-k=&gt;p">JKS는 Java KeyStore 파일의 확장자. <br/><br/>.jks : java 애플리케이션에서 SSL/TLS 인증서, 키 쌍(개인키/공개키), CA 인증서 등을 저장하고 사용하는 암호화된 키 저장소(KeyStore) 포맷<br/><br/>인증서(.crt,), 개인키(.key), CA 체인(.pem 또는 .cer) 등을 따로따로 관리하지 않고 하나의 .jks 파일에 모두 통합해서 안전하게 관리 가능</td></tr><tr id="1f3f8917-466a-80b7-a3a0-e72d8b8920b5"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EB%A9%94%EC%84%B8%EC%A7%80%20%EA%B8%B0%EB%A1%9D,%20%EB%A9%94%EC%84%B8%EC%A7%80%20%EC%A1%B0%ED%9A%8C%20%EA%B8%B0%EB%8A%A5%20%EA%B0%9C%EB%B0%9C%201f3f8917466a80b7a3a0e72d8b8920b5.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/> 메세지 기록, 메세지 조회 기능 개발</a></td><td class="cell-sj`I"><time>@2025년 5월 15일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-orange">개발</span><span class="selected-value select-value-color-default">테스트</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>[개발] </strong><code><strong>SmsLogMapper</strong></code><strong> 쿼리 작성 및 최적화</strong><br/>• <code>INNER JOIN</code>과 <code>GROUP BY</code>를 활용해 <strong>고객별 최신 메세지 1건씩만 조회</strong>하는 쿼리 작성<br/>• 성능 및 정합성을 고려하여 중복 데이터 없이 대표 메세지를 도출<br/>• <code>WHERE 1=1</code> 사용 지양:<br/><br/>→ SQL 조건절 관리가 느슨해지고 유지보수 시 <strong>조건 누락에 따른 오류 발생 가능성</strong>이 있기 때문<br/>• <code>Mapper.xml</code>에서 <code>&lt;if&gt;</code> 문 사용 시, Java(Spring)에서 전달된 파라미터를 활용하여 <strong>동적 SQL</strong> 구현<strong>[개발] 서비스 및 컨트롤러 구현</strong><br/>• <code>SmsLogController</code>에서 클라이언트 요청(사번, 시작일, 종료일, 고객번호, 보상번호)을 수신하여 <code>SmsLogService</code>로 전달<br/>• <code>SmsLogService</code>에서 다음 기능 처리:<br/>    ◦ <strong>고객별 최신 메세지</strong> 조회<br/>    ◦ <strong>미리보기용 메세지</strong>: 메세지 본문 중 최대 40자까지만 추출하여 요약 표시<br/>    ◦ 요청 조건에 따라 유동적으로 조회 조건 적용<br/>• 응답 포맷:<br/>    ◦ 성공 여부 (<code>success: true/false</code>)<br/>    ◦ 요청된 사번 기준 전체 메세지 수<br/>    ◦ 각 고객의 최신 메세지 요약 정보 목록</td><td class="cell-NZRu">SQL과 서비스 로직을 유기적으로 연계하는 작업을 통해 **&quot;쿼리 최적화와 API 설계는 별개가 아니라 하나의 흐름이다&quot;**라는 점을 실감할 수 있었다.<br/><br/>특히 고객별 최신 메세지를 도출하기 위한 <code>JOIN + GROUP BY</code> 구성과 40자 미리보기 구현은 단순 출력이 아니라 <strong>데이터 요약 처리</strong> 및 <strong>응답 최적화</strong>라는 실질적 가치를 제공하는 작업이었다.<br/>또한 Mapper의 <code>&lt;if&gt;</code>문 활용과 Spring 파라미터 연동을 통해 <strong>동적 SQL 처리의 유연성</strong>을 익혔으며, 컨트롤러-서비스-쿼리 계층 간 명확한 역할 분리를 지키면서 안정적인 코드 구조를 유지하는 것의 중요성도 다시 한 번 체감했다.</td><td class="cell-k=&gt;p">SmsLogController<br/>SmsLogService<br/>SmsLogMapper.xml<br/>-selectLatestSmsByCustomer</td></tr><tr id="1f5f8917-466a-80f9-8988-e3529f99f2e1"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EB%A9%94%EC%84%B8%EC%A7%80%20%EC%A1%B0%ED%9A%8C%20%EA%B8%B0%EB%8A%A5%20%EA%B0%9C%EB%B0%9C%20%EC%99%84%EB%A3%8C%20%EC%BD%94%EB%93%9C%20%EB%B3%91%ED%95%A9%201f5f8917466a80f98988e3529f99f2e1.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>메세지 조회 기능 개발 완료/ 코드 병합</a></td><td class="cell-sj`I"><time>@2025년 5월 16일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-orange">개발</span><span class="selected-value select-value-color-default">테스트</span><span class="selected-value select-value-color-green">회고</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>메세지 조회 기능 개발 완료</strong><br/>• <code>tb_sms_log</code>를 기반으로 한 메세지 조회 기능 개발 마무리<br/>• 필터 조건(날짜, 사번, 고객번호 등)에 따른 조회 및 최신 메세지 미리보기 제공<strong>Mobile Server 구조 정리</strong><br/>• 기간계 인터페이스 관련 기능이 모두 인바운드 콜 시 동작함을 고려하여 구조 단순화<br/>• <code>CallService</code> 및 <code>CallController</code>로 기능 통합 및 병합<br/><br/><strong>코드 최적화 및 리팩토링</strong><br/>• 병합 후 불필요한 함수, 변수 삭제<br/>• 실제 비즈니스 로직 흐름에 맞는 메서드 체계로 재구성<br/>• 공통 예외 처리 로직 구현 및 오류 발생 시 사용자 정의 예외 메시지 반환<br/><br/><strong>로컬 테스트 환경 검증</strong><br/>• 로컬 서버에서 <strong>토큰 및 Client IP 없이도 테스트 통과</strong><br/>• SSL 미설정 상태로 테스트 진행하여 인증 없이도 동작 확인</td><td class="cell-NZRu">전체 흐름을 다시 정리하고 구조를 통합하는 과정에서 “기능 중심의 통합 설계”의 필요성과 효과를 실감할 수 있었다.<br/><br/>각기 흩어져 있던 인터페이스 호출 로직들을 하나의 명확한 진입점(<code>CallController</code>)으로 통합함으로써 유지보수성과 확장성이 크게 향상되었고, 불필요한 코드 제거와 명확한 메서드 재구성을 통해 코드 가독성도 높일 수 있었다.<br/>또한 로컬 환경에서의 테스트를 통해 SSL 및 인증 관련 요소들을 유연하게 조정하며 상황별 대응 방안을 미리 점검할 수 있었던 점도 실무적으로 유의미한 경험이었다.<br/><br/>이번 구조 정비는 단순히 코드 정리가 아닌, <strong>업무의 흐름과 시스템의 방향성을 다시 설계하는 과정</strong>이었기에 더 뜻깊었다.</td><td class="cell-k=&gt;p">Inner Join에서 PK 로 조건절을 완성해야 한다. 쿼리 실행 효율성 및 데이터 무결성을 위함.<br/><br/>날짜형식은 <br/> - startTime + “000000”<br/> - endTime + “235959” <br/>검색 조건 설정을 서버에서 해줌</td></tr><tr id="1f8f8917-466a-804f-9a40-e25556ecbdbc"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EA%B8%B0%EA%B0%84%EA%B3%84%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%20%ED%98%B8%EC%B6%9C%20%EC%84%9C%EB%B9%84%EC%8A%A4%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%84%9C%EB%B2%84%EC%97%90%EC%84%9C%20%EB%8B%A8%EC%9C%84%20%ED%85%8C%EC%8A%A4%ED%8A%B8%201f8f8917466a804f9a40e25556ecbdbc.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>기간계 인터페이스 호출 서비스 테스트 서버에서 단위 테스트 </a></td><td class="cell-sj`I"><time>@2025년 5월 19일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-purple">계획</span><span class="selected-value select-value-color-default">테스트</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>Maven 빌드를 통한 JAR 파일 생성</strong><br/>• <code>pom.xml</code> 기반 Maven 빌드 수행<br/>• <code>.jar</code> 파일 패키징 완료 후 테스트계 서버에 배포 준비<br/><br/><strong>테스트계 서버에 JAR 업로드 및 실행</strong><br/>• 빌드된 JAR 파일을 테스트 서버에 직접 업로드 (<code>scp</code> 등 사용)<br/>• 백엔드 서버 실행 후 프론트엔드와 연동 테스트 진행<br/>• 정상 실행 확인 후 WebSocket 연동 로직 테스트 수행<br/><br/><strong>WebSocket 실시간 전송 처리</strong><br/>•  <strong>성공 시</strong>: 고객정보, 보상번호, 처리일자 등 주요 데이터를 WebSocket을 통해 클라이언트(소프트폰)로 실시간 전송<br/>•  <strong>실패 시</strong>: 실패 알림 전송<br/>    ◦ 빈 값이라도 전달하여 UI 단에서 <strong>&quot;응답 실패&quot; 상태</strong>를 명확하게 인식할 수 있도록 설계<br/><br/><strong>리눅스 서버 명령어 학습 및 실습</strong><br/>• <code>scp</code>, <code>ps</code>, <code>kill</code>, <code>chmod</code>, <code>nohup</code>, <code>tail</code>, <code>netstat</code>, <code>curl</code> 등<br/>• 배포 및 모니터링 관련 명령어들을 실습하며 서버 운영 경험 강화<br/>• JAR 파일 실행 로그 확인 및 백그라운드 실행 처리 등 배포 운영 기반 습득</td><td class="cell-NZRu">Maven 빌드를 통한 JAR 생성부터 테스트계 서버 배포, WebSocket을 통한 실시간 알림 전송까지 <strong>개발-배포-테스트-운영 전 과정</strong>을 직접 다뤄보며, 개발자의 관점뿐 아니라 운영 관점에서도 중요한 고려사항들을 체득할 수 있었다.<br/>특히 WebSocket 전송에서는 성공/실패 여부에 따른 처리 방식에 신경을 쓰며 <strong>예외 상황에서도 사용자 단에 명확한 피드백을 전달하는 설계</strong>가 얼마나 중요한지 다시 한 번 느꼈다.<br/><br/>또한, 리눅스 서버 명령어 실습을 통해 배포 환경에서의 실전 대응 능력을 한층 더 강화할 수 있었고, 시스템 로그와 프로세스 흐름에 대한 이해도가 높아졌다.<br/><br/>오늘의 깨달음 : 꼭 필요한 메서드, 필요한 비즈니스 로직만 실제 서비스 코드에 있어야 한다. 쓸모 없거나 필요없거나 하나의 컴포넌트만을 위한 메서드라면 가감없이 삭제해야한다.</td><td class="cell-k=&gt;p">1. 빌드하기<br/>프로젝트 우클릭 -&gt; run as -&gt; Maven build -&gt; clean install입력, offline, 후 빌드<br/><br/>2. SSH 접속<br/>프로젝트 폴더로 이동(wisenadm) -&gt; ./shutdown.sh 실행 -&gt; ls -al(숨김 파일까지 보임) -&gt; ps -ef|grep java(실행중인 자바파일 확인) -&gt; ./startup.sh -&gt; tail -f /log/wisentm/wisentm.log(실시간 로그 확인)<br/></td></tr><tr id="1f9f8917-466a-8067-829c-ca9a9488b502"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/wisenTM%20Frontend%20%EC%BD%94%EB%93%9C%20%EB%B6%84%EC%84%9D%201f9f8917466a8067829cca9a9488b502.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>wisenTM Frontend 코드 분석</a></td><td class="cell-sj`I"><time>@2025년 5월 20일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-orange">개발</span><span class="selected-value select-value-color-pink">분석</span><span class="selected-value select-value-color-default">테스트</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>WisenTM 프론트 프로젝트 환경 구성</strong><br/>• 프론트엔드 개발을 위한 프로젝트 초기 세팅<br/>• 필요한 의존성 패키지 및 설정 파일 설치 (<code>npm install</code>, <code>.env</code>, <code>vue.config.js</code> 등)<br/><br/><strong>VSC를 활용한 Vue 코드 분석</strong><br/>• Vue 컴포넌트 구조 파악 (페이지 구성, 라우팅 방식, API 통신 구조 등)<br/>• 기존 코드 흐름을 분석하여 메세지 조회 기능이 삽입될 위치 및 방식 설계<br/><br/><strong>메세지 조회 기능 연동 테스트</strong><br/>• 지난주 목요일 개발 완료한 백엔드 API와 프론트 연동<br/>• 실제 조회 테스트를 통해 API 호출 성공 및 응답 처리 로직 확인<br/>• 테스트 중 발견된 요청 포맷 오류 수정 및 axios 호출 방식 조정<br/><br/><strong>API 요청 형식 수정 및 프론트 연동 구현</strong><br/>• 백엔드 요청 형식 (<code>사번</code>, <code>날짜</code>, <code>전화번호</code>, <code>접수번호</code>)에 맞춰 요청 파라미터 재구성<br/>• API 호출 시 query parameter 또는 body 전송 형식 일치하도록 수정<br/><br/><strong>메세지 조회 프론트 UI 구현</strong><br/>• 조회 조건 입력 필드 구성 (기간, 사번, 고객번호 등)<br/>• 응답 결과를 테이블 형태로 출력하고, 메세지 미리보기(40자) 및 파일 여부 표시 구현<br/>• 일자별 최신 메세지를 기준으로 정렬 및 표기</td><td class="cell-NZRu">프론트와 백엔드 간 통신 및 데이터 처리 흐름을 맞추는 과정에서 <strong>클라이언트와 서버 간 계약(API 명세)의 중요성</strong>을 다시 한 번 느낄 수 있었다.<br/><br/>Vue 코드 분석을 통해 컴포넌트 간 구조와 상태 관리 흐름을 익히고, 실제 데이터를 요청하고 렌더링하는 과정에서 <strong>프론트와 백엔드 협업의 핵심 포인트</strong>들을 실습할 수 있었다.<br/>API 요청 형식이 달라 호출이 실패하는 문제를 직접 파악하고 수정하며, 개발 시 양방향 소통을 전제로 한 API 설계가 얼마나 중요한지도 체감했다.</td><td class="cell-k=&gt;p"><strong>프론트 테스트</strong><br/>1.http://eptest.kbinsure.co.kr/epportal/login 에서 로그인 하기.<br/>khr11 / !top0317<br/>2. SSO 토큰정보 확인<br/><br/>3. <a href="https://test.kbinsure.co.kr:9000/#/">https://test.kbinsure.co.kr:9000/#/</a> 으로 접속<br/><br/>또는 <a href="https://test.kbinsure.co.kr:9000/popup-launcher.html">https://test.kbinsure.co.kr:9000/popup-launcher.html</a> 로 접속</td></tr><tr id="1fcf8917-466a-80f3-a0cf-c9695754f7a2"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EB%A9%94%EC%84%B8%EC%A7%80%20%EA%B8%B0%EB%A1%9D%20%EC%A1%B0%ED%9A%8C%20%EB%B0%B1%EC%97%94%EB%93%9C%20%ED%94%84%EB%A1%A0%ED%8A%B8%20%EC%97%B0%EB%8F%99%201fcf8917466a80f3a0cfc9695754f7a2.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>메세지 기록 조회 백엔드 프론트 연동</a></td><td class="cell-sj`I"><time>@2025년 5월 21일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-orange">개발</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><br/>1. <strong>메세지 조회 기능 프론트-백엔드 연동 완료</strong><br/>    ◦ Vue 프론트엔드에서 메세지 조회 요청 시, 백엔드 API 호출 성공적으로 연동<br/>    ◦ 사용자 입력값(사번, 기간 등)을 전달하고, 응답 데이터 렌더링 완료<br/><br/>2. <strong>[백엔드] </strong><code><strong>mobilService</strong></code><strong>와 </strong><code><strong>mobilController</strong></code><strong>로 로직 병합</strong><br/>    ◦ 기존 분리되어 있던 관련 메세지 조회 기능을 <code>mobilService</code>, <code>mobilController</code>로 통합<br/>    ◦ 중복 코드 제거 및 유지보수성을 고려한 구조 정비<br/><br/>3. <strong>[테스트] 콜테스트 및 결과 정리</strong><br/>    ◦ 실제 조건 하에서 메세지 조회 콜 테스트 수행<br/>    ◦ 요청 파라미터별 정상 작동 여부 확인<br/>    ◦ 테스트 결과를 <strong>엑셀 파일로 정리</strong>하여 항목별 성공/실패 상태 및 응답 값 명세 기록<br/><br/>4. <strong>[프론트] UX 개선을 위한 코드 수정</strong><br/>    ◦ 사용자 관점에서 <strong>조회 시 로딩 처리</strong>, <strong>결과 없음 안내</strong>, <strong>응답 지연 대응</strong> 등의 UX 요소를 반영<br/>    ◦ 불필요한 화면 깜빡임 및 중복 렌더링 방지<br/>    ◦ 사용자가 직관적으로 결과를 인지할 수 있도록 메시지 강조 및 미리보기 레이아웃 개선</td><td class="cell-NZRu">기능 구현뿐 아니라 <strong>코드 구조 정비와 사용자 경험 개선까지</strong> 전반적인 품질 향상에 집중할 수 있었던 하루였다.<br/><br/>백엔드에서는 관련 기능들을 <code>mobilService</code>와 <code>mobilController</code>로 병합하며 로직 흐름을 명확히 정리했고, 이를 통해 추후 기능 확장 및 유지보수가 쉬워질 수 있는 기반을 마련했다.<br/>또한 테스트 케이스별 결과를 정리하면서 <strong>정상 동작뿐 아니라 예외 상황까지 고려한 검증 습관</strong>이 얼마나 중요한지 다시 한 번 확인할 수 있었다.<br/><br/>프론트에서는 단순 기능 구현을 넘어서 사용자의 관점에서 느낄 수 있는 불편을 최소화하기 위해 코드 개선을 시도했고, 이는 실제 서비스 품질에 큰 영향을 미치는 부분임을 체감했다.<br/>이번 작업을 통해 단순 기능 완성이 아닌 <strong>서비스 수준 향상을 위한 개발자 마인드셋</strong>을 되새길 수 있었다.</td><td class="cell-k=&gt;p">spring application으로 플젝 실행이 안될 시,<br/><br/>1. project → clean 누르기<br/>2. maven build 하기<br/>3. spring application 다시 실행</td></tr><tr id="200f8917-466a-8037-be77-c8be987a152c"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EB%A9%94%EC%84%B8%EC%A7%80%20%EC%A1%B0%ED%9A%8C%20%EC%84%B8%EB%B6%80%20%EA%B8%B0%EB%8A%A5%20%EA%B0%9C%EB%B0%9C%20200f8917466a8037be77c8be987a152c.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>메세지 조회 세부 기능 개발</a></td><td class="cell-sj`I"><time>@2025년 5월 22일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-orange">개발</span><span class="selected-value select-value-color-default">테스트</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>메세지 조회 기능 조건별 필터링 구현</strong><br/>• 조회 조건으로 <strong>기간, 사번, 고객 전화번호</strong>를 입력받아 서버에 요청<br/>• 필수값(기간, 사번)과 선택값(전화번호)에 따라 유동적으로 메세지 조회 가능하도록 처리<br/>• 서버 응답값에 따라 Vue 프론트에서 조건별 결과 출력 구현<br/><br/><strong>고객 이름 렌더링 처리 개선</strong><br/>• 고객 이름이 <strong>전화번호 형식인 경우</strong>(ex. 01012345678)와 <strong>일반 문자열인 경우</strong>(ex. 홍길동)를 구분하여 출력<br/>• 이름이 전화번호일 경우 실제 이름이 없는 고객으로 간주하고, 전화번호 중심 UI 렌더링 처리<br/><br/><strong>전화번호 형식 통일 (하이픈 추가)</strong><br/>• 응답된 전화번호를 <code>010-1234-5678</code> 형식으로 가공하여 가독성 향상<br/>• 하이픈 추가 처리는 프론트단에서 로직 구현 (정규식 혹은 문자열 처리 활용)<br/>• 메세지 리스트 UI에서 모든 전화번호 항목 일괄 적용</td><td class="cell-NZRu">단순한 조회 기능 구현을 넘어, <strong>사용자 입장에서 정보를 더 명확히 이해할 수 있도록 표현하는 것의 중요성</strong>을 실감했다.<br/><br/>특히 고객 이름이 없는 경우나 전화번호로 대체된 경우 등 <strong>예외 상황에 대한 대응 로직을 세심하게 구현</strong>함으로써 실제 운영 환경에 가까운 UI를 완성할 수 있었다.<br/>또한 전화번호 하이픈 추가와 같이 <strong>작은 디테일 하나가 UX를 얼마나 크게 개선하는지</strong> 체감할 수 있었고, 이런 개선 작업들이 전체 시스템 품질을 끌어올리는 데 실질적인 기여를 한다는 점을 다시 한 번 느꼈다.</td><td class="cell-k=&gt;p"></td></tr><tr id="200f8917-466a-80a6-92ba-c967e7ebb7db"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EB%A9%94%EC%84%B8%EC%A7%80%20%EC%A1%B0%ED%9A%8C%20%EB%B0%B1%EC%97%94%EB%93%9C%20%EC%BD%94%EB%93%9C%20%EC%88%98%EC%A0%95%20%EB%B0%8F%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20200f8917466a80a692bac967e7ebb7db.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>메세지 조회 백엔드 코드 수정 및 테스트</a></td><td class="cell-sj`I"><time>@2025년 5월 23일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-orange">개발</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><code><strong>mobileService</strong></code><strong> 리턴 로직 개선</strong><br/>• 기존에 <code>null</code>을 반환하던 일부 메서드를 수정하여, 항상 명시적인 기본값 또는 비어 있는 객체/리스트 반환으로 변경<br/>• <code>null</code>에 대한 방어 로직 없이도 안정적으로 데이터를 처리할 수 있도록 <strong>NullPointerException 예방 조치</strong><br/>• 클라이언트 단에서도 예외 발생을 줄일 수 있는 구조로 개선<code><strong>SmsLogMapper</strong></code><strong> 쿼리 수정</strong><br/>• 메세지 조회 시 <code>&quot;KAKAO&quot;</code> 유형의 메세지는 제외하도록 조건 추가 (<code>WHERE msg_type != &#x27;KAKAO&#x27;</code>)<br/>• <strong>비대상 메세지 필터링</strong>을 통해 정확한 사용자용 메세지 데이터만 조회되도록 쿼리 정제<br/>• 실제 화면에 노출되어야 하는 메세지 기준에 맞춰 DB 조회 효율성 향상<code><strong>CallService</strong></code><strong>, </strong><code><strong>CallController</strong></code><strong> 기능별 로직 최적화</strong><br/>• 비즈니스 기능 단위로 메서드를 <strong>세분화 또는 병합</strong>하여 로직 구조를 단순화<br/>• 중복된 유틸성 코드 제거 및 공통 처리 메서드로 통합<br/>• 컨트롤러에서는 <strong>명확한 역할 분리</strong>를 통해 응답 처리, 예외 처리 로직 간소화</td><td class="cell-NZRu">백엔드 전반에서 <strong>로직의 안전성과 유지보수성 향상</strong>에 초점을 맞춘 작업이 중심이 되었다.<br/><code>null</code> 값을 명시적으로 방지하는 코드를 작성하면서 예상치 못한 예외를 줄이고, 클라이언트와의 연동 시 안정성을 확보할 수 있었다. 작은 수정이지만 실서비스에서 큰 영향을 줄 수 있는 중요한 포인트였다.<br/>또한, <code>KAKAO</code> 메시지 제외 처리와 같이 <strong>업무 도메인을 반영한 쿼리 조건 추가</strong>는 단순 필터링 이상의 의미를 가지며, 사용자의 실제 요구사항과 일치하는 결과를 제공하기 위한 정제 작업임을 실감했다.<br/><code>CallService</code>와 <code>CallController</code> 최적화를 통해 서비스 내부 구조가 더 명확해졌고, <strong>함수 단위로 역할이 명확히 분리된 코드가 얼마나 가독성과 유지보수에 도움이 되는지</strong>를 체험할 수 있었다.</td><td class="cell-k=&gt;p"></td></tr><tr id="202f8917-466a-806e-a704-eff623e05836"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8B%9C%EC%9E%91%20%EC%BD%9C%20%EC%88%98%20%EB%B0%9C%EC%8B%A0%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EB%B0%8F%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EB%AC%B8%EC%84%9C%20%EC%9E%91%EC%84%B1%20%ED%86%B5%ED%99%94%20%EC%83%81%EC%84%B8%EC%A0%95%EB%B3%B4%20%EC%86%8C%EB%B6%84%EB%A5%98%20%ED%95%AD%EB%AA%A9%20%EC%B6%94%EA%B0%80%20%20202f8917466a806ea704eff623e05836.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>단위테스트 시작 / 콜 수/발신 테스트 및 테스트 문서 작성 / 통화 상세정보 소분류 항목 추가 및 저장</a></td><td class="cell-sj`I"><time>@2025년 5월 26일 → 2025년 5월 29일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-pink">분석</span><span class="selected-value select-value-color-default">테스트</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>[실시간 통화 이력 기능 개발]</strong><br/>• 통화 이력에 대한 실시간 데이터 처리 로직 구현<br/>• 주요 항목: <code>id</code>, <code>direction</code>(통화 방향), 수신/발신 여부 등 핵심 정보 기록<br/>• 실시간 통화 데이터가 UI 및 후처리 시스템에 즉시 반영될 수 있도록 설계<br/><br/><strong>[메세지 조회 및 상담 소분류 항목 기능 추가]</strong><br/>• 기존 메세지 조회 기능에 <strong>상담 소분류 항목 연동 기능</strong> 추가<br/>• 사용자 요청에 따른 필터링 조건 개선 및 결과 정보 확장<br/>• 상담 카테고리에 따라 메세지 분류 가능하도록 기능 확장 완료<br/><br/><strong>[관리 기능 단위 테스트 수행]</strong><br/>• 아래 백오피스/관리 시스템 기능들에 대한 단위 테스트 작성 및 실행:<br/>    ◦ <strong>제외번호 관리</strong><br/>    ◦ <strong>제외번호 이력 관리</strong><br/>    ◦ <strong>사용자 상태 조회</strong><br/>    ◦ <strong>단말기(디바이스) 관리</strong><br/>    ◦ <strong>업무시간 관리</strong><br/>• 각 기능별 비즈니스 로직 검증, 예외 처리 테스트, 경계값 테스트 등 진행<br/>• 테스트 코드 기준 성공/실패 케이스 명확히 확인 및 기록</td><td class="cell-NZRu">실시간 통화 데이터 처리와 관리 기능 전반에 걸친 기능 확장을 통해 <strong>서비스의 실시간성과 관리 기능의 안정성</strong>을 동시에 고려한 하루였다.<br/><br/>통화 이력의 실시간 기록 기능은 단순 로깅이 아닌, 상담 흐름 파악 및 추후 분석 기반이 되는 중요한 데이터 구조임을 인식하며 설계하게 되었고, 데이터 항목 구성의 명확성이 곧 시스템 가시성을 높인다는 점을 체감할 수 있었다.<br/>또한 상담 소분류 연동과 같은 실무 중심 기능은 사용자의 실제 업무 흐름을 보다 효율적으로 만들어 주는 핵심 기능이었으며, 관리 항목들의 단위 테스트를 진행하면서 <strong>로직별 경계와 예외 상황을 미리 잡아내는 것이 서비스 품질 유지의 핵심</strong>임을 다시 한 번 깨달았다.</td><td class="cell-k=&gt;p">제외 번호별 코드<br/>00: 제외대상아님<br/>01: 전화번호연락처 제외번호!<br/>02: 휴일이라서 제외해야되는 연락<br/>03: 업무시간아니라서 제외<br/>04: 임직원이라 제외<br/>05: 매핑x 녹취x 스위치 2로 설정<br/>06: 매핑x 녹취x 스위치 3으로 설정<br/>07: 매핑o 녹취x 스위치 3으로 설정<br/><br/>02,03 코드는 통화이력 리스트에 보이지 않아야함.<br/>캐시 업데이트 시, ssh 터미널에 <br/>curl -ik https://cmcwtest.kbinsure.co.kr:18080/wisen/api/v1/cachelnit<br/><br/>curl -ik https://localhost:18080/wisen/api/v1/cachelnit<br/><br/>상담사폰은 화면 터치해야 캐시업뎃<br/><br/>파트너 010-9897-8547(강다은) <br/>브로커 010-2021-1762(전정환)<br/>임직원 010-4335-9315(gs esim)<br/>임직원 내번호<br/><br/>이력로그 606 부터 테스트해야됨.</td></tr><tr id="206f8917-466a-80d2-a103-f892a051843f"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EC%BD%9C%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%A0%9C%EC%99%B8%EC%BD%94%EB%93%9C%EB%B3%84%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%8C%93%EA%B8%B0%20206f8917466a80d2a103f892a051843f.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>콜 테스트 제외코드별 데이터 쌓기</a></td><td class="cell-sj`I"><time>@2025년 6월 2일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-default">테스트</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM">제외번호 00 ~ 07까지의 유형별 데이터 쌓기 , 단위 테스트 문서 작성, </td><td class="cell-NZRu"></td><td class="cell-k=&gt;p">file_type<br/>1 : 이미지<br/>2 : 미디어<br/>3 : 음성<br/>4 : 문서<br/>5 : 그냥 텍스트 문자</td></tr><tr id="20ff8917-466a-8012-badc-d331f79a4770"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8B%9C%ED%96%89%EC%84%9C%20%EC%9E%91%EC%84%B1%20%EB%B0%8F%20%ED%86%B5%ED%95%A9%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4%20%EB%AC%B8%EC%84%9C%20%EC%9E%91%EC%84%B1%2020ff8917466a8012badcd331f79a4770.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>단위테스트 시행서 작성 및 통합 테스트 시나리오 문서 작성</a></td><td class="cell-sj`I"><time>@2025년 6월 2일 → 2025년 6월 11일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-purple">계획</span><span class="selected-value select-value-color-green">회고</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM"><strong>전체 기능 개발 후 단위 테스트 일괄 진행</strong><br/>• 주요 기능들에 대한 <strong>개별 단위 테스트 케이스 작성 및 수행</strong><br/>• 테스트 대상 모듈:<br/>    ◦ 제외번호관리<br/>    ◦ 제외번호이력<br/>    ◦ 업무시간관리<br/>    ◦ 사용자상태<br/>    ◦ 단말기관리<br/>    ◦ 통화이력<br/>    ◦ 이력로그<br/>    ◦ 시스템설정<br/>    ◦ 메뉴관리 등<br/><br/><strong>단위테스트 시행서 및 결과서 작성</strong><br/>• 각 테스트 항목에 대해 다음 항목을 <strong>체계적으로 문서화</strong>:<br/>    ◦ 차수<br/>    ◦ 처리내용<br/>    ◦ 예상결과<br/>    ◦ 결함유형<br/>    ◦ 결함내용<br/>    ◦ 테스트결과(성공/실패)<br/>    ◦ 비고(테스트 환경, 특이사항 등)<br/>• 사용자 권한별(시스템관리자 / 조직관리자 / 보상담당자)로 테스트 케이스를 분리하여 역할 기반 검증 수행<br/><br/><strong>통합 테스트 시나리오 작성 준비</strong><br/>• 단순 기능 테스트를 넘어서, <strong>실제 사용자 흐름(USE CASE 기반)</strong>의 시나리오 작성 시작<br/>• 입력 데이터, 예상 결과, 다음 행동 단계 등 실제 사용자의 행동 흐름에 따라 상세 기록<br/>• 시나리오 중심 통합 테스트를 통해 <strong>기능 간 연결성 및 예외 흐름까지 포괄적으로 검증</strong>할 수 있도록 설계<br/><br/><strong>결함 회수 프로세스 정립</strong><br/>• 단위 테스트 후 발견된 결함 사항은 문서화 즉시 <strong>담당 개발자에게 전달</strong><br/>• 빠른 피드백과 수정을 통해 QA-개발 간 실시간 커뮤니케이션 유지<br/>• 수정 후 재검증을 통해 품질 확보</td><td class="cell-NZRu">단순히 테스트를 &quot;진행&quot;하는 것을 넘어, 테스트 결과를 <strong>체계적으로 기록하고 공유하는 업무 문화의 중요성</strong>을 실감할 수 있었던 하루였다.<br/><br/>권한별 시나리오 구성과 예상 결과 비교를 통한 정밀한 단위 테스트 작성은, 실제 시스템이 다양한 사용자 유형에 따라 어떻게 반응하는지를 깊이 있게 검증할 수 있게 해주었다.<br/>특히, 테스트 결과서 작성은 단순 체크리스트가 아닌, <strong>향후 장애 추적과 회귀 테스트에도 활용 가능한 중요한 문서 자산</strong>이 될 수 있다는 점에서 그 중요성을 체감했다.<br/><br/>또한 USE CASE 기반 통합 시나리오 작성은 기능 구현 이후의 <strong>실질적인 사용자 경험 흐름까지 고려하는 품질 중심의 접근</strong>이라는 점에서 의미가 깊었다.</td><td class="cell-k=&gt;p">웹소켓 통신은 지정된 출발지(URL) 도메인과 도착지(URL) 도메인이 있어야 함. 즉 IP 간 통신이기에 도메인 설정을 필수적으로 해줘야 함.</td></tr><tr id="210f8917-466a-809f-a27e-d97015189115"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%ED%86%B5%ED%95%A9%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4%20%EC%9E%91%EC%84%B1%20%EB%B0%8F%20%EB%AC%B8%EC%9E%90,%20%EC%A0%84%ED%99%94%20%EC%BD%9C%ED%85%8C%EC%8A%A4%ED%8A%B8%20210f8917466a809fa27ed97015189115.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>통합테스트 시나리오 작성 및 문자, 전화 콜테스트</a></td><td class="cell-sj`I"><time>@2025년 6월 12일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-pink">분석</span><span class="selected-value select-value-color-default">테스트</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM">결함대장에 있는 결함 모두 다시 테스트 후 단위테스트 결과서 다시 작성. <br/>제외번호관리, 제외번호 이력로그, 업무시간관리 부분 결함 내용 정리. <br/>코틀린 언어 강의 수강.</td><td class="cell-NZRu"></td><td class="cell-k=&gt;p"></td></tr><tr id="215f8917-466a-8044-8939-d28ccdf50b03"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EA%B2%B0%EA%B3%BC%EC%84%9C%20%EC%88%98%EC%A0%95%20215f8917466a80448939d28ccdf50b03.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>단위테스트 결과서 수정</a></td><td class="cell-sj`I"><time>@2025년 6월 17일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-pink">분석</span><span class="selected-value select-value-color-default">테스트</span></td><td class="cell-sgJf"></td><td class="cell-rQPM">모바일박스, 통화/문자 송수신 테스트, 소프트폰 통화 테스트,</td><td class="cell-NZRu"></td><td class="cell-k=&gt;p"></td></tr><tr id="216f8917-466a-8038-a136-fc2920bf7d32"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EB%B0%8F%20%EC%BD%94%ED%8B%80%EB%A6%B0%20%EA%B0%95%EC%9D%98%20%EC%88%98%EA%B0%95%20216f8917466a8038a136fc2920bf7d32.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>단위테스트 및 코틀린 강의 수강</a></td><td class="cell-sj`I"><time>@2025년 6월 18일</time></td><td class="cell-{tSs"><span class="selected-value select-value-color-gray">공부</span><span class="selected-value select-value-color-pink">분석</span><span class="selected-value select-value-color-default">테스트</span></td><td class="cell-sgJf"><span class="user"><img src="../../%EA%B0%9C%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80%20&amp;%20%EA%B3%B5%EC%9C%A0%EB%90%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80/People/Shinbeom%20Kwon/my-notion-face-portrait.png" class="icon user-icon"/>Shinbeom Kwon</span></td><td class="cell-rQPM">제외번호관리, 제외번호 이력로그, 업무시간관리 단위테스트 수행 및 결과서 작성<br/>코틀린 안드로이드 강의 및 문법 개념 정리</td><td class="cell-NZRu"></td><td class="cell-k=&gt;p"></td></tr><tr id="223f8917-466a-8039-b970-c8d3349a9dc8"><td class="cell-title"><a href="KB%20%EC%86%90%EB%B3%B4%20%EC%97%85%EB%AC%B4%EC%9D%BC%EC%A7%80/%EC%A0%9C%EB%AA%A9%20%EC%97%86%EC%9D%8C%20223f8917466a8039b970c8d3349a9dc8.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/calendar_yellow.svg"/>제목 없음</a></td><td class="cell-sj`I"><time>@2025년 7월 1일</time></td><td class="cell-{tSs"></td><td class="cell-sgJf"></td><td class="cell-rQPM">보상/손사 → 접수 → 통합조사</td><td class="cell-NZRu"></td><td class="cell-k=&gt;p"></td></tr></tbody></table><br/><br/></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

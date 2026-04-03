@@ -1,0 +1,717 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Telephony Integration for Agent Assist</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="328f8917-466a-808f-89b0-f19fca763819" class="page sans"><header><h1 class="page-title" dir="auto">Telephony Integration for Agent Assist</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="328f8917-466a-80a1-af35-d00741b3fa86" class="">
+</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-805f-b62d-f2bc9f58539a" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-800a-9b3c-f97046000eaa" class="">1. 전체 핵심 요약</h1></div><div style="display:contents" dir="auto"><ol type="1" id="328f8917-466a-803f-a5c5-d691f25f5da1" class="numbered-list" start="1"><li><strong>Agent Assist는 텍스트 기반으로 잘 동작하지만, 전화 상담에서도 쓰려면 실시간 음성 연동이 필요하다.</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="328f8917-466a-8024-91b0-fc9aa4ea5d43" class="numbered-list" start="2"><li>그 연동 방식의 대표가 <strong>SIPREC</strong> 와 <strong>gRPC</strong> 이다.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="328f8917-466a-80dc-ba19-ed7de40e6094" class="numbered-list" start="3"><li>음성은 결국 <strong>실시간 전사(STT)</strong> 를 거쳐 텍스트가 되고, 그 텍스트를 기반으로 <strong>상담사 추천, 인사이트 분석, UI 표시</strong>가 이뤄진다.</li></ol></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80dd-a492-f6c7c9e1030c" class="">즉 구조를 한 줄로 줄이면:</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-808f-88aa-ddb0d4d87576" class=""><strong>고객 통화 음성 → 실시간 전달 → 전사(STT) → Agent Assist 분석 → 상담사 화면에 추천/자막 제공</strong></p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8004-b7a9-f15ee0790399"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-8076-bb21-d16afce9206b" class="">2. 왜 Telephony Integration이 중요한가</h1></div><div style="display:contents" dir="auto"><p id="328f8917-466a-808c-ab85-fab38f17b056" class="">Agent Assist의 실시간 추천은 <strong>라이브 통화의 오디오 스트림</strong>을 받아야 가능하다는 점</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80d8-8b64-f27fa0ba6339" class="">채팅은 원래 텍스트가 있으니까 바로 분석할 수 있지만, 전화 상담은 음성이기 때문에 먼저 시스템이 그 음성을 받아야 합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8040-9da0-dc932d0a5edb" class="">즉 전화 상담에서 Agent Assist를 쓰기 위해선 두 단계가 필요합니다.</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80ec-bed5-ca00e207779c" class="bulleted-list"><li style="list-style-type:disc"><strong>실시간 음성 수집</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8049-b323-c010726849b8" class="bulleted-list"><li style="list-style-type:disc"><strong>음성을 텍스트로 변환 후 분석</strong></li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80b9-9577-f8fe74f423e0" class="">그래서 telephony integration이 필수입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8072-910a-e25536c56041"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-8068-950a-fa0eae7b5d7a" class="">3. 두 가지 주요 연동 방식</h1></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80b2-ab67-cb81d347e2c4" class="">3-1. SIPREC 방식</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8065-a111-deb8e9964003" class="">SIPREC는 <strong>Session Initiation Recording Protocol</strong>입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80b8-97c0-f2a042ebccfb" class="">쉽게 말하면 <strong>통화 녹취/복제용 표준 프로토콜</strong>입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8031-8a15-f968ce0f560e" class="">이 방식에서는 고객사의 전화 시스템이 통화 오디오를 복제해서 Google 쪽으로 보내고, Google 쪽이 그걸 받아 Agent Assist에 연결합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8013-8490-e7a862334ef6" class="">이걸 좀 더 쉽게 말하면:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8029-b623-cf78dc6f78cf" class="bulleted-list"><li style="list-style-type:disc">고객 전화 시스템이 원래 고객과 상담사를 연결함</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80e7-914f-fc11af62be6f" class="bulleted-list"><li style="list-style-type:disc">동시에 <strong>오디오 한 벌을 복사(forking)</strong> 해서 Google에 보냄</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8061-bd8c-eed96d55f136" class="bulleted-list"><li style="list-style-type:disc">Google이 그 음성을 전사하고 분석함</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80ed-881b-e986da6a4ecf" class="bulleted-list"><li style="list-style-type:disc">결과를 상담사 화면에 추천으로 보여줌</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8096-9bd7-d8a8955abb15" class="">즉 <strong>기존 전화 시스템을 유지하면서 녹취 스트림만 Google에 넘기는 방식</strong>으로 이해하면 됩니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-808b-83ec-dddda0cab478"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80a3-9df0-c63c415804b8" class="">3-2. gRPC 방식</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-802a-a88a-d7880e8c71b0" class="">gRPC 방식은 SIPREC처럼 별도의 SIP 녹취 프로토콜을 쓰는 대신,</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80ab-8216-c0703d61ab43" class="">고객이 직접 <strong>Conversation AI API endpoint</strong>로 오디오를 스트리밍하는 방식입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8083-99b1-d9cd81648bca" class="">쉽게 말하면:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8097-98fc-f7beac2e43f5" class="bulleted-list"><li style="list-style-type:disc">고객 시스템이 음성을 직접 API로 보냄</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-800e-a9da-f34bcc8f5942" class="bulleted-list"><li style="list-style-type:disc">Google Conversation AI가 그 스트림을 받아서 처리함</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8013-baa9-f040a7743dff" class="bulleted-list"><li style="list-style-type:disc">실시간 전사/추천 결과를 다시 전달함</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80f6-85a9-f82d7e6c22d4" class="">즉 SIPREC보다 더 <strong>API 중심적</strong>이고, 통신 제어를 더 직접적으로 하는 구조라고 보면 됩니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8012-a4a4-fae823c8ef7a"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-80da-8d2e-f08034057239" class="">4. 네 가지 Integration Flow 설명</h1></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80bb-b595-e64a73b561a5" class="">강의에서는 SIPREC/gRPC를 기반으로 실제 배포 형태를 4가지로 설명합니다.</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-807f-940e-dfe2d814085e" class="">4-1. Direct SIPREC</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8040-94e1-c25aeda4c335" class="">이건 고객이 <strong>SIPREC 연동과 UI 연동을 모두 직접 관리</strong>하는 형태입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80c1-87ac-ea307db45ba7" class="">특징:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-809f-a919-d3a8aa9a6abb" class="bulleted-list"><li style="list-style-type:disc">고객이 SBC(Session Border Controller)를 직접 제어해야 함</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80ae-aadf-df860081f735" class="bulleted-list"><li style="list-style-type:disc">통화 복제, Google 전달, 상담사 UI 연동까지 고객이 많이 담당함</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80f3-9a62-f99e96cd58ce" class="">즉 <strong>고객 주도형, 커스터마이징 자유도가 높은 방식</strong>입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-809f-8d19-e77f0caa2534"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-805e-9fd2-e9ff3fd7777c" class="">4-2. Through CCaaS Platform</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80d9-8934-cb00bdf42fec" class="">여기서 CCaaS는 Contact Center as a Service입니다. 예: Twilio, Five9</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80ef-9e05-ce8b1e747ff3" class="">특징:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8091-b246-e3c474fb2fce" class="bulleted-list"><li style="list-style-type:disc">고객이 직접 복잡한 통합을 안 해도 됨</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80fc-81ec-f160e1081ce3" class="bulleted-list"><li style="list-style-type:disc">CCaaS 제공업체가 Agent Assist와의 연동을 지원함</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80f7-a7e5-c776809abaac" class="bulleted-list"><li style="list-style-type:disc">구현 부담이 줄어듦</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80e2-8a7c-df81e60b4b15" class="">즉 <strong>전화 플랫폼 사업자가 중간에서 연동을 쉽게 해주는 구조</strong>입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8069-8c74-c77d07954d70"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80e0-828a-ca78afc38ee5" class="">4-3. Through Legacy Platform</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-803b-9845-cd116dfc7302" class="">기존 레거시 전화 시스템을 쓰는 고객의 경우입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8074-832b-fc65c9c42da9" class="">특징:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80fe-bc1d-cffb8f16c543" class="bulleted-list"><li style="list-style-type:disc">기존 플랫폼이 최신 구조가 아닐 수 있음</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8017-9bc1-fafe31d7eebc" class="bulleted-list"><li style="list-style-type:disc">그래서 Conversation AI connector나 OEM connector가 필요할 수 있음</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8074-a47f-d9fb95f27a8b" class="bulleted-list"><li style="list-style-type:disc">제품/벤더별 맞춤 로직이 들어갈 가능성이 큼</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80ff-8cd3-ebec8300d8b7" class="">즉 <strong>구형 시스템과의 호환을 위한 브리지 구조</strong>입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80c8-b069-cc6acaa33db0"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80c7-b0bd-dd66e3afc873" class="">4-4. Through Native OEM Partner</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-802d-9a22-f8911b9abbb0" class="">Google과 네이티브하게 연동되는 OEM 파트너를 통해 gRPC 통합이 더 자연스럽게 이뤄지는 방식입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80a8-b95e-cbb6c672b967" class="">특징:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80d6-9e2e-cbb013214540" class="bulleted-list"><li style="list-style-type:disc">성능 최적화</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-801b-b31c-cece3289d613" class="bulleted-list"><li style="list-style-type:disc">연동 편의성 향상</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-804b-9b12-d985d3987496" class="bulleted-list"><li style="list-style-type:disc">사용자 경험 개선</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80c2-9471-ce2ddc83241f" class="">즉 <strong>공식/긴밀한 파트너 기반의 최적화된 연동 방식</strong>입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80d7-aefb-d972ace796ba"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-80af-b431-caeec0fba04d" class="">5. SIPREC를 정확히 이해하기</h1></div><div style="display:contents" dir="auto"><p id="328f8917-466a-805e-9934-e511f4958878" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-802d-9e6a-fa4b22743e46" class="">5-1. SIPREC란?</h2></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8089-9103-dbd7a8fbdd2d" class="bulleted-list"><li style="list-style-type:disc"><strong>Session Recording Protocol</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80d6-85d8-fecf3e2288a0" class="bulleted-list"><li style="list-style-type:disc"><strong>IETF 표준</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80f9-9967-d46037b01a88" class="bulleted-list"><li style="list-style-type:disc">SIP(Session Initiation Protocol)의 확장</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8016-8316-c296530bfa0f" class="bulleted-list"><li style="list-style-type:disc">목적: <strong>통화 녹취/기록</strong></li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80d5-a724-cfe06422a574" class="">즉 SIP 자체가 통화 연결용이라면, SIPREC는 <strong>그 통화를 녹취하거나 기록 세션으로 전달하는 용도</strong>입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80ce-b248-c36f5b003d8d"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80ff-934b-f89fdf39a9f8" class="">5-2. SIPREC의 두 핵심 구성요소</h2></div><div style="display:contents" dir="auto"><h3 id="328f8917-466a-8034-81dc-d71c6234205b" class="">SRC</h3></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8026-995e-eaed8236712b" class=""><strong>Session Recording Client</strong></p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8097-8e74-c85f3f5b97f7" class="">녹취를 시작하는 쪽입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8074-9ac2-e5c1879d93a2" class="">보통 고객사 장비(PBX, SBC 등)가 이 역할을 합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8092-9b3c-d9ee5e675730" class="">강의에서는:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8099-a613-e9ac36adc321" class="bulleted-list"><li style="list-style-type:disc">고객 SBC 또는 telephony system = <strong>SRC</strong></li></ul></div><div style="display:contents" dir="auto"><h3 id="328f8917-466a-80a4-a6f8-cf84e15868cd" class="">SRS</h3></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8059-a2b4-dcfc4f70c9c9" class=""><strong>Session Recording Server</strong></p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-801d-a50e-fa33e224292c" class="">녹취 데이터를 받아서 처리하는 서버입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8035-8e74-ded0db4f6977" class="">강의에서는:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-805d-a5bc-c3937ecf4142" class="bulleted-list"><li style="list-style-type:disc">Google Telephony Platform(GTP) = <strong>SRS</strong></li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8036-9b26-ca36cc263516" class="">즉 관계는 다음과 같습니다.</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-804c-9151-d74c0c3458d3" class="bulleted-list"><li style="list-style-type:disc">고객 전화 시스템이 녹취 시작 → SRC</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8022-b017-eb7bb5b7c69a" class="bulleted-list"><li style="list-style-type:disc">Google Telephony Gateway가 받아 처리 → SRS</li></ul></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8072-9327-e97db0fc02bb"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-805b-80f8-f10d656c59f2" class="">5-3. SIPREC에서 무엇이 전달되나</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8062-b4fa-c609a80ddf34" class="">SRC와 SRS는 SIPREC 메시지로 다음을 주고받습니다.</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8029-8344-ff86cce9f1ad" class="bulleted-list"><li style="list-style-type:disc">recording session 설정</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8004-8cb2-f1704731c1b4" class="bulleted-list"><li style="list-style-type:disc">call metadata 전달</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80c7-b67d-dbab4ce95d70" class="bulleted-list"><li style="list-style-type:disc">실제 audio stream 전달</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8031-acb9-ca8c0f99299f" class="">즉 단순히 음성만 보내는 게 아니라,</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8062-8d02-ec379a5efeda" class=""><strong>누가 통화 중인지, 어떤 세션인지 같은 메타데이터와 오디오를 함께 전달</strong>합니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8020-aa58-d12551dba00e"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-804d-adbf-e5da52053c31" class="">6. GTP(Google Telephony Platform)의 역할</h1></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8081-a7dd-ce7a76f5e31f" class="">
+</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8063-9512-d40ac3e589b6" class="">강의 표현대로 하면 GTP는 <strong>번역기(translator)</strong> 역할을 합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8038-ae29-eec2f04d014b" class="">왜냐하면 고객 전화 시스템은 SIPREC를 쓰지만,</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-804c-b0df-ecbc1d9e84e5" class="">Conversational AI는 내부적으로 <strong>gRPC 기반 포맷</strong>을 더 잘 이해하기 때문입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80e6-9d77-ed84d5e3d2ff" class="">그래서 GTP가 하는 일은:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80c8-aadb-ed6dea876202" class="bulleted-list"><li style="list-style-type:disc">SIPREC 메시지 수신</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80e6-b1b5-cd22b0ed8c2a" class="bulleted-list"><li style="list-style-type:disc">이를 Conversational AI가 이해할 수 있는 형태로 변환</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80f8-b6f4-fbb886ad8885" class="bulleted-list"><li style="list-style-type:disc">세션/컨텍스트 연결</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80d9-9746-f4ecf328a790" class="bulleted-list"><li style="list-style-type:disc">오디오 전달</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80ac-8933-d24fbf054402" class="">즉 구조는 대략 이렇습니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80ee-baf7-c79417a40f8b" class=""><strong>고객 SBC(SIPREC) → GTP → Conversational AI(gRPC 형식)</strong></p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80d4-8c1f-dda1c7acfe7e"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-80b8-b514-ed6d0c9bb501" class="">7. Signaling과 Audio Separation</h1></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80cd-96d8-dde54648f2e2" class="">강의에서 중간에 “signaling과 media는 분리된다”는 얘기가 나옵니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80c1-b9ba-eac8e5dd5dac" class="">이건 전화 시스템 이해에서 꽤 중요합니다.</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8084-901b-edfde1a41a02" class="">signaling</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8049-a284-d1f0a6aebad3" class="">통화 제어 정보입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80c9-bef2-c1eb487e855b" class="">예:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-808f-9011-ce57032ccf2f" class="bulleted-list"><li style="list-style-type:disc">전화 연결 시작</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80e3-b884-ce8f17561f3f" class="bulleted-list"><li style="list-style-type:disc">끊김</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8073-9445-d651e0b67045" class="bulleted-list"><li style="list-style-type:disc">세션 생성</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-803a-a1f2-dd1090f33865" class="bulleted-list"><li style="list-style-type:disc">INVITE 처리</li></ul></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80aa-836a-f0838dcfa909" class="">media</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-801a-9248-f41f594cd2a5" class="">실제 음성 데이터입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-809d-9a58-c46c01c574e8" class="">즉 전화에서는</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8026-9e5a-f4cc0de6bbc8" class="bulleted-list"><li style="list-style-type:disc"><strong>통화 상태를 관리하는 신호</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80a4-8b56-eb8fdcc51afd" class="bulleted-list"><li style="list-style-type:disc"><strong>실제 음성 흐름</strong><div style="display:contents" dir="auto"><p id="328f8917-466a-8028-bee6-cc8d8de94a4d" class="">이 분리되어 있습니다.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8087-ac02-d2473a36dd3e" class="">강의에서는 GTP 내부에서:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80f5-94fe-c3d862f17a0e" class="bulleted-list"><li style="list-style-type:disc"><strong>TPAPI</strong>가 call event, signaling 관리</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8085-b962-d093ae371ed2" class="bulleted-list"><li style="list-style-type:disc"><strong>Iridessa service</strong>가 audio stream 처리</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80cc-9b03-c9a928b00d3b" class="">라고 설명합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80c7-ba8c-d7107b2876f0" class="">이걸 쉽게 말하면:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80a8-b56b-cc4e104fd0f7" class="bulleted-list"><li style="list-style-type:disc">누가 전화를 걸었는지, 세션이 뭔지 = TPAPI</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8034-b165-f20833deb68f" class="bulleted-list"><li style="list-style-type:disc">실제 음성이 흐르는 부분 = Iridessa</li></ul></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-809a-bdca-c03ea5d46670"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-8000-85da-fbc798b0df6f" class="">8. SIP INVITE와 Session ID, CallContext</h1></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8057-97ae-f104e877e8ac" class="">GTP가 SIP INVITE를 받는다고 합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8068-80f4-e88242dafe5d" class="">흐름은 대략 이렇습니다.</p></div><div style="display:contents" dir="auto"><ol type="1" id="328f8917-466a-8098-a3f7-c6ccc19be6e0" class="numbered-list" start="1"><li>고객이 지정된 번호로 전화</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="328f8917-466a-8039-8787-e822c29ad3b7" class="numbered-list" start="2"><li>GTP가 SIP INVITE 수신</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="328f8917-466a-80e0-8552-d268a8d69cfc" class="numbered-list" start="3"><li>그 안에서 <strong>session ID</strong> 확인</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="328f8917-466a-8041-8166-cc4bc91c81ca" class="numbered-list" start="4"><li>그 session ID를 바탕으로 <strong>CallContext</strong> 구성</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="328f8917-466a-8029-b742-e9668d5d5818" class="numbered-list" start="5"><li>Conversational AI에 incoming call 알림</li></ol></div><div style="display:contents" dir="auto"><p id="328f8917-466a-804e-b172-ef35b5a1dae9" class="">즉 요점은:</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80df-92ca-c6cb3a279773" class=""><strong>전화 한 통을 Conversation AI의 특정 세션/대화와 정확히 연결해야 한다</strong>는 것입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8009-b811-d8d4ebcbcefb" class="">그 연결의 핵심 식별자가 session ID이고,</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8027-a25e-df8aa256179c" class="">그걸 기반으로 CallContext를 만든다고 이해하면 됩니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8004-bfd4-dad1c5fc6b93"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-809c-a484-d0a567a5b267" class="">9. GTP와 Conversational AI의 매핑 방식 3가지</h1></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8091-9cee-f0ee54881ed1" class=""><div class="indented"><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8003-b7ba-d6e8b322285e" class="">9-1. Dedicated Phone Number</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80de-8e7b-dd9199f026ba" class="">고객이 전용 Conversational AI 전화번호로 직접 건다.</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8002-80ba-feffca7cb2d2" class="bulleted-list"><li style="list-style-type:disc">번호 자체가 특정 conversation profile과 연결됨</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8002-8bb6-f0139e3770f5" class="bulleted-list"><li style="list-style-type:disc">비교적 단순한 매핑</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-803c-acd1-c99db46bd8db" class="">즉 <strong>번호 기반 매핑</strong>입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8022-b15c-d641b455d4dd"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8090-b557-f25d5c594c6a" class="">9-2. Proxy Phone Number Assignment</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80be-9fee-ce9350bf19c5" class="">Conversational AI가 각 conversation마다 임시 번호를 부여합니다.</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-806c-bc5e-c5d43cc68252" class="bulleted-list"><li style="list-style-type:disc">그 임시 번호가 conversation 식별자 역할을 함</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80a9-b8b7-cf0ba07d2f03" class="">즉 <strong>임시 번호 기반 추적 방식</strong>입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8062-87d4-d2b94511d379"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8030-a410-e3a66a4c4d01" class="">9-3. SIP Integration + CallMatcher API</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8062-ba36-e1971a5deea6" class="">고객이 SIP header 정보를 가져와 내부 데이터와 연결합니다.</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80b8-9516-f5e055b82605" class="bulleted-list"><li style="list-style-type:disc">CallMatcher API 사용</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80d8-85d4-f166e30f4bbe" class="bulleted-list"><li style="list-style-type:disc">SIP 헤더 기반으로 고객 시스템이 추가 매핑</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8023-8459-d0b953dd040f" class="">즉 <strong>헤더 정보 기반 커스텀 매핑</strong>입니다.</p></div></div></p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80d3-a7b8-e33bd1b2f138"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-800d-af09-dd5928f9acd2" class="">10. SIPREC 기반 end-to-end 흐름</h1></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8070-9f07-dbf1beda3d39" class="">고객이 회사 고객센터로 전화했을 때 어떤 일이 일어나는지 순서대로 보면 됩니다.<div class="indented"><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80c3-8700-d9d0ad1d8472" class="">1단계. Audio Forking</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80a6-bb3b-e50bea86f7b8" class="">고객사 SBC가 통화 오디오를 복제해서 Google SIPREC endpoint로 보냅니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80a2-b085-f18cc9b274b9" class="">핵심:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80f8-9b38-cb42713ecce4" class="bulleted-list"><li style="list-style-type:disc">원래 통화는 계속 진행됨</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-802e-9f88-d65b0b1e08e4" class="bulleted-list"><li style="list-style-type:disc">Google은 복사본만 받음</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80b6-b3e1-c6544b07ea03" class="">즉 Agent Assist는 통화에 끼어드는 게 아니라 <strong>듣기만 하는 passive listener</strong>에 가깝습니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8028-a5c5-ed5774fa9daf"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-803d-a69a-f9c5b49bf924" class="">2단계. GTP가 Conversational AI로 전달</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80d3-907f-f4435364b9d2" class="">Google Telephony Platform이 이 오디오를 받아</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80be-9a79-ec665828879f" class="">Conversational Agents / Agent Assist 쪽으로 넘깁니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8093-a0b8-c12d9aa4eb21"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-803d-8cd6-f1a1080429da" class="">3단계. Agent Assist가 Listener로 참여</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80c2-b745-d4f09618ad83" class="">Agent Assist는 고객과 상담사의 대화를 실시간 청취합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80fb-b094-f95c875e7626" class="">여기서 중요한 건:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80b5-b31a-d7164f83ac8a" class="bulleted-list"><li style="list-style-type:disc">직접 통화를 제어하는 주체라기보다</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-807b-bc82-c81687cfbee4" class="bulleted-list"><li style="list-style-type:disc"><strong>분석용 청취자</strong> 역할이라는 점입니다.</li></ul></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-803d-b943-c564c0054033"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-806a-8300-f50a38a71b52" class="">4단계. STT 전사</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8061-bb31-d05b58c9dfdc" class="">Speech-to-Text가 음성을 텍스트로 바꿉니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8025-903d-c56857ae2967" class="">이건 필수 단계입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8011-a6d1-fbec19dbbebb" class="">왜냐하면 Agent Assist는 추천을 할 때 기본적으로 <strong>텍스트를 기반으로 분석</strong>하기 때문입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8044-9c41-eba64d08cd77"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80d3-844b-ea4b29404d11" class="">5단계. 분석</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80f7-a388-cb65a1a003f7" class="">전사된 텍스트를 바탕으로:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8042-b16a-f7259e133dd2" class="bulleted-list"><li style="list-style-type:disc">상담 맥락 이해</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80a9-86dd-f589fa2f7b37" class="bulleted-list"><li style="list-style-type:disc">고객 의도 파악</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80ef-b2b2-eb52722f5c08" class="bulleted-list"><li style="list-style-type:disc">필요한 정보/답변/추천 생성</li></ul></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8018-800c-d7d1ab38a1f3"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80d9-8882-e4ac09a68429" class="">6단계. Agent Suggestions 전달</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80b1-bcfb-c4171f9c87df" class="">추천 결과는 두 가지 방식으로 상담사 화면에 갈 수 있습니다.</p></div><div style="display:contents" dir="auto"><h3 id="328f8917-466a-80d3-95cb-c6fdf986052f" class="">REST API</h3></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80eb-a58f-fa6debb65fd2" class="">상담사 데스크톱 애플리케이션이 API로 받아서 표시</p></div><div style="display:contents" dir="auto"><h3 id="328f8917-466a-80f4-9e5c-d7b00572abb1" class="">Pub/Sub</h3></div><div style="display:contents" dir="auto"><p id="328f8917-466a-803c-8402-c95adc125bf9" class="">메시지 브로드캐스트 방식으로 데스크톱 클라이언트에 전달</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80ad-9674-e17f3cad1d2a" class="">즉 최종 목적지는 <strong>상담사 UI</strong>입니다.</p></div></div></p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-808d-baaf-c287561c4e6a"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-80fe-9fa2-f186b4ed25e3" class="">11. 아키텍처 6단계 정리</h1></div><div style="display:contents" dir="ltr"><figure id="328f8917-466a-808a-a207-cb39225d52de" class="image"><a href="Telephony%20Integration%20for%20Agent%20Assist/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-19_11.35.51.png"><img style="width:709.96875px" src="Telephony%20Integration%20for%20Agent%20Assist/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-19_11.35.51.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="328f8917-466a-80f9-8159-db7674e7d9af" class="image"><a href="Telephony%20Integration%20for%20Agent%20Assist/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-19_11.42.24.png"><img style="width:709.96875px" src="Telephony%20Integration%20for%20Agent%20Assist/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-03-19_11.42.24.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80fb-a787-ede14c0b3854" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8039-b18d-fdd5500aa3e0" class="">1. Audio Forking</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8011-956b-d12254813800" class="">SBC가 음성을 복제해 Google로 전송</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80f6-beb4-f6341051254f" class="">2. SIPREC to Conversational AI</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-801c-9b50-cfdd034288e3" class="">GTP가 오디오를 Conversational AI로 전달</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80dc-baf6-efb229774a12" class="">3. Agent Assist as Listener</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8001-9016-e322309dab7c" class="">Agent Assist가 수동 청취자로 참여</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8089-b994-fd6f84040b81" class="">4. Transcription</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8071-9d18-f4503476c41a" class="">실시간 STT 수행</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8004-8d61-ff7fa50e7a3f" class="">5. Optional Redaction</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-803a-b44a-e69d998a9ffa" class="">필요하면 DLP로 민감정보 마스킹</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-804b-84d5-f8877739696d" class="">6. Agent Desktop UI Integration</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8086-bec8-d46166da7183" class="">최종 텍스트/추천을 상담사 UI에 연결</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-803f-b990-f018d602139b" class="">이 6단계는 거의 그대로 외워도 좋습니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8054-9e52-d4085a80323d"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-80e8-b52b-d638dc5c9967" class="">12. Optional Redaction이 중요한 이유</h1></div><div style="display:contents" dir="auto"><p id="328f8917-466a-803c-918b-c6b8f52a25ca" class="">강의에서 DLP(Data Loss Prevention)를 통한 redaction을 옵션으로 언급합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80a5-865b-c48bc5bfc892" class="">이건 실무적으로 매우 중요합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80f2-96a7-d6091858e13d" class="">예를 들어 전사 텍스트 안에 아래 정보가 들어갈 수 있습니다.</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-802f-a9d7-f86444af7c92" class="bulleted-list"><li style="list-style-type:disc">카드번호</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8002-a52d-e52100f385f0" class="bulleted-list"><li style="list-style-type:disc">주민/신분 정보</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-805b-9cd4-f472498b02a4" class="bulleted-list"><li style="list-style-type:disc">전화번호</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8050-95ac-f25c85a9c2d1" class="bulleted-list"><li style="list-style-type:disc">이메일</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80a4-9436-d4ce7b3494ef" class="bulleted-list"><li style="list-style-type:disc">주소</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80ac-9cc3-c56bbe4c4594" class="bulleted-list"><li style="list-style-type:disc">기타 개인정보</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8022-a381-d2a4fbd70386" class="">이런 정보는 그대로 상담사 앱, 저장소, 분석 시스템으로 보내면 위험할 수 있으므로</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8028-821b-c74ac77a8aa0" class=""><strong>DLP를 통해 마스킹/치환 후 전달</strong>할 수 있습니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8020-bcb2-ebe7ff737437" class="">즉 목적은:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8077-bd80-cb82e17a7b58" class="bulleted-list"><li style="list-style-type:disc">개인정보 보호</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80b7-adb9-f3af4e09946b" class="bulleted-list"><li style="list-style-type:disc">규제 대응</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8018-90ea-cb41ffc7ea3b" class="bulleted-list"><li style="list-style-type:disc">로그/저장소 안전성 확보</li></ul></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8008-89f0-e5232f981907"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-8079-8f6d-c20e73d041a1" class="">13. Transcript 이후에 가능한 것들</h1></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-802c-84d2-fe2dc3c408c9" class="">13-1. 원본 오디오 저장</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8026-bc98-c4c34f6b6925" class="">SIPREC 오디오는 Google Cloud Storage에 저장 가능</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8059-831e-d412c5ad3fcb" class="">13-2. Transcript 저장</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8085-8610-cdf819a20c08" class="">전사 텍스트도 함께 저장 가능</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-806a-bdb6-cc51e57981cb" class="">13-3. Conversational Insights 분석</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8029-a5b4-c6fb7cc14699" class="">대화 내용을 자동 분석하여</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80a1-bfc2-de546cf4a6df" class="bulleted-list"><li style="list-style-type:disc">상담 품질</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8099-a1a8-db142216babd" class="bulleted-list"><li style="list-style-type:disc">반복 이슈</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80b8-856d-c05e71e58f49" class="bulleted-list"><li style="list-style-type:disc">고객 불만 패턴</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8067-a9ce-e0d8204a2d67" class="bulleted-list"><li style="list-style-type:disc">상담 효율성<div style="display:contents" dir="auto"><p id="328f8917-466a-80f0-aacb-dc6a9f11521b" class="">같은 인사이트를 뽑아낼 수 있습니다.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80ba-bd52-f2122814aa14" class="">즉 Agent Assist는 단순 실시간 추천 도구가 아니라,</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-808d-b28c-c77ee69aa419" class=""><strong>사후 분석/품질 관리로도 확장되는 구조</strong>입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8092-a4f2-f5890a415505"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-80f5-b703-f723315bd752" class="">14. gRPC 방식 흐름 정리</h1></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8055-9ff2-cfd056d2fb65" class="">이제 SIPREC가 아닌 gRPC 방식입니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80cb-946f-d3109a45ff0a" class="">이 방식은 좀 더 API 중심이라서</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-800e-9024-c2bca631fc42" class="">개발자가 리소스 생성과 스트리밍 호출을 명시적으로 해줘야 합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80a3-b277-d90ec7f6a19f" class="">강의에서는 다음 순서로 설명합니다.</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-802f-890b-e8f7dd55d99b" class="">15-1. Conversation Profile 생성</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8049-a47f-f9fabb31a04c" class="">API의 <code>create</code> method로 <code>ConversationProfile</code> 생성</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80f0-82d7-e7d35bda68fa" class="">이건 대화 처리 방식, 연결 설정 등을 담는 일종의 프로필입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80fb-8872-d4397fd63c1f"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80cb-be0d-d8f9d84d4faa" class="">15-2. Conversation 생성</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8024-9c07-ce5af2e50ee0" class="">API로 대화를 시작합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8032-b951-dee23a2a673b" class="">여기서 참가자와 역할 등의 기본 세팅이 들어갑니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-806b-8ec6-fc81cfa131cc"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8080-addb-f2c9bebc5fd9" class="">15-3. Participant 생성</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8064-be32-cf20eaabe3e5" class="">participant resource의 <code>create</code> method로 참가자 생성</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8018-a648-e3747b169387" class="">역할은 다음 중 선택:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8009-a216-d41408095045" class="bulleted-list"><li style="list-style-type:disc"><code>HUMAN_AGENT</code></li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8075-a1c1-dd812926ac78" class="bulleted-list"><li style="list-style-type:disc"><code>AUTOMATED_AGENT</code></li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8092-88d5-d2382e130205" class="bulleted-list"><li style="list-style-type:disc"><code>END_USER</code></li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-804f-9b4a-dba856736abf" class="">즉 상담사, 자동화 에이전트, 고객을 시스템 안에서 개체로 정의하는 것입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8057-a915-eb055579fa17"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-800e-b86a-f911750dab62" class="">15-4. Audio Transmission and Transcription</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-808b-ab33-da9fdd8de3c8" class=""><code>StreamingAnalyzeContent</code> 메서드로 해당 participant의 오디오를 스트리밍 전송</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-805d-bef8-d6f371998371" class="">이 과정에서 실시간 전사가 함께 이뤄집니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8063-8230-efde0faa5bd2" class="">즉 gRPC 방식의 핵심 API는:</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-805f-921e-cb8e90e9249a" class=""><strong>StreamingAnalyzeContent</strong></p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8029-bfe7-fc07331b56ea" class="">입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80ea-8fe7-ecb072a45d1c"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-80dc-a37e-c518317b1a65" class="">SIPREC와 gRPC 차이 쉽게 비교</h1></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80ed-b87f-ef89045e5419" class="">SIPREC</h2></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8013-9460-c53027dfb24d" class="bulleted-list"><li style="list-style-type:disc">전화 시스템 친화적</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80c0-8ebf-e7309c63d5ee" class="bulleted-list"><li style="list-style-type:disc">통화 오디오를 복제해서 Google에 전달</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-801b-b365-fd7130cc6a78" class="bulleted-list"><li style="list-style-type:disc">고객 SBC/telephony 인프라와 잘 맞음</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-800f-9e5d-f00afbf415f1" class="bulleted-list"><li style="list-style-type:disc">기존 전화 인프라 연계에 강함</li></ul></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80e1-9318-e020d1fa0f15" class="">gRPC</h2></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80d8-bfeb-c66a37e89db5" class="bulleted-list"><li style="list-style-type:disc">API 중심</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80eb-bf63-c55979487247" class="bulleted-list"><li style="list-style-type:disc">고객이 직접 오디오 스트리밍</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8030-818d-c6f4a809e1bf" class="bulleted-list"><li style="list-style-type:disc">세션/참가자/대화 생성도 API 기반</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8088-bbfb-ed86778c4b59" class="bulleted-list"><li style="list-style-type:disc">더 유연하지만 구현 부담이 더 직접적일 수 있음</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80bd-b2ed-d4b03bdcd65b" class="">아주 쉽게 말하면:</p></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-804c-b7aa-eeb94b6a2a43" class="bulleted-list"><li style="list-style-type:disc"><strong>SIPREC = 전화 인프라 중심 통합</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8050-8961-f818d536eaf7" class="bulleted-list"><li style="list-style-type:disc"><strong>gRPC = 애플리케이션/API 중심 통합</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-800d-bcf8-dcc1abb95a46"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-802c-b18f-ebc45f9ac693" class="">헷갈리기 쉬운 부분 정리</h1></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8011-b921-cdb55c2f26dc" class="">1) Agent Assist가 통화를 제어하나?</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8046-8e4a-dd6a109a2d11" class="">아닙니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80bd-9765-dddd4bec45ee" class="">이 강의에서는 Agent Assist가 <strong>passive listener</strong>처럼 동작한다고 설명합니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8067-a059-f94304e424d8" class="">즉 통화를 듣고 분석해서 추천을 제공하는 역할입니다.</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8034-a7d7-f47e635be3d7" class="">2) SIPREC와 gRPC는 완전히 별개인가?</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8052-83a5-de40c2582d98" class="">접근 방식은 다르지만 목표는 같습니다.</p></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80f4-96c7-d041c736b36a" class="">둘 다 <strong>실시간 음성을 Agent Assist에 연결</strong>하기 위한 방식입니다.</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-804a-81d0-ccc079632107" class="">3) GTP는 왜 필요한가?</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-803f-8aa4-c715a6bb6ee1" class="">고객 전화 시스템의 SIPREC 메시지를 Google Conversational AI가 처리하기 쉬운 형태로 이어주는 <strong>중간 변환/중개 계층</strong>이기 때문입니다.</p></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-804f-808d-f01a4a12b80c" class="">4) 왜 DLP가 중간에 들어가나?</h2></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8022-b58f-c6821b521f53" class="">전사 텍스트에 개인정보가 포함될 수 있어서입니다.</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8077-aa6d-e98ac156fa31"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-8031-b149-f79e5bf20534" class="">아주 간단한 압축 요약</h1></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80e3-87ba-ec80b0b06e1d" class="bulleted-list"><li style="list-style-type:disc">전화 상담에서 Agent Assist를 쓰려면 실시간 오디오 연동이 필요하다.</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-800b-90ca-ded9053e15cc" class="bulleted-list"><li style="list-style-type:disc">주요 방식은 <strong>SIPREC</strong> 와 <strong>gRPC</strong> 두 가지다.</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-8080-99e2-ed321d2c7cc2" class="bulleted-list"><li style="list-style-type:disc">SIPREC에서는 고객 SBC가 <strong>SRC</strong>, Google GTP가 <strong>SRS</strong> 역할을 한다.</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80a9-a35e-e483b6a4168f" class="bulleted-list"><li style="list-style-type:disc">GTP는 SIPREC를 Conversational AI가 이해할 수 있게 중개한다.</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80df-a001-cdf238d76ceb" class="bulleted-list"><li style="list-style-type:disc">오디오는 STT를 통해 텍스트로 바뀌고, Agent Assist가 이를 분석해 상담사 추천을 제공한다.</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80b5-9bbb-ec9bd24f861b" class="bulleted-list"><li style="list-style-type:disc">필요하면 DLP로 개인정보를 마스킹할 수 있다.</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80d4-8df7-dc4c20223455" class="bulleted-list"><li style="list-style-type:disc">gRPC 방식은 Conversation/Participant를 API로 만들고 <code>StreamingAnalyzeContent</code>로 오디오를 전송한다.</li></ul></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8082-8277-e44d0608cd8c" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80d7-ad1a-c85b7604a507"/></div><div style="display:contents" dir="auto"><h1 id="328f8917-466a-8048-a422-fa02e0e678c4" class="">Agent Assist Integration 전체 비교표</h1></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80e7-9e1f-d7590b9cf364" class="">1. 전체 구조 비교</h2></div><div style="display:contents" dir="ltr"><table id="328f8917-466a-80ac-a605-d4cfd55184aa" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8041-805b-fb69531409e1"><th id="ki[&gt;" class="simple-table-header-color simple-table-header">구분</th><th id="I~Td" class="simple-table-header-color simple-table-header">역할</th><th id="Ao}b" class="simple-table-header-color simple-table-header">핵심 설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8038-b6c3-fb3eb890a1e8"><td id="ki[&gt;" class="">Conversational Agent</td><td id="I~Td" class="">셀프서비스</td><td id="Ao}b" class="">고객 문의를 먼저 자동 응대</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80d7-bf53-f01d948d1d70"><td id="ki[&gt;" class="">Escalation</td><td id="I~Td" class="">사람 상담사 이관</td><td id="Ao}b" class="">해결이 안 되면 human agent로 전달</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8095-a5bb-fc988a50648b"><td id="ki[&gt;" class="">Agent Assist</td><td id="I~Td" class="">실시간 상담 보조</td><td id="Ao}b" class="">상담 중 추천, 전사, 맥락 분석 제공</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80fe-94e5-cd0374a8b34f"><td id="ki[&gt;" class="">Conversational Insights</td><td id="I~Td" class="">사후 분석</td><td id="Ao}b" class="">상담 종료 후 품질 분석, 개선 포인트 도출</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80b4-8d60-c753d8d1df16"><td id="ki[&gt;" class="">API / Data Layer</td><td id="I~Td" class="">외부 시스템 연동</td><td id="Ao}b" class="">CRM, 주문, 고객정보, 내부 시스템과 연결</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80be-a3a8-e92a62e40556"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8085-a8f6-eb5dcd2e687a" class="">2. 도입 전에 결정해야 할 사항</h2></div><div style="display:contents" dir="ltr"><table id="328f8917-466a-804d-8d94-e9c235246e47" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80d7-9525-d357272a37b5"><th id="hYY?" class="simple-table-header-color simple-table-header">결정 항목</th><th id="kTCd" class="simple-table-header-color simple-table-header">설명</th><th id="\@aI" class="simple-table-header-color simple-table-header">예시</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80e5-a372-e1888c2e117a"><td id="hYY?" class="">어떤 기능을 쓸지</td><td id="kTCd" class="">비즈니스 요구사항에 따라 Agent Assist 기능 선택</td><td id="\@aI" class="">추천, 전사, 요약, 문서 추천</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-804a-9774-d14f5f868812"><td id="hYY?" class="">입력을 어떻게 보낼지</td><td id="kTCd" class="">채팅인지 음성인지에 따라 방식이 다름</td><td id="\@aI" class="">Chat API, gRPC, SIPREC</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80d7-8ed2-f88055c84e69"><td id="hYY?" class="">응답을 어디에 보여줄지</td><td id="kTCd" class="">상담사 데스크톱 UI 통합 방식 결정</td><td id="\@aI" class="">위젯, iframe, 자체 UI</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-808c-9fbc-c527bf7b6923"><td id="hYY?" class="">다른 GCP 서비스와 연동할지</td><td id="kTCd" class="">저장/보안/분석 구조 설계</td><td id="\@aI" class="">Cloud Storage, DLP, Pub/Sub</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8001-b5a3-f1d6e21f6aff"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8089-ab25-cdca1afc440b" class="">3. Chat vs Voice 통합 비교</h2></div><div style="display:contents" dir="ltr"><table id="328f8917-466a-8022-8b8e-ea1ce2a457c0" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8095-b0c3-f0d31b0dcec3"><th id="uRBv" class="simple-table-header-color simple-table-header">항목</th><th id="^FB}" class="simple-table-header-color simple-table-header">Chat Integration</th><th id=":?N;" class="simple-table-header-color simple-table-header">Voice Integration</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80d5-83c3-cfadd7fd1520"><td id="uRBv" class="">입력 형태</td><td id="^FB}" class="">텍스트</td><td id=":?N;" class="">음성</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8091-a4c8-c5b2d5b7fce0"><td id="uRBv" class="">핵심 API</td><td id="^FB}" class=""><code>AnalyzeContent</code></td><td id=":?N;" class=""><code>StreamingAnalyzeContent</code> 또는 SIPREC</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-806a-a9f9-f06b5fb9aa81"><td id="uRBv" class="">추가 처리 필요 여부</td><td id="^FB}" class="">상대적으로 단순</td><td id=":?N;" class="">STT 전사 필요</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80b1-98a4-ff7a46c02311"><td id="uRBv" class="">인프라 복잡도</td><td id="^FB}" class="">낮음</td><td id=":?N;" class="">높음</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8030-9c62-dc74b2209365"><td id="uRBv" class="">주요 중간 계층</td><td id="^FB}" class="">Customer Serving Stack</td><td id=":?N;" class="">Customer Serving Stack 또는 SBC/GTP</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80ed-9620-d797c7f1f2bd"><td id="uRBv" class="">결과 전달</td><td id="^FB}" class="">상담사 UI로 transcript/suggestion 전달</td><td id=":?N;" class="">상담사 UI로 transcript/suggestion 전달</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80f9-a191-f0fbaa01bbb3"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8045-9253-d4de388f05de" class="">4. Chat Integration 흐름</h2></div><div style="display:contents" dir="ltr"><table id="328f8917-466a-8020-96a1-f64b3cd2ec06" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80fc-a173-cee9aafe25a3"><th id="\Brw" class="simple-table-header-color simple-table-header">단계</th><th id="aj^w" class="simple-table-header-color simple-table-header">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80cb-81c9-d42185718980"><td id="\Brw" class="">1</td><td id="aj^w" class="">고객이 채팅 클라이언트에서 메시지 전송</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80af-9aad-ca67bb412733"><td id="\Brw" class="">2</td><td id="aj^w" class="">메시지가 Customer Serving Stack으로 전달</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8074-bb88-f5d14d418c55"><td id="\Brw" class="">3</td><td id="aj^w" class="">Customer Serving Stack이 Agent Assist API <code>AnalyzeContent</code> 호출</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80ac-b298-cddd56641a36"><td id="\Brw" class="">4</td><td id="aj^w" class="">Agent Assist가 transcript / suggestion 생성</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80e2-8b0d-d4bca5af9f8c"><td id="\Brw" class="">5</td><td id="aj^w" class="">결과를 Agent Desktop에 전달</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="328f8917-466a-80a3-97c2-e5bb447bd854" class="">한 줄 요약</h3></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80f1-a479-c3aa4a8d9b69" class=""><strong>고객 채팅 → Customer Serving Stack → AnalyzeContent → 추천/전사 반환 → 상담사 화면</strong></p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-8055-bbd9-cbb8464ef8fd"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80bc-987c-e88e031a306e" class="">5. Voice Integration 방식 전체 비교</h2></div><div style="display:contents" dir="ltr"><table id="328f8917-466a-8053-8ca9-c19a88bd6298" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80ce-8eac-cbc574c1ee08"><th id="p:x_" class="simple-table-header-color simple-table-header">항목</th><th id="Ll{T" class="simple-table-header-color simple-table-header">SIPREC 방식</th><th id="x[E=" class="simple-table-header-color simple-table-header">gRPC 방식</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80c4-b092-df705ed30414"><td id="p:x_" class="">기본 개념</td><td id="Ll{T" class="">전화 인프라에서 오디오를 복제해 Google로 전달</td><td id="x[E=" class="">오디오를 API로 직접 스트리밍</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80db-af53-f1cc17379a2e"><td id="p:x_" class="">구현 중심</td><td id="Ll{T" class="">Telephony / SBC 중심</td><td id="x[E=" class="">Application / API 중심</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8080-b6e1-ff2b54133760"><td id="p:x_" class="">Conversation lifecycle</td><td id="Ll{T" class="">자동 처리 비중 큼</td><td id="x[E=" class="">직접 구현 필요</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8080-970c-c884e96d5123"><td id="p:x_" class="">Participant role 할당</td><td id="Ll{T" class="">자동</td><td id="x[E=" class="">직접 생성 및 지정</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80bf-9ad5-c55f9397273c"><td id="p:x_" class="">구현 난이도</td><td id="Ll{T" class="">상대적으로 낮음</td><td id="x[E=" class="">상대적으로 높음</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-808e-bb2c-cddb94ffbd45"><td id="p:x_" class="">권장 여부</td><td id="Ll{T" class="">가능하면 preferred</td><td id="x[E=" class="">SIPREC 불가 시 고려</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8037-826e-ebdc9f811a07"><td id="p:x_" class="">적합한 환경</td><td id="Ll{T" class="">기존 telephony/SBC 인프라 보유</td><td id="x[E=" class="">커스텀 앱/API 기반 제어 필요</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80bd-88cc-deed887938e1"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80c3-b9af-c0660a695219" class="">6. SIPREC vs gRPC 핵심 차이</h2></div><div style="display:contents" dir="ltr"><table id="328f8917-466a-804e-a23f-f3110262a06a" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8063-af68-dbfefc778fb5"><th id="rjG|" class="simple-table-header-color simple-table-header">비교 항목</th><th id="aQ}@" class="simple-table-header-color simple-table-header">SIPREC</th><th id="tiuG" class="simple-table-header-color simple-table-header">gRPC</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="328f8917-466a-803c-90fb-ddf6fcc09941"><td id="rjG|" class="">오디오 입력 방식</td><td id="aQ}@" class="">SBC가 오디오 fork</td><td id="tiuG" class="">앱/서버가 오디오 stream 전송</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-800e-ad3b-ca67608d4e5b"><td id="rjG|" class="">세션 시작</td><td id="aQ}@" class="">자동 생성 가능</td><td id="tiuG" class="">API로 생성</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-807e-adff-fa1b592d3884"><td id="rjG|" class="">참가자 생성</td><td id="aQ}@" class="">자동 할당 가능</td><td id="tiuG" class="">API로 생성</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8037-a3d6-fb2c0db11418"><td id="rjG|" class="">통화 종료 처리</td><td id="aQ}@" class="">hang-up 시 자동 종료</td><td id="tiuG" class="">종료 API/로직 필요</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8035-a330-c784d2056818"><td id="rjG|" class="">개발 부담</td><td id="aQ}@" class="">낮음</td><td id="tiuG" class="">높음</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8097-94e5-e71f2dcd30f4"><td id="rjG|" class="">유연성</td><td id="aQ}@" class="">전화 인프라 중심</td><td id="tiuG" class="">애플리케이션 제어 유연</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8048-937f-f75438fcd22d"><td id="rjG|" class="">추천되는 경우</td><td id="aQ}@" class="">SIPREC 사용 가능 시</td><td id="tiuG" class="">직접 제어가 더 중요할 때</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80f8-af06-c827d9753228"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-80ff-9cd0-fca0ea5caba4" class="">8. SIPREC 아키텍처 흐름</h2></div><div style="display:contents" dir="ltr"><table id="328f8917-466a-8048-9ba5-d29c0325dc5d" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8037-8c70-e7d292734a26"><th id="lGBC" class="simple-table-header-color simple-table-header">단계</th><th id="Xj_E" class="simple-table-header-color simple-table-header">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80e5-9fd6-e8eafcbb1410"><td id="lGBC" class="">1</td><td id="Xj_E" class="">고객이 회사 지원 번호로 전화</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80b9-ad9d-eb58b6c50cc7"><td id="lGBC" class="">2</td><td id="Xj_E" class="">고객사 SBC가 오디오 스트림 복사본 생성</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8096-94d7-eb77d294953f"><td id="lGBC" class="">3</td><td id="Xj_E" class="">복사된 오디오를 Google Telephony Platform(GTP)로 전송</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-802b-abeb-eebcf0cf0aef"><td id="lGBC" class="">4</td><td id="Xj_E" class="">GTP가 Conversational AI / CES로 전달</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8079-a238-f3fd467b06d4"><td id="lGBC" class="">5</td><td id="Xj_E" class="">STT로 실시간 전사 수행</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80ce-ac77-e7ade0117846"><td id="lGBC" class="">6</td><td id="Xj_E" class="">Agent Assist가 추천 생성</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-806e-873d-ce8ec6dc3fa1"><td id="lGBC" class="">7</td><td id="Xj_E" class="">transcript / suggestion을 agent desktop으로 전달</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="328f8917-466a-8011-b495-d8c5314bec4f" class="">핵심 포인트</h3></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-803b-83be-cd718134e978" class="bulleted-list"><li style="list-style-type:disc">Agent Assist는 <strong>passive listener</strong>처럼 동작</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-804a-bd4b-fa84daf989f3" class="bulleted-list"><li style="list-style-type:disc">오디오 원본은 통화용, 복사본만 분석에 사용</li></ul></div><div style="display:contents" dir="auto"><ul id="328f8917-466a-80d9-8f14-ca1c30117c1d" class="bulleted-list"><li style="list-style-type:disc">실시간 추천은 전사된 텍스트 기반으로 생성</li></ul></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80bc-b4ab-fa4d4e2c0864"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8071-ba0d-d3a187757a9c" class="">9. GTP의 역할</h2></div><div style="display:contents" dir="ltr"><table id="328f8917-466a-809b-9059-e22bc410084e" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="328f8917-466a-803e-b647-de5b56993d8e"><th id="MJOa" class="simple-table-header-color simple-table-header">항목</th><th id="HzUe" class="simple-table-header-color simple-table-header">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="328f8917-466a-803e-82cc-de7c190cd659"><td id="MJOa" class="">이름</td><td id="HzUe" class="">Google Telephony Platform</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-803e-8849-e3e335e672ce"><td id="MJOa" class="">핵심 역할</td><td id="HzUe" class="">SIPREC 트래픽을 Conversational AI가 이해할 수 있게 중개</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8065-bea5-dd957c3da27e"><td id="MJOa" class="">비유</td><td id="HzUe" class="">번역기 / 중간 게이트웨이</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8050-b7e1-e64834071422"><td id="MJOa" class="">처리 대상</td><td id="HzUe" class="">signaling + audio stream</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8027-a74b-cd5e6ba6f7eb"><td id="MJOa" class="">관련 기능</td><td id="HzUe" class="">session ID 확인, CallContext 생성, incoming call 알림</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-806e-846a-feb05548ac67"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8037-b148-d95c30243be1" class="">14. SIPREC가 preferred인 이유</h2></div><div style="display:contents" dir="ltr"><table id="328f8917-466a-803d-9194-da830b21f7a6" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="328f8917-466a-806b-8af1-f7a80ed5d06a"><th id="~vc?" class="simple-table-header-color simple-table-header">이유</th><th id="W&gt;S]" class="simple-table-header-color simple-table-header">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8005-b155-d3a33bfd4b66"><td id="~vc?" class="">구현 effort 감소</td><td id="W&gt;S]" class="">conversation lifecycle을 직접 다 만들 필요가 적음</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8080-aef6-f9c38bc68109"><td id="~vc?" class="">자동화 수준 높음</td><td id="W&gt;S]" class="">conversation 생성, participant 할당, 종료 처리 자동</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8094-ae36-ee2475724f70"><td id="~vc?" class="">telephony 친화적</td><td id="W&gt;S]" class="">기존 SBC 환경과 잘 맞음</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80ba-a4ba-d23fb99c90d0"><td id="~vc?" class="">운영 단순화</td><td id="W&gt;S]" class="">실시간 음성 통합이 더 자연스러움</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="328f8917-466a-80cb-9c3c-db62d0cc1e0d" class="">결론</h3></div><div style="display:contents" dir="auto"><p id="328f8917-466a-8028-aac1-d967621ab7a7" class=""><strong>SIPREC를 사용할 수 있다면 일반적으로 SIPREC가 선호됨</strong></p></div><div style="display:contents" dir="auto"><hr id="328f8917-466a-80ee-9aaf-c4dca8a7b8b8"/></div><div style="display:contents" dir="auto"><h2 id="328f8917-466a-8057-9efd-c3a9373270bc" class="">15. 결과 전달 방식 비교</h2></div><div style="display:contents" dir="ltr"><table id="328f8917-466a-8082-b4ca-d6f429a1a661" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="328f8917-466a-8024-b9cb-fbb10710e8c6"><th id="tlfH" class="simple-table-header-color simple-table-header">방식</th><th id="omld" class="simple-table-header-color simple-table-header">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="328f8917-466a-80c7-9b0f-ffeccbb3379c"><td id="tlfH" class="">REST API</td><td id="omld" class="">결과를 직접 agent desktop 애플리케이션으로 전달</td></tr></div><div style="display:contents" dir="ltr"><tr id="328f8917-466a-801c-9b2b-fd069d1e43f2"><td id="tlfH" class="">Pub/Sub</td><td id="omld" class="">실시간 이벤트 방식으로 transcript/suggestion 브로드캐스트</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="328f8917-466a-80f8-827c-c0ecbccb330a" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

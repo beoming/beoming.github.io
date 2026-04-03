@@ -1,0 +1,728 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>AWS Hands-on Lab Workshop</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="234f8917-466a-80b2-b023-e7f03b1d08fc" class="page sans"><header><h1 class="page-title" dir="auto">AWS Hands-on Lab Workshop</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="234f8917-466a-8044-8aeb-e132dc3307b7" class="">2025-07-18 금</p></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-802d-9bee-edfa0eed1687" class="numbered-list" start="1"><li>백퍼센트 클라우드 기반으로 통합된 경험으로 제공하는 one application<div style="display:contents" dir="auto"><ol type="a" id="234f8917-466a-808d-9532-fbf6d4f9e23a" class="numbered-list" start="1"><li>hw설치, sw 라이센스 구매 관리 필요없음</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="234f8917-466a-8032-b8a6-f7f99acc74e1" class="numbered-list" start="2"><li>통신 관련 계약 관리 없음</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="234f8917-466a-807c-a3e3-e674075d4280" class="numbered-list" start="3"><li>pay as you go</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="234f8917-466a-8034-8dc2-ce9ddf04c1d9" class="numbered-list" start="4"><li>공간 , 전화 인프라 필요없음</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-807b-93fd-fafa306cd607" class="numbered-list" start="2"><li>pstn 전화망 → aws - 인터넷 구간</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-8068-b84d-df4520f687ce" class="numbered-list" start="3"><li>커넥트에 통합된 webrtc를 통한 음성 및 비디오 통화 가능</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-8013-86da-e574dca64d19" class="numbered-list" start="4"><li>통화를 시작하기 전에 고객을 인증하여 위험 감소1. </li></ol></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80a3-9755-de5b7982d326" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="234f8917-466a-8096-9a3b-ee9e47213b54" class="">아웃바운드 캠페인</h1></div><div style="display:contents" dir="auto"><p id="234f8917-466a-802e-bd02-f21219b89cd9" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-8018-a508-cc133de00fb3" class="numbered-list" start="1"><li>고객 프로필 수집<div style="display:contents" dir="auto"><ol type="a" id="234f8917-466a-806d-a9f1-d22055c86d17" class="numbered-list" start="1"><li>여러 소스 시스템과 통합</li></ol></div><div style="display:contents" dir="auto"><ol type="a" id="234f8917-466a-80de-8c4c-ec701c990a7b" class="numbered-list" start="2"><li>al/ml 기반으로 중복 신원 식별</li></ol></div></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-80ae-9f79-c1ab72104ad9" class="numbered-list" start="2"><li>세그먼트 생성</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-80ec-b77f-f45f6ec2e716" class="numbered-list" start="3"><li>캠페인 생성</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-80cf-aa28-c2b8fe1548ad" class="numbered-list" start="4"><li>실행</li></ol></div><div style="display:contents" dir="auto"><p id="234f8917-466a-8019-abef-dfda49474b4e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-808c-ae2d-da9235404426" class="">빌트인 생성형 ai 서비스 활용</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-806d-b9b3-c7a89533a86c" class="">고객데이터와 인사이트, 과거 대화내용, 제품정책, 프로세스 정보 ⇒ LLM Built in AWS</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80f9-ad62-dcb89622f269" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="234f8917-466a-8050-884b-c5cafcd4075c" class="">Contact Lens</h2></div><div style="display:contents" dir="auto"><p id="234f8917-466a-802b-8575-dc44f3820b4c" class="">음성에서 자동 변환된 통화 내용의 스크립트 전체 검토</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-8011-b11d-f7a42ab5fffa" class="">고객과 상담원의 감정분석</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-8029-aa58-d63835e0216a" class="">상담원과 고객 간의 참영에 대한 분류</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80f4-a793-d6e81ac26118" class="">
+</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-808c-855c-fd0dc86829f6" class="">생성형 ai 기반 자동요약</p></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-8028-a884-fbcad56caaed" class="bulleted-list"><li style="list-style-type:disc">대화의 context를 이해하기 위해 전체 스크립트를 읽을 필요가 없음</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-8095-9384-e94cbe276ade" class="bulleted-list"><li style="list-style-type:disc">아마존 베드락 기반으로 구현</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80fa-8ebd-d9868cf237d1" class="bulleted-list"><li style="list-style-type:disc">자도화로 qa 관리자의 업무 효율 개선</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80b6-b264-c0158c226d7f" class="bulleted-list"><li style="list-style-type:disc">상담원별 맞춤 교육을 위한 세부 분석 데이터 제공</li></ul></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80e8-8435-cbd1614f05ae" class="">
+</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80dc-beae-dc14f91318f5" class="">amazon Q in Connect GEN AI</p></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-805a-b516-e90f1ec06ce5" class="bulleted-list"><li style="list-style-type:disc">베드락 기바능로 구현된 GEN AI AGENT ASSISTANT</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80cf-b191-d8ad280dada8" class="bulleted-list"><li style="list-style-type:disc">이슈를 감지하고 생성된 솔루션 및 KNOWLEDGE 문서를 사용해 생성함. 솔루션을 생성</li></ul></div><div style="display:contents" dir="auto"><p id="234f8917-466a-8045-ab94-ca3466c76559" class="">
+</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80b1-8c4c-cc6e46b61b26" class="">예약 AGENT ANY </p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80dd-aaa2-c577074bdc65" class="">커넥트 → LEX(발화 내용 이해 및 의도 파악) → 베드락 AGENT → LAMBDA → 선호 경로 조회, 및 예약</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80c7-9060-fe91c1539d55" class=""><strong>ANY 의 기능</strong></p></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-804a-a340-c7bcbd1ea700" class="bulleted-list"><li style="list-style-type:disc">택시예약</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-8095-9106-df82d2cb9e91" class="bulleted-list"><li style="list-style-type:disc">선호 경로 조회</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80b3-b45b-fcc7fadda163" class="bulleted-list"><li style="list-style-type:disc">예약 취소</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80ac-9586-cba8091b36fd" class="bulleted-list"><li style="list-style-type:disc">예약 변경</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80cd-8881-c38b8984ebe1" class="bulleted-list"><li style="list-style-type:disc">다른번호의 선호 경로로 예약 가능</li></ul></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80eb-9c3c-fbb3cf126231" class="">
+</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-800d-afc7-f68f25e38999" class="">인스턴스간 호전환 연말 로드맵 제공</p></div><div style="display:contents" dir="ltr"><figure id="234f8917-466a-8006-b78a-d9f72ee7aecf" class="image"><a href="AWS%20Hands-on%20Lab%20Workshop/image.png"><img style="width:409px" src="AWS%20Hands-on%20Lab%20Workshop/image.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80f0-8cc2-c2d7f9702f69" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="234f8917-466a-8005-b200-c1a25651a0b8" class="">Amazon Q in Connect 워크샵</h1></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80ae-b77e-eff31563650d" class="">Amazon Q in Connect를 활성화하면 하나의 지식베이스와 연결된 어시스턴트인 Q in Connect 도메인을 생성합니다. Q in Connect 도메인 사용에 관한 정보는 다음과 같습니다.</p></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-806e-a851-c37907ca1025" class="bulleted-list"><li style="list-style-type:disc">각각의 Amazon Connect 인스턴스는 하나의 도메인에만 연결될 수 있습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-803e-95cd-edb72483a360" class="bulleted-list"><li style="list-style-type:disc">하나의 도메인은 AI Agent 구성을 통해 여러 개의 지식 베이스를 지원할 수 있습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-8068-b11d-c531e9229637" class="bulleted-list"><li style="list-style-type:disc">여러 개의 도메인을 생성할 수 있지만, 도메인 간에는 외부 애플리케이션 통합이나 고객 데이터를 공유하지 않습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80f1-81b5-e33e119f8a82" class="bulleted-list"><li style="list-style-type:disc">생성하는 모든 외부 애플리케이션 통합은 도메인 수준에서 이루어집니다. 도메인과 연결된 모든 Amazon Connect 인스턴스는 해당 도메인의 통합을 상속받습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80cc-b33f-cabb076fc804" class="bulleted-list"><li style="list-style-type:disc">다른 도메인을 선택함으로써 언제든지 현재 도메인에서 새로운 도메인으로 Amazon Connect 인스턴스의 연결을 변경할 수 있습니다.</li></ul></div><div style="display:contents" dir="auto"><p id="234f8917-466a-800f-bb81-dd167b0a5d94" class="">RAG 기반 챗봇</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-8083-a021-d476682ac7fe" class="">
+</p></div><div style="display:contents" dir="auto"><h1 id="234f8917-466a-80d8-8cc5-f5367036fda1" class="">Outbound Campaign</h1></div><div style="display:contents" dir="auto"><p id="234f8917-466a-8057-aa2a-fb321c127b12" class="">커넥트의 선제적 참여</p></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80a2-b165-ec7289b51c9a" class="bulleted-list"><li style="list-style-type:disc">컨택센터 관리자가 connect ui를 사용하여 선제적 커뮤니케이션을 설계하고 시작할 수 있도록 지원</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-804f-869a-d0f42bf061a0" class="bulleted-list"><li style="list-style-type:disc">실시간 고객 데이터와 이벤트를 기반으로 한 동저거 오디언스 세분화 및 타겟팅</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-8010-a63c-cd94042a6dc3" class="bulleted-list"><li style="list-style-type:disc">풍부한 미디어와 재사용 가능한 콘텐츠 모듈을 통해 고객 맥락에 맞는 콘텐츠를 제작할 수 있는 리치 텍스트 템플릿</li></ul></div><div style="display:contents" dir="auto"><p id="234f8917-466a-8061-b906-c9a5330993a4" class="">
+</p></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-8015-8cfc-dacdc6a87b41" class="numbered-list" start="1"><li>프로필 수집(ai/ml 신원확인)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-804e-bb98-fff45e144acb" class="numbered-list" start="2"><li>세그먼트 생성(xustomer profiles 통합 프로필 및 속성 사용) 그룹화 하기.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-803a-96e1-cb5b0f196537" class="numbered-list" start="3"><li>campaign setup(시도 및 재시도 규칙)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-8020-bfe9-c4057f278d7c" class="numbered-list" start="4"><li>execute</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="234f8917-466a-80d9-83e9-ea7b76e6ee00" class="numbered-list" start="5"><li>measure</li></ol></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80d7-b571-d86ddf754e61" class="">
+</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-8075-b5b0-d122d6862006" class="">캠페인 설정</p></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80cf-905a-ee27725a0c16" class="bulleted-list"><li style="list-style-type:disc">에이전트 지원 음성 with 상담원<div style="display:contents" dir="auto"><ul id="234f8917-466a-809b-9b66-e35c246659db" class="bulleted-list"><li style="list-style-type:circle">실시간 상담원 연결 통화</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80ab-9438-e25b52e138ce" class="bulleted-list"><li style="list-style-type:circle">지능형 라우팅 시스템으로 최적의 상담원 매칭</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-8063-81dd-c11affac42a3" class="bulleted-list"><li style="list-style-type:circle">상담원의 대기상태 및 전화를 받을 수 있는 수치를 계산</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-8048-af4d-c2d54d32270f" class="bulleted-list"><li style="list-style-type:disc">자동 음성 - no 상담원<div style="display:contents" dir="auto"><ul id="234f8917-466a-8013-a72d-c19befa8d230" class="bulleted-list"><li style="list-style-type:circle">ai 기반 음성 봇 서비스 no 상담원</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-806f-a522-c3224dd913db" class="bulleted-list"><li style="list-style-type:circle">amazon lex 통합으로 셀프서비스 처리</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-8068-9925-c1f11e043a5a" class="bulleted-list"><li style="list-style-type:circle">상담사 개입없이, 고객에게 정보 제공 시나리오</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-802e-ba67-fc884487c7e6" class="bulleted-list"><li style="list-style-type:circle">실시간 콜백 옵션 제공</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-8093-967f-fa839d94d71a" class="bulleted-list"><li style="list-style-type:disc">이메일<div style="display:contents" dir="auto"><ul id="234f8917-466a-80aa-8dda-dba6f9db1279" class="bulleted-list"><li style="list-style-type:circle">amazon ses 통합으로 안정적인 이메일 전송</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80a1-9f23-fa0eff34dd0f" class="bulleted-list"><li style="list-style-type:circle">자체 이메일 도메인 또는 amazon connect 제공 도메인사용</li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-8022-b32d-f73bfa65b15d" class="bulleted-list"><li style="list-style-type:circle">자동 응답 및 라우팅 설정</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="234f8917-466a-80c4-885f-eae739061372" class="bulleted-list"><li style="list-style-type:disc">sms/메시징(서울 리전 제외)</li></ul></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80ca-ab91-d6f282a46d11" class="">
+</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80ff-86ad-d90e8abe9c75" class="">다이얼링 모드<div class="indented"><div style="display:contents" dir="auto"><p id="234f8917-466a-8073-8f93-c049513d31fc" class="">예측 모드 : 더 많은 전화를 빨리 처리할 수 있다. 컴퓨터가 “상담원이 언제 통화를 끝내고 새로운 전화를 받을 수 있을까?” 를 예측해서 미리 전화를 걸어둔다</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-80cb-bf47-c0d32233a623" class="">진행 중 모드 : 전화 받는 사람들이 기다리지 않아도 됨.</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-806e-b7fd-fdbac10a1b1b" class="">
+</p></div></div></p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-8069-af52-e98b019e7190" class="">
+</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-8091-96fb-f0ba03f23ccd" class="">
+</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-808a-ab0f-c1f2c5201ef3" class="">
+</p></div><div style="display:contents" dir="auto"><p id="234f8917-466a-802c-8cae-fcfd4a3daaee" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

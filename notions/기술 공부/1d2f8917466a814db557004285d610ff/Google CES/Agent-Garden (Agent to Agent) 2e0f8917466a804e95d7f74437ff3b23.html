@@ -1,0 +1,753 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Agent-Garden (Agent to Agent)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2e0f8917-466a-804e-95d7-f74437ff3b23" class="page sans"><header><h1 class="page-title" dir="auto">Agent-Garden (Agent to Agent)</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="2e0f8917-466a-814d-adc1-e45bc6d0f930" class="">현재 구현/구상 중인 Agent Garden 기능 정리</h1></div><div style="display:contents" dir="auto"><p id="2e0f8917-466a-807a-9547-d825581d0d90" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="2e0f8917-466a-8051-84d6-c10f9c45f664" class="image"><a href="Agent-Garden%20(Agent%20to%20Agent)/image.png"><img style="width:709.984375px" src="Agent-Garden%20(Agent%20to%20Agent)/image.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="2e0f8917-466a-80bf-963b-cd9dced9c06f" class="image"><a href="Agent-Garden%20(Agent%20to%20Agent)/image%201.png"><img style="width:709.984375px" src="Agent-Garden%20(Agent%20to%20Agent)/image%201.png"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-819e-b88d-c6a379dfeaf6" class="">1. 목표</h2></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81e0-accf-f3ea1d63176d" class="bulleted-list"><li style="list-style-type:disc"><strong>Agent Garden(Planning Agent + Tool 구조)</strong>를 기반으로<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-811d-bab4-e1b13e67a6e7" class="bulleted-list"><li style="list-style-type:circle">항공편 검색</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8103-a3bd-f8d069d38e74" class="bulleted-list"><li style="list-style-type:circle">호텔 검색/객실 선택</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81e0-9651-e064aa0d92be" class="bulleted-list"><li style="list-style-type:circle">일정(Itinerary) 생성</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-813f-875a-d11a2c15c19b" class="bulleted-list"><li style="list-style-type:disc">선택된 결과는 <strong>memorize</strong>로 저장하고, 필요 시 <strong>booking_agent</strong>로 전달하는 구조</li></ul></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-81a2-a3fd-d9638597881b"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-8157-a2b5-c92f6560e129" class="">2. 현재 Agent Garden 구조 </h2></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-8169-b5f0-da94a72f4394" class="">2.1 Planning Agent (Orchestrator)</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81b7-bb49-dfd8d22736bc" class="bulleted-list"><li style="list-style-type:disc">역할: 사용자의 “여정”을 파악하고 적절한 Tool을 호출하여 결과를 종합</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8135-8489-f42ad8d859f8" class="bulleted-list"><li style="list-style-type:disc">지원하는 사용자 여정<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81af-a547-cfd7a875d081" class="bulleted-list"><li style="list-style-type:circle">항공만 찾기</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8118-a239-c2bde0783076" class="bulleted-list"><li style="list-style-type:circle">호텔만 찾기</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8134-8825-f0b1d2c0d1ba" class="bulleted-list"><li style="list-style-type:circle">항공+호텔 선택 (일정 제외)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81cf-9b17-e910257fe145" class="bulleted-list"><li style="list-style-type:circle">항공+호텔+전체 일정 생성</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81c0-9b30-ccc97d270386" class="bulleted-list"><li style="list-style-type:circle">(옵션) 자율적으로 추천/선택까지 진행</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-8163-af24-caff3d0a80b5" class="">2.2 Tool 목록 (Agent가 호출 가능한 도구)</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8167-bc96-e8a2bebd3f34" class="bulleted-list"><li style="list-style-type:disc"><code>flight_search_agent</code>: 항공권 옵션 검색</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8120-a999-ebeb977a7a48" class="bulleted-list"><li style="list-style-type:disc"><code>flight_seat_selection_agent</code>: 선택 항공편 좌석 옵션</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8127-b779-ec15990522ba" class="bulleted-list"><li style="list-style-type:disc"><code>hotel_search_agent</code>: 호텔 옵션 검색</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8155-aad4-f78f47700fd3" class="bulleted-list"><li style="list-style-type:disc"><code>hotel_room_selection_agent</code>: 객실 옵션</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-814b-a1bb-ca1ce69be3f4" class="bulleted-list"><li style="list-style-type:disc"><code>itinerary_agent</code>: 확정된 선택을 기반으로 일정 JSON 생성</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81b0-80e6-db7249e26d13" class="bulleted-list"><li style="list-style-type:disc"><code>memorize</code>: 사용자가 선택한 값/메타데이터 저장</li></ul></div><div style="display:contents" dir="auto"><blockquote id="2e0f8917-466a-81a1-8891-e5d7385c094c" class="">중요: Planning Agent는 “검색” 자체를 하지 않고, Tool 호출을 통해 결과를 받아 조합함.</blockquote></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-811e-8a90-c69976b597ac"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-81c0-a272-dde78c96d2cf" class="">3. “실제 백엔드 연결” 구현 방향 </h2></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-8179-982c-dac8d9c02876" class="">3.1 현재 상태 (샘플/데모)</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8133-8777-f562b3b3b1ac" class="bulleted-list"><li style="list-style-type:disc">Tool이 실제 API를 호출하지 않고</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-811a-9003-c7423dd2ef3d" class="bulleted-list"><li style="list-style-type:disc">LLM이 프롬프트 기반으로 “그럴듯한 JSON”을 생성하는 형태</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-81ab-acaf-ea7ce2df099b" class="">3.2 목표 상태 (실서비스)</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81c5-a3b3-c319eab14975" class="bulleted-list"><li style="list-style-type:disc">Tool을 <strong>HTTP API Wrapper</strong>로 교체</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81f6-a222-eef637fe49bb" class="bulleted-list"><li style="list-style-type:disc">외부 백엔드(항공/호텔/좌석/객실)를 호출해 <strong>실제 결과를 JSON으로 반환</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8129-9244-c231289f5c84" class="bulleted-list"><li style="list-style-type:disc">Planning Agent 프롬프트/흐름은 가급적 유지하고, <strong>Tool 구현부만 교체</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-810e-99c5-cf8cc4aa833b"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-81ed-9e52-c20d2499f88b" class="">4. 외부 백엔드 붙이는 표준 아키텍처</h2></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-8101-bb60-e379ed4ddff0" class="">4.1 권장 아키텍처 (Tool = HTTP Adapter)</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e0f8917-466a-81cb-95b9-ffaabd42a71e" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[User/Web UI]
+   ↓
+[Agent Garden Planning Agent]
+   ↓ (tool call)
+[Tool Adapter Layer]
+   ↓ (HTTP)
+[Flight Search Backend] / [Hotel Search Backend] / ...
+   ↓
+[JSON Response] → Agent → User</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-8145-bbf2-fc4d1acf4adc" class="">4.2 백엔드 API 예시 (스키마 고정이 중요)</h3></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-81b5-b5c6-f554b38206ea" class="">Flight Search API (예)</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81f2-8772-d8d0cce28638" class="bulleted-list"><li style="list-style-type:disc"><code>POST /flights/search</code></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-817e-a0aa-c1d94726bcd3" class="bulleted-list"><li style="list-style-type:disc">Request:<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81e8-9902-ca0887f97ee7" class="bulleted-list"><li style="list-style-type:circle">origin, destination, start_date, end_date, preferences</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8111-a291-e84d17246e01" class="bulleted-list"><li style="list-style-type:disc">Response:<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-818f-8dab-fb2a6fb89c26" class="bulleted-list"><li style="list-style-type:circle">현재 프롬프트의 <code>FLIGHT_SEARCH_INSTR</code>에서 요구하는 형태와 <strong>동일한 JSON 스키마</strong>로 반환</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-813f-8ba9-f1accdd75167" class="">Hotel Search API (예)</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-815e-bedd-f092f8940e4d" class="bulleted-list"><li style="list-style-type:disc"><code>POST /hotels/search</code></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8111-bb95-fa8061bbc880" class="bulleted-list"><li style="list-style-type:disc">Request:<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81f2-9170-e79c02b46509" class="bulleted-list"><li style="list-style-type:circle">destination, check_in_date, check_out_date, preferences</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8114-953c-d9c3bf12a38e" class="bulleted-list"><li style="list-style-type:disc">Response:<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81e2-8956-d1ee442d85b6" class="bulleted-list"><li style="list-style-type:circle">현재 프롬프트의 <code>HOTEL_SEARCH_INSTR</code>에서 요구하는 형태와 동일하게 반환</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><blockquote id="2e0f8917-466a-813b-b3dc-dcea181fa2be" class="">핵심 원칙:<br/>- Planning Agent 변경 최소화<br/>- Tool 출력 JSON 형식을 프롬프트 스키마와 1:1로 맞춤<br/>- 실제 공급자(Amadeus/Skyscanner/Booking 등)는 백엔드 뒤에서 교체 가능</blockquote></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-813c-ad53-c02e3391a9e2"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-812c-95de-e832ea95053a" class="">5. 세션/상태 관리</h2></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8195-bd34-f14073b0c592" class="bulleted-list"><li style="list-style-type:disc"><code>memorize</code> tool을 통해 다음을 저장 (예)<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81ee-b632-e0468771c378" class="bulleted-list"><li style="list-style-type:circle">origin, destination, start_date, end_date</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8140-915f-e4495aa7c769" class="bulleted-list"><li style="list-style-type:circle">outbound/return flight + seat</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8153-addb-e639a3f27201" class="bulleted-list"><li style="list-style-type:circle">hotel + room</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81c1-8336-d58960b96008" class="bulleted-list"><li style="list-style-type:circle">itinerary JSON</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81be-bea9-cdd57f38d156" class="bulleted-list"><li style="list-style-type:disc">운영 단계에서는 <code>memorize</code>의 저장소를<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81b4-b7f9-deda44d4c9f3" class="bulleted-list"><li style="list-style-type:circle">Firestore/Redis/DB 등으로 매핑 가능</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-81ab-a8a1-ff94a438c840"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-81a3-b30d-ef951c27b339" class="">6. 보안/운영 체크리스트 (필수)</h2></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8122-80b2-f40acd62f9cf" class="bulleted-list"><li style="list-style-type:disc">Tool이 호출하는 백엔드 API는 <strong>외부 공개 금지</strong><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81af-87b4-fab80206477c" class="bulleted-list"><li style="list-style-type:circle">API Key / IAM / mTLS 등 적용</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81f2-8bd6-d5f83bada745" class="bulleted-list"><li style="list-style-type:disc">타임아웃(예: 3~5초), 재시도 정책, 오류 메시지 표준화</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81bb-ae1e-fad8c0ef8194" class="bulleted-list"><li style="list-style-type:disc">Rate limit / Abuse 방지</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-817f-b4cb-c082b17e46d1" class="bulleted-list"><li style="list-style-type:disc">(선택) 로그/추적: 요청 ID, tool 호출 이력, 응답 크기, 오류율 등</li></ul></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-8127-aa4b-d56cd781bf75"/></div><div style="display:contents" dir="auto"><h1 id="2e0f8917-466a-814d-8cc0-f3385d34ac2c" class="">7. Sendbird 포함 vs 미포함 비교</h1></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-8198-9973-ff581b316fed" class="">7.1 “Sendbird 미포함” 구성 (Private App으로 내부 채팅 UI/로직 개발)</h2></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-818f-b2cc-fae685498534" class="">구조</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e0f8917-466a-8163-9126-f42dd0e6f186" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[웹/앱 내부 채팅 UI]
+  - 직접 구현 (WebSocket/SSE/HTTP)
+   ↓
+[자체 Chat Backend]
+   ↓
+[Agent Garden]
+   ↓
+[Zendesk Connector]
+   ↓
+[Zendesk]</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-812f-b1e6-c28cce716db7" class="">장점</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8137-83a5-eb9829882ec4" class="bulleted-list"><li style="list-style-type:disc">벤더 락인 낮음 (GCP + Zendesk 중심)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8168-8b25-fbc5647f272b" class="bulleted-list"><li style="list-style-type:disc">비용 구조 단순 (MAU 기반 외부 요금 부담 ↓)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-810a-a868-f73eadea42d9" class="bulleted-list"><li style="list-style-type:disc">UI/UX 및 데이터 저장 방식 완전 자유</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8113-931d-c1aac5866ba9" class="bulleted-list"><li style="list-style-type:disc">“AI + 업무처리”가 중심이면 과하지 않음</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-8192-b3bf-d5a91197b79f" class="">단점 (직접 책임짐)</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-812e-86fd-d3cd0683ce9e" class="bulleted-list"><li style="list-style-type:disc">실시간 채팅 인프라를 직접 운영<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81f4-90dc-e28a8e929bf3" class="bulleted-list"><li style="list-style-type:circle">WS 재연결/순서 보장/오프라인 처리/멀티 디바이스 동기화</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8173-abb8-deaab0da75e1" class="bulleted-list"><li style="list-style-type:circle">첨부파일/읽음 처리/스케일링/관측성 등</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-811b-9eef-cb36719d406f" class="bulleted-list"><li style="list-style-type:disc">구현 난이도 및 운영 부담 증가</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-81cf-8ae0-c4e4aa82ca9d" class="">적합한 경우</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-816b-9686-ecc33fd620a9" class="bulleted-list"><li style="list-style-type:disc">챗봇이 “실시간 메신저 수준” UX가 필수가 아닐 때</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8144-9365-c444ce35a396" class="bulleted-list"><li style="list-style-type:disc">상담사 Copilot, FAQ/문의 생성 중심</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8163-81ea-ddb5e0e09833" class="bulleted-list"><li style="list-style-type:disc">사용자 트래픽이 상대적으로 제한적이거나 단계적으로 확장할 때</li></ul></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-81e8-88e4-ff55d3b4578b"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-8167-adba-eb4fc1a20e65" class="">7.2 “Sendbird 포함” 구성 (Sendbird SDK + 플랫폼)</h2></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-81df-8ae1-c01497f99c12" class="">구조</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e0f8917-466a-8174-9767-e17f3fab1732" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[웹/앱]
+  - Sendbird SDK
+   ↓
+[Sendbird Platform]
+   ↓ (Webhook/Event)
+[Agent Garden]
+   ↓
+[Zendesk Connector]
+   ↓
+[Zendesk]</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-81f7-b829-ef53aa767cf3" class="">장점</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81eb-a800-f5186c7654a1" class="bulleted-list"><li style="list-style-type:disc">채팅 인프라를 거의 즉시 확보 (시간 단축)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81ec-9c6f-e77ee2732ce4" class="bulleted-list"><li style="list-style-type:disc">대규모 실시간 메시징 운영에 강함<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81e6-83c2-fbd720fceac1" class="bulleted-list"><li style="list-style-type:circle">재연결, 멀티 디바이스, 메시지 순서/전송 보장, 첨부파일 등</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81bb-9a63-e7e481e68de9" class="bulleted-list"><li style="list-style-type:disc">고객 채팅 UX가 제품 경쟁력인 경우 유리</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-817c-b1d6-e5833983e4ab" class="">단점</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81a1-ac23-ea6342eca942" class="bulleted-list"><li style="list-style-type:disc">비용이 MAU/사용량 기반으로 증가할 수 있음</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8107-80cf-e5d4bd4db7f1" class="bulleted-list"><li style="list-style-type:disc">메시지 데이터/이벤트 흐름이 Sendbird에 종속 (락인)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81dd-8a48-ede2528a197f" class="bulleted-list"><li style="list-style-type:disc">커스터마이징에는 한계가 있을 수 있음 (플랫폼 제약)</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-8119-8d5e-e591a891e4cf" class="">적합한 경우</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-810e-b449-df52dadeb4ae" class="bulleted-list"><li style="list-style-type:disc">“채팅 경험 자체”가 핵심인 앱/서비스</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-81ec-95b3-c9409bea24ac" class="bulleted-list"><li style="list-style-type:disc">모바일 중심, 높은 동시접속/실시간성 요구</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8148-aba1-f1a68b8b1074" class="bulleted-list"><li style="list-style-type:disc">빠른 출시가 최우선</li></ul></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-81aa-aab5-f319e5d69144"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-81d0-9203-e45c8585ae13" class="">7.3 가장 큰 차이점 </h2></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-818d-8dbb-f446a3c6d416" class="bulleted-list"><li style="list-style-type:disc"><strong>Sendbird 포함</strong>: “채팅 인프라(실시간 메시징)”의 책임을 외부 플랫폼이 가져감</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-815d-b568-dd71edb78e95" class="bulleted-list"><li style="list-style-type:disc"><strong>Sendbird 미포함</strong>: “AI/업무 처리”에 맞춘 채팅을 직접 통제할 수 있지만, 메시징 운영 책임이 커짐</li></ul></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-814d-a2e6-eec23491c076"/></div><div style="display:contents" dir="auto"><h1 id="2e0f8917-466a-8178-a558-c90d8dc3a113" class="">8. 선택해야 될 사항</h1></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-819c-99ed-d656bf1efec6" class="">질문 1)</h3></div><div style="display:contents" dir="auto"><p id="2e0f8917-466a-81fa-9996-e3e6677f40e4" class="">“우리 서비스에서 <strong>채팅 자체가 핵심 가치</strong>인가?”<br/>- YES → Sendbird 포함 고려<br/>- NO → Sendbird 없이 내부 구현 + Agent Garden 권장</p></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-8128-b26d-fb710444b4ce" class="">질문 2)</h3></div><div style="display:contents" dir="auto"><p id="2e0f8917-466a-816b-8ee6-ce5445fc4132" class="">“대규모 실시간 메시징(멀티디바이스, 오프라인, 순서 보장)이 초기부터 필수인가?”<br/>- YES → Sendbird 포함 유리<br/>- NO → 미포함으로 시작 후 필요 시 단계적 도입 가능</p></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-812e-836e-ef9901280f01"/></div><div style="display:contents" dir="auto"><h1 id="2e0f8917-466a-8084-88bc-fb121fb888ff" class="">GCP Agent Garden + Zendesk 연동 아키텍처/구성 정리 (초안)</h1></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-8046-ba23-d71e0cb86fcc" class="">1) 목표</h2></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80a9-abb9-f1c46543cea0" class="bulleted-list"><li style="list-style-type:disc"><strong>고객 챗봇(Customer Bot)</strong>: 고객 문의 응답 + 필요 시 Zendesk 티켓 생성/조회</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8057-bea7-f16c9d00b96f" class="bulleted-list"><li style="list-style-type:disc"><strong>상담사 코파일럿(Agent Copilot)</strong>: 티켓 요약/답변 초안/내부 노트 작성 지원</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-805a-9d9e-e220acd86016" class="bulleted-list"><li style="list-style-type:disc"><strong>자동화(Automation)</strong>: 분류/라우팅/상태 변경 등 운영 자동화</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80e0-a04c-fb124cb9d223" class="bulleted-list"><li style="list-style-type:disc">공통 원칙: <strong>권한 최소화(Least Privilege)</strong>, <strong>역할별 에이전트 분리</strong>, <strong>감사/추적(Audit) 가능</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-807c-b2d3-e3fd9c683a3d"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-8072-98c0-e17c0356ff29" class="">2) 전체 아키텍처</h2></div><div style="display:contents" dir="ltr"><figure id="2e0f8917-466a-8077-aa8a-dd179baf2ed3" class="image"><a href="Agent-Garden%20(Agent%20to%20Agent)/ChatGPT_Image_2026%E1%84%82%E1%85%A7%E1%86%AB_1%E1%84%8B%E1%85%AF%E1%86%AF_6%E1%84%8B%E1%85%B5%E1%86%AF_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_05_13_30.png"><img style="width:710px" src="Agent-Garden%20(Agent%20to%20Agent)/ChatGPT_Image_2026%E1%84%82%E1%85%A7%E1%86%AB_1%E1%84%8B%E1%85%AF%E1%86%AF_6%E1%84%8B%E1%85%B5%E1%86%AF_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_05_13_30.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="2e0f8917-466a-801a-9ead-da0863d94fef" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-80d2-be7d-f14387fdf35e"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-80fb-b112-fbaa4bc2d990" class="">3) Agent 역할 분리 (필수 설계)</h2></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-80d6-940b-d5e6a99385c7" class="">3.1 Customer Agent (고객 챗봇)</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8080-b23b-d35ac86d3b46" class="bulleted-list"><li style="list-style-type:disc">책임: 고객 질문 응답, 본인 티켓 상태 안내, 필요 시 티켓 생성</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80ea-9c5f-cfffaed5a4d5" class="bulleted-list"><li style="list-style-type:disc">Zendesk 권한(예시)<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80d3-b357-da2e35beab6e" class="bulleted-list"><li style="list-style-type:circle">Tickets: <code>GET</code>, <code>CREATE</code> (가능하면 “본인 티켓만” 정책으로 제한)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-801c-8a70-edacbaa53dd7" class="bulleted-list"><li style="list-style-type:circle">Comments: <code>CREATE (public)</code> (필요 시)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-804c-ae2b-eaac9d3ed3e3" class="bulleted-list"><li style="list-style-type:circle">Users: <code>GET (self)</code> (필요 시)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-802d-9495-fef02684ecea" class="bulleted-list"><li style="list-style-type:disc">금지/주의<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8073-a191-cf4ab9d8710f" class="bulleted-list"><li style="list-style-type:circle">Tickets: <code>UPDATE</code>는 가급적 금지 (자동 상태변경 사고 방지)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8015-894c-c94fb7a8efa7" class="bulleted-list"><li style="list-style-type:circle">Internal note 작성 금지(고객에게 노출될 위험)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-80f4-b0f5-f3edab46f2b0" class="">3.2 Copilot Agent (상담사 코파일럿)</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-808a-bbd8-e2bf2fc3c9df" class="bulleted-list"><li style="list-style-type:disc">책임: 티켓 요약, 답변 초안, 내부 노트, 고객 맥락 정리</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80f0-8c73-e5834a3e8a05" class="bulleted-list"><li style="list-style-type:disc">Zendesk 권한(예시)<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8061-8a93-c968c632d9ea" class="bulleted-list"><li style="list-style-type:circle">Tickets: <code>GET</code>, <code>LIST</code></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8039-a9a4-ebab1ad582e2" class="bulleted-list"><li style="list-style-type:circle">Comments: <code>CREATE (internal note)</code> (옵션)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8055-aac1-f75fc359a289" class="bulleted-list"><li style="list-style-type:circle">Users/Orgs: <code>GET</code></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-809e-96cd-f4fdc832e512" class="bulleted-list"><li style="list-style-type:disc">특징<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80fc-9141-fa9a504a0548" class="bulleted-list"><li style="list-style-type:circle">“실행(Write)”은 상담사 승인 후에만 수행하는 Human-in-the-loop 권장</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-807e-afbe-d1e6241b36bb" class="">3.3 (Optional) Automation Agent (운영 자동화)</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-804f-9863-dad90bd7bf85" class="bulleted-list"><li style="list-style-type:disc">책임: 분류/라우팅/우선순위/SLA 기반 에스컬레이션 등</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80e5-8ee7-da78c0bb080f" class="bulleted-list"><li style="list-style-type:disc">Zendesk 권한(예시)<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-803a-ada6-c3bb684ce516" class="bulleted-list"><li style="list-style-type:circle">Tickets: <code>UPDATE</code> (status, group_id, custom fields)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-803f-ad20-c62d58ecc8ed" class="bulleted-list"><li style="list-style-type:disc">특징<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80bd-8578-ce895429eb34" class="bulleted-list"><li style="list-style-type:circle">이벤트 트리거 기반(Eventarc/Cloud Tasks/PubSub)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80f8-b511-c110f70b9999" class="bulleted-list"><li style="list-style-type:circle">변경 이력/로그 필수</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><blockquote id="2e0f8917-466a-80f6-b632-f72c1066d2ce" class="">핵심: 한 에이전트에 고객/상담사/자동화를 섞지 말 것<div style="display:contents" dir="auto"><p id="2e0f8917-466a-80b1-a25b-f7dbbec47dac" class="">(보안/권한/감사/테스트 모두 어려워짐)</p></div></blockquote></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-8048-9529-c7a15bbcb6db"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-80bc-a24d-e72d93f87dbb" class="">4) Zendesk Connector 연결(Connections) 설계</h2></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-80e1-abdd-c6e00093c668" class="">4.1 Connection 분리 전략 (권장)</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80bd-8790-fa4a982a6df4" class="bulleted-list"><li style="list-style-type:disc"><code>zendesk-conn-customer</code> : 고객 챗봇 전용 (권한 최소)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-807c-afdc-d282c19f1ca6" class="bulleted-list"><li style="list-style-type:disc"><code>zendesk-conn-copilot</code> : 상담사 코파일럿 전용 (조회 + 내부노트 옵션)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-801c-9a59-d24296e98269" class="bulleted-list"><li style="list-style-type:disc"><code>zendesk-conn-automation</code> : 자동화 전용 (Update 포함)</li></ul></div><div style="display:contents" dir="auto"><p id="2e0f8917-466a-801c-89cb-e0f8574f32f4" class="">장점<br/>- 권한 사고 시 영향 범위 축소<br/>- 감사(Audit)에서 “누가 무엇을 했는지” 추적 쉬움<br/>- 운영/배포 분리 가능</p></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-802f-87ec-f8c5a8db0a79"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-80cc-b881-c2d50dbaa86b" class="">5) ADK Toolset 구성 방식(개념)</h2></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8062-b848-d6d9f2627087" class="bulleted-list"><li style="list-style-type:disc">ADK에서 Zendesk를 <code>ApplicationIntegrationToolset</code>으로 등록</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80f5-8210-cb9614ac3089" class="bulleted-list"><li style="list-style-type:disc"><strong>entity_operations</strong>로 에이전트별 허용 액션을 고정</li></ul></div><div style="display:contents" dir="auto"><p id="2e0f8917-466a-8099-a0a2-d7984c742dad" class="">예시(개념)<br/>- Customer Agent Toolset:<br/>- Tickets: GET, CREATE<br/>- Comments: CREATE(public)<br/>- Copilot Agent Toolset:<br/>- Tickets: GET, LIST<br/>- Comments: CREATE(internal)<br/>- Users/Orgs: GET<br/>- Automation Agent Toolset:<br/>- Tickets: UPDATE</p></div><div style="display:contents" dir="auto"><blockquote id="2e0f8917-466a-8075-8491-d6606393b28c" class="">운영에서는 “Read-only agent”부터 시작하고, Write 권한은 단계적으로 확장 권장</blockquote></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-8063-8201-d1c85ce70952"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-8021-8964-ca7ce8a41fe8" class="">6) 주요 유즈케이스별 플로우</h2></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-8043-ac64-ddebca773fe1" class="">6.1 고객: 문의 → 답변/티켓 생성</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e0f8917-466a-805c-a6c1-fb0d93d54bd2" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">User: &quot;배송이 안 와요&quot;
+ -&gt; Customer Agent
+    - (RAG) 정책/FAQ 조회
+    - 필요 시 Tickets.CREATE
+    - 티켓 번호 안내 + 다음 액션 안내</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-809a-915a-f3601a2bdb5c" class="">6.2 고객: 내 티켓 상태 확인</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e0f8917-466a-801f-b51a-db363d2290a4" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">User: &quot;내 문의 진행상황 알려줘&quot;
+ -&gt; Customer Agent
+    - Tickets.GET (식별자/이메일/세션 매칭)
+    - status/최근 코멘트 요약 제공</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-80bc-a0b3-f9296e6c5d7f" class="">6.3 상담사: 티켓 요약/답변 초안</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e0f8917-466a-80a3-ae1e-c620fd91717d" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Agent opens ticket in Zendesk
+ -&gt; Copilot UI가 ticket_id/context 전달
+ -&gt; Copilot Agent
+    - Tickets.GET + Comments LIST
+    - 요약/다음 질문/답변 초안 생성
+    - (선택) internal note draft 생성(승인 후 게시)</code></pre></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-80cd-806a-e6afb72d9414" class="">6.4 자동화: 분류/라우팅</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2e0f8917-466a-80c6-9155-f889986917dc" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">New ticket created (Trigger/Webhook)
+ -&gt; Automation Agent
+    - 티켓 내용 분류
+    - Tickets.UPDATE (group_id, tags, priority)</code></pre></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-8086-8663-e234f899b393"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-800f-bb1a-d111b1458962" class="">7) 인증/보안/가드레일 (실무 체크리스트)</h2></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-80cd-91da-c432b5b52ddb" class="">7.1 외부 사용자(고객) 인증</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8038-99c5-f364fec2fa26" class="bulleted-list"><li style="list-style-type:disc">고객 챗봇은 “사용자 식별”이 핵심<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80c5-8bf9-e82a7ed863c7" class="bulleted-list"><li style="list-style-type:circle">로그인 기반: JWT/Session</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80ca-94d9-f0caec60e580" class="bulleted-list"><li style="list-style-type:circle">비로그인: 이메일 OTP/간편 인증 등</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-806d-9134-f81665904898" class="bulleted-list"><li style="list-style-type:disc">“본인 티켓만 조회” 정책 필요(가장 중요)</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-80b1-b28c-c9dbf9b18d5c" class="">7.2 Tool 권한 최소화</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-809c-842e-fed8a6887c52" class="bulleted-list"><li style="list-style-type:disc">Customer: GET/CREATE 중심</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80d6-968e-c248bfc2d231" class="bulleted-list"><li style="list-style-type:disc">Copilot: GET/LIST 중심 (Write는 승인 후)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-804d-8119-c165ec810a22" class="bulleted-list"><li style="list-style-type:disc">Automation: UPDATE는 별도 런타임/계정으로 격리</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-80ac-a3fa-edaf01a238f3" class="">7.3 PII/민감정보</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80b6-ada4-e44d13620e72" class="bulleted-list"><li style="list-style-type:disc">로그에 ticket description/raw payload를 그대로 남기지 않기(마스킹)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-808e-bf97-e2b730ec5065" class="bulleted-list"><li style="list-style-type:disc">RAG 인덱싱 시 개인정보 필터링/보관정책 필요</li></ul></div><div style="display:contents" dir="auto"><h3 id="2e0f8917-466a-8054-8b35-d8d23e0a17d1" class="">7.4 Rate limit / Abuse 방지</h3></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80d4-a9c5-faae08f13597" class="bulleted-list"><li style="list-style-type:disc">고객 챗봇 endpoint: IP/계정 단위 rate limit</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80bc-ba48-c23e9960488e" class="bulleted-list"><li style="list-style-type:disc">Tool 호출 timeout/retry 정책 고정</li></ul></div><div style="display:contents" dir="auto"><hr id="2e0f8917-466a-80fc-bdcd-c3c1ef72859e"/></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-804c-8bc2-c2278fd8f50c" class="">8) 운영/관측성</h2></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-806a-bd6b-cf9bcc9cb35d" class="bulleted-list"><li style="list-style-type:disc">Cloud Logging: agent request_id / tool_call_id / ticket_id 매핑</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8088-9e8e-cd0509034f03" class="bulleted-list"><li style="list-style-type:disc">Cloud Trace: tool latency 분해 (Zendesk call, RAG call 등)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8062-8670-cafd12ad6d5b" class="bulleted-list"><li style="list-style-type:disc">대시보드 KPI<div style="display:contents" dir="auto"><ul id="2e0f8917-466a-801d-a75f-cc8ac85b4304" class="bulleted-list"><li style="list-style-type:circle">Tool call 성공률/오류율</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-80bf-b94a-c62ad0893ec5" class="bulleted-list"><li style="list-style-type:circle">평균 응답시간(p50/p95)</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-808b-a22c-c21d68e37e6d" class="bulleted-list"><li style="list-style-type:circle">티켓 생성 전환율</li></ul></div><div style="display:contents" dir="auto"><ul id="2e0f8917-466a-8001-988e-f16c66189b22" class="bulleted-list"><li style="list-style-type:circle">Copilot 사용률/수정률</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><h2 id="2e0f8917-466a-80bb-b916-c438334da866" class=""></h2></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

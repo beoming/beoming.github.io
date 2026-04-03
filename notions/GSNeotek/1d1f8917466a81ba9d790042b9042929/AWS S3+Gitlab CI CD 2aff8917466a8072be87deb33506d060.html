@@ -1,0 +1,779 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>AWS S3+Gitlab CI/CD</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2aff8917-466a-8072-be87-deb33506d060" class="page sans"><header><h1 class="page-title" dir="auto">AWS S3+Gitlab CI/CD</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="2eef8917-466a-807b-9947-c11fbc25cc53" class="">Zendesk Private App CI/CD 구축 가이드</h1></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8017-8eb4-e25b6824c289" class=""><strong>(GitLab CI/CD + AWS S3 + CloudFront)</strong></p></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-805c-9636-cfe3d105ee3d"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-809f-96de-ea3d96b84fa4" class="">1. 개요 (Overview)</h2></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-801a-a62a-ea0d83ce0035" class="">이 문서는 <strong>WiseNTalk Zendesk Private App</strong>을</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-806a-bd25-f8d3443a5242" class="">GitLab CI/CD와 AWS 인프라(S3 + CloudFront)를 이용해 <strong>자동 배포</strong>하는 방법을 설명합니다.</p></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-80d7-841b-f1c871affa88" class="">핵심 목표</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80bd-804f-fe16bd31f93d" class="bulleted-list"><li style="list-style-type:disc">React 기반 정적 웹 앱을 <strong>자동 빌드</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8061-96ce-e8e565b26fb2" class="bulleted-list"><li style="list-style-type:disc">S3 + CloudFront를 통해 <strong>Dev / Prod 환경 분리 배포</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-806e-a36d-ea11aaf7301f" class="bulleted-list"><li style="list-style-type:disc">Zendesk Iframe App은 <strong>한 번만 설치</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80be-ad25-ec35bd9b76f2" class="bulleted-list"><li style="list-style-type:disc">이후 코드는 <strong>CI/CD로만 업데이트</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8082-b234-d680c3a2ab89" class="bulleted-list"><li style="list-style-type:disc">운영 중 문제 발생 시 <strong>즉시 롤백 가능</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-80ea-bda8-c4f093638960"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-8092-a1fb-c398e0ca0eac" class="">2. 아키텍처 개요 (Architecture)</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8019-92ac-e69c47ddb6e5" class="">배포 전략 요약</h3></div><div style="display:contents" dir="ltr"><table id="2eef8917-466a-8007-95b8-ed5d2773a67d" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-80c3-b3b1-e30bf47e4ffa"><th id=":PAZ" class="simple-table-header-color simple-table-header">환경</th><th id="Sfkp" class="simple-table-header-color simple-table-header">트리거</th><th id="Ccsm" class="simple-table-header-color simple-table-header">동작</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8026-a4cc-f4fb22cb1965"><td id=":PAZ" class=""><strong>Dev</strong></td><td id="Sfkp" class=""><code>main</code> 브랜치 push</td><td id="Ccsm" class="">자동 빌드 → Dev S3 배포</td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-80af-91c9-fcdf821112ca"><td id=":PAZ" class=""><strong>Prod</strong></td><td id="Sfkp" class="">Pipeline 승인 버튼</td><td id="Ccsm" class="">Dev → Prod 승격</td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-803e-a442-d11c145d5eda"><td id=":PAZ" class=""><strong>Rollback</strong></td><td id="Sfkp" class="">Pipeline 버튼</td><td id="Ccsm" class="">이전 버전 즉시 복구</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-805b-8bd1-f4f18e188b8c" class="">전체 흐름 다이어그램</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-805c-a697-d6bc9e7ad24c" class="code code-wrap"><code class="language-Mermaid" style="white-space:pre-wrap;word-break:break-all">sequenceDiagram
+    actor User as 관리자
+    participant Git as GitLab CI
+    participant S3 as AWS S3 (Prod)
+    participant CF as CloudFront
+
+    Note over Git, S3: [정상 배포 - Promote]
+    User-&gt;&gt;Git: ▶ 승인 버튼 클릭
+    Git-&gt;&gt;S3: 현재 Prod 파일 백업 (/rollback)
+    Git-&gt;&gt;S3: Dev 파일 → Prod 루트 배포
+    Git-&gt;&gt;CF: 캐시 무효화
+
+    Note over Git, S3: [비상 복구 - Rollback]
+    User-&gt;&gt;Git: Rollback 버튼 클릭
+    Git-&gt;&gt;S3: rollback 파일 → Prod 루트 복구
+    Git-&gt;&gt;CF: 캐시 무효화
+</code></pre></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-8089-8ac6-fb4b5d81e806"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-80ff-aae5-ed4def17f400" class="">3. AWS 인프라 설정</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-804a-863b-fea6572a1b75" class="">3.1 S3 버킷 구성</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-80e1-8201-d3d9875defdb" class="">Dev / Prod 용 <strong>S3 버킷을 각각 생성</strong>합니다.</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8043-bbce-f3723f5d97fa" class=""><strong>공통 설정</strong></p></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-809e-89e9-c68043d47e8e" class="bulleted-list"><li style="list-style-type:disc"><code>Block all public access</code> : <strong>ON</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8019-8bec-cf9ca20ad77c" class="bulleted-list"><li style="list-style-type:disc">정적 파일 저장용 (<code>index.html</code>, <code>js</code>, <code>css</code> 등)</li></ul></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-801e-8d9e-deeaa4696b2e"/></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8073-9cd1-f1ae35ddc296" class="">3.2 CloudFront 배포 설정</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-80d1-8021-dcdf792cb10c" class="">Dev / Prod 각각 CloudFront Distribution 생성</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8045-8e40-f78af275657d" class=""><strong>주요 설정 값</strong></p></div><div style="display:contents" dir="ltr"><table id="2eef8917-466a-8008-b7ea-e99f23cce88c" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-80d6-95a1-ddf51b54300c"><th id="P:`?" class="simple-table-header-color simple-table-header">항목</th><th id="\=sN" class="simple-table-header-color simple-table-header">값</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8032-a380-ee701b327974"><td id="P:`?" class="">Origin</td><td id="\=sN" class="">S3 Bucket</td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-80a8-9086-c9feef5bd158"><td id="P:`?" class="">Origin access</td><td id="\=sN" class=""><strong>Origin Access Control (OAC)</strong></td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-80fd-899f-e9628091fac1"><td id="P:`?" class="">Viewer protocol</td><td id="\=sN" class="">Redirect HTTP → HTTPS</td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8031-8c7b-fb889dadcdd6"><td id="P:`?" class="">Default root object</td><td id="\=sN" class=""><code>index.html</code></td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><blockquote id="2eef8917-466a-80e9-a507-d88870e0cfe4" class="">⚠️ 중요<div style="display:contents" dir="auto"><p id="2eef8917-466a-80f3-b5af-d4f5aa3188bc" class="">CloudFront 생성 후 <strong>[Copy policy]</strong> 버튼을 눌러</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-802e-b6bf-dcd0e58d5c1b" class="">S3 Bucket Policy에 반드시 붙여넣어야 합니다.</p></div></blockquote></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-802d-9836-d90c90a3098d"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-80e7-8a5c-ff4518fe6d24" class="">4. IAM 권한 설정</h2></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-80cb-8f00-dbb0500eadcb" class="">GitLab CI가 AWS에 접근하기 위한 <strong>전용 IAM 사용자</strong>를 생성합니다.</p></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-80d3-9c58-c211d61f42e0" class="">4.1 IAM Policy</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8056-ad18-e7adc001ff39" class="code code-wrap"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;Version&quot;: &quot;2012-10-17&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Sid&quot;: &quot;S3Access&quot;,
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [
+        &quot;s3:PutObject&quot;,
+        &quot;s3:GetObject&quot;,
+        &quot;s3:ListBucket&quot;,
+        &quot;s3:DeleteObject&quot;
+      ],
+      &quot;Resource&quot;: &quot;*&quot;
+    },
+    {
+      &quot;Sid&quot;: &quot;CloudFrontInvalidation&quot;,
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [
+        &quot;cloudfront:CreateInvalidation&quot;,
+        &quot;cloudfront:GetInvalidation&quot;
+      ],
+      &quot;Resource&quot;: &quot;*&quot;
+    }
+  ]
+}
+</code></pre></div><div style="display:contents" dir="auto"><blockquote id="2eef8917-466a-803f-a5b8-de0ad1353f9e" class="">생성 후 Access Key / Secret Key를 GitLab 변수로 등록합니다.</blockquote></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-80f8-b66e-f793dfa62a5b"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-803b-a185-c9d8aaa94845" class="">5. GitLab Runner 설정 (Windows Server 기준)</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-80aa-b8f1-e8f80734e67c" class="">5.1 Runner 생성 (GitLab UI)</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-808b-8f15-d3033af47e65" class="">경로</p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-80cf-ad01-ef7ee24a824f" class=""><code>Settings → CI/CD → Runners → New Project Runner</code></p></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-80d8-a1d6-c4ee2d1a0892" class=""><strong>설정 값</strong></p></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-801c-922c-e4e890882728" class="bulleted-list"><li style="list-style-type:disc">Platform: Linux / Windows (환경에 맞게)</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80cb-b0a4-c58baf70c64a" class="bulleted-list"><li style="list-style-type:disc">Run untagged jobs: ✅</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80fe-b2fa-d8fc3dbb53b2" class="bulleted-list"><li style="list-style-type:disc">Executor: <code>shell</code></li></ul></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-8063-b04f-ef600fa1e349"/></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-80a6-a72b-efa9960310ae" class="">5.2 Runner 설치 &amp; 등록</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-80c4-8456-f10e70d0a4a3" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">sudo gitlab-runner register \
+  --url &quot;https://gitlab.com/&quot; \
+  --token &quot;YOUR_TOKEN&quot;
+</code></pre></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8071-83fc-c8e3c8bdb4b7" class="">5.3 PowerShell 7 설정 (Windows)</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8073-a58c-eb161d7c49f7" class=""><code>config.toml</code></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8084-9645-e8f84c4fb5d9" class="code code-wrap"><code class="language-TOML" style="white-space:pre-wrap;word-break:break-all">[[runners]]
+  name = &quot;My-Windows-Runner&quot;
+  executor = &quot;shell&quot;
+  shell = &quot;pwsh&quot;
+</code></pre></div><div style="display:contents" dir="auto"><blockquote id="2eef8917-466a-80c1-8da0-e734d3578039" class="">변경 후 반드시<div style="display:contents" dir="auto"><p id="2eef8917-466a-803a-a8d3-e8f8a5645540" class=""><code>Restart-Service gitlab-runner</code></p></div></blockquote></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-80f8-a8bb-e4b8ca8bcdfa"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-80bd-ac4a-e0ff0ba49e94" class="">6. GitLab CI/CD 구성 </h2></div><div style="display:contents" dir="ltr"><figure id="2eef8917-466a-80f2-a150-f056ac821864" class="link-to-page"><a href="AWS%20S3+Gitlab%20CI%20CD/CI%20CD%20PIPELINE%202eef8917466a80f2a150f056ac821864.html"><span class="icon">⚙️</span>CI/CD PIPELINE</a></figure></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-80d0-a13d-e779c4d5c823" class="">6.1 필수 환경 변수</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-809c-b9e3-ee7df566fc7c" class=""><strong>GitLab → Settings → CI/CD → Variables</strong></p></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8005-99aa-d4221ce64ef6" class="">AWS</h3></div><div style="display:contents" dir="ltr"><table id="2eef8917-466a-8010-a2c0-e08fb0d4c442" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-801d-a233-f3f560d77778"><th id="EC&gt;O" class="simple-table-header-color simple-table-header">Key</th><th id="t{vZ" class="simple-table-header-color simple-table-header">설명</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8071-a3a7-fbd87c8e9501"><td id="EC&gt;O" class="">AWS_ACCESS_KEY_ID</td><td id="t{vZ" class="">IAM Access Key</td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-80b3-b898-c9fa7303c3b8"><td id="EC&gt;O" class="">AWS_SECRET_ACCESS_KEY</td><td id="t{vZ" class="">IAM Secret</td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-80bb-a2b8-d71f217a91a2"><td id="EC&gt;O" class="">AWS_DEFAULT_REGION</td><td id="t{vZ" class="">예: ap-northeast-2</td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-80f9-bc4f-cd3864199372"><td id="EC&gt;O" class="">DEV_S3_BUCKET</td><td id="t{vZ" class="">Dev S3</td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8029-bec8-f4b22cba7897"><td id="EC&gt;O" class="">DEV_CF_ID</td><td id="t{vZ" class="">Dev CloudFront ID</td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-80f7-9bd0-d6f902baa81a"><td id="EC&gt;O" class="">PROD_S3_BUCKET</td><td id="t{vZ" class="">Prod S3</td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-8015-9a27-cd1021fbbc9d"><td id="EC&gt;O" class="">PROD_CF_ID</td><td id="t{vZ" class="">Prod CloudFront ID</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-80c9-a879-e0d131a84e74"/></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8042-bf7f-c21c917d17c4" class="">6.2 파이프라인 구조 (<code>.gitlab-ci.yml</code>)</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8017-8cc2-ebd6c87d569c" class=""><strong>Stages</strong></p></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-8086-90e4-ffcc836f66f5" class="numbered-list" start="1"><li>build</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-803d-a9e7-fe4f385bd33f" class="numbered-list" start="2"><li>deploy-dev</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-80de-9903-f00077c08f94" class="numbered-list" start="3"><li>promote-prod (manual)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2eef8917-466a-80f2-94ce-cd60e89a9d4b" class="numbered-list" start="4"><li>rollback (manual)</li></ol></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-80ce-b3dc-fe75ecd5ba63" class=""><strong>핵심 특징</strong></p></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-807b-9099-c309dfee5592" class="bulleted-list"><li style="list-style-type:disc"><code>GIT_STRATEGY: fetch</code></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-805b-8e48-eb5fc3bc1eb2" class="bulleted-list"><li style="list-style-type:disc"><code>CI: &quot;false&quot;</code> (경고로 인한 빌드 실패 방지)</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8080-80cb-fbe009ed6b92" class="bulleted-list"><li style="list-style-type:disc">롤백 자동 백업 포함</li></ul></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-80fd-a689-c5f2255a9a4d" class="">(※ 실제 YAML은 그대로 유지 가능)</p></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-804d-82dd-e02cc4f071f4"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-80ca-a126-f0e07dd41ba2" class="">7. Zendesk 앱 구성 전략 (중요)</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-800b-8f74-eabe35582c8a" class="">핵심 원칙</h3></div><div style="display:contents" dir="auto"><blockquote id="2eef8917-466a-8035-bc1d-c207b4f66dd2" class="">Zendesk는 앱을 처음 설치할 때의 설정만 기억합니다.<div style="display:contents" dir="auto"><p id="2eef8917-466a-8002-8c11-c7e61edf3709" class="">이후 S3에 있는 <code>manifest.json</code>은 <strong>참고되지 않습니다.</strong></p></div></blockquote></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-807c-862e-f5a955dc9e55"/></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8079-bb1a-dafcca471f83" class="">7.1 앱 이원화 전략</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-80dd-89a5-e674cc9d23ed" class="">Zendesk Admin Center에 <strong>앱을 2개 등록</strong></p></div><div style="display:contents" dir="ltr"><table id="2eef8917-466a-80c0-b777-d86f3fd9f452" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-80f7-b458-da901469017a"><th id="njgr" class="simple-table-header-color simple-table-header">앱</th><th id="MYq`" class="simple-table-header-color simple-table-header">URL</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-808f-b7b0-d0ed59f6db22"><td id="njgr" class="">Dev App</td><td id="MYq`" class="">Dev CloudFront</td></tr></div><div style="display:contents" dir="ltr"><tr id="2eef8917-466a-80b6-8a3f-ed4583034ffc"><td id="njgr" class="">Prod App</td><td id="MYq`" class="">Prod CloudFront</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-80f3-ac7e-ca089a7bc6f2"/></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-80a7-a2e5-cd33ed0999ed" class="">7.2 manifest.json 관리 원칙</h3></div><div style="display:contents" dir="auto"><p id="2eef8917-466a-8072-9cbe-c12e31832051" class=""><strong>Git 저장소의 manifest.json</strong></p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-805a-a26a-eab01f856da1" class="code code-wrap"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;name&quot;: &quot;WisenTalk Custom&quot;,
+  &quot;location&quot;: {
+    &quot;zamine&quot;: {
+      &quot;url&quot;: &quot;https://[PROD_CLOUDFRONT_DOMAIN]/index.html&quot;,
+      &quot;flexible&quot;: true
+    }
+  }
+}
+</code></pre></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-804e-a743-c0d43eb168c0" class="bulleted-list"><li style="list-style-type:disc">Dev App은 <strong>설치 시점의 URL</strong>을 계속 사용</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80f8-b8b4-e9792e1440a6" class="bulleted-list"><li style="list-style-type:disc">CI/CD는 <strong>S3의 코드만 변경</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-80dd-b4eb-e9c86953b946"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-80b8-8a01-f897ee31ec29" class="">8. 동작 시나리오 정리</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8085-a6e7-f382bd2dc5ff" class="">Step 1. GitLab CI (AWS 관점)</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8036-b4d3-fac4bf0133d1" class="bulleted-list"><li style="list-style-type:disc">build → Dev S3 업로드</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80f5-9855-e0290be6b840" class="bulleted-list"><li style="list-style-type:disc">CloudFront 캐시 무효화</li></ul></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-80de-a121-d9ce7564765c" class="">Step 2. Zendesk 실행 (Zendesk 관점)</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80a9-8681-d9b8576c50f3" class="bulleted-list"><li style="list-style-type:disc">Zendesk는 <strong>기존에 설치된 URL</strong>로 iframe 로딩</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80ac-8101-d9a8cb599d14" class="bulleted-list"><li style="list-style-type:disc">S3에 있는 manifest.json은 무시됨</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8089-9c7a-d1a7c0d0b6ac" class="bulleted-list"><li style="list-style-type:disc">결과적으로 <strong>새 코드만 반영</strong></li></ul></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-80ef-bc20-da58b91a15e5"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-80dc-b91f-fcf7a6ffc65a" class="">9. 트러블슈팅</h2></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-8075-9201-d84deda1179b" class="">pwsh not found</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80dd-9be5-fb5d71d2d6ac" class="bulleted-list"><li style="list-style-type:disc"><code>shell = &quot;pwsh&quot;</code> 확인</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80f0-a24a-ceeb6f2ef9cf" class="bulleted-list"><li style="list-style-type:disc">Runner 재시작</li></ul></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-807f-b572-c462bd27fb8b" class="">Dev 화면 Access Denied</h3></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-809d-b568-d3a915be84f9" class="bulleted-list"><li style="list-style-type:disc">CloudFront 정책을 S3에 적용했는지 확인</li></ul></div><div style="display:contents" dir="auto"><h3 id="2eef8917-466a-808a-8b2a-fda199424e62" class="">빌드 실패</h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8066-a6db-f58a2012acf4" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">npm install --legacy-peer-deps
+npm run build
+</code></pre></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-8099-b232-d0425b0d418d"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-802d-9055-ef8a8432c604" class="">10. 프로젝트 구조</h2></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2eef8917-466a-8075-9547-f6adb5e9dbf1" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">WisenTalk/
+├── .gitlab-ci.yml
+├── package.json
+├── src/
+├── build/
+├── zendesk-private-app-dev/
+│   ├── manifest.json
+│   ├── assets/
+│   ├── translations/
+│   └── zcli.apps.config.json
+</code></pre></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-8086-8ef2-f74a3ac3b727"/></div><div style="display:contents" dir="auto"><h2 id="2eef8917-466a-801a-a448-c08a0c334570" class="">요약</h2></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8043-adb9-e2b83a03b5d7" class="bulleted-list"><li style="list-style-type:disc">Zendesk App은 <strong>한 번만 설치</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-806e-a5d7-dcf97d793620" class="bulleted-list"><li style="list-style-type:disc">배포는 <strong>S3 + CloudFront</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-800e-b4df-e52db6973650" class="bulleted-list"><li style="list-style-type:disc">CI/CD는 <strong>코드만 교체</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-80aa-8466-feb4b33704fd" class="bulleted-list"><li style="list-style-type:disc">App ID 변경 없음</li></ul></div><div style="display:contents" dir="auto"><ul id="2eef8917-466a-8094-b2c7-d02844d0fbe8" class="bulleted-list"><li style="list-style-type:disc">롤백 즉시 가능</li></ul></div><div style="display:contents" dir="auto"><hr id="2eef8917-466a-8096-85ab-f753401a9514"/></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
