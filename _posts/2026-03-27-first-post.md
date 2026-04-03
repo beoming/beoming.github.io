@@ -1,5 +1,4 @@
 ---
-layout: default
 title: "첫 번째 포스트"
 date: 2026-03-27
 categories: ["Tech News"]

@@ -1,7 +1,7 @@
 ---
-layout: default
-title: 소개
-permalink: /about/
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 5
 ---
 
 # 소개

@@ -1,6 +1,7 @@
 ---
-layout: default
 title: Notion 문서
+icon: fas fa-book-open
+order: 3
 permalink: /notions/
 ---
 
