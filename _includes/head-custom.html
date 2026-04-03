@@ -1,5 +1,9 @@
 <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
 
+{% if page.robots %}
+<meta name="robots" content="{{ page.robots }}">
+{% endif %}
+
 <!-- Setup Google Analytics -->
 {% include head-custom-google-analytics.html %}
 
