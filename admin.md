@@ -5,7 +5,6 @@ title: 글 관리
 
 {% assign repo = site.github.repository_nwo | default: site.blog_repository %}
 {% assign branch = site.blog_branch %}
-{% assign notion_files = site.static_files | where_exp: "f", "f.path contains '/notions/'" | sort: "path" %}
 {% assign admin_key = "beom-admin-unlock" %}
 {% assign sha_cfg = site.admin_unlock_sha256 | strip %}
 
@@ -27,11 +26,10 @@ title: 글 관리
 
 # 글 관리
 
-GitHub에 로그인한 상태에서만 아래 링크가 동작합니다. Notion HTML·이미지 등은 <strong>편집</strong> 화면 상단에서 파일명을 바꿔 저장하면 이름 변경(이동)됩니다.
+GitHub에 로그인한 상태에서만 아래 링크가 동작합니다.
 
 <p>
   <a class="btn-admin" href="https://github.com/{{ repo }}/new/{{ branch }}/_posts">새 포스트 작성 (GitHub)</a>
-  <a class="btn-admin btn-admin-secondary" href="https://github.com/{{ repo }}/new/{{ branch }}/notions">notions에 새 파일 (GitHub)</a>
 </p>
 
 ## 포스트 목록
@@ -63,62 +61,7 @@ GitHub에 로그인한 상태에서만 아래 링크가 동작합니다. Notion 
 <p class="post-meta">아직 포스트가 없습니다. 위의 <strong>새 포스트 작성</strong>에서 <code>_posts/YYYY-MM-DD-slug.md</code> 형식으로 추가하세요.</p>
 {% endif %}
 
-## Notion 문서·리소스 (<code>notions/</code>)
-
-<p class="post-meta">목록은 빌드 시점 기준입니다. 경로에 공백·한글이 있어도 GitHub로 연결되도록 인코딩됩니다. 긴 목록은 브라우저에서 검색(Ctrl+F / ⌘F)하세요.</p>
-
-<div class="admin-table-wrap">
-<table class="admin-table admin-table--notions">
-  <thead>
-    <tr>
-      <th scope="col">경로</th>
-      <th scope="col">사이트</th>
-      <th scope="col">GitHub</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for f in notion_files %}
-    <tr>
-      <td class="admin-path-cell"><code>{{ f.path | xml_escape }}</code></td>
-      <td class="admin-actions"><a href="{{ f.path | relative_url }}">보기</a></td>
-      <td class="admin-actions">
-        <a href="#" data-gh="edit" data-path="{{ f.path | xml_escape }}">편집·이름 변경</a>
-        <span aria-hidden="true"> · </span>
-        <a href="#" data-gh="delete" data-path="{{ f.path | xml_escape }}">삭제</a>
-        <span aria-hidden="true"> · </span>
-        <a href="#" data-gh="blob" data-path="{{ f.path | xml_escape }}">Blob</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-</div>
-
-{% if notion_files.size == 0 %}
-<p class="post-meta"><code>notions/</code>에 정적 파일이 없습니다.</p>
-{% endif %}
-
 <p class="post-meta">저장소: <code>{{ repo }}</code> · 브랜치: <code>{{ branch }}</code> · 관리 URL은 <code>_config.yml</code>의 <code>defaults → admin.md → permalink</code> 에 정의되어 있습니다.</p>
-
-<script>
-(function () {
-  var repo = {{ repo | jsonify }};
-  var branch = {{ branch | jsonify }};
-  function ghUrl(kind, path) {
-    var segs = path.replace(/^\//, '').split('/').map(function (s) { return encodeURIComponent(s); }).join('/');
-    var base = 'https://github.com/' + repo + '/';
-    if (kind === 'edit') return base + 'edit/' + branch + '/' + segs;
-    if (kind === 'delete') return base + 'delete/' + branch + '/' + segs;
-    if (kind === 'blob') return base + 'blob/' + branch + '/' + segs;
-    return '#';
-  }
-  document.querySelectorAll('a[data-gh][data-path]').forEach(function (a) {
-    var kind = a.getAttribute('data-gh');
-    var path = a.getAttribute('data-path');
-    if (path) a.setAttribute('href', ghUrl(kind, path));
-  });
-})();
-</script>
 
 {% if sha_cfg != "" %}
 </div>

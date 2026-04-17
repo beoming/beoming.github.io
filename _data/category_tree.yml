@@ -1,0 +1,24 @@
+# 포스트 front matter 예: categories: [Develop, Android]
+# 최상위만 쓸 때: categories: [Tech News] 또는 categories: [AI]
+- name: Tech News
+  children: []
+
+- name: Develop
+  children:
+    - Android
+    - Spring Boot
+
+- name: DevOps
+  children:
+    - Monitoring
+    - CI/CD
+    - IaC
+
+- name: Cloud
+  children:
+    - GCP
+    - AWS
+    - Security
+
+- name: AI
+  children: []
