@@ -63,7 +63,8 @@ tags:
 
 ### 2.1 전체 아키텍처 다이어그램
 
-![스크린샷 2025-12-23 11.22.32.png](Conversational%20Agent%20Integration/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-12-23_11.22.32.png)
+<img width="657" height="565" alt="스크린샷_2025-12-23_11 22 32" src="https://github.com/user-attachments/assets/523d2044-0122-4f48-9a36-d0cfbeaea575" />
+
 
 ### 2.2 서버 구조
 
