@@ -1,3 +1,14 @@
+---
+title: "Re-architecting Customer Experience"
+date: 2026-04-17
+categories:
+  - Cloud
+  - AWS
+tags:
+  - AWS
+  - Re;Invent
+---
+
 # Re-architecting Customer Experience
 
 ## Amazon Connect 기반 Agentic AI CX 운영 모델의 실제 구현과 전략적 시사점
