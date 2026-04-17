@@ -1,3 +1,10 @@
+---
+title: "AWS S3+Gitlab CI/CD"
+date: 2026-04-17
+categories: ["DevOps, CI/CD"]
+tags: [jekyll, github-pages]
+---
+
 # AWS S3+Gitlab CI/CD
 
 # Zendesk Private App CI/CD 구축 가이드
