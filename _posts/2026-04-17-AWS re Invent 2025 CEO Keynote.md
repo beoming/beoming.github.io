@@ -1,3 +1,15 @@
+---
+title: "AWS re:Invent 2025 CEO Keynote"
+date: 2026-04-17
+categories:
+  - Cloud
+  - AWS
+tags:
+  - AWS
+  - Re;Invent
+  - Keynote
+---
+
 # AWS re:Invent 2025 CEO Keynote
 
 ### ― Agentic AI 시대, AWS의 기술 진화와 AICC 사업 전략에 대한 시사점 ―
@@ -132,7 +144,7 @@ AWS는 명확히 전제함:
 - 상담 요약 + CRM 기록:
     - Omni 활용 가능
 
-👉 기존 “LLM 1개로 다 처리” 구조 붕괴
+-> 기존 “LLM 1개로 다 처리” 구조 붕괴
 
 ---
 
@@ -164,7 +176,7 @@ AWS는 명확히 전제함:
 
 는 의미
 
-### AICC 관점 (매우 중요)
+### AICC 관점 
 
 - 상담 로그
 - QA 판단 기준
@@ -536,7 +548,7 @@ Connect는 이제:
 
 ---
 
-### 8.3.6. 단계적 도입 로드맵 (요약)
+### 8.3.6. 단계적 도입 로드맵 
 
 1. **Phase 1 – AI Agent Assist 도입 (상담사 뒤에 먼저)**
     - Connect + Contact Lens + Bedrock(Nova 2 Lite/Pro) + AgentCore 기반 **Agent Assist Agent** 구축.
@@ -556,7 +568,7 @@ Connect는 이제:
 
 ---
 
-## 9. 종합 전략 판단
+## 9. 종합 전략 회고
 
 AWS는 명확히 다음을 노리고 있다.
 
@@ -568,24 +580,7 @@ AICC는 이 흐름에서 **가장 빨리 완전자율화가 가능한 산업 영
 
 ---
 
-## 10. AICC 부서 전략적 제언
 
-### 단기 (1년)
-
-- Connect + AgentCore 기반 PoC 확대
-- QA 자동 Evaluation 도입
-
-### 중기 (2~3년)
-
-- Nova Forge 기반 전용 상담 LLM
-- 금융·공공 대응 Agent Policy 표준화
-
-### 장기 (3~5년)
-
-- Frontier Contact Agent 상용 설계
-- Human-in-the-loop → Human-over-the-loop 구조 전환
-
----
 
 ## 최종 결론
 
