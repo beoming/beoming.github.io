@@ -1,3 +1,16 @@
+---
+title: "MQTT · EMQX · NLB · ALB 개념 정리"
+date: 2026-04-20
+categories:
+  - Cloud
+  - AWS
+tags:
+  - AWS
+  - Network
+  - LoadBalancer
+  - Protocol
+---
+
 # MQTT · EMQX · NLB · ALB
 
 # 개념 및 적용 방안 정리
