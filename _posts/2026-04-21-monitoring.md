@@ -11,7 +11,7 @@ tags:
   - Monitoring System
 ---
 
-# 모니터링 시스템 (PLG Stack)
+
 
 **Prometheus + Fluent bit +  Loki + Grafana**
 
