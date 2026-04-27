@@ -1,0 +1,279 @@
+# WisenTM 인프라 CI/CD 자동화 시스템 (AI-Ops + ChatOps) 기술 명세서
+
+---
+
+### WisenTM AI-Ops 파이프라인 아키텍처
+
+![image.png](WisenTM%20%EC%9D%B8%ED%94%84%EB%9D%BC%20CI%20CD%20%EC%9E%90%EB%8F%99%ED%99%94%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20(AI-Ops%20+%20ChatOps)%20%EA%B8%B0%EC%88%A0%20%EB%AA%85%EC%84%B8/image.png)
+
+### 상세 파이프라인 흐름도 (Step-by-Step)
+
+### 1. 코드 푸시 및 파이프라인 트리거 (GitLab ➔ Jenkins)
+
+- **이벤트 발생:** 인프라 담당자가 `wisentm_infra` 레포지토리의 `main` 브랜치에 Terraform 코드 변경 사항을 `git push` 합니다.
+- **웹훅(Webhook) 발송:** GitLab이 젠킨스의 웹훅 주소로 신호를 보냅니다. (이때 `Secret Token`으로 암구호를 맞춰 방화벽을 통과합니다.)
+- **작업 시작:** 젠킨스가 알람을 받고 `t3.medium` 스펙의 EC2 서버에서 작업을 시작하며, 지정된 크레덴셜(GitLab Token)을 사용해 최신 코드를 `Checkout` 합니다.
+
+### 2. 인프라 변경 계획 수립 (Terraform Plan)
+
+- **도커 환경:** 젠킨스가 격리된 `hashicorp/terraform:latest` 도커 컨테이너를 띄웁니다.
+- **명령어 실행:** * `input=false` 옵션을 통해 무한 대기(Hang)를 방지하며 `terraform init`과 `validate`를 거칩니다.
+    - `terraform plan`을 실행하여 변경될 인프라 내역을 바이너리 파일(`tfplan`)로 저장합니다.
+- **텍스트 변환:** AI가 읽을 수 있도록 결과를 `tfplan_output.txt` 파일로 추출합니다.
+
+### 3. AI 코드 리뷰 및 요약 (Claude Code + Node.js)
+
+- **도커 환경 전환:** 젠킨스가 Terraform 도커를 닫고 `node:20` 도커 컨테이너를 새로 띄웁니다.
+- **AI 에이전트 실행 (`ai_ops_pipeline.sh`):**
+    - **Infra Agent:** Claude API를 호출하여 `tfplan_output.txt`를 읽고 파괴적 변경(Destroy)이나 문법적 위험 요소가 없는지 1차 분석(`infra_report.txt`)합니다.
+    - **SRE Agent:** 1차 분석 결과를 바탕으로, 대표님이 스마트폰으로도 빠르게 읽고 결재할 수 있도록 **3줄 핵심 요약본**(`final_summary.txt`)을 작성합니다.
+
+### 4. 슬랙 승인 요청 및 젠킨스 대기 (Slack Block Kit)
+
+- **메시지 전송:** `jq` 명령어를 사용해 AI의 요약문과 **[✅ Apply 실행]**, **[🛑 Abort 중단]** 버튼이 포함된 슬랙 전용 JSON 데이터(`slack_payload.json`)를 조립한 뒤, Slack API를 통해 `#ai-ops-log` 채널로 쏩니다.
+- **승인 대기:** 젠킨스는 `input (id: 'TfApproval')` 스테이지에 돌입하며, 외부의 응답이 올 때까지 파이프라인을 **일시 정지(Paused)** 하고 대기합니다.
+
+### 5. ChatOps 원격 제어 (Slack ➔ API Gateway ➔ Lambda)
+
+- **버튼 클릭:** 대표님이 슬랙에서 변경 사항을 확인하고 **[Apply 실행]** 버튼을 클릭합니다.
+- **신호 중계 (AWS API Gateway & Lambda):**
+    - 슬랙이 API Gateway(`/slack-action`)로 클릭 데이터를 보냅니다.
+    - Node.js 기반의 AWS Lambda 함수가 이 데이터를 받아 파싱합니다. (Base64 디코딩 처리 완료)
+    - 버튼 종류(`proceed` 또는 `abort`)와 젠킨스 빌드 번호(`BUILD_NUMBER`)를 추출합니다.
+- **API 호출:** Lambda가 젠킨스 서버의 API(`http://********:8080/job/.../input/TfApproval/proceed`)로 HTTP POST 요청을 보냅니다. (Jenkins API Token을 사용해 인증 통과)
+
+### 6. 최종 인프라 배포 (Terraform Apply)
+
+- **파이프라인 재개:** Lambda의 신호를 받은 젠킨스가 일시 정지를 풀고 다음 단계인 `Terraform Apply` 스테이지로 진입합니다.
+- **실제 반영:** 다시 `hashicorp/terraform` 도커 컨테이너를 띄우고 `terraform apply -auto-approve tfplan`을 실행하여, AWS 클라우드에 실제 리소스(ALB 리스너, 타겟 그룹 등)를 안전하게 배포하고 파이프라인을 종료(SUCCESS)합니다.
+
+---
+
+### 이 파이프라인의 장점
+
+1. **완벽한 격리성:** 모든 작업이 일회용 Docker 컨테이너 안에서 실행되므로, 젠킨스 서버 본체에 온갖 툴을 깔 필요 없이 항상 깔끔한 상태가 유지됩니다.
+2. **휴먼 에러(Human Error) 방지:** 인프라 배포 전 AI가 1차로 위험을 감지하고, 사람이 2차로 승인해야만 배포되는 이중 잠금 장치가 생겼습니다.
+3. **업무 효율성 극대화:** 노트북을 켜고 AWS 콘솔이나 터미널에 접속할 필요 없이, 배포 관리자가 언제 어디서나 모바일 슬랙 화면 하나로 인프라 배포를 통제할 수 있습니다.
+
+---
+
+# AWS Lambda 설정 및 코드
+
+AWS Lambda는 슬랙의 언어를 젠킨스의 언어로 번역해주는 '중간 다리(Middleware)' 역할을 수행합니다.
+
+- **런타임:** Node.js (ES Module 사용을 위해 파일명을 `index.mjs`로 설정)
+- **네트워크:** 젠킨스가 HTTP(`8080`)를 사용하므로, Node.js의 내장 `http` 모듈을 사용해 통신합니다.
+- **타임아웃:** 슬랙 버튼 응답 지연을 방지하기 위해 기본 3초에서 **10초**로 상향 조정했습니다.
+
+## **[ 최종 Lambda 소스 코드 (`index.mjs`) ]**
+
+```jsx
+import http from 'http';
+
+export const handler = async (event) => {
+    try {
+        // 1. 데이터 디코딩 (API Gateway를 거치며 Base64로 인코딩된 경우를 대비한 안전장치)
+        let rawBody = event.body;
+        if (event.isBase64Encoded) {
+            rawBody = Buffer.from(rawBody, 'base64').toString('utf-8');
+        }
+
+        // 2. 슬랙 Payload 파싱 (URL-encoded 형식으로 들어옴)
+        const body = new URLSearchParams(rawBody);
+        const payloadString = body.get('payload');
+        
+        if (!payloadString) return { statusCode: 400, body: 'No payload found' };
+
+        // 3. 사용자 액션 및 빌드 번호 추출
+        const payload = JSON.parse(payloadString);
+        const action = payload.actions[0].value; // "proceed"(승인) 또는 "abort"(거절)
+        const buildNum = payload.actions[0].block_id.replace('jenkins_approval_', '');
+
+        // 4. Jenkins 통신 설정
+        const jenkinsHost = "15.164.234.120"; // 젠킨스 IP
+        const jobName = "test-wisentm-infra-checkout";
+        const user = "shinbeom";
+        const apiToken = "11e9e61bb316c84449cecb9f3f4d91a349";
+
+        // Jenkins input API 엔드포인트 조립
+        const path = `/job/${jobName}/${buildNum}/input/TfApproval/${action}`;
+        const auth = Buffer.from(`${user}:${apiToken}`).toString('base64');
+
+        const options = {
+            hostname: jenkinsHost,
+            port: 8080,
+            path: path,
+            method: 'POST',
+            headers: { 'Authorization': `Basic ${auth}` }
+        };
+
+        // 5. Jenkins 서버로 HTTP POST 요청 발송
+        return new Promise((resolve) => {
+            const req = http.request(options, (res) => {
+                resolve({ statusCode: 200, body: `Jenkins responded: ${res.statusCode}` });
+            });
+            req.on('error', (e) => resolve({ statusCode: 500, body: e.message }));
+            req.end();
+        });
+        
+    } catch (error) {
+        return { statusCode: 500, body: `Error: ${error.message}` };
+    }
+};
+```
+
+---
+
+## 3. 메인 파이프라인: Jenkinsfile 분석
+
+이 파이프라인은 젠킨스의 최신 문법인 **Declarative Pipeline**을 기반으로 작성되었으며, 현업 데브옵스의 핵심 개념들이 모두 녹아있습니다.
+
+### 포함된 주요 데브옵스 개념
+
+1. **Dynamic Agent Provisioning (동적 도커 에이전트):**
+    - 서버 본체에 Terraform이나 Node.js를 설치하지 않습니다. 각 스테이지(`stage`)마다 필요한 도커 이미지(`hashicorp/terraform`, `node:20`)를 즉석에서 띄워 작업하고 삭제합니다. 이는 완벽한 격리성과 멱등성을 보장합니다.
+2. **Interactive Input (대화형 파이프라인):**
+    - `Approval for Apply` 단계에서 파이프라인이 종료되지 않고 '일시 정지(Pause)' 됩니다. 외부 API(Lambda)의 호출을 기다리며 **ChatOps의 핵심**이 되는 기능입니다.
+3. **Secret Management (자격 증명 은닉):**
+    - `withCredentials` 블록을 사용하여 AWS Key, Slack Token, Anthropic Key 등을 환경변수로 주입합니다. 로그 파일에 비밀번호가 노출되는 것을 원천 차단합니다.
+4. **Preventing Interactive Hangs (무한 대기 방지):**
+    - CI/CD 봇은 키보드 입력을 할 수 없으므로, `terraform` 명령어에 `input=false`와 `auto-approve` 옵션을 부여하여 사용자 입력을 기다리다 서버가 뻗는 현상을 막았습니다.
+
+## **[최종 Jenkinsfile 소스 코드]**
+
+```bash
+pipeline {
+    agent any
+
+    options {
+        timestamps()
+        disableConcurrentBuilds() // 동시 배포로 인한 테라폼 상태(State) 꼬임 방지
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+        skipDefaultCheckout(true)
+    }
+
+    environment {
+        AWS_DEFAULT_REGION = 'ap-northeast-2'
+        AWS_REGION = 'ap-northeast-2' // 테라폼 무한 대기 방지용
+        TF_DIR = '.'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // GitLab에서 토큰을 사용해 안전하게 소스코드 체크아웃
+                git branch: 'main', 
+                    credentialsId: 'WiseNTM-Group-Access-Token', 
+                    url: 'https://레포지토리 깃 주소' 
+            }
+        }
+
+        stage('Terraform Plan') {
+            agent {
+                docker {
+                    image 'hashicorp/terraform:latest'
+                    args '--entrypoint=""'
+                    reuseNode true
+                }
+            }
+            steps {
+                dir("${TF_DIR}") {
+                    withCredentials([
+                        string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
+                        string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
+                    ]) {
+                        sh '''
+                            terraform init -input=false
+                            terraform validate
+                            terraform plan -out=tfplan -input=false
+                            
+                            # AI 리뷰를 위해 plan 결과를 사람이 읽을 수 있는 텍스트로 추출
+                            terraform show -no-color tfplan > tfplan_output.txt
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage('AI Code Review & Slack Alert') {
+            agent {
+                docker {
+                    image 'node:20'
+                    args '-u root:root'
+                    reuseNode true
+                }
+            }
+            steps {
+                withCredentials([
+                    string(credentialsId: 'anthropic-api-key', variable: 'ANTHROPIC_API_KEY'),
+                    string(credentialsId: 'slack-bot-token', variable: 'SLACK_BOT_TOKEN')
+                ]) {
+                    sh '''
+                        npm install -g @anthropic-ai/claude-code
+                        apt-get update && apt-get install -y jq
+
+                        # 하위 폴더(prompts)에 있는 AI 리뷰 스크립트 실행
+                        chmod +x prompts/ai_ops_pipeline.sh
+                        ./prompts/ai_ops_pipeline.sh
+                    '''
+                }
+            }
+        }
+
+        stage('Approval for Apply') {
+            steps {
+                // ChatOps의 핵심: 외부(Slack/Lambda)에서 찌를 수 있도록 id를 'TfApproval'로 지정
+                input id: 'TfApproval', 
+                      message: '슬랙으로 전송된 AI 리뷰와 Terraform Plan 결과를 확인하셨나요? 실제 인프라 변경(Apply)을 진행하시겠습니까?', 
+                      ok: 'Apply 실행'
+            }
+        }
+
+        stage('Terraform Apply') {
+            agent {
+                docker {
+                    image 'hashicorp/terraform:latest'
+                    args '--entrypoint=""'
+                    reuseNode true
+                }
+            }
+            steps {
+                dir("${TF_DIR}") {
+                    withCredentials([
+                        string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
+                        string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
+                    ]) {
+                        sh '''
+                            terraform init -input=false
+                            # 승인이 완료되면 사전에 생성된 tfplan을 적용하여 일관성 유지
+                            terraform apply -auto-approve -input=false tfplan
+                        '''
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+    }
+}
+```
+
+---
+
+## 실행 예시 캡쳐 화면
+
+1. Jenkins 에서 클로드 에이전트 호출 → 클로드 에이전트가 코드 분석 및 요약 후 슬랙으로 보고서 전송
+
+![스크린샷 2026-04-27 14.26.48.png](WisenTM%20%EC%9D%B8%ED%94%84%EB%9D%BC%20CI%20CD%20%EC%9E%90%EB%8F%99%ED%99%94%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20(AI-Ops%20+%20ChatOps)%20%EA%B8%B0%EC%88%A0%20%EB%AA%85%EC%84%B8/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-04-27_14.26.48.png)
+
+1. 슬랙에서 전송된 보고서를 읽고, terraform apply를 할지, abort를 할지 선택할 수 있음
+
+![스크린샷 2026-04-27 14.27.59.png](WisenTM%20%EC%9D%B8%ED%94%84%EB%9D%BC%20CI%20CD%20%EC%9E%90%EB%8F%99%ED%99%94%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20(AI-Ops%20+%20ChatOps)%20%EA%B8%B0%EC%88%A0%20%EB%AA%85%EC%84%B8/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-04-27_14.27.59.png)
+
+1. 관리자가 Abort를 눌렀기 때문에 Jenkins에서 작업 중단
+
+![스크린샷 2026-04-27 14.29.18.png](WisenTM%20%EC%9D%B8%ED%94%84%EB%9D%BC%20CI%20CD%20%EC%9E%90%EB%8F%99%ED%99%94%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20(AI-Ops%20+%20ChatOps)%20%EA%B8%B0%EC%88%A0%20%EB%AA%85%EC%84%B8/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-04-27_14.29.18.png)
