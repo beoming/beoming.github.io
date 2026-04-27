@@ -1,10 +1,18 @@
-# WisenTM 인프라 CI/CD 자동화 시스템 (AI-Ops + ChatOps) 기술 명세서
-
 ---
+title: "WisenTM 인프라 CI/CD 자동화 시스템 (AI-Ops + ChatOps) 기술 명세서"
+date: 2026-04-27
+categories:
+  - AI
+tags:
+  - CI/CD
+  - Claude AI
+  - Jenkins
+---
+
 
 ### WisenTM AI-Ops 파이프라인 아키텍처
 
-![image.png](WisenTM%20%EC%9D%B8%ED%94%84%EB%9D%BC%20CI%20CD%20%EC%9E%90%EB%8F%99%ED%99%94%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20(AI-Ops%20+%20ChatOps)%20%EA%B8%B0%EC%88%A0%20%EB%AA%85%EC%84%B8/image.png)
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/3f0db9c9-e126-4f38-b089-6610be6966ae" />
 
 ### 상세 파이프라인 흐름도 (Step-by-Step)
 
@@ -268,12 +276,12 @@ pipeline {
 
 1. Jenkins 에서 클로드 에이전트 호출 → 클로드 에이전트가 코드 분석 및 요약 후 슬랙으로 보고서 전송
 
-![스크린샷 2026-04-27 14.26.48.png](WisenTM%20%EC%9D%B8%ED%94%84%EB%9D%BC%20CI%20CD%20%EC%9E%90%EB%8F%99%ED%99%94%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20(AI-Ops%20+%20ChatOps)%20%EA%B8%B0%EC%88%A0%20%EB%AA%85%EC%84%B8/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-04-27_14.26.48.png)
+<img width="1503" height="606" alt="스크린샷_2026-04-27_14 26 48" src="https://github.com/user-attachments/assets/bb4b5998-d126-4a3d-8cfb-2d599cbda377" />
 
-1. 슬랙에서 전송된 보고서를 읽고, terraform apply를 할지, abort를 할지 선택할 수 있음
+2. 슬랙에서 전송된 보고서를 읽고, terraform apply를 할지, abort를 할지 선택할 수 있음
 
-![스크린샷 2026-04-27 14.27.59.png](WisenTM%20%EC%9D%B8%ED%94%84%EB%9D%BC%20CI%20CD%20%EC%9E%90%EB%8F%99%ED%99%94%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20(AI-Ops%20+%20ChatOps)%20%EA%B8%B0%EC%88%A0%20%EB%AA%85%EC%84%B8/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-04-27_14.27.59.png)
+<img width="854" height="438" alt="스크린샷_2026-04-27_14 27 59" src="https://github.com/user-attachments/assets/a753e418-b8b0-4dff-9577-3748fcac5e87" />
 
-1. 관리자가 Abort를 눌렀기 때문에 Jenkins에서 작업 중단
+3. 관리자가 Abort를 눌렀기 때문에 Jenkins에서 작업 중단
 
-![스크린샷 2026-04-27 14.29.18.png](WisenTM%20%EC%9D%B8%ED%94%84%EB%9D%BC%20CI%20CD%20%EC%9E%90%EB%8F%99%ED%99%94%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20(AI-Ops%20+%20ChatOps)%20%EA%B8%B0%EC%88%A0%20%EB%AA%85%EC%84%B8/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-04-27_14.29.18.png)
+<img width="853" height="612" alt="스크린샷_2026-04-27_14 29 18" src="https://github.com/user-attachments/assets/6f9bcaae-ec15-4428-b513-7a8a39b359db" />
