@@ -3,7 +3,7 @@ title: "서버 인프라 최적화 방안(OS/DB/Redis/WAS)"
 date: 2026-04-29
 categories:
   - Develop
-  - SpringBoot
+  - Spring Boot
 tags:
   - 최적화
   - Infra
