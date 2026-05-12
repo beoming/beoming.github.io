@@ -18,7 +18,6 @@ tags:
 
 ## 왜 AgentCore인가? — 배경 및 문제 정의
 
-![스크린샷 2026-05-12 09.39.16.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_09.39.16.png)
 <img width="1344" height="752" alt="스크린샷_2026-05-12_09 39 16" src="https://github.com/user-attachments/assets/638d73f3-014f-419b-a54d-1bdaae1139f9" />
 
 ### AI 에이전트란?
@@ -55,14 +54,12 @@ LangGraph, LlamaIndex, OpenAI/Google/MS 프레임워크, AWS Strands Agents 등 
 
 AgentCore는 **9개 기능**을 제공하며 크게 3개 영역으로 구분된다:
 
-![스크린샷 2026-05-12 10.23.04.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_10.23.04.png)
 <img width="1234" height="717" alt="스크린샷_2026-05-12_10 23 04" src="https://github.com/user-attachments/assets/efe9a3cb-fabd-4d8a-b866-28d5c38f78fc" />
 
 ---
 
 ## AgentCore Runtime — 에이전트 서버리스 배포
 
-![스크린샷 2026-05-12 10.23.44.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_10.23.44.png)
 <img width="1367" height="753" alt="스크린샷_2026-05-12_10 24 04" src="https://github.com/user-attachments/assets/0e818165-5b5e-402e-b6c1-b51b79793e80" />
 
 ### 핵심 개념
@@ -101,7 +98,6 @@ AgentCore는 **9개 기능**을 제공하며 크게 3개 영역으로 구분된�
 
 ### 코드 수정 핵심 3단계
 
-![스크린샷 2026-05-12 10.24.57.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_10.24.57.png)
 <img width="1357" height="756" alt="스크린샷_2026-05-12_10 23 44" src="https://github.com/user-attachments/assets/c3260fd3-f917-49d0-85d2-c9c23701ee69" />
 ```python
 # Step 1: BedrockAgentCoreApp 인스턴스 생성
@@ -120,14 +116,12 @@ app.run()
 
 이후 **AgentCore CLI**로 배포하면 엔드포인트가 생성되어 에이전트 호출 가능.
 
-![스크린샷 2026-05-12 10.24.04.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_10.24.04.png)
 <img width="1361" height="753" alt="스크린샷_2026-05-12_10 24 57" src="https://github.com/user-attachments/assets/26b6dde5-a1c1-4b8a-a696-d238ada1ddda" />
 
 ---
 
 ## AgentCore Gateway — 도구 통합 허브
 
-![스크린샷 2026-05-12 10.25.24.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_10.25.24.png)
 <img width="1359" height="755" alt="스크린샷_2026-05-12_10 25 24" src="https://github.com/user-attachments/assets/94b423a3-5c7d-4ea5-a6b1-8d917c3a37de" />
 
 ### 문제: 에이전트 내부 툴 정의의 한계
@@ -142,7 +136,6 @@ app.run()
 
 **MCP 프로토콜**을 기반으로 단일 엔드포인트를 제공 → 에이전트가 게이트웨이를 통해 도구에 접근.
 
-![스크린샷 2026-05-12 10.25.41.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_10.25.41.png)
 <img width="1357" height="753" alt="스크린샷_2026-05-12_10 25 41" src="https://github.com/user-attachments/assets/e74bae06-eadf-467f-af61-c01c8b942524" />
 
 ### 지원 타겟 4종
@@ -158,7 +151,6 @@ app.run()
 
 ### 내장 Semantic 도구 검색
 
-![스크린샷 2026-05-12 10.26.25.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_10.26.25.png)
 <img width="1357" height="751" alt="스크린샷_2026-05-12_10 26 25" src="https://github.com/user-attachments/assets/d1668248-4c89-4432-8a17-31cd71af06f2" />
 
 수백 개의 도구가 등록된 경우를 해결하는 핵심 기능:
@@ -178,7 +170,6 @@ app.run()
 
 ## AgentCore Code Interpreter — 안전한 코드 실행 환경
 
-![스크린샷 2026-05-12 10.26.57.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_10.26.57.png)
 <img width="1353" height="755" alt="스크린샷_2026-05-12_10 26 57" src="https://github.com/user-attachments/assets/687cefce-2695-41a7-a5a1-166b218a41b6" />
 
 ### 왜 필요한가?
@@ -247,7 +238,6 @@ Amazon DCV로 실시간 스트리밍 → 콘솔에서 AI 행동 투명하게 감
 
 ## AgentCore Policy — 도구 호출 정책 제어 *(re:Invent 2025 신규)*
 
-![스크린샷 2026-05-12 10.41.46.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_10.41.46.png)
 <img width="1361" height="754" alt="스크린샷_2026-05-12_10 41 46" src="https://github.com/user-attachments/assets/2d7568d4-1411-445c-a04d-9e6d14e46ef0" />
 
 ### 핵심 개념
@@ -309,7 +299,6 @@ forbid(
 
 ## AgentCore Identity — 인증/인가 관리
 
-![스크린샷 2026-05-12 10.42.31.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_10.42.31.png)
 <img width="1363" height="759" alt="스크린샷_2026-05-12_10 42 31" src="https://github.com/user-attachments/assets/806494c2-862b-40b0-a79e-ae40f30b35fa" />
 
 ### 보호해야 할 두 방향
@@ -340,7 +329,6 @@ forbid(
 - Microsoft Entra
 - 기타 OIDC 호환 IdP
 
-![스크린샷 2026-05-12 10.43.02.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_10.43.02.png)
 <img width="1362" height="759" alt="스크린샷_2026-05-12_10 43 02" src="https://github.com/user-attachments/assets/583f4c92-bde3-445c-bc5c-1d37159f35fe" />
 
 ### 적용 범위
@@ -356,7 +344,6 @@ forbid(
 
 ## AgentCore Memory — 단기/장기 메모리
 
-![스크린샷 2026-05-12 11.39.47.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_11.39.47.png)
 <img width="1361" height="755" alt="스크린샷_2026-05-12_11 39 47" src="https://github.com/user-attachments/assets/4c087044-061e-4a95-b8e1-76f94a5ff759" />
 
 ### 왜 필요한가?
@@ -422,7 +409,6 @@ Reflection Agent가 패턴 자동 추출
 
 ## AgentCore Observability — 에이전트 운영 관측
 
-![스크린샷 2026-05-12 11.40.40.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_11.40.40.png)
 <img width="1359" height="760" alt="스크린샷_2026-05-12_11 40 40" src="https://github.com/user-attachments/assets/0b43dbc5-4801-45ef-91f6-356564bc0a3b" />
 
 ### 왜 에이전트 모니터링이 특별히 어려운가?
@@ -452,7 +438,6 @@ Reflection Agent가 패턴 자동 추출
 
 ## AgentCore Evaluations — 에이전트 품질 자동 평가 *(re:Invent 2025 신규, Preview)*
 
-![스크린샷 2026-05-12 11.41.11.png](Amazon%20Bedrock%20AgentCore(1)/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2026-05-12_11.41.11.png)
 <img width="1359" height="758" alt="스크린샷_2026-05-12_11 41 11" src="https://github.com/user-attachments/assets/928b72ad-aeea-4d3b-a246-5fda4d062cf5" />
 
 ### 개념
